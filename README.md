@@ -1,4 +1,5 @@
-#砖头人BricksMan
+##砖头人
+##BricksMan
 ###Laoma/20160707
   "BricksMan" is a group of young people in society, they are all uncivilized behavior on social boycott. They photographed by the uncivilized behavior in society, to tell you, alert you, to promote social positive energy.
 
