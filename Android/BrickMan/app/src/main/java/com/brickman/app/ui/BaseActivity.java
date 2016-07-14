@@ -14,8 +14,8 @@ import com.brickman.app.ui.dialog.LoadingDialog;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public abstract class BaseActivity extends AppCompatActivity {
-    protected MApplication mApp;
-    protected LoadingDialog mLoadingDialog;
+    public MApplication mApp;
+    public LoadingDialog mLoadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,14 +35,22 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 显示Toast消息
      * @param message
      */
-    protected void showToast(String message){
+    public void showToast(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 显示Toast消息
+     * @param message
+     */
+    public void showToast(int message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     /**
      * 显示loading
      */
-    protected void showLoading(){
+    public void showLoading(){
         if(!mLoadingDialog.isShowing()){
             mLoadingDialog.show();
         }
@@ -51,7 +59,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 隐藏loading
      */
-    protected void dismissLoading(){
+    public void dismissLoading(){
         if(mLoadingDialog.isShowing()){
             mLoadingDialog.dismiss();
         }
