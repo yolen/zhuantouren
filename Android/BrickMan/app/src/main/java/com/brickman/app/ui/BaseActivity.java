@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.brickman.app.MApplication;
 import com.brickman.app.R;
@@ -28,6 +29,32 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         mApp = (MApplication) getApplication();
         mLoadingDialog = new LoadingDialog(this);
+    }
+
+    /**
+     * 显示Toast消息
+     * @param message
+     */
+    protected void showToast(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 显示loading
+     */
+    protected void showLoading(){
+        if(!mLoadingDialog.isShowing()){
+            mLoadingDialog.show();
+        }
+    }
+
+    /**
+     * 隐藏loading
+     */
+    protected void dismissLoading(){
+        if(mLoadingDialog.isShowing()){
+            mLoadingDialog.dismiss();
+        }
     }
 
     @TargetApi(19)
