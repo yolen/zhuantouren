@@ -1,4 +1,4 @@
-package com.brickman.app;
+package com.brickman.app.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
