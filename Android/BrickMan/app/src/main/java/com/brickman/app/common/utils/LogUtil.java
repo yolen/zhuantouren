@@ -18,11 +18,11 @@ public class LogUtil {
 		}
 	}
 	
-	public static void error(String errorMsg) {
-		if (errorMsg == null)
+	public static void error(Exception e) {
+		if (e == null)
 			return;
 		if(LogUtil.isDebug){
-            Logger.e(errorMsg);
+            Logger.e(e, "Exception");
 		}
 	}
 

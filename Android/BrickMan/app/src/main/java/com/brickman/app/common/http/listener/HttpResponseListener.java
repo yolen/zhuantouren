@@ -3,8 +3,7 @@ package com.brickman.app.common.http.listener;
 import com.brickman.app.R;
 import com.brickman.app.common.http.HttpListener;
 import com.brickman.app.common.utils.LogUtil;
-import com.brickman.app.ui.BaseActivity;
-import com.yolanda.nohttp.Logger;
+import com.brickman.app.common.base.BaseActivity;
 import com.yolanda.nohttp.error.NetworkError;
 import com.yolanda.nohttp.error.NotFoundCacheError;
 import com.yolanda.nohttp.error.TimeoutError;
@@ -106,7 +105,7 @@ public class HttpResponseListener<T> implements OnResponseListener<T> {
         } else {
             context.showToast("未知错误。");
         }
-        Logger.e(exception);
+        LogUtil.error(exception);
         if (callback != null)
             callback.onFailed(what, url, tag, exception, responseCode, networkMillis);
     }
