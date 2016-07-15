@@ -1,4 +1,4 @@
-package com.brickman.app.ui;
+package com.brickman.app.common.base;
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -13,6 +13,9 @@ import com.brickman.app.R;
 import com.brickman.app.ui.dialog.LoadingDialog;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+/**
+ * @author mayu
+ */
 public abstract class BaseActivity extends AppCompatActivity {
     public MApplication mApp;
     public LoadingDialog mLoadingDialog;
@@ -29,6 +32,25 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         mApp = (MApplication) getApplication();
         mLoadingDialog = new LoadingDialog(this);
+    }
+
+    //添加fragment
+    protected void addFragment(int fragmentContentId, BaseFragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(fragmentContentId, fragment, fragment.getClass().getSimpleName())
+                    .addToBackStack(fragment.getClass().getSimpleName())
+                    .commitAllowingStateLoss();
+        }
+    }
+
+    //移除fragment
+    protected void removeFragment() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            finish();
+        }
     }
 
     /**

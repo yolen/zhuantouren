@@ -2,7 +2,7 @@ package com.brickman.app.common.http;
 
 import com.brickman.app.common.http.param.RequestParam;
 import com.brickman.app.common.utils.LogUtil;
-import com.brickman.app.ui.BaseActivity;
+import com.brickman.app.common.base.BaseActivity;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.CacheMode;
