@@ -17,6 +17,8 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    // <<<<<<<<<------------------->>>>>>>>>
+
     private long exitTime = 0;
 
     //重写 onKeyDown方法
