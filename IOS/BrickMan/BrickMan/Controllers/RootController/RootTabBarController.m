@@ -10,6 +10,7 @@
 #import "MainViewController.h"
 #import "PublishViewController.h"
 #import "MineViewController.h"
+#import "BaseNavigationController.h"
 
 @interface RootTabBarController ()<UITabBarDelegate>
 
@@ -25,22 +26,27 @@
 
 - (void)tabberView {
     MainViewController *mainVC = [[MainViewController alloc] init];
-    UINavigationController *mainNav = [[UINavigationController alloc]initWithRootViewController:mainVC];
+    UINavigationController *mainNav = [[BaseNavigationController alloc]initWithRootViewController:mainVC];
     mainVC.title = @"砖集";
     
     PublishViewController *publishVC = [[PublishViewController alloc] init];
-    UINavigationController *publishNav = [[UINavigationController alloc]initWithRootViewController:publishVC];
+    UINavigationController *publishNav = [[BaseNavigationController alloc]initWithRootViewController:publishVC];
     
     MineViewController *meVC = [[MineViewController alloc] init];
-    UINavigationController *meNav = [[UINavigationController alloc]initWithRootViewController:meVC];
+    UINavigationController *meNav = [[BaseNavigationController alloc]initWithRootViewController:meVC];
     meVC.title = @"砖头人";
     self.viewControllers = @[mainNav,publishNav,meNav];
-    
-    [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tabBar_bg"]];
+    CGFloat width = kScreen_Width;
+    UIImage *bgImage = [UIImage imageNamed:@"tabBar_bg"];
+    if (kDevice_Is_iPhone6) {
+        bgImage = [UIImage imageNamed:@"tabBar_bg_6"];
+    }
+
+    [[UITabBar appearance] setBackgroundImage:bgImage];
     [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
     [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       [UIColor orangeColor], NSForegroundColorAttributeName,
+                                                       kNavigationBarColor, NSForegroundColorAttributeName,
                                                        nil] forState:UIControlStateSelected];
     
     UITabBar *tabbar = self.tabBar;

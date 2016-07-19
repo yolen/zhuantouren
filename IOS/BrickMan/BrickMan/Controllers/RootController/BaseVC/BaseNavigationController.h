@@ -1,5 +1,5 @@
 //
-//  UIImage+Common.h
+//  BaseNavigationController.h
 //  BrickMan
 //
 //  Created by TZ on 16/7/19.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIImage (Common)
-+(UIImage *)imageWithColor:(UIColor *)aColor;
--(UIImage*)scaledToSize:(CGSize)targetSize;
+@interface BaseNavigationController : UINavigationController
 
 @end
