@@ -10,6 +10,5 @@
 
 @interface UIImage (Common)
 +(UIImage *)imageWithColor:(UIColor *)aColor;
--(UIImage*)scaledToSize:(CGSize)targetSize;
 
 @end
