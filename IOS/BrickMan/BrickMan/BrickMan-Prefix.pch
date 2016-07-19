@@ -1,0 +1,23 @@
+//
+//  BrickMan-Prefix.pch
+//  BrickMan
+//
+//  Created by TZ on 16/7/18.
+//  Copyright © 2016年 BrickMan. All rights reserved.
+//
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#import "UIViewExt.h"
+#import "UIImage+Common.h"
+
+#endif
+
+#undef  RGBCOLOR
+#define RGBCOLOR(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
+#undef  RGBACOLOR
+#define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+
+#define kNavigationBarColor RGBCOLOR(255, 101, 37)
