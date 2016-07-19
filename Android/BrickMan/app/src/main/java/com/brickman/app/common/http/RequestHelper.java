@@ -2,7 +2,6 @@ package com.brickman.app.common.http;
 
 import com.brickman.app.common.http.param.RequestParam;
 import com.brickman.app.common.utils.LogUtil;
-import com.brickman.app.common.base.BaseActivity;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
 import com.yolanda.nohttp.rest.CacheMode;
@@ -20,7 +19,7 @@ public class RequestHelper {
         mHttpUtil = HttpUtil.getRequestInstance();
     }
 
-    public static void sendGETRequest(BaseActivity act, boolean isCache, String url, JSONObject params, boolean isLoading, HttpListener listener) {
+    public static void sendGETRequest(boolean isCache, String url, JSONObject params, boolean isLoading, HttpListener listener) {
         LogUtil.info(url);
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.GET);
         request.setHeader("platform", "Android");
@@ -30,10 +29,10 @@ public class RequestHelper {
             LogUtil.info("请求参数="+param);
             request.setDefineRequestBody(param, NoHttp.CHARSET_UTF8);
         }
-        mHttpUtil.add(act, 0, request, listener, true, isLoading);
+        mHttpUtil.add(0, request, listener, true);
     }
 
-    public static void sendPOSTRequest(BaseActivity act, boolean isCache, String url, Object params, boolean isLoading, HttpListener listener) {
+    public static void sendPOSTRequest(boolean isCache, String url, Object params, HttpListener listener) {
         LogUtil.info(url);
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
         request.setHeader("platform", "Android");
@@ -49,6 +48,6 @@ public class RequestHelper {
             // 注意contentType
             request.setDefineRequestBody(param, NoHttp.CHARSET_UTF8);
         }
-        mHttpUtil.add(act, 0, request, listener, true, isLoading);
+        mHttpUtil.add(0, request, listener, true);
     }
 }

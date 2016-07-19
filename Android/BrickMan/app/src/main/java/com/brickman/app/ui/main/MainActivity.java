@@ -1,23 +1,90 @@
 package com.brickman.app.ui.main;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TabHost;
+import android.widget.TabWidget;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
+
+import butterknife.BindView;
 
 /**
  * Created by mayu on 16/7/14,上午10:00.
  */
 public class MainActivity extends BaseActivity {
 
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(android.R.id.tabcontent)
+    FrameLayout tabcontent;
+    @BindView(android.R.id.tabs)
+    TabWidget tabs;
+    @BindView(R.id.realtabcontent)
+    FrameLayout realtabcontent;
+    @BindView(android.R.id.tabhost)
+    TabHost tabhost;
+
+    private LayoutInflater mInflator;
+    public TabHost mTabHost;
+    public TabManager mTabManager;
+
+    private String[] tabNames = {"砖集", "", "砖头人"};
+    private Class[] clzzs = new Class[]{HomeFragment.class, BrickFragment.class, UserFragment.class};
+    private int[] tabImgs = new int[]{R.drawable.tab_home, R.drawable.tab_brick, R.drawable.tab_user};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
 
+        mInflator = LayoutInflater.from(this);
+        mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+        mTabHost.setup();
+        mTabManager = new TabManager(this, mTabHost, R.id.realtabcontent);
+        for (int i = 0; i < 3; i++) {
+            mTabManager.addTab(mTabHost.newTabSpec(i + "").setIndicator(getIndicatorView(tabNames[i], tabImgs[i])), clzzs[i], null);
+        }
+    }
+
+    // 设置TabBar、TabItem及样式
+    private View getIndicatorView(String t, int res) {
+        View v;
+        if(!TextUtils.isEmpty(t)){
+            v = mInflator.inflate(R.layout.tab_view, null);
+            ImageView tabIcon = (ImageView) v.findViewById(R.id.icon);
+            TextView title = ((TextView) v.findViewById(R.id.title));
+            tabIcon.setImageResource(res);
+            title.setText(t);
+        } else {
+            v = mInflator.inflate(R.layout.tab_view2, null);
+            ImageView tabIcon = (ImageView) v.findViewById(R.id.icon);
+            tabIcon.setImageResource(res);
+        }
+        return v;
     }
 
     // <<<<<<<<<------------------->>>>>>>>>
+
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
 
     private long exitTime = 0;
 

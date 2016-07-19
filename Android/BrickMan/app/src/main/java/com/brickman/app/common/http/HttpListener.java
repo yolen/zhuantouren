@@ -6,7 +6,7 @@ package com.brickman.app.common.http;
  */
 public interface HttpListener<T> {
 
-    void onSucceed(int what, T response);
+    void onSucceed(T response);
 
 //    void onSucceed(int what, T response, String responseStr);
 

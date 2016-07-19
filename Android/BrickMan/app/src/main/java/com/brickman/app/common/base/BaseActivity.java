@@ -10,28 +10,45 @@ import android.widget.Toast;
 
 import com.brickman.app.MApplication;
 import com.brickman.app.R;
+import com.brickman.app.common.utils.TUtil;
 import com.brickman.app.ui.dialog.LoadingDialog;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import butterknife.ButterKnife;
 
 /**
  * @author mayu
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>  extends AppCompatActivity {
     public MApplication mApp;
+    public T mPresenter;
+    public E mModel;
     public LoadingDialog mLoadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppThemeDay);
         // 设置状态栏颜色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             setTranslucentStatus(true);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);//通知栏所需颜色
         }
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
-        tintManager.setStatusBarTintEnabled(true);
-        tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);//通知栏所需颜色
-
-        mApp = (MApplication) getApplication();
+        this.setContentView(this.getLayoutId());
+        ButterKnife.bind(this);
+        mApp = MApplication.getInstance();
         mLoadingDialog = new LoadingDialog(this);
+        mPresenter = TUtil.getT(this, 0);
+        mModel = TUtil.getT(this, 1);
+        if (this instanceof BaseView) mPresenter.setVM(this, mModel);
+    }
+
+    protected abstract int getLayoutId();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     //添加fragment

@@ -13,7 +13,7 @@ import java.io.File;
  *
  * @author mayu
  */
-public final class PhoneUtil {
+public class PhoneUtil {
     private static long lastClickTime;
 
     /**

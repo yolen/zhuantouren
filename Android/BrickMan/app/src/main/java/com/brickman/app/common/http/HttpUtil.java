@@ -1,11 +1,17 @@
 package com.brickman.app.common.http;
 
 import com.brickman.app.common.http.listener.HttpResponseListener;
-import com.brickman.app.common.base.BaseActivity;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.download.DownloadQueue;
+import com.yolanda.nohttp.error.NetworkError;
+import com.yolanda.nohttp.error.NotFoundCacheError;
+import com.yolanda.nohttp.error.TimeoutError;
+import com.yolanda.nohttp.error.URLError;
+import com.yolanda.nohttp.error.UnKnownHostError;
 import com.yolanda.nohttp.rest.Request;
 import com.yolanda.nohttp.rest.RequestQueue;
+
+import java.net.ProtocolException;
 
 /**
  * Created by mayu on 16/6/21,上午10:37.
@@ -48,15 +54,13 @@ public class HttpUtil {
     /**
      * 添加一个请求到请求队列.
      *
-     * @param context   context用来实例化dialog.
      * @param what      用来标志请求, 当多个请求使用同一个{@link HttpListener}时, 在回调方法中会返回这个what.
      * @param request   请求对象.
      * @param callback  结果回调对象.
      * @param canCancel 是否允许用户取消请求.
-     * @param isLoading 是否显示dialog.
      */
-    public <T> void add(BaseActivity context, int what, Request<T> request, HttpListener<T> callback, boolean canCancel, boolean isLoading) {
-        requestQueue.add(what, request, new HttpResponseListener<T>(context, callback, canCancel, isLoading));
+    public <T> void add(int what, Request<T> request, HttpListener<T> callback, boolean canCancel) {
+        requestQueue.add(what, request, new HttpResponseListener<T>(callback, canCancel));
     }
 
     /**
@@ -78,5 +82,29 @@ public class HttpUtil {
      */
     public void stopAll() {
         requestQueue.stop();
+    }
+
+    /**
+     * http访问异常信息
+     * @param exception
+     * @return
+     */
+    public static String makeErrorMessage(Exception exception){
+        if (exception instanceof NetworkError) {// 网络不好
+            return "请检查网络。";
+        } else if (exception instanceof TimeoutError) {// 请求超时
+            return"请求超时，网络不好或者服务器不稳定。";
+        } else if (exception instanceof UnKnownHostError) {// 找不到服务器
+            return"未发现指定服务器。";
+        } else if (exception instanceof URLError) {// URL是错的
+            return"URL错误。";
+        } else if (exception instanceof NotFoundCacheError) {
+            // 这个异常只会在仅仅查找缓存时没有找到缓存时返回
+            return"没有发现缓存。";
+        } else if (exception instanceof ProtocolException) {
+            return"系统不支持的请求方式。";
+        } else {
+            return"未知错误。";
+        }
     }
 }
