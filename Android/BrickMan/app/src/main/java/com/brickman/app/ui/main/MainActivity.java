@@ -2,7 +2,6 @@ package com.brickman.app.ui.main;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +39,7 @@ public class MainActivity extends BaseActivity {
     public TabHost mTabHost;
     public TabManager mTabManager;
 
-    private String[] tabNames = {"砖集", "", "砖头人"};
+    private String[] tabNames;
     private Class[] clzzs = new Class[]{HomeFragment.class, BrickFragment.class, UserFragment.class};
     private int[] tabImgs = new int[]{R.drawable.tab_home, R.drawable.tab_brick, R.drawable.tab_user};
 
@@ -48,23 +47,24 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        tabNames = getResources().getStringArray(R.array.tabNames);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-
+        title.setText(tabNames[0]);
         mInflator = LayoutInflater.from(this);
         mTabHost = (TabHost) findViewById(android.R.id.tabhost);
         mTabHost.setup();
         mTabManager = new TabManager(this, mTabHost, R.id.realtabcontent);
         for (int i = 0; i < 3; i++) {
-            mTabManager.addTab(mTabHost.newTabSpec(i + "").setIndicator(getIndicatorView(tabNames[i], tabImgs[i])), clzzs[i], null);
+            mTabManager.addTab(mTabHost.newTabSpec(tabNames[i]).setIndicator(getIndicatorView(tabNames[i], tabImgs[i])), clzzs[i], null);
         }
     }
 
     // 设置TabBar、TabItem及样式
     private View getIndicatorView(String t, int res) {
         View v;
-        if(!TextUtils.isEmpty(t)){
+        if(!t.equals(tabNames[1])){
             v = mInflator.inflate(R.layout.tab_view, null);
             ImageView tabIcon = (ImageView) v.findViewById(R.id.icon);
             TextView title = ((TextView) v.findViewById(R.id.title));

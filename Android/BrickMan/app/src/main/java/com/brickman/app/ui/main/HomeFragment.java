@@ -27,10 +27,16 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
+
 /**
  * Created by mayu on 16/7/18,下午5:11.
  */
 public class HomeFragment extends BaseFragment implements OnTabSelectListener {
+    PtrClassicFrameLayout mPtr;
     BannerView mBanner;
     SlidingTabLayout mSlidingTab;
     ViewPager mVp;
@@ -40,6 +46,7 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
+        mPtr = (PtrClassicFrameLayout) view.findViewById(R.id.ptr);
         mBanner = (BannerView) view.findViewById(R.id.banner);
         mSlidingTab = (SlidingTabLayout) view.findViewById(R.id.slidingTab);
         mVp = (ViewPager) view.findViewById(R.id.vp);
@@ -67,6 +74,25 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
                 Toast.makeText(getHoldingActivity(), position + "=> " + entities.get(position).title, Toast.LENGTH_SHORT).show();
             }
         });
+
+        mPtr.setPtrHandler(new PtrHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                frame.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPtr.refreshComplete();
+                    }
+                }, 1800);
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
+        });
+        mPtr.disableWhenHorizontalMove(true);
+        mPtr.setLastUpdateTimeRelateObject(this);
     }
 
     private String readAssets() {

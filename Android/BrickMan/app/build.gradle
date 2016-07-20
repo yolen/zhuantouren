@@ -36,4 +36,5 @@ dependencies {
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.6@aar'
     compile 'com.google.code.gson:gson:2.2.4'
+    compile 'in.srain.cube:ultra-ptr:1.0.11'
 }

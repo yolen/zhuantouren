@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">砖头人</string>
+    <string name="btn_camera">拍照</string>
+    <string name="btn_photo">相册</string>
+    <string-array name="tabNames">
+        <item>砖集</item>
+        <item>拍砖</item>
+        <item>砖头人</item>
+    </string-array>
 </resources>

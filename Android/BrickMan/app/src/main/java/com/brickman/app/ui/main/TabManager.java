@@ -95,6 +95,7 @@ public class TabManager implements TabHost.OnTabChangeListener {
                     ft.show(newTab.fragment);
                 }
             }
+            ((MainActivity)mActivity).title.setText(newTab.tag);
             mLastTab = newTab;
             ft.commit();
             mActivity.getSupportFragmentManager().executePendingTransactions();

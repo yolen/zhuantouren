@@ -2,11 +2,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/bm_brick_bg"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#775566"
-        android:text="brick" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_100"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="@dimen/dp_240"
+            android:layout_height="@dimen/dp_140"
+            android:background="@color/green" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_100">
+
+        <Button
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_70"
+            android:layout_alignParentLeft="true"
+            android:background="@mipmap/bm_btn_round_bg"
+            android:text="@string/btn_camera"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/sp_14" />
+
+
+        <Button
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_70"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/bm_btn_round_bg"
+            android:text="@string/btn_photo"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/sp_14" />
+    </RelativeLayout>
+
 </LinearLayout>

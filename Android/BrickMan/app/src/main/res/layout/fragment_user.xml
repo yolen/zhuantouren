@@ -1,12 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_gray"
     android:orientation="vertical">
 
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_90"
+        android:background="@drawable/item_bg"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15">
+
+        <com.brickman.app.ui.widget.view.CircleImageView
+            android:id="@+id/avator"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_70"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/bm_avator"
+            app:border_color="@color/colorAccent"
+            app:border_width="0dp" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_toRightOf="@id/avator"
+            android:text="@string/app_name"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/name"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_08"
+            android:layout_toRightOf="@id/avator"
+            android:text="路见不平拔刀相助"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/sp_12" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/bm_icon_arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/line" />
+
+    <RelativeLayout android:id="@+id/mybricks"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_54"
+        android:background="@drawable/item_bg"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15">
+
+        <com.brickman.app.ui.widget.view.CircleImageView
+            android:id="@+id/icon1"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/bm_icon_bricks"
+            app:border_color="@color/colorAccent"
+            app:border_width="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_toRightOf="@id/icon1"
+            android:text="我的砖集"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/sp_16" />
+
+
+        <ImageView
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/bm_icon_arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+    <RelativeLayout android:id="@+id/mybrick"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_54"
+        android:background="@drawable/item_bg"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15">
+
+        <com.brickman.app.ui.widget.view.CircleImageView
+            android:id="@+id/icon2"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/bm_icon_brick"
+            app:border_color="@color/colorAccent"
+            app:border_width="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_toRightOf="@id/icon2"
+            android:text="我的砖头"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/sp_16" />
+
+
+        <ImageView
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/bm_icon_arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+    <RelativeLayout android:id="@+id/myflower"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_54"
+        android:background="@drawable/item_bg"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15">
+
+        <com.brickman.app.ui.widget.view.CircleImageView
+            android:id="@+id/icon3"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/bm_icon_flower"
+            app:border_color="@color/colorAccent"
+            app:border_width="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_toRightOf="@id/icon3"
+            android:text="我的鲜花"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/sp_16" />
+
+
+        <ImageView
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/bm_icon_arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/line" />
+
+    <RelativeLayout android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_54"
+        android:background="@drawable/item_bg"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15">
+
+        <com.brickman.app.ui.widget.view.CircleImageView
+            android:id="@+id/icon4"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/bm_icon_about"
+            app:border_color="@color/colorAccent"
+            app:border_width="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_toRightOf="@id/icon4"
+            android:text="关于我们"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/sp_16" />
+
+
+        <ImageView
+            android:layout_width="@dimen/dp_12"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/bm_icon_arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#44aa88"
-        android:text="user" />
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/white">
+
+        <Button android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
+            android:background="@drawable/btn_orange"
+            android:textColor="@color/white"
+            android:clickable="true"
+            android:text="退出登录"
+            android:textSize="@dimen/sp_18" />
+    </RelativeLayout>
 </LinearLayout>
