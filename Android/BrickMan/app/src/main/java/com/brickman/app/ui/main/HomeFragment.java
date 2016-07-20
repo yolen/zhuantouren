@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.base.BaseFragment;
+import com.brickman.app.common.utils.AssetUtil;
 import com.brickman.app.model.Banner;
 import com.brickman.app.ui.widget.banner.BannerEntity;
 import com.brickman.app.ui.widget.banner.BannerView;
@@ -22,21 +23,15 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.google.gson.Gson;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
 
 /**
  * Created by mayu on 16/7/18,下午5:11.
  */
 public class HomeFragment extends BaseFragment implements OnTabSelectListener {
-    PtrClassicFrameLayout mPtr;
+
+    View mRootView;
     BannerView mBanner;
     SlidingTabLayout mSlidingTab;
     ViewPager mVp;
@@ -46,7 +41,7 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
 
     @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        mPtr = (PtrClassicFrameLayout) view.findViewById(R.id.ptr);
+        mRootView = view;
         mBanner = (BannerView) view.findViewById(R.id.banner);
         mSlidingTab = (SlidingTabLayout) view.findViewById(R.id.slidingTab);
         mVp = (ViewPager) view.findViewById(R.id.vp);
@@ -57,7 +52,7 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
         mSlidingTab.setViewPager(mVp, titles);
         mSlidingTab.setOnTabSelectListener(this);
 
-        Banner banner = new Gson().fromJson(readAssets(), Banner.class);
+        Banner banner = new Gson().fromJson(AssetUtil.readAssets(mActivity), Banner.class);
 
         final List<BannerEntity> entities = new ArrayList<>();
         for (int i = 0; i < banner.getRecommends().size(); i++) {
@@ -74,50 +69,26 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
                 Toast.makeText(getHoldingActivity(), position + "=> " + entities.get(position).title, Toast.LENGTH_SHORT).show();
             }
         });
-
-        mPtr.setPtrHandler(new PtrHandler() {
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                frame.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPtr.refreshComplete();
-                    }
-                }, 1800);
-            }
-
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
-            }
-        });
-        mPtr.disableWhenHorizontalMove(true);
-        mPtr.setLastUpdateTimeRelateObject(this);
     }
 
-    private String readAssets() {
-        String json = "";
-        try {
-            InputStream inputStream = getHoldingActivity().getAssets().open("banner.json");
-            int size = inputStream.available();
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-            json = new String(buffer, "utf-8");
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void toggle() {
+        if (mBanner.getVisibility() == View.VISIBLE) {
+            mBanner.setVisibility(View.GONE);
+        } else {
+            mBanner.setVisibility(View.VISIBLE);
         }
-        return json;
     }
+
+
 
     @Override
     public void onTabSelect(int position) {
-        ((BaseActivity) getActivity()).showToast(position + "");
+//        ((BaseActivity) getActivity()).showToast(position + "");
     }
 
     @Override
     public void onTabReselect(int position) {
-        ((BaseActivity) getActivity()).showToast(position + "");
+//        ((BaseActivity) getActivity()).showToast(position + "");
     }
 
     @Override

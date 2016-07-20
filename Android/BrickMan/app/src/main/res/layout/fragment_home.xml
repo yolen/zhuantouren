@@ -1,55 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ptr"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:ptr_duration_to_close="300"
-    app:ptr_duration_to_close_header="2000"
-    app:ptr_keep_header_when_refresh="true"
-    app:ptr_pull_to_fresh="false"
-    app:ptr_ratio_of_header_height_to_refresh="1.2"
-    app:ptr_resistance="2.5">
-
-    <ScrollView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <com.brickman.app.ui.widget.banner.BannerView
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_120"
+            app:qt_line_color="@color/white" />
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/slidingTab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="bottom"
+            android:background="@color/light_gray"
+            app:tl_divider_color="@color/transparent"
+            app:tl_divider_padding="@dimen/dp_10"
+            app:tl_divider_width="@dimen/dp_01"
+            app:tl_indicator_color="@color/colorAccent"
+            app:tl_indicator_height="@dimen/dp_02"
+            app:tl_indicator_width_equal_title="true"
+            app:tl_tab_padding="@dimen/dp_22"
+            app:tl_tab_space_equal="true"
+            app:tl_textSelectColor="@color/colorAccent"
+            app:tl_textUnselectColor="@color/text_color"
+            app:tl_underline_color="@color/colorAccent"
+            app:tl_underline_height="0dp" />
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.brickman.app.ui.widget.banner.BannerView
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_160"
-                app:qt_line_color="@color/white" />
-
-            <com.flyco.tablayout.SlidingTabLayout
-                android:id="@+id/slidingTab"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:background="@color/light_gray"
-                app:tl_divider_color="@color/transparent"
-                app:tl_divider_padding="@dimen/dp_10"
-                app:tl_divider_width="@dimen/dp_01"
-                app:tl_indicator_color="@color/colorAccent"
-                app:tl_indicator_height="@dimen/dp_02"
-                app:tl_indicator_width_equal_title="true"
-                app:tl_tab_padding="@dimen/dp_22"
-                app:tl_tab_space_equal="true"
-                app:tl_textSelectColor="@color/colorAccent"
-                app:tl_textUnselectColor="@color/text_color"
-                app:tl_underline_color="@color/colorAccent"
-                app:tl_underline_height="0dp" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white" />
-        </LinearLayout>
-    </ScrollView>
-</in.srain.cube.views.ptr.PtrClassicFrameLayout>
+            android:background="@color/white"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </LinearLayout>
+    <!--</ScrollView>-->

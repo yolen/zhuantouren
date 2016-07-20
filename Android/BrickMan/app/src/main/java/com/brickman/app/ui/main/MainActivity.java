@@ -59,6 +59,14 @@ public class MainActivity extends BaseActivity {
         for (int i = 0; i < 3; i++) {
             mTabManager.addTab(mTabHost.newTabSpec(tabNames[i]).setIndicator(getIndicatorView(tabNames[i], tabImgs[i])), clzzs[i], null);
         }
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mTabManager.getCurrentTab().equals(mTabManager.getTab(tabNames[0]))){
+                    ((HomeFragment)mTabManager.getCurrentTab().getFragment()).toggle();
+                }
+            }
+        });
     }
 
     // 设置TabBar、TabItem及样式
