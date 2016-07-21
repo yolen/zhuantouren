@@ -61,6 +61,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         Mine_headerCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_headerCell forIndexPath:indexPath];
+        [cell setUserIcon:@"user_icon" nameTitle:@"砖头人" subTitle:@"路见不平,拍砖相助!"];
         return cell;
     }else {
         Mine_titleCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_titleCell forIndexPath:indexPath];

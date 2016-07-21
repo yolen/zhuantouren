@@ -11,6 +11,7 @@
 
 @interface Mine_headerCell : UITableViewCell
 
-+ (CGFloat)cellHeight;
+- (void)setUserIcon:(NSString *)iconStr nameTitle:(NSString *)nameStr subTitle:(NSString *)subTitleStr;
 
++ (CGFloat)cellHeight;
 @end

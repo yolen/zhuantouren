@@ -15,6 +15,9 @@
     #import "UIImage+Common.h"
     #import "NSObject+Common.h"
     #import "UITableView+Common.h"
+    #import "UILabel+Common.h"
+    #import "NSString+Common.h"
+    #import "UIColor+expanded.h"
 
 #endif
 
@@ -24,6 +27,7 @@
 #define DebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 #define kTipAlert(_S_, ...)     [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:(_S_), ##__VA_ARGS__] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show]
 #define kKeyWindow [UIApplication sharedApplication].keyWindow
+#define SCALE (kScreen_Width/320)
 
 #define kDevice_Is_iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 #define kDevice_Is_iPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
@@ -38,6 +42,6 @@
 #undef  RGBACOLOR
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
-#define kNavigationBarColor RGBCOLOR(255, 101, 37)
+#define kNavigationBarColor RGBCOLOR(251, 101, 52)
 
 #define kPaddingLeft 10
