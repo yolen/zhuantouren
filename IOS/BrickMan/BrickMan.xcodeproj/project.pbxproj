@@ -63,6 +63,7 @@
 		30F91D6D1D3DCD33007D9BDB /* tabbar0_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30F91D681D3DCD33007D9BDB /* tabbar0_nor@2x.png */; };
 		30F91D6E1D3DCD33007D9BDB /* tabbar2_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30F91D691D3DCD33007D9BDB /* tabbar2_nor@2x.png */; };
 		30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */; };
+		7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7959080B1D4107F000C72617 /* UIAlertController+Common.m */; };
 		B2FE35104D43DCFAA0DD8A35 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CE40E110EA4DC531D101B6 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -173,6 +174,8 @@
 		30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Common.m"; sourceTree = "<group>"; };
 		60CE40E110EA4DC531D101B6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		72B83A4BDDEF156C469B028E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		7959080A1D4107F000C72617 /* UIAlertController+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Common.h"; sourceTree = "<group>"; };
+		7959080B1D4107F000C72617 /* UIAlertController+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Common.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				1BFD4D2B1D3CCC9800ABE8E6 /* RootController */,
+				795908091D40FCB500C72617 /* Publish */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -467,6 +471,8 @@
 				30C5BAE81D406594001DF9D2 /* NSString+Common.m */,
 				30C5BB181D4084A1001DF9D2 /* UIColor+expanded.h */,
 				30C5BB191D4084A1001DF9D2 /* UIColor+expanded.m */,
+				7959080A1D4107F000C72617 /* UIAlertController+Common.h */,
+				7959080B1D4107F000C72617 /* UIAlertController+Common.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -478,6 +484,13 @@
 				72B83A4BDDEF156C469B028E /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		795908091D40FCB500C72617 /* Publish */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Publish;
 			sourceTree = "<group>";
 		};
 		938BAFAA53FE39238BB03740 /* Frameworks */ = {
@@ -557,6 +570,7 @@
 				TargetAttributes = {
 					1BFD4CF21D3CCC3100ABE8E6 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = EPSPHDMRQR;
 					};
 					1BFD4D0B1D3CCC3100ABE8E6 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -690,6 +704,7 @@
 				302D99FF1D3E058700F295A0 /* BrickManAPIManager.m in Sources */,
 				30C5BB1D1D408A20001DF9D2 /* BrickListView.m in Sources */,
 				30721A851D3E587A00D54E09 /* UITableView+Common.m in Sources */,
+				7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */,
 				30C5BB2C1D40A09B001DF9D2 /* UITapImageView.m in Sources */,
 				1BFD4D401D3CD0BF00ABE8E6 /* PublishViewController.m in Sources */,
 				1BFD4D321D3CD02500ABE8E6 /* RootTabBarController.m in Sources */,
@@ -837,11 +852,14 @@
 			baseConfigurationReference = 298043F267518668F9EE51EE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BrickMan/BrickMan-Prefix.pch";
 				INFOPLIST_FILE = BrickMan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TZ.BrickMan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -850,11 +868,14 @@
 			baseConfigurationReference = 72B83A4BDDEF156C469B028E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BrickMan/BrickMan-Prefix.pch";
 				INFOPLIST_FILE = BrickMan/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TZ.BrickMan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
