@@ -18,6 +18,7 @@
     #import "UILabel+Common.h"
     #import "NSString+Common.h"
     #import "UIColor+expanded.h"
+    #import "UIAlertController+Common.h"
 
 #endif
 
