@@ -1,17 +1,23 @@
 package com.brickman.app.ui.main;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.Toast;
 
 import com.brickman.app.R;
 import com.brickman.app.adapter.BrickListAdapter;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.base.BaseFragment;
-import com.brickman.app.model.BrickModel;
+import com.brickman.app.model.BrickBean;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +32,13 @@ import in.srain.cube.views.ptr.PtrHandler;
  */
 public class BrickListFragment extends BaseFragment {
     private BrickListAdapter mAdapter;
-    private List<BrickModel> mData;
+    private List<BrickBean> mData = new ArrayList<BrickBean>();;
 
     PtrClassicFrameLayout mPtr;
-    private ListView myListView;
-    private String mType;
+    private RecyclerView mRecyclerView;
+    private int mType;
+    private int mPageNo = 0;
+    private int mPageSize = 4;
 
 
     public static BrickListFragment getInstance(String title) {
@@ -42,41 +50,77 @@ public class BrickListFragment extends BaseFragment {
     }
 
     @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((MainActivity)mActivity).mPresenter.loadBrickList(mType, mPageNo);
+    }
+
+    @Override
     protected void initView(View view, Bundle savedInstanceState) {
-        mType = getArguments().getString("type", "最近发布");
+        String type = getArguments().getString("type");
+        mType = type.equals("最近发布") ? 0 : type.equals("砖头最多") ? 1 : type.equals("鲜花最多") ? 2 : 0;
         mPtr = (PtrClassicFrameLayout) view.findViewById(R.id.ptr);
-        myListView = (ListView) view.findViewById(R.id.list);
-        mData = new ArrayList<BrickModel>();
-        int size = 10;
-        if(mType.equals("最近发布")){
-            size = 10;
-        } else if(mType.equals("砖头最多")){
-            size = 7;
-        } else {
-            size = 13;
-        }
-        for (int i = 0; i < size; i++) {
-            mData.add(new BrickModel());
-        }
-        mAdapter = new BrickListAdapter(mActivity, R.layout.item_brick_list, mData);
-        myListView.setAdapter(mAdapter);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
+        mAdapter = new BrickListAdapter(R.layout.item_brick_list, mData);
+        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                mRecyclerView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPageNo++;
+                        if (mPageNo >= mPageSize) {
+                            mAdapter.notifyDataChangedAfterLoadMore(false);
+//                    View view = mActivity.getLayoutInflater().inflate(R.layout.not_loading, (ViewGroup) mRecyclerView.getParent(), false);
+//                    mAdapter.addFooterView(view);
+                            mActivity.showToast("没有更多内容了");
+                        } else {
+                            ((MainActivity)mActivity).mPresenter.loadBrickList(mType, mPageNo);
+                        }
+                    }
+                });
+            }
+        });
+        mAdapter.openLoadMore(0, false);
+        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(mActivity, Integer.toString(position), Toast.LENGTH_LONG).show();
+            }
+        });
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity) ;
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(mActivity)
+                .color(Color.TRANSPARENT)
+                .sizeResId(R.dimen.dp_06)
+                .marginResId(R.dimen.dp_00, R.dimen.dp_00)
+                .build());
         mPtr.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                frame.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPtr.refreshComplete();
-                    }
-                }, 1800);
+                mPageNo = 0;
+                ((MainActivity)mActivity).mPresenter.loadBrickList(mType, mPageNo);
             }
 
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, myListView, header);
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, mRecyclerView, header);
             }
         });
         mPtr.setLastUpdateTimeRelateObject(this);
+    }
+
+    public void loadSuccess(List<BrickBean> brickList, int pageSize, boolean hasMore){
+        mPageSize = pageSize;
+        if(mPageNo == 0){
+            mPtr.refreshComplete();
+            mData = brickList;
+            mAdapter.setNewData(mData);
+        } else {
+            mAdapter.notifyDataChangedAfterLoadMore(brickList, true);
+        }
     }
 
     @Override

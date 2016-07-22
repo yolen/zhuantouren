@@ -14,13 +14,20 @@ import android.widget.Toast;
 
 import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
+import com.brickman.app.common.utils.LogUtil;
+import com.brickman.app.contract.MainContract;
+import com.brickman.app.model.BrickBean;
+import com.brickman.app.model.MainModel;
+import com.brickman.app.presenter.MainPresenter;
+
+import java.util.List;
 
 import butterknife.BindView;
 
 /**
  * Created by mayu on 16/7/14,上午10:00.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<MainPresenter, MainModel> implements MainContract.View {
 
     @BindView(R.id.title)
     TextView title;
@@ -62,17 +69,31 @@ public class MainActivity extends BaseActivity {
         title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mTabManager.getCurrentTab().equals(mTabManager.getTab(tabNames[0]))){
-                    ((HomeFragment)mTabManager.getCurrentTab().getFragment()).toggle();
+                if (mTabManager.getCurrentTab().equals(mTabManager.getTab(tabNames[0]))) {
+                    // TODO ...
                 }
             }
         });
     }
 
+    @Override
+    public void showMsg(String msg) {
+        showToast(msg);
+    }
+
+    @Override
+    public void loadSuccess(int fragmentId, List<BrickBean> brickList, int pageSize, boolean hasMore) {
+        LogUtil.info(fragmentId+"============");
+        ((BrickListFragment) ((HomeFragment) mTabManager
+                .getTab(tabNames[0]).getFragment())
+                .mAdapter.getItem(fragmentId))
+                .loadSuccess(brickList, pageSize, hasMore);
+    }
+
     // 设置TabBar、TabItem及样式
     private View getIndicatorView(String t, int res) {
         View v;
-        if(!t.equals(tabNames[1])){
+        if (!t.equals(tabNames[1])) {
             v = mInflator.inflate(R.layout.tab_view, null);
             ImageView tabIcon = (ImageView) v.findViewById(R.id.icon);
             TextView title = ((TextView) v.findViewById(R.id.title));

@@ -3,6 +3,7 @@ package com.brickman.app;
 import android.app.Application;
 
 import com.orhanobut.logger.Logger;
+import com.yolanda.nohttp.NoHttp;
 
 /**
  * Created by mayu on 16/7/14,上午9:56.
@@ -16,6 +17,7 @@ public class MApplication extends Application {
         //配置程序异常退出处理
 //        Thread.setDefaultUncaughtExceptionHandler(new LocalFileHandler(this));
         Logger.init("BRICK_MAN");
+        NoHttp.initialize(this);
     }
 
     public static MApplication getInstance(){

@@ -17,11 +17,9 @@
         android:background="@color/light_gray"
         android:orientation="vertical">
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/transparent"
-            android:dividerHeight="@dimen/dp_08" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 </in.srain.cube.views.ptr.PtrClassicFrameLayout>
