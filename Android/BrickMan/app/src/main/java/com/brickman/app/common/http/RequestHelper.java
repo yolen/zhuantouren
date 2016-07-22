@@ -1,6 +1,9 @@
 package com.brickman.app.common.http;
 
+import android.os.Handler;
+
 import com.brickman.app.common.http.param.RequestParam;
+import com.brickman.app.common.utils.AssetUtil;
 import com.brickman.app.common.utils.LogUtil;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.RequestMethod;
@@ -32,22 +35,33 @@ public class RequestHelper {
         mHttpUtil.add(0, request, listener, true);
     }
 
-    public static void sendPOSTRequest(boolean isCache, String url, Object params, HttpListener listener) {
+    public static void sendPOSTRequest(boolean isCache, final String url, Object params, final HttpListener listener) {
         LogUtil.info(url);
-        Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
-        request.setHeader("platform", "Android");
-        request.setCacheMode(isCache ? CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
-        if(params != null){
-            String param = "";
-            if(params instanceof JSONObject){
-                param = RequestParam.JsonToParams((JSONObject) params);
-            } else if(params instanceof String){
-                param = (String) params;
+        if(url.contains("DEMO")){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject json = AssetUtil.readJSONAssets(url.split("/")[1]);
+                    LogUtil.json(json);
+                    listener.onSucceed(json);
+                }
+            }, 800);
+        } else {
+            Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+            request.setHeader("platform", "Android");
+            request.setCacheMode(isCache ? CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
+            if(params != null){
+                String param = "";
+                if(params instanceof JSONObject){
+                    param = RequestParam.JsonToParams((JSONObject) params);
+                } else if(params instanceof String){
+                    param = (String) params;
+                }
+                LogUtil.info(param);
+                // 注意contentType
+                request.setDefineRequestBody(param, NoHttp.CHARSET_UTF8);
             }
-            LogUtil.info(param);
-            // 注意contentType
-            request.setDefineRequestBody(param, NoHttp.CHARSET_UTF8);
+            mHttpUtil.add(0, request, listener, true);
         }
-        mHttpUtil.add(0, request, listener, true);
     }
 }

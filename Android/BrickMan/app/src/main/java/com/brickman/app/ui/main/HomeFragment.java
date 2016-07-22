@@ -35,6 +35,7 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
     BannerView mBanner;
     SlidingTabLayout mSlidingTab;
     ViewPager mVp;
+    MyPagerAdapter mAdapter;
 
     private final String[] titles = {"最近发布", "砖头最多", "鲜花最多"};
     private ArrayList<Fragment> fragments = new ArrayList<>();
@@ -48,11 +49,13 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
         for (String title : titles) {
             fragments.add(BrickListFragment.getInstance(title));
         }
-        mVp.setAdapter(new MyPagerAdapter(getActivity().getSupportFragmentManager()));
+        mAdapter = new MyPagerAdapter(getActivity().getSupportFragmentManager());
+        mVp.setAdapter(mAdapter);
+        mVp.setOffscreenPageLimit(3);
         mSlidingTab.setViewPager(mVp, titles);
         mSlidingTab.setOnTabSelectListener(this);
 
-        Banner banner = new Gson().fromJson(AssetUtil.readAssets(mActivity), Banner.class);
+        Banner banner = new Gson().fromJson(AssetUtil.readAssets("banner.json"), Banner.class);
 
         final List<BannerEntity> entities = new ArrayList<>();
         for (int i = 0; i < banner.getRecommends().size(); i++) {
@@ -70,16 +73,6 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
             }
         });
     }
-
-    public void toggle() {
-        if (mBanner.getVisibility() == View.VISIBLE) {
-            mBanner.setVisibility(View.GONE);
-        } else {
-            mBanner.setVisibility(View.VISIBLE);
-        }
-    }
-
-
 
     @Override
     public void onTabSelect(int position) {
@@ -126,7 +119,7 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
         super.onDestroyView();
     }
 
-    private class MyPagerAdapter extends FragmentPagerAdapter {
+    public class MyPagerAdapter extends FragmentPagerAdapter {
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
