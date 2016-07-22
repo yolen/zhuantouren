@@ -9,6 +9,7 @@
 #import "MineViewController.h"
 #import "Mine_headerCell.h"
 #import "Mine_titleCell.h"
+#import "PersonInfoController.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UITableView *myTableView;
@@ -101,6 +102,39 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.section) {
+        case 0:{
+            PersonInfoController *personInfo = [[PersonInfoController alloc]init];
+            [self.navigationController pushViewController:personInfo animated:YES];
+        }
+            break;
+        case 1:{
+            switch (indexPath.row) {
+                case 0: {
+                    
+                }
+                    break;
+                case 1: {
+                    
+                }
+                    break;
+                case 2: {
+                    
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+        case 2:{
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark - Btn Action

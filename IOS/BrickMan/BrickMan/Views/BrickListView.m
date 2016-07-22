@@ -42,4 +42,10 @@
     return [MainTableViewCell cellHeight];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.goToDetailBlock) {
+        self.goToDetailBlock();
+    }
+}
+
 @end

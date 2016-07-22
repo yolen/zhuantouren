@@ -22,12 +22,13 @@
     
     UINavigationBar *navigationBar = [UINavigationBar appearance];
     [navigationBar setBackgroundImage:[UIImage imageWithColor:kNavigationBarColor] forBarMetrics:UIBarMetricsDefault];
+    [navigationBar setTintColor:[UIColor whiteColor]];
     NSDictionary *textAttributes = @{
                                      NSFontAttributeName: [UIFont systemFontOfSize:16],
                                      NSForegroundColorAttributeName: [UIColor whiteColor],
                                      };
     [navigationBar setTitleTextAttributes:textAttributes];
-    
+    [navigationBar setTintColor:[UIColor whiteColor]];
     RootTabBarController *rootVC = [[RootTabBarController alloc] init];
     self.window.rootViewController = rootVC;
     [self.window makeKeyAndVisible];
