@@ -24,8 +24,8 @@
                 android:layout_height="?attr/actionBarSize">
 
                 <ImageView
-                    android:layout_width="@dimen/dp_20"
-                    android:layout_height="@dimen/dp_27"
+                    android:layout_width="@dimen/dp_18"
+                    android:layout_height="@dimen/dp_24"
                     android:layout_centerVertical="true"
                     android:src="@mipmap/bm_back" />
             </RelativeLayout>

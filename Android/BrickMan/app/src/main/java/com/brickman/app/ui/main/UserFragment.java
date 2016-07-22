@@ -65,7 +65,7 @@ public class UserFragment extends BaseFragment {
             case R.id.mybricks:
                 Intent intent = new Intent(mActivity, BrickListActivity.class);
                 intent.putExtra("title", "我的砖集");
-                startActivity(intent);
+                mActivity.startActivityWithAnim(intent);
                 break;
             case R.id.mybrick:
                 break;

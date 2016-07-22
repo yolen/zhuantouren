@@ -5,9 +5,11 @@
     <color name="colorAccent">#FF6633</color>
 
 
-
+    <color name="window_background">#FFF5F5F5</color>
     <color name="text_color">#555555</color>
     <color name="text_gray">#bfbfbf</color>
+    <color name="loading_bg">#aa555555</color>
+    <color name="theme_black_7f">#8f000000</color>
     <color name="gray">#a3a3a3</color>
     <color name="line">#e2e2e2</color>
     <color name="white">#ffffff</color>

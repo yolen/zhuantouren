@@ -1,17 +1,24 @@
 package com.brickman.app.common.base;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.brickman.app.MApplication;
 import com.brickman.app.R;
 import com.brickman.app.common.utils.TUtil;
 import com.brickman.app.ui.dialog.LoadingDialog;
+import com.brickman.app.ui.widget.view.SwipeBackLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import butterknife.ButterKnife;
@@ -24,6 +31,9 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     public T mPresenter;
     public E mModel;
     public LoadingDialog mLoadingDialog;
+    private SwipeBackLayout swipeBackLayout;
+    private ImageView ivShadow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +54,37 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         if (this instanceof BaseView) mPresenter.setVM(this, mModel);
     }
 
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        if (layoutResID == R.layout.activity_main) {
+            super.setContentView(layoutResID);
+        } else {
+            super.setContentView(getContainer());
+            View view = LayoutInflater.from(this).inflate(layoutResID, null);
+            view.setBackgroundColor(getResources().getColor(R.color.window_background));
+            swipeBackLayout.addView(view);
+        }
+    }
+
     protected abstract int getLayoutId();
+
+    private View getContainer() {
+        RelativeLayout container = new RelativeLayout(this);
+        swipeBackLayout = new SwipeBackLayout(this);
+        swipeBackLayout.setDragEdge(SwipeBackLayout.DragEdge.LEFT);
+        ivShadow = new ImageView(this);
+        ivShadow.setBackgroundColor(getResources().getColor(R.color.theme_black_7f));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        container.addView(ivShadow, params);
+        container.addView(swipeBackLayout);
+        swipeBackLayout.setOnSwipeBackListener(new SwipeBackLayout.SwipeBackListener() {
+            @Override
+            public void onViewPositionChanged(float fractionAnchor, float fractionScreen) {
+                ivShadow.setAlpha(1 - fractionScreen);
+            }
+        });
+        return container;
+    }
 
     @Override
     protected void onDestroy() {
@@ -115,5 +155,15 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
+    }
+
+    public void startActivityWithAnim(Intent intent) {
+        startActivity(intent);
+        overridePendingTransition(R.anim.activity_animation_in_from_right, R.anim.activity_animation_out_to_left);
+    }
+
+    public void finishWithAnim() {
+        finish();
+        overridePendingTransition(R.anim.activity_animation_in_from_left, R.anim.activity_animation_out_to_right);
     }
 }
