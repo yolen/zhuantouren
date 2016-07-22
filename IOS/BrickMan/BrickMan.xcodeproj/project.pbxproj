@@ -67,6 +67,9 @@
 		30F91D6D1D3DCD33007D9BDB /* tabbar0_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30F91D681D3DCD33007D9BDB /* tabbar0_nor@2x.png */; };
 		30F91D6E1D3DCD33007D9BDB /* tabbar2_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30F91D691D3DCD33007D9BDB /* tabbar2_nor@2x.png */; };
 		30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */; };
+		5A52DE1F1D41D9DB00D28DB2 /* PersonInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE1E1D41D9DB00D28DB2 /* PersonInfoController.m */; };
+		5A52DE221D41DF7A00D28DB2 /* Mine_infoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE211D41DF7A00D28DB2 /* Mine_infoCell.m */; };
+		5A52DE261D41ECC300D28DB2 /* MBProgressHUD+GR.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE251D41ECC300D28DB2 /* MBProgressHUD+GR.m */; };
 		7907306E1D4114A700E726E2 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7907306D1D4114A700E726E2 /* ComposeViewController.m */; };
 		7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7959080B1D4107F000C72617 /* UIAlertController+Common.m */; };
 		B2FE35104D43DCFAA0DD8A35 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CE40E110EA4DC531D101B6 /* libPods.a */; };
@@ -184,6 +187,12 @@
 		30F91D691D3DCD33007D9BDB /* tabbar2_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar2_nor@2x.png"; sourceTree = "<group>"; };
 		30F91D741D3DE8F3007D9BDB /* UIImage+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Common.h"; sourceTree = "<group>"; };
 		30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Common.m"; sourceTree = "<group>"; };
+		5A52DE1D1D41D9DB00D28DB2 /* PersonInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInfoController.h; sourceTree = "<group>"; };
+		5A52DE1E1D41D9DB00D28DB2 /* PersonInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInfoController.m; sourceTree = "<group>"; };
+		5A52DE201D41DF7A00D28DB2 /* Mine_infoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mine_infoCell.h; sourceTree = "<group>"; };
+		5A52DE211D41DF7A00D28DB2 /* Mine_infoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mine_infoCell.m; sourceTree = "<group>"; };
+		5A52DE241D41ECC300D28DB2 /* MBProgressHUD+GR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+GR.h"; sourceTree = "<group>"; };
+		5A52DE251D41ECC300D28DB2 /* MBProgressHUD+GR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+GR.m"; sourceTree = "<group>"; };
 		60CE40E110EA4DC531D101B6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		72B83A4BDDEF156C469B028E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7907306C1D4114A700E726E2 /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
@@ -289,6 +298,7 @@
 		1BFD4D2A1D3CCC9800ABE8E6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5A52DE1C1D41D97100D28DB2 /* Mine */,
 				1BFD4D2B1D3CCC9800ABE8E6 /* RootController */,
 				795908091D40FCB500C72617 /* Publish */,
 			);
@@ -435,6 +445,8 @@
 				30C5BAD81D406008001DF9D2 /* Mine_headerCell.m */,
 				30C5BAD91D406008001DF9D2 /* Mine_titleCell.h */,
 				30C5BADA1D406008001DF9D2 /* Mine_titleCell.m */,
+				5A52DE201D41DF7A00D28DB2 /* Mine_infoCell.h */,
+				5A52DE211D41DF7A00D28DB2 /* Mine_infoCell.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -442,6 +454,7 @@
 		30C5BB061D408167001DF9D2 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				5A52DE231D41ECC300D28DB2 /* MBProgressHUD+GR */,
 				30C5BB111D40837E001DF9D2 /* XTSegmentControl */,
 				30C5BB0D1D408250001DF9D2 /* iCarousel */,
 			);
@@ -514,6 +527,24 @@
 				72B83A4BDDEF156C469B028E /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		5A52DE1C1D41D97100D28DB2 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				5A52DE1D1D41D9DB00D28DB2 /* PersonInfoController.h */,
+				5A52DE1E1D41D9DB00D28DB2 /* PersonInfoController.m */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		5A52DE231D41ECC300D28DB2 /* MBProgressHUD+GR */ = {
+			isa = PBXGroup;
+			children = (
+				5A52DE241D41ECC300D28DB2 /* MBProgressHUD+GR.h */,
+				5A52DE251D41ECC300D28DB2 /* MBProgressHUD+GR.m */,
+			);
+			path = "MBProgressHUD+GR";
 			sourceTree = "<group>";
 		};
 		795908091D40FCB500C72617 /* Publish */ = {
@@ -738,6 +769,7 @@
 				30F91D641D3DCC1F007D9BDB /* UIViewExt.m in Sources */,
 				30C5BAE91D406594001DF9D2 /* NSString+Common.m in Sources */,
 				30C5BB1A1D4084A1001DF9D2 /* UIColor+expanded.m in Sources */,
+				5A52DE1F1D41D9DB00D28DB2 /* PersonInfoController.m in Sources */,
 				1BFD4D3D1D3CD0B500ABE8E6 /* MainViewController.m in Sources */,
 				30C5BAE61D40655E001DF9D2 /* UILabel+Common.m in Sources */,
 				30C5BADC1D406008001DF9D2 /* Mine_titleCell.m in Sources */,
@@ -750,10 +782,12 @@
 				1BFD4D401D3CD0BF00ABE8E6 /* PublishViewController.m in Sources */,
 				30C5BB411D411AE3001DF9D2 /* MainDetailCell.m in Sources */,
 				1BFD4D321D3CD02500ABE8E6 /* RootTabBarController.m in Sources */,
+				5A52DE221D41DF7A00D28DB2 /* Mine_infoCell.m in Sources */,
 				302D9A021D3E069800F295A0 /* BaseNavigationController.m in Sources */,
 				1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */,
 				30C5BB101D408250001DF9D2 /* iCarousel.m in Sources */,
 				30C5BADF1D40602A001DF9D2 /* MainTableViewCell.m in Sources */,
+				5A52DE261D41ECC300D28DB2 /* MBProgressHUD+GR.m in Sources */,
 				30C5BB441D411D8A001DF9D2 /* CommentCell.m in Sources */,
 				30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */,
 				30C5BADB1D406008001DF9D2 /* Mine_headerCell.m in Sources */,
