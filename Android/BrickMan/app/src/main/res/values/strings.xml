@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">砖头人</string>
+    <string name="my_bricks">我的砖集</string>
+    <string name="my_flower">我的鲜花</string>
+    <string name="my_brick">我的砖头</string>
     <string name="btn_camera">拍照</string>
     <string name="btn_photo">相册</string>
     <string-array name="tabNames">
@@ -7,4 +10,6 @@
         <item>拍砖</item>
         <item>砖头人</item>
     </string-array>
+    <string name="loading_more">正在努力加载中...</string>
+    <string name="not_loading">已经是最后一页了</string>
 </resources>

@@ -11,6 +11,7 @@
 #import "XTSegmentControl.h"
 #import "iCarousel.h"
 #import "BrickListView.h"
+#import "DetailBrickViewController.h"
 
 @interface MainViewController ()<iCarouselDataSource, iCarouselDelegate>
 @property (strong, nonatomic) XTSegmentControl *mySegmentControl;
@@ -33,10 +34,10 @@
     _mySegmentControl = [[XTSegmentControl alloc] initWithFrame:CGRectMake(0, imageView.bottom, kScreen_Width, 50) Items:self.titleArray selectedBlock:^(NSInteger index) {
         [weakSelf.myCarousel scrollToItemAtIndex:index animated:NO];
     }];
-    _mySegmentControl.backgroundColor = RGBCOLOR(244, 245, 246);
+    _mySegmentControl.backgroundColor = kViewBGColor;
     [self.view addSubview:_mySegmentControl];
     
-    _myCarousel = [[iCarousel alloc] initWithFrame:CGRectMake(0, _mySegmentControl.bottom, kScreen_Width, self.view.height - 283)];
+    _myCarousel = [[iCarousel alloc] initWithFrame:CGRectMake(0, _mySegmentControl.bottom, kScreen_Width, self.view.height - 275)];
     _myCarousel.dataSource = self;
     _myCarousel.delegate = self;
     _myCarousel.decelerationRate = 1.0;
@@ -54,8 +55,13 @@
 }
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view {
-    BrickListView *list = [[BrickListView alloc] initWithFrame:carousel.bounds];
-    return list;
+    BrickListView *brickList = [[BrickListView alloc] initWithFrame:carousel.bounds];
+    __weak typeof(self) weakSelf = self;
+    brickList.goToDetailBlock = ^(){
+        DetailBrickViewController *vc = [[DetailBrickViewController alloc] init];
+        [weakSelf.navigationController pushViewController:vc animated:YES];
+    };
+    return brickList;
 }
 
 - (void)carouselDidScroll:(iCarousel *)carousel{

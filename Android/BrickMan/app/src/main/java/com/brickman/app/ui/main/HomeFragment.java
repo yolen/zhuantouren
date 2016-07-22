@@ -15,7 +15,7 @@ import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.base.BaseFragment;
 import com.brickman.app.common.utils.AssetUtil;
-import com.brickman.app.model.Banner;
+import com.brickman.app.model.Bean.Banner;
 import com.brickman.app.ui.widget.banner.BannerEntity;
 import com.brickman.app.ui.widget.banner.BannerView;
 import com.brickman.app.ui.widget.banner.OnBannerClickListener;

@@ -13,6 +13,14 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimTheme</item>
+    </style>
+
+    <style name="WindowAnimTheme" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/activity_animation_in_from_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_animation_in_from_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_animation_out_to_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_animation_out_to_left</item>
     </style>
 
     <!-- Base application theme. -->
@@ -21,6 +29,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimTheme</item>
     </style>
 
 
@@ -29,6 +38,7 @@
         <item name="colorPrimary">#39c1fc</item>
         <item name="colorPrimaryDark">#39c1fc</item>
         <item name="colorAccent">#39c1fc</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimTheme</item>
     </style>
 
     <style name="AppTheme.NoActionBar"/>
@@ -43,6 +53,15 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="LoadingDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>

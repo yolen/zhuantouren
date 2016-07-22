@@ -12,7 +12,7 @@ import com.brickman.app.R;
  */
 public class LoadingDialog extends Dialog {
     public LoadingDialog(Context context) {
-        super(context, R.style.CommonDialog);
+        super(context, R.style.LoadingDialog);
     }
 
     @Override

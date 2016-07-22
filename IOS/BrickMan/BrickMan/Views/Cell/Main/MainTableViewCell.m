@@ -7,7 +7,6 @@
 //
 
 #define kContentString @"人生应该如蜡烛一样,从顶燃到底,一直都是光明的.身边总有那么些好人好事,让生活更美好"
-#define kLineColor RGBCOLOR(213, 214, 215)
 #import "MainTableViewCell.h"
 
 @interface MainTableViewCell()
@@ -109,10 +108,10 @@
     CGFloat curY = 61+20;
     
     _iconImageView.image = [UIImage imageNamed:@"user_icon"];
-    _nameLabel.text = @"老马";
+    _nameLabel.text = @"砖头人";
     _timeLabel.text = @"2016-06-06 12:12 北京市";
     [_contentLabel setLongString:kContentString withFitWidth:(kScreen_Width - 10)];
-    curY += [kContentString getHeightWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(kScreen_Width - 20, 200)];
+    curY += [kContentString getHeightWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(kScreen_Width - 20, CGFLOAT_MAX)];
     [_separatorLine2 setY:curY];
     
     curY += 3;
@@ -125,11 +124,11 @@
 }
 
 + (CGFloat)cellHeight {
-    CGFloat height = 60 + 1;
+    CGFloat height = 60;
     NSString *contentStr = kContentString;
-    height += [contentStr getHeightWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(kScreen_Width - 10, 200)];
-    height += 30 + 1;
-    return 150;
+    height += [contentStr getHeightWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(kScreen_Width - 10, 200)] + 20;
+    height += 30 + 3 + 10;
+    return height;
 }
 
 @end

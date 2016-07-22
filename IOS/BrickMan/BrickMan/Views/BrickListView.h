@@ -10,4 +10,5 @@
 
 @interface BrickListView : UIView
 
+@property (copy, nonatomic) void(^goToDetailBlock)();
 @end

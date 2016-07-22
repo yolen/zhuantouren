@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_25"
             android:layout_toRightOf="@id/avator"
             android:text="@string/app_name"
             android:textColor="@color/text_color"
@@ -65,7 +65,8 @@
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/line" />
 
-    <RelativeLayout android:id="@+id/mybricks"
+    <RelativeLayout
+        android:id="@+id/mybricks"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_54"
         android:background="@drawable/item_bg"
@@ -106,7 +107,8 @@
         android:layout_height="1px"
         android:background="@color/line" />
 
-    <RelativeLayout android:id="@+id/mybrick"
+    <RelativeLayout
+        android:id="@+id/mybrick"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_54"
         android:background="@drawable/item_bg"
@@ -147,7 +149,8 @@
         android:layout_height="1px"
         android:background="@color/line" />
 
-    <RelativeLayout android:id="@+id/myflower"
+    <RelativeLayout
+        android:id="@+id/myflower"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_54"
         android:background="@drawable/item_bg"
@@ -194,7 +197,8 @@
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/line" />
 
-    <RelativeLayout android:id="@+id/about"
+    <RelativeLayout
+        android:id="@+id/about"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_54"
         android:background="@drawable/item_bg"
@@ -241,16 +245,17 @@
         android:layout_marginTop="@dimen/dp_20"
         android:background="@color/white">
 
-        <Button android:id="@+id/logout"
+        <Button
+            android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginRight="@dimen/dp_15"
             android:background="@drawable/btn_orange"
-            android:textColor="@color/white"
             android:clickable="true"
             android:text="退出登录"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_18" />
     </RelativeLayout>
 </LinearLayout>

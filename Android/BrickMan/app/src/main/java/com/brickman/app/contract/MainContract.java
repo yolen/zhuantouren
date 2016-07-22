@@ -4,7 +4,7 @@ import com.brickman.app.common.base.BaseModel;
 import com.brickman.app.common.base.BasePresenter;
 import com.brickman.app.common.base.BaseView;
 import com.brickman.app.common.http.HttpListener;
-import com.brickman.app.model.BrickBean;
+import com.brickman.app.model.Bean.BrickBean;
 
 import java.util.List;
 
