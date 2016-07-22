@@ -744,11 +744,8 @@
 				302D99FF1D3E058700F295A0 /* BrickManAPIManager.m in Sources */,
 				30C5BB1D1D408A20001DF9D2 /* BrickListView.m in Sources */,
 				30721A851D3E587A00D54E09 /* UITableView+Common.m in Sources */,
-<<<<<<< Updated upstream
 				7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */,
-=======
 				30C5BB381D40B0A8001DF9D2 /* DetailBrickViewController.m in Sources */,
->>>>>>> Stashed changes
 				30C5BB2C1D40A09B001DF9D2 /* UITapImageView.m in Sources */,
 				1BFD4D401D3CD0BF00ABE8E6 /* PublishViewController.m in Sources */,
 				30C5BB411D411AE3001DF9D2 /* MainDetailCell.m in Sources */,
