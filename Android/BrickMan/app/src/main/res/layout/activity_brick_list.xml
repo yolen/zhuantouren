@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorAccent"
+            android:minHeight="?attr/actionBarSize">
+
+            <RelativeLayout android:id="@+id/back"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_27"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/bm_back" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/ptr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:ptr_duration_to_close="300"
+        app:ptr_duration_to_close_header="2000"
+        app:ptr_keep_header_when_refresh="true"
+        app:ptr_pull_to_fresh="false"
+        app:ptr_ratio_of_header_height_to_refresh="1.2"
+        app:ptr_resistance="2.5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/light_gray"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+</LinearLayout>

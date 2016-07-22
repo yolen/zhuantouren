@@ -1,4 +1,4 @@
-package com.brickman.app.model;
+package com.brickman.app.model.Bean;
 
 import java.util.List;
 

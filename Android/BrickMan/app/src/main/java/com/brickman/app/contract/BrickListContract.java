@@ -11,18 +11,18 @@ import java.util.List;
 /**
  * Created by mayu on 16/7/18,下午1:29.
  */
-public interface MainContract {
+public interface BrickListContract {
     interface Model extends BaseModel {
         void loadBrickList(int pageNO, HttpListener httpListener);
     }
 
     interface View extends BaseView {
-        void loadSuccess(int fragmentId, List<BrickBean> brickList, int pageSize, boolean hasMore);
+        void loadSuccess(List<BrickBean> brickList, int pageSize, boolean hasMore);
         void showMsg(String msg);
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {
-        public abstract void loadBrickList(int fragmentId, int pageNO);
+        public abstract void loadBrickList(int pageNO);
         @Override
         public void onStart() {}
     }

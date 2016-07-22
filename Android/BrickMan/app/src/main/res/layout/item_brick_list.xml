@@ -36,7 +36,7 @@
             android:textSize="@dimen/sp_16" />
 
         <TextView
-            android:id="@+id/desc"
+            android:id="@+id/dateAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/name"
@@ -47,7 +47,7 @@
             android:textColor="@color/text_gray"
             android:textSize="@dimen/sp_12" />
 
-        <ImageView
+        <ImageView android:id="@+id/report"
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
             android:layout_alignParentRight="true"
@@ -62,17 +62,26 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@color/line" />
 
-    <TextView
+    <TextView android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="@dimen/dp_03"
-        android:paddingBottom="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_05"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
         android:paddingTop="@dimen/dp_10"
         android:text="人生应该如蜡烛一样，从顶燃到底，一直都是光明的。身边总有那么些好人好事，让生活更美好！"
         android:textColor="@color/text_color"
         android:textSize="@dimen/sp_14" />
+
+    <LinearLayout
+        android:id="@+id/imageList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_05"
+        android:layout_marginLeft="@dimen/dp_00"
+        android:layout_marginRight="@dimen/dp_00"
+        android:orientation="vertical" />
 
     <View
         android:layout_width="match_parent"
@@ -96,7 +105,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
+            <ImageView android:id="@+id/iconComment"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_16"
                 android:src="@mipmap/bm_comment_nor" />
@@ -109,7 +118,7 @@
                 android:textColor="@color/gray"
                 android:textSize="@dimen/sp_14" />
 
-            <TextView
+            <TextView android:id="@+id/commentNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_06"
@@ -125,7 +134,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
+            <ImageView android:id="@+id/iconFlower"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_16"
                 android:src="@mipmap/bm_flower_sel" />
@@ -138,7 +147,7 @@
                 android:textColor="@color/gray"
                 android:textSize="@dimen/sp_14" />
 
-            <TextView
+            <TextView android:id="@+id/flowerNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_06"
@@ -154,7 +163,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
+            <ImageView android:id="@+id/iconShare"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_16"
                 android:src="@mipmap/bm_share_nor" />
@@ -167,7 +176,7 @@
                 android:textColor="@color/gray"
                 android:textSize="@dimen/sp_14" />
 
-            <TextView
+            <TextView android:id="@+id/shareNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_06"

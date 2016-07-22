@@ -7,4 +7,6 @@
         <item>拍砖</item>
         <item>砖头人</item>
     </string-array>
+    <string name="loading_more">正在努力加载中...</string>
+    <string name="not_loading">已经是最后一页了</string>
 </resources>
