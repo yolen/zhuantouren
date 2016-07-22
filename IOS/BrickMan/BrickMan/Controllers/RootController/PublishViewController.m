@@ -6,6 +6,7 @@
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
+#import "ComposeViewController.h"
 #import "PublishViewController.h"
 #import "UITapImageView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -17,6 +18,7 @@
  *  相册或者相机控制器
  */
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
+
 
 @end
 
@@ -92,6 +94,16 @@
     }];
 }
 
+/**
+ *  modal 出发布界面
+ */
+- (void)composePhotosOrVideos {
+    ComposeViewController *composeViewController = [[ComposeViewController alloc] init];
+    UINavigationController *navigationController =
+    [[UINavigationController alloc] initWithRootViewController:composeViewController];
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
@@ -121,6 +133,7 @@
     [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 
+
 #pragma mark - UIImagePickerControllerDelegate
 /**
  *  imagePickerController 实例在完成录制或者拍照完成后调用,保存视频或者照片
@@ -135,18 +148,22 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
     // 为 image 时,保存照片
     if (CFStringCompare ((__bridge_retained CFStringRef)mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
         UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
-        UIImageWriteToSavedPhotosAlbum (image, self,
-                                        @selector (image:didFinishSavingWithError:contextInfo:), nil);
+        if (picker.sourceType != UIImagePickerControllerSourceTypePhotoLibrary) {
+            UIImageWriteToSavedPhotosAlbum (image, self,
+                                            @selector (image:didFinishSavingWithError:contextInfo:), nil);
+        }
     } else if (CFStringCompare ((__bridge_retained CFStringRef)mediaType, kUTTypeMovie, 0) ==
                kCFCompareEqualTo) { // 为 video 时,保存视频
         NSString *videoPath = (NSString *)[info[@"UIImagePickerControllerMediaURL"] path];
-        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (videoPath)) {
-            UISaveVideoAtPathToSavedPhotosAlbum (
-            videoPath, self, @selector (video:didFinishSavingWithError:contextInfo:), nil);
+        if (picker.sourceType != UIImagePickerControllerSourceTypePhotoLibrary) {
+            if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (videoPath)) {
+                UISaveVideoAtPathToSavedPhotosAlbum (
+                videoPath, self, @selector (video:didFinishSavingWithError:contextInfo:), nil);
+            }
         }
     }
-
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self composePhotosOrVideos];
 }
 
 /**
@@ -163,9 +180,6 @@ didFinishSavingWithError:(NSError *)error
         UIAlertController *alert = [UIAlertController errorAlertWithMessage:@"照片保存失败"];
         [self presentViewController:alert animated:YES completion:nil];
         DebugLog (@"error: %@", error);
-    } else {
-        // TODO: 将选择的照片转到发布页面
-        NSLog (@"%s", __FUNCTION__);
     }
 }
 
@@ -183,13 +197,11 @@ didFinishSavingWithError:(NSError *)error
         UIAlertController *alert = [UIAlertController errorAlertWithMessage:@"照片保存失败"];
         [self presentViewController:alert animated:YES completion:nil];
         DebugLog (@"error: %@", error);
-    } else {
-        // TODO: 将视频转到发布页面
-        NSLog (@"%s", __FUNCTION__);
     }
 }
 
 
+#pragma mark - 内存管理
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -199,9 +211,8 @@ didFinishSavingWithError:(NSError *)error
 #pragma mark - lazy loading
 - (UIImagePickerController *)imagePicker {
     if (_imagePicker == nil) {
-        _imagePicker               = [[UIImagePickerController alloc] init];
-        _imagePicker.allowsEditing = YES;
-        _imagePicker.delegate      = self;
+        _imagePicker          = [[UIImagePickerController alloc] init];
+        _imagePicker.delegate = self;
     }
     return _imagePicker;
 }

@@ -27,7 +27,7 @@
                                      NSForegroundColorAttributeName: [UIColor whiteColor],
                                      };
     [navigationBar setTitleTextAttributes:textAttributes];
-    
+    [navigationBar setTintColor:[UIColor whiteColor]];
     RootTabBarController *rootVC = [[RootTabBarController alloc] init];
     self.window.rootViewController = rootVC;
     [self.window makeKeyAndVisible];

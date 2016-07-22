@@ -63,6 +63,7 @@
 		30F91D6D1D3DCD33007D9BDB /* tabbar0_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30F91D681D3DCD33007D9BDB /* tabbar0_nor@2x.png */; };
 		30F91D6E1D3DCD33007D9BDB /* tabbar2_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30F91D691D3DCD33007D9BDB /* tabbar2_nor@2x.png */; };
 		30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */; };
+		7907306E1D4114A700E726E2 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7907306D1D4114A700E726E2 /* ComposeViewController.m */; };
 		7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7959080B1D4107F000C72617 /* UIAlertController+Common.m */; };
 		B2FE35104D43DCFAA0DD8A35 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CE40E110EA4DC531D101B6 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -174,6 +175,8 @@
 		30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Common.m"; sourceTree = "<group>"; };
 		60CE40E110EA4DC531D101B6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		72B83A4BDDEF156C469B028E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		7907306C1D4114A700E726E2 /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
+		7907306D1D4114A700E726E2 /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		7959080A1D4107F000C72617 /* UIAlertController+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Common.h"; sourceTree = "<group>"; };
 		7959080B1D4107F000C72617 /* UIAlertController+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Common.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -328,6 +331,7 @@
 		1BFD4D2F1D3CCC9800ABE8E6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				79FBFBD91D41A5F7001C43C2 /* PublishView */,
 				302576C01D3E4E5D00B393B8 /* Cell */,
 				30C5BB1B1D408A20001DF9D2 /* BrickListView.h */,
 				30C5BB1C1D408A20001DF9D2 /* BrickListView.m */,
@@ -489,8 +493,17 @@
 		795908091D40FCB500C72617 /* Publish */ = {
 			isa = PBXGroup;
 			children = (
+				7907306C1D4114A700E726E2 /* ComposeViewController.h */,
+				7907306D1D4114A700E726E2 /* ComposeViewController.m */,
 			);
 			path = Publish;
+			sourceTree = "<group>";
+		};
+		79FBFBD91D41A5F7001C43C2 /* PublishView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PublishView;
 			sourceTree = "<group>";
 		};
 		938BAFAA53FE39238BB03740 /* Frameworks */ = {
@@ -717,6 +730,7 @@
 				302D99F91D3DF34400F295A0 /* BrickManNetClient.m in Sources */,
 				1BFD4D431D3CD0F100ABE8E6 /* MineViewController.m in Sources */,
 				1BFD4CF81D3CCC3100ABE8E6 /* main.m in Sources */,
+				7907306E1D4114A700E726E2 /* ComposeViewController.m in Sources */,
 				30C5BB141D40837E001DF9D2 /* XTSegmentControl.m in Sources */,
 				302D99FC1D3DF45C00F295A0 /* NSObject+Common.m in Sources */,
 			);
