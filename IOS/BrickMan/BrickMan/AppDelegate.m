@@ -22,6 +22,7 @@
     
     UINavigationBar *navigationBar = [UINavigationBar appearance];
     [navigationBar setBackgroundImage:[UIImage imageWithColor:kNavigationBarColor] forBarMetrics:UIBarMetricsDefault];
+    [navigationBar setTintColor:[UIColor whiteColor]];
     NSDictionary *textAttributes = @{
                                      NSFontAttributeName: [UIFont systemFontOfSize:16],
                                      NSForegroundColorAttributeName: [UIColor whiteColor],

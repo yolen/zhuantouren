@@ -12,7 +12,7 @@
 #import "MineViewController.h"
 #import "BaseNavigationController.h"
 
-@interface RootTabBarController ()<UITabBarDelegate>
+@interface RootTabBarController ()<UITabBarControllerDelegate>
 
 @end
 
@@ -44,7 +44,7 @@
     }
 
     [[UITabBar appearance] setBackgroundImage:bgImage];
-    [[UITabBar appearance] setShadowImage:nil];
+    [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
     [[UITabBar appearance] setBackgroundColor:[UIColor clearColor]];
     [[UITabBar appearance] setClipsToBounds:YES];
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
