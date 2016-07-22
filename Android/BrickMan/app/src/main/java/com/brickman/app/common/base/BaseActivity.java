@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -165,5 +166,15 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     public void finishWithAnim() {
         finish();
         overridePendingTransition(R.anim.activity_animation_in_from_left, R.anim.activity_animation_out_to_right);
+    }
+
+    //重写 onKeyDown方法
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            finishWithAnim();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
