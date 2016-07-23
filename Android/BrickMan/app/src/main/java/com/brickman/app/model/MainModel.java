@@ -14,6 +14,6 @@ public class MainModel implements MainContract.Model {
     @Override
     public void loadBrickList(int pageNO, HttpListener httpListener) {
         RequestParam param = ParamBuilder.buildParam("pageSize", "10").append("pageNO", pageNO+"");
-        RequestHelper.sendPOSTRequest(false, Api.REQUEST_BRICKLIST, param, httpListener);
+        RequestHelper.sendPOSTRequest(true, Api.REQUEST_BRICKLIST, param, httpListener);
     }
 }

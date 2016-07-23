@@ -16,7 +16,7 @@ import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.utils.LogUtil;
 import com.brickman.app.contract.MainContract;
-import com.brickman.app.model.BrickBean;
+import com.brickman.app.model.Bean.BrickBean;
 import com.brickman.app.model.MainModel;
 import com.brickman.app.presenter.MainPresenter;
 

@@ -15,7 +15,7 @@ import com.brickman.app.R;
 import com.brickman.app.adapter.BrickListAdapter;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.base.BaseFragment;
-import com.brickman.app.model.BrickBean;
+import com.brickman.app.model.Bean.BrickBean;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
@@ -32,7 +32,7 @@ import in.srain.cube.views.ptr.PtrHandler;
  */
 public class BrickListFragment extends BaseFragment {
     private BrickListAdapter mAdapter;
-    private List<BrickBean> mData = new ArrayList<BrickBean>();;
+    private List<BrickBean> mData = new ArrayList<BrickBean>();
 
     PtrClassicFrameLayout mPtr;
     private RecyclerView mRecyclerView;
@@ -60,8 +60,11 @@ public class BrickListFragment extends BaseFragment {
         String type = getArguments().getString("type");
         mType = type.equals("最近发布") ? 0 : type.equals("砖头最多") ? 1 : type.equals("鲜花最多") ? 2 : 0;
         mPtr = (PtrClassicFrameLayout) view.findViewById(R.id.ptr);
+
         mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
-        mAdapter = new BrickListAdapter(R.layout.item_brick_list, mData);
+        mAdapter = new BrickListAdapter(mActivity, R.layout.item_brick_list, mData);
+        View loadingView = mActivity.getLayoutInflater().inflate(R.layout.loading_more_view, (ViewGroup) mRecyclerView.getParent(), false);
+        mAdapter.setLoadingView(loadingView);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -72,8 +75,8 @@ public class BrickListFragment extends BaseFragment {
                         mPageNo++;
                         if (mPageNo >= mPageSize) {
                             mAdapter.notifyDataChangedAfterLoadMore(false);
-//                    View view = mActivity.getLayoutInflater().inflate(R.layout.not_loading, (ViewGroup) mRecyclerView.getParent(), false);
-//                    mAdapter.addFooterView(view);
+                            View not_loadingview = mActivity.getLayoutInflater().inflate(R.layout.loading_no_more_view, (ViewGroup) mRecyclerView.getParent(), false);
+                            mAdapter.addFooterView(not_loadingview);
                             mActivity.showToast("没有更多内容了");
                         } else {
                             ((MainActivity)mActivity).mPresenter.loadBrickList(mType, mPageNo);

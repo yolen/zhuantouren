@@ -11,13 +11,23 @@
 
 @interface BrickListView()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UITableView *myTableView;
-
+@property (strong, nonatomic) NSArray *imageArray;
+@property (strong, nonatomic) NSArray *dataList;
 @end
 
 @implementation BrickListView
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
+        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"Address" ofType:@"json"];
+        NSData *jsonData = [[NSData alloc] initWithContentsOfFile:resourcePath];
+        NSError *error = nil;
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+        if (!dict) {
+            self.dataList = [NSArray array];
+        }
+        self.dataList = [dict objectForKey:@"list"];
+        
         self.myTableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
         self.myTableView.dataSource = self;
         self.myTableView.delegate = self;
@@ -30,16 +40,18 @@
 
 #pragma mark - tableView
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return self.dataList.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
+    [cell setData:self.dataList[indexPath.row]];
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [MainTableViewCell cellHeight];
+    NSDictionary *dic = self.dataList[indexPath.row];
+    return [MainTableViewCell cellHeightWithImageArray:dic];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -4,7 +4,7 @@ import com.brickman.app.common.http.HttpListener;
 import com.brickman.app.common.http.HttpUtil;
 import com.brickman.app.common.utils.LogUtil;
 import com.brickman.app.contract.MainContract;
-import com.brickman.app.model.BrickBean;
+import com.brickman.app.model.Bean.BrickBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

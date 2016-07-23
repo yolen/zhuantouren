@@ -12,5 +12,7 @@
 @interface MainTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) NSString *contentStr;
-+ (CGFloat)cellHeight;
+
+- (void)setData:(NSDictionary *)dataDic;
++ (CGFloat)cellHeightWithImageArray:(NSDictionary *)dataDic;
 @end

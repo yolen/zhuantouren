@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorAccent"
+            android:minHeight="?attr/actionBarSize">
+
+            <RelativeLayout
+                android:id="@+id/back"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_18"
+                    android:layout_height="@dimen/dp_24"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/bm_back" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="@string/my_brick"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/sp_20"
+                android:textStyle="bold" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/ptr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_05"
+        android:layout_marginRight="@dimen/dp_05"
+        android:background="@color/white"
+        app:ptr_duration_to_close="300"
+        app:ptr_duration_to_close_header="2000"
+        app:ptr_keep_header_when_refresh="true"
+        app:ptr_pull_to_fresh="false"
+        app:ptr_ratio_of_header_height_to_refresh="1.2"
+        app:ptr_resistance="2.5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_25"
+                    android:src="@mipmap/bm_brick5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_05"
+                    android:layout_marginBottom="@dimen/dp_05"
+                    android:text="239"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/sp_24" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/dp_04"
+                    android:weightSum="9">
+
+                    <TextView
+                        android:layout_width="@dimen/dp_00"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@color/puple"
+                        android:gravity="center"
+                        android:text="排名"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/sp_15" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp_00"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@color/light_green"
+                        android:gravity="center"
+                        android:text="头像"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/sp_15" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp_00"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@color/yellow"
+                        android:gravity="center"
+                        android:text="昵称"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/sp_15" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp_00"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@color/pink"
+                        android:gravity="center"
+                        android:text="等级"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/sp_15" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp_00"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:background="@color/blue"
+                        android:gravity="center"
+                        android:text="砖数"
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/sp_15" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+</LinearLayout>

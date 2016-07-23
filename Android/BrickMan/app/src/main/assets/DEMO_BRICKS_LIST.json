@@ -1,0 +1,44 @@
+{
+  "success": true,
+  "message": "获取数据成功",
+  "hasMore": true,
+  "pageSize": "3",
+  "data":[
+    {
+      "userId":"a",
+      "nickName":"砖头人1",
+      "place":"1",
+      "avator":"http://img.zcool.cn/community/031d424578e22910000018c1ba8bdb6.jpg@500w_376h_1c_1e_1l_2o",
+      "level":"金砖",
+      "bricksNum":"3894"
+    },{
+      "userId":"b",
+      "nickName":"砖头人2",
+      "place":"2",
+      "avator":"http://img.zcool.cn/community/0318ddd578e0c4c0000012e7ed38ba2.jpg@500w_376h_1c_1e_1l_2o",
+      "level":"银砖",
+      "bricksNum":"1763"
+    },{
+      "userId":"c",
+      "nickName":"砖头人3",
+      "place":"3",
+      "avator":"http://img.zcool.cn/community/031f900578c3b9e0000012e7e19e524.jpg@500w_376h_1c_1e_1l_2o",
+      "level":"青砖",
+      "bricksNum":"523"
+    },{
+      "userId":"d",
+      "nickName":"砖头人4",
+      "place":"4",
+      "avator":"http://img.zcool.cn/community/0319cad577f25840000018c1b9157b0.jpg@500w_376h_1c_1e_1l_2o",
+      "level":"红砖",
+      "bricksNum":"234"
+    },{
+      "userId":"d",
+      "nickName":"砖头人5",
+      "place":"5",
+      "avator":"http://img.zcool.cn/community/031d424578e22910000018c1ba8bdb6.jpg@500w_376h_1c_1e_1l_2o",
+      "level":"泥砖",
+      "bricksNum":"89"
+    }
+  ]
+}
