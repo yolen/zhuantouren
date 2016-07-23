@@ -23,6 +23,16 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
+        <activity
+            android:name=".ui.mine.FlowerListActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ColorActionBar" />
+        <activity
+            android:name=".ui.mine.BricksListActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ColorActionBar" />
     </application>
 
 </manifest>

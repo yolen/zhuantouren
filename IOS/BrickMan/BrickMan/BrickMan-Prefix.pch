@@ -6,6 +6,8 @@
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
+#define MAS_SHORTHAND_GLOBALS
+
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
@@ -21,6 +23,7 @@
     #import "UIAlertController+Common.h"
 
 #endif
+
 
 #define kBaseUrl @""
 
@@ -43,8 +46,20 @@
 #undef  RGBACOLOR
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 
-#define kNavigationBarColor RGBCOLOR(251, 101, 52)
+#define kNavigationBarColor [UIColor colorWithHexString:@"0xff6633"]
 #define kViewBGColor RGBCOLOR(244, 245, 246)
 #define kLineColor RGBCOLOR(213, 214, 215)
 
 #define kPaddingLeft 10
+
+#define kBrickPhotoCellWidth_One (kScreen_Width - 20.0)
+#define kBrickPhotoCellWidth_Two (kScreen_Width - 24.0)/2.0
+#define kBrickPhotoCellWidth_Three (kScreen_Width - 28.0)/3.0
+#define kBrickPhotoCellHeight_One (kScreen_Width - 28.0)/3.0 + 40
+#define kBrickPhotoCellHeight_Two (kScreen_Width - 28.0)/3.0 + 20
+/*====================发布页面字体大小========================*/
+#define COMPOSE_TEXT_FONT_SIZE [UIFont systemFontOfSize:13]
+#define PUBLISH_TEXT_FONT_SIZE [UIFont systemFontOfSize:15]
+
+#define MAX_SELECTE_PICTURE_NUM 9
+

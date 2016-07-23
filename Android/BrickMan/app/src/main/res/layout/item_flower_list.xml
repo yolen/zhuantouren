@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="9">
+
+    <TextView android:id="@+id/place"
+        android:layout_width="@dimen/dp_00"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/puple"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_15" />
+
+    <RelativeLayout
+        android:layout_width="@dimen/dp_00"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:background="@color/light_green">
+
+        <com.brickman.app.ui.widget.view.CircleImageView
+            android:id="@+id/avator"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:src="@mipmap/bm_avator" />
+    </RelativeLayout>
+
+    <TextView android:id="@+id/nickName"
+        android:layout_width="@dimen/dp_00"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="@color/yellow"
+        android:gravity="center"
+        android:text="砖头人"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_15" />
+
+    <TextView android:id="@+id/level"
+        android:layout_width="@dimen/dp_00"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="@color/pink"
+        android:gravity="center"
+        android:text="鲜花"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_15" />
+
+    <TextView android:id="@+id/flowerNum"
+        android:layout_width="@dimen/dp_00"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:background="@color/blue"
+        android:gravity="center"
+        android:text="289"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/sp_15" />
+</LinearLayout>

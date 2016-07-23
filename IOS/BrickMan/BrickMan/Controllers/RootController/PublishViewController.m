@@ -19,6 +19,16 @@
  */
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 
+/**
+ *  选择或者捕获的 image
+ */
+@property (nonatomic, strong) UIImage *image;
+
+/**
+ *  选择或者捕获的 video
+ */ // TODO: 视频待完善
+//@property (nonatomic, strong) <#type#> *<#name#>;
+
 
 @end
 
@@ -29,6 +39,13 @@
     // Do any additional setup after loading the view.
 
     [self customView];
+
+    // 确保在 ComposeViewController 中点击返回 Home 后,可以回到主界面
+    // TODO: 这里不能完美保证回到主界面
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector (dismissAction)
+                                                 name:@"DismissPublishViewController"
+                                               object:nil];
 }
 
 - (void)customView {
@@ -101,6 +118,7 @@
     ComposeViewController *composeViewController = [[ComposeViewController alloc] init];
     UINavigationController *navigationController =
     [[UINavigationController alloc] initWithRootViewController:composeViewController];
+    composeViewController.image = self.image;
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -148,6 +166,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
     // 为 image 时,保存照片
     if (CFStringCompare ((__bridge_retained CFStringRef)mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
         UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
+        self.image     = image;
         if (picker.sourceType != UIImagePickerControllerSourceTypePhotoLibrary) {
             UIImageWriteToSavedPhotosAlbum (image, self,
                                             @selector (image:didFinishSavingWithError:contextInfo:), nil);
@@ -206,7 +225,6 @@ didFinishSavingWithError:(NSError *)error
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 #pragma mark - lazy loading
 - (UIImagePickerController *)imagePicker {
