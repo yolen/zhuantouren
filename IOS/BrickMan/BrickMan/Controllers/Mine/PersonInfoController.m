@@ -8,6 +8,7 @@
 
 #import "PersonInfoController.h"
 #import "Mine_infoCell.h"
+#import "HeadEditController.h"
 
 const static NSString *reuseInfoCell = @"infoCell";
 
@@ -63,7 +64,28 @@ const static NSString *reuseInfoCell = @"infoCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    switch (indexPath.row) {
+        case 0: {
+            HeadEditController *headEdit = [[HeadEditController alloc]init];
+            headEdit.headImgView.image = [UIImage imageNamed:@"user_icon"];
+            [self.navigationController pushViewController:headEdit animated:YES];
+        }
+            break;
+        case 1: {
+            
+        }
+            break;
+        case 2: {
+            
+        }
+            break;
+        case 3: {
+            
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -84,14 +106,14 @@ const static NSString *reuseInfoCell = @"infoCell";
 
 - (NSArray *)titles {
     if (!_titles) {
-        _titles = @[@"我的头像",@"我的昵称",@"我的性别",@"修改密码",@"座右铭"];
+        _titles = @[@"我的头像",@"我的昵称",@"我的性别",@"座右铭"];
     }
     return _titles;
 }
 
 - (NSArray *)subTitles {
     if (!_subTitles) {
-        _subTitles = @[@"砖头人",@"男",@"",@"路见不平,拍砖相助!"];
+        _subTitles = @[@"砖头人",@"男",@"路见不平,拍砖相助!"];
     }
     return _subTitles;
 }

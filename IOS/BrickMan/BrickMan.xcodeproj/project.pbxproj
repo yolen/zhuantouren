@@ -70,6 +70,13 @@
 		5A52DE1F1D41D9DB00D28DB2 /* PersonInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE1E1D41D9DB00D28DB2 /* PersonInfoController.m */; };
 		5A52DE221D41DF7A00D28DB2 /* Mine_infoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE211D41DF7A00D28DB2 /* Mine_infoCell.m */; };
 		5A52DE261D41ECC300D28DB2 /* MBProgressHUD+GR.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE251D41ECC300D28DB2 /* MBProgressHUD+GR.m */; };
+		5A52DE291D41EF1000D28DB2 /* GalleryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE281D41EF1000D28DB2 /* GalleryController.m */; };
+		5A52DE2C1D41EF4C00D28DB2 /* BrickController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE2B1D41EF4C00D28DB2 /* BrickController.m */; };
+		5A52DE2F1D41EF5E00D28DB2 /* FlowerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE2E1D41EF5E00D28DB2 /* FlowerController.m */; };
+		5A52DE321D41EF7400D28DB2 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE311D41EF7400D28DB2 /* AboutController.m */; };
+		5A52DE361D41F21A00D28DB2 /* HeadEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE351D41F21A00D28DB2 /* HeadEditController.m */; };
+		5A52DE391D41FCB500D28DB2 /* CutHeadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE381D41FCB500D28DB2 /* CutHeadController.m */; };
+		5A52DE3D1D420D0200D28DB2 /* MyLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE3C1D420D0200D28DB2 /* MyLog.m */; };
 		7907306E1D4114A700E726E2 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7907306D1D4114A700E726E2 /* ComposeViewController.m */; };
 		7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7959080B1D4107F000C72617 /* UIAlertController+Common.m */; };
 		B2FE35104D43DCFAA0DD8A35 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60CE40E110EA4DC531D101B6 /* libPods.a */; };
@@ -193,6 +200,20 @@
 		5A52DE211D41DF7A00D28DB2 /* Mine_infoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mine_infoCell.m; sourceTree = "<group>"; };
 		5A52DE241D41ECC300D28DB2 /* MBProgressHUD+GR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+GR.h"; sourceTree = "<group>"; };
 		5A52DE251D41ECC300D28DB2 /* MBProgressHUD+GR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+GR.m"; sourceTree = "<group>"; };
+		5A52DE271D41EF1000D28DB2 /* GalleryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryController.h; sourceTree = "<group>"; };
+		5A52DE281D41EF1000D28DB2 /* GalleryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryController.m; sourceTree = "<group>"; };
+		5A52DE2A1D41EF4C00D28DB2 /* BrickController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickController.h; sourceTree = "<group>"; };
+		5A52DE2B1D41EF4C00D28DB2 /* BrickController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickController.m; sourceTree = "<group>"; };
+		5A52DE2D1D41EF5E00D28DB2 /* FlowerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlowerController.h; sourceTree = "<group>"; };
+		5A52DE2E1D41EF5E00D28DB2 /* FlowerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlowerController.m; sourceTree = "<group>"; };
+		5A52DE301D41EF7400D28DB2 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
+		5A52DE311D41EF7400D28DB2 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
+		5A52DE341D41F21A00D28DB2 /* HeadEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadEditController.h; sourceTree = "<group>"; };
+		5A52DE351D41F21A00D28DB2 /* HeadEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadEditController.m; sourceTree = "<group>"; };
+		5A52DE371D41FCB500D28DB2 /* CutHeadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutHeadController.h; sourceTree = "<group>"; };
+		5A52DE381D41FCB500D28DB2 /* CutHeadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CutHeadController.m; sourceTree = "<group>"; };
+		5A52DE3B1D420D0200D28DB2 /* MyLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLog.h; sourceTree = "<group>"; };
+		5A52DE3C1D420D0200D28DB2 /* MyLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLog.m; sourceTree = "<group>"; };
 		60CE40E110EA4DC531D101B6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		72B83A4BDDEF156C469B028E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7907306C1D4114A700E726E2 /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
@@ -332,6 +353,7 @@
 		1BFD4D2D1D3CCC9800ABE8E6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5A52DE3A1D420D0200D28DB2 /* MyLog */,
 				30C5BB291D40A09B001DF9D2 /* Common */,
 				1BFD4D2E1D3CCC9800ABE8E6 /* Networking */,
 				30F91D611D3DCC1A007D9BDB /* Category */,
@@ -532,8 +554,17 @@
 		5A52DE1C1D41D97100D28DB2 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				5A52DE331D41F1D800D28DB2 /* MineInfo */,
 				5A52DE1D1D41D9DB00D28DB2 /* PersonInfoController.h */,
 				5A52DE1E1D41D9DB00D28DB2 /* PersonInfoController.m */,
+				5A52DE271D41EF1000D28DB2 /* GalleryController.h */,
+				5A52DE281D41EF1000D28DB2 /* GalleryController.m */,
+				5A52DE2A1D41EF4C00D28DB2 /* BrickController.h */,
+				5A52DE2B1D41EF4C00D28DB2 /* BrickController.m */,
+				5A52DE2D1D41EF5E00D28DB2 /* FlowerController.h */,
+				5A52DE2E1D41EF5E00D28DB2 /* FlowerController.m */,
+				5A52DE301D41EF7400D28DB2 /* AboutController.h */,
+				5A52DE311D41EF7400D28DB2 /* AboutController.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -545,6 +576,26 @@
 				5A52DE251D41ECC300D28DB2 /* MBProgressHUD+GR.m */,
 			);
 			path = "MBProgressHUD+GR";
+			sourceTree = "<group>";
+		};
+		5A52DE331D41F1D800D28DB2 /* MineInfo */ = {
+			isa = PBXGroup;
+			children = (
+				5A52DE341D41F21A00D28DB2 /* HeadEditController.h */,
+				5A52DE351D41F21A00D28DB2 /* HeadEditController.m */,
+				5A52DE371D41FCB500D28DB2 /* CutHeadController.h */,
+				5A52DE381D41FCB500D28DB2 /* CutHeadController.m */,
+			);
+			path = MineInfo;
+			sourceTree = "<group>";
+		};
+		5A52DE3A1D420D0200D28DB2 /* MyLog */ = {
+			isa = PBXGroup;
+			children = (
+				5A52DE3B1D420D0200D28DB2 /* MyLog.h */,
+				5A52DE3C1D420D0200D28DB2 /* MyLog.m */,
+			);
+			path = MyLog;
 			sourceTree = "<group>";
 		};
 		795908091D40FCB500C72617 /* Publish */ = {
@@ -766,6 +817,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30C5BB3A1D40B468001DF9D2 /* BaseViewController.m in Sources */,
+				5A52DE2C1D41EF4C00D28DB2 /* BrickController.m in Sources */,
 				30F91D641D3DCC1F007D9BDB /* UIViewExt.m in Sources */,
 				30C5BAE91D406594001DF9D2 /* NSString+Common.m in Sources */,
 				30C5BB1A1D4084A1001DF9D2 /* UIColor+expanded.m in Sources */,
@@ -774,7 +826,9 @@
 				30C5BAE61D40655E001DF9D2 /* UILabel+Common.m in Sources */,
 				30C5BADC1D406008001DF9D2 /* Mine_titleCell.m in Sources */,
 				302D99FF1D3E058700F295A0 /* BrickManAPIManager.m in Sources */,
+				5A52DE391D41FCB500D28DB2 /* CutHeadController.m in Sources */,
 				30C5BB1D1D408A20001DF9D2 /* BrickListView.m in Sources */,
+				5A52DE291D41EF1000D28DB2 /* GalleryController.m in Sources */,
 				30721A851D3E587A00D54E09 /* UITableView+Common.m in Sources */,
 				7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */,
 				30C5BB381D40B0A8001DF9D2 /* DetailBrickViewController.m in Sources */,
@@ -787,12 +841,16 @@
 				1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */,
 				30C5BB101D408250001DF9D2 /* iCarousel.m in Sources */,
 				30C5BADF1D40602A001DF9D2 /* MainTableViewCell.m in Sources */,
+				5A52DE361D41F21A00D28DB2 /* HeadEditController.m in Sources */,
 				5A52DE261D41ECC300D28DB2 /* MBProgressHUD+GR.m in Sources */,
 				30C5BB441D411D8A001DF9D2 /* CommentCell.m in Sources */,
 				30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */,
+				5A52DE2F1D41EF5E00D28DB2 /* FlowerController.m in Sources */,
 				30C5BADB1D406008001DF9D2 /* Mine_headerCell.m in Sources */,
 				302D99F91D3DF34400F295A0 /* BrickManNetClient.m in Sources */,
 				1BFD4D431D3CD0F100ABE8E6 /* MineViewController.m in Sources */,
+				5A52DE3D1D420D0200D28DB2 /* MyLog.m in Sources */,
+				5A52DE321D41EF7400D28DB2 /* AboutController.m in Sources */,
 				1BFD4CF81D3CCC3100ABE8E6 /* main.m in Sources */,
 				7907306E1D4114A700E726E2 /* ComposeViewController.m in Sources */,
 				30C5BB141D40837E001DF9D2 /* XTSegmentControl.m in Sources */,

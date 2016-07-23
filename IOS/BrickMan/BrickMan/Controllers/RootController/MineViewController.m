@@ -10,6 +10,7 @@
 #import "Mine_headerCell.h"
 #import "Mine_titleCell.h"
 #import "PersonInfoController.h"
+#import "GalleryController.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UITableView *myTableView;
