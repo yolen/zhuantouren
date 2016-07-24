@@ -23,6 +23,7 @@
     #import "NSString+Common.h"
     #import "UIColor+expanded.h"
     #import "UIAlertController+Common.h"
+    #import "UITextField+Common.h"
 
 #endif
 

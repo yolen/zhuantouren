@@ -89,6 +89,9 @@
 		5A52DE361D41F21A00D28DB2 /* HeadEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE351D41F21A00D28DB2 /* HeadEditController.m */; };
 		5A52DE391D41FCB500D28DB2 /* CutHeadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE381D41FCB500D28DB2 /* CutHeadController.m */; };
 		5A52DE3D1D420D0200D28DB2 /* MyLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE3C1D420D0200D28DB2 /* MyLog.m */; };
+		5A686DEE1D445DFC00455FB2 /* UITextField+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A686DED1D445DFC00455FB2 /* UITextField+Common.m */; };
+		5A686DF11D44629800455FB2 /* MottoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A686DF01D44629800455FB2 /* MottoController.m */; };
+		5A686DF41D446FB500455FB2 /* UITextView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A686DF31D446FB500455FB2 /* UITextView+Common.m */; };
 		7907306E1D4114A700E726E2 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7907306D1D4114A700E726E2 /* ComposeViewController.m */; };
 		7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7959080B1D4107F000C72617 /* UIAlertController+Common.m */; };
 		79FBFBE11D41DF00001C43C2 /* ComposeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FBFBE01D41DF00001C43C2 /* ComposeTextView.m */; };
@@ -241,6 +244,12 @@
 		5A52DE381D41FCB500D28DB2 /* CutHeadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CutHeadController.m; sourceTree = "<group>"; };
 		5A52DE3B1D420D0200D28DB2 /* MyLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLog.h; sourceTree = "<group>"; };
 		5A52DE3C1D420D0200D28DB2 /* MyLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLog.m; sourceTree = "<group>"; };
+		5A686DEC1D445DFC00455FB2 /* UITextField+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Common.h"; sourceTree = "<group>"; };
+		5A686DED1D445DFC00455FB2 /* UITextField+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Common.m"; sourceTree = "<group>"; };
+		5A686DEF1D44629800455FB2 /* MottoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MottoController.h; sourceTree = "<group>"; };
+		5A686DF01D44629800455FB2 /* MottoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MottoController.m; sourceTree = "<group>"; };
+		5A686DF21D446FB500455FB2 /* UITextView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Common.h"; sourceTree = "<group>"; };
+		5A686DF31D446FB500455FB2 /* UITextView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Common.m"; sourceTree = "<group>"; };
 		60CE40E110EA4DC531D101B6 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		72B83A4BDDEF156C469B028E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7907306C1D4114A700E726E2 /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
@@ -592,6 +601,10 @@
 				30C5BB191D4084A1001DF9D2 /* UIColor+expanded.m */,
 				7959080A1D4107F000C72617 /* UIAlertController+Common.h */,
 				7959080B1D4107F000C72617 /* UIAlertController+Common.m */,
+				5A686DEC1D445DFC00455FB2 /* UITextField+Common.h */,
+				5A686DED1D445DFC00455FB2 /* UITextField+Common.m */,
+				5A686DF21D446FB500455FB2 /* UITextView+Common.h */,
+				5A686DF31D446FB500455FB2 /* UITextView+Common.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -639,6 +652,8 @@
 				5A52DE351D41F21A00D28DB2 /* HeadEditController.m */,
 				5A52DE371D41FCB500D28DB2 /* CutHeadController.h */,
 				5A52DE381D41FCB500D28DB2 /* CutHeadController.m */,
+				5A686DEF1D44629800455FB2 /* MottoController.h */,
+				5A686DF01D44629800455FB2 /* MottoController.m */,
 			);
 			path = MineInfo;
 			sourceTree = "<group>";
@@ -895,6 +910,7 @@
 			files = (
 				30C5BB3A1D40B468001DF9D2 /* BaseViewController.m in Sources */,
 				5A52DE2C1D41EF4C00D28DB2 /* BrickController.m in Sources */,
+				5A686DF41D446FB500455FB2 /* UITextView+Common.m in Sources */,
 				30F91D641D3DCC1F007D9BDB /* UIViewExt.m in Sources */,
 				30C5BAE91D406594001DF9D2 /* NSString+Common.m in Sources */,
 				30C5BB1A1D4084A1001DF9D2 /* UIColor+expanded.m in Sources */,
@@ -911,17 +927,18 @@
 				30C5BB6C1D425699001DF9D2 /* MainTableViewCell.m in Sources */,
 				7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */,
 				30C5BB541D4210A8001DF9D2 /* BrickPhotoCell.m in Sources */,
+				5A686DEE1D445DFC00455FB2 /* UITextField+Common.m in Sources */,
 				30C5BB2C1D40A09B001DF9D2 /* UITapImageView.m in Sources */,
 				79FBFBE71D41FCB2001C43C2 /* ComposePictureViewFlowLayout.m in Sources */,
 				1BFD4D401D3CD0BF00ABE8E6 /* PublishViewController.m in Sources */,
 				30C5BB411D411AE3001DF9D2 /* MainDetailCell.m in Sources */,
+				5A686DF11D44629800455FB2 /* MottoController.m in Sources */,
 				1BFD4D321D3CD02500ABE8E6 /* RootTabBarController.m in Sources */,
 				5A52DE221D41DF7A00D28DB2 /* Mine_infoCell.m in Sources */,
 				302D9A021D3E069800F295A0 /* BaseNavigationController.m in Sources */,
 				79FBFBEB1D420904001C43C2 /* ComposePictureCell.m in Sources */,
 				1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */,
 				30C5BB101D408250001DF9D2 /* iCarousel.m in Sources */,
-				30C5BADF1D40602A001DF9D2 /* MainTableViewCell.m in Sources */,
 				5A52DE361D41F21A00D28DB2 /* HeadEditController.m in Sources */,
 				5A52DE261D41ECC300D28DB2 /* MBProgressHUD+GR.m in Sources */,
 				30C5BB441D411D8A001DF9D2 /* CommentCell.m in Sources */,

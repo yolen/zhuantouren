@@ -23,8 +23,6 @@
 
 @property (nonatomic, strong) UIImageView *imgView;
 
-@property (nonatomic, strong) UIView *zoomView;
-
 @end
 
 @implementation CutHeadController
@@ -39,17 +37,17 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     self.imgView.center = CGPointMake(self.scrollView.center.x * 2, self.scrollView.center.y * 2);
     self.imgView.image = self.image;
-    if (self.image.size.height/self.image.size.width > kScreen_Height/kScreen_Width) {
-        self.imgView.frame = CGRectMake(0, 0, kScreen_Height * self.image.size.width/self.image.size.height, kScreen_Height);
+    if (self.image.size.height/self.image.size.width > (kScreen_Height - 64)/kScreen_Width) {
+        self.imgView.frame = CGRectMake(0, 0, (kScreen_Height - 64) * self.image.size.width/self.image.size.height, kScreen_Height - 64);
     } else {
         self.imgView.frame = CGRectMake(0, 0, kScreen_Width, kScreen_Width * self.image.size.height/self.image.size.width);
     }
     
-    self.scrollView.bounds = CGRectMake(0, 0, kScreen_Width, kScreen_Height);
-    self.scrollView.center = self.view.center;
+    self.scrollView.bounds = CGRectMake(0, 0, kScreen_Width, kScreen_Height - 64);
+    self.scrollView.center = CGPointMake(self.view.center.x, self.view.center.y - 32);
     self.scrollView.minimumZoomScale = self.imgView.width > self.imgView.height?self.cutView.width / self.imgView.height : self.cutView.width / self.imgView.width;
     CGFloat insetWidth = kScreen_Width/2 - self.cutView.width/2;
-    CGFloat insetHeight = kScreen_Height/2 - self.cutView.height/2;
+    CGFloat insetHeight = (kScreen_Height - 64)/2 - self.cutView.height/2;
     self.scrollView.contentInset = UIEdgeInsetsMake(insetHeight, insetWidth, insetHeight, insetWidth);
     self.scrollView.contentSize = CGSizeMake(self.imgView.width, self.imgView.height);
     [self.scrollView addSubview:self.imgView];
@@ -121,11 +119,11 @@
         _cutView = [[UIView alloc] init];
         _cutView.userInteractionEnabled = NO;
         _cutView.bounds = CGRectMake(0, 0, kScreen_Width/2, kScreen_Width/2);
-        _cutView.center = self.view.center;
+        _cutView.center = CGPointMake(self.view.center.x, self.view.center.y - 32);
         _cutView.backgroundColor = [UIColor clearColor];
         CAShapeLayer *shapLayer = [[CAShapeLayer alloc]init];
         UIBezierPath *bezierPath = [UIBezierPath bezierPath];
-        CGFloat lineWidth = (sqrt(pow(kScreen_Width, 2) + pow(kScreen_Height, 2)) - self.cutView.width)/2;
+        CGFloat lineWidth = (sqrt(pow(kScreen_Width, 2) + pow(kScreen_Height - 64, 2)) - self.cutView.width)/2;
         [bezierPath addArcWithCenter:CGPointMake(_cutView.width/2, _cutView.height/2)
                               radius:_cutView.width/2 + lineWidth/2
                           startAngle:0
@@ -139,14 +137,6 @@
         [_cutView.layer addSublayer:shapLayer];
     }
     return _cutView;
-}
-
-- (UIView *)zoomView {
-    if (!_zoomView) {
-        _zoomView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width*2, kScreen_Height*2)];
-        _zoomView.userInteractionEnabled = NO;
-    }
-    return _zoomView;
 }
 
 - (UIImageView *)imgView {
