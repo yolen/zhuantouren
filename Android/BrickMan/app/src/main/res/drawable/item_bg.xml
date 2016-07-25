@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <inset xmlns:android="http://schemas.android.com/apk/res/android">
-
     <selector>
         <item android:state_pressed="true">
             <shape>
                 <corners android:radius="0dp" />
-                <solid android:color="#33c2c2c2" />
+                <solid android:color="@color/click_bg" />
                 <stroke
                     android:width="0px"
-                    android:color="#33c2c2c2" />
+                    android:color="@color/click_bg" />
             </shape>
         </item>
         <item android:state_enabled="false">
@@ -17,7 +16,7 @@
                 <solid android:color="#00000000" />
                 <stroke
                     android:width="0px"
-                    android:color="#33c2c2c2" />
+                    android:color="@color/click_bg" />
             </shape>
         </item>
         <item>
@@ -26,9 +25,8 @@
                 <solid android:color="#ffffff" />
                 <stroke
                     android:width="0px"
-                    android:color="#33c2c2c2" />
+                    android:color="@color/click_bg" />
             </shape>
         </item>
     </selector>
-
 </inset>

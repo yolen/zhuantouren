@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/item_bg"
     android:orientation="vertical">
 
     <View
@@ -47,7 +47,8 @@
             android:textColor="@color/text_gray"
             android:textSize="@dimen/sp_12" />
 
-        <ImageView android:id="@+id/report"
+        <ImageView
+            android:id="@+id/report"
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
             android:layout_alignParentRight="true"
@@ -62,7 +63,8 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@color/line" />
 
-    <TextView android:id="@+id/content"
+    <TextView
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="@dimen/dp_03"
@@ -105,7 +107,8 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView android:id="@+id/iconComment"
+            <ImageView
+                android:id="@+id/iconComment"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_16"
                 android:src="@mipmap/bm_comment_nor" />
@@ -118,7 +121,8 @@
                 android:textColor="@color/gray"
                 android:textSize="@dimen/sp_14" />
 
-            <TextView android:id="@+id/commentNum"
+            <TextView
+                android:id="@+id/commentNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_06"
@@ -134,7 +138,8 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView android:id="@+id/iconFlower"
+            <ImageView
+                android:id="@+id/iconFlower"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_16"
                 android:src="@mipmap/bm_flower_sel" />
@@ -147,7 +152,8 @@
                 android:textColor="@color/gray"
                 android:textSize="@dimen/sp_14" />
 
-            <TextView android:id="@+id/flowerNum"
+            <TextView
+                android:id="@+id/flowerNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_06"
@@ -163,7 +169,8 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView android:id="@+id/iconShare"
+            <ImageView
+                android:id="@+id/iconShare"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_16"
                 android:src="@mipmap/bm_share_nor" />
@@ -176,7 +183,8 @@
                 android:textColor="@color/gray"
                 android:textSize="@dimen/sp_14" />
 
-            <TextView android:id="@+id/shareNum"
+            <TextView
+                android:id="@+id/shareNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_06"
@@ -190,4 +198,5 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line" />
+
 </LinearLayout>

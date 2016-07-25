@@ -14,7 +14,6 @@
             android:theme="@style/AppTheme.ColorActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,6 +29,11 @@
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
             android:name=".ui.mine.BricksListActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ColorActionBar" />
+        <activity
+            android:name=".ui.mine.CityActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />

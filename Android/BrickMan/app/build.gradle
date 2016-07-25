@@ -50,5 +50,6 @@ dependencies {
     //    compile 'com.joanzapata.android:base-adapter-helper:1.1.11'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.3'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
-    //https://github.com/yqritc/RecyclerView-FlexibleDivider
+    // https://github.com/yqritc/RecyclerView-FlexibleDivider
+    compile 'com.android.support.constraint:constraint-layout:1.0.+'
 }

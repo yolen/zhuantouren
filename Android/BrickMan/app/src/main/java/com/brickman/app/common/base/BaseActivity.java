@@ -34,6 +34,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     public LoadingDialog mLoadingDialog;
     private SwipeBackLayout swipeBackLayout;
     private ImageView ivShadow;
+    protected boolean isInitMVP = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,10 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         ButterKnife.bind(this);
         mApp = MApplication.getInstance();
         mLoadingDialog = new LoadingDialog(this);
-        mPresenter = TUtil.getT(this, 0);
-        mModel = TUtil.getT(this, 1);
+        if(isInitMVP){
+            mPresenter = TUtil.getT(this, 0);
+            mModel = TUtil.getT(this, 1);
+        }
         if (this instanceof BaseView) mPresenter.setVM(this, mModel);
     }
 

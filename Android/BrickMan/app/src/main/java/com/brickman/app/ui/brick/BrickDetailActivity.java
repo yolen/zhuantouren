@@ -177,6 +177,21 @@ public class BrickDetailActivity extends BaseActivity<CommentsListPresenter, Com
     }
 
     @Override
+    public void commentSuccess() {
+
+    }
+
+    @Override
+    public void flowerSuccess() {
+
+    }
+
+    @Override
+    public void shareSuccess() {
+
+    }
+
+    @Override
     public void showMsg(String msg) {
         showToast(msg);
     }

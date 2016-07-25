@@ -38,6 +38,63 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
     }
 
     @Override
+    public void flower(String id) {
+        mModel.flower(id, new HttpListener<JSONObject>() {
+            @Override
+            public void onSucceed(JSONObject response) {
+                if(response.optBoolean("success")){
+                    mView.flowerSuccess();
+                } else {
+                    mView.showMsg(response.optString("message"));
+                }
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                mView.showMsg(HttpUtil.makeErrorMessage(exception));
+            }
+        });
+    }
+
+    @Override
+    public void share(String title, String content, String url, String imgUrl) {
+        mModel.share(title, content, url, imgUrl, new HttpListener<JSONObject>() {
+            @Override
+            public void onSucceed(JSONObject response) {
+                if(response.optBoolean("success")){
+                    mView.flowerSuccess();
+                } else {
+                    mView.showMsg(response.optString("message"));
+                }
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                mView.showMsg(HttpUtil.makeErrorMessage(exception));
+            }
+        });
+    }
+
+    @Override
+    public void comment(String id, String text, String date) {
+        mModel.comment(id, text, date, new HttpListener<JSONObject>() {
+            @Override
+            public void onSucceed(JSONObject response) {
+                if(response.optBoolean("success")){
+                    mView.flowerSuccess();
+                } else {
+                    mView.showMsg(response.optString("message"));
+                }
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                mView.showMsg(HttpUtil.makeErrorMessage(exception));
+            }
+        });
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         mView.showLoading();

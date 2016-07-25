@@ -16,4 +16,19 @@ public class CommentsListModel implements CommentsListContract.Model {
         RequestParam param = ParamBuilder.buildParam("pageSize", "10").append("pageNO", pageNO+"");
         RequestHelper.sendPOSTRequest(true, Api.REQUEST_DETAIL_SLIST, param, httpListener);
     }
+
+    @Override
+    public void comment(String id, String text, String date, HttpListener httpListener) {
+
+    }
+
+    @Override
+    public void flower(String id, HttpListener httpListener) {
+
+    }
+
+    @Override
+    public void share(String title, String content, String url, String imgUrl, HttpListener httpListener) {
+
+    }
 }

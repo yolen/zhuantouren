@@ -61,11 +61,11 @@
         android:layout_height="1px"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
-        android:background="@color/line" />
+        android:background="@color/gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_40"
+        android:layout_height="@dimen/dp_45"
         android:background="@color/bg_tab"
         android:orientation="horizontal"
         android:weightSum="3">
@@ -89,7 +89,7 @@
                 android:layout_marginLeft="@dimen/dp_04"
                 android:text="评论"
                 android:textColor="@color/gray"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_15" />
 
             <TextView
                 android:id="@+id/commentNum"
@@ -127,7 +127,7 @@
                 android:layout_marginLeft="@dimen/dp_04"
                 android:text="鲜花"
                 android:textColor="@color/gray"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_15" />
 
             <TextView
                 android:id="@+id/flowerNum"
@@ -165,7 +165,7 @@
                 android:layout_marginLeft="@dimen/dp_04"
                 android:text="分享"
                 android:textColor="@color/gray"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_15" />
 
             <TextView
                 android:id="@+id/shareNum"
