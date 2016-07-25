@@ -2,14 +2,24 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'brickman'
+            keyPassword 'brickman'
+            storeFile file('/Users/mayu/Documents/ProjectFiles/BrickMan/zhuantouren/Android/BrickMan/keystore.jks')
+            storePassword 'brickman'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion '24.0.0'
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.brickman.app"
-        minSdkVersion 19
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
@@ -37,7 +47,7 @@ dependencies {
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.6@aar'
     compile 'com.google.code.gson:gson:2.2.4'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
-//    compile 'com.joanzapata.android:base-adapter-helper:1.1.11'
+    //    compile 'com.joanzapata.android:base-adapter-helper:1.1.11'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.3'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
     //https://github.com/yqritc/RecyclerView-FlexibleDivider

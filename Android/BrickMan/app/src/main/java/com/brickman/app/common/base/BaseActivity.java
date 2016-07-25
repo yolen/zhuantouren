@@ -44,7 +44,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
             setTranslucentStatus(true);
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);//通知栏所需颜色
+            tintManager.setStatusBarTintResource(R.color.colorPrimary);//通知栏所需颜色
         }
         this.setContentView(this.getLayoutId());
         ButterKnife.bind(this);

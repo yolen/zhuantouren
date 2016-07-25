@@ -1,6 +1,7 @@
 package com.brickman.app.ui.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,13 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.brickman.app.R;
 import com.brickman.app.adapter.BrickListAdapter;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.base.BaseFragment;
 import com.brickman.app.model.Bean.BrickBean;
+import com.brickman.app.ui.brick.BrickDetailActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
@@ -89,7 +90,9 @@ public class BrickListFragment extends BaseFragment {
         mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(mActivity, Integer.toString(position), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(mActivity, BrickDetailActivity.class);
+                intent.putExtra("item", mData.get(position));
+                mActivity.startActivityWithAnim(intent);
             }
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity) ;

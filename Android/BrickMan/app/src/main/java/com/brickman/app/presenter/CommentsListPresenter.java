@@ -2,8 +2,8 @@ package com.brickman.app.presenter;
 
 import com.brickman.app.common.http.HttpListener;
 import com.brickman.app.common.http.HttpUtil;
-import com.brickman.app.contract.MainContract;
-import com.brickman.app.model.Bean.BrickBean;
+import com.brickman.app.contract.CommentsListContract;
+import com.brickman.app.model.Bean.CommentBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -14,18 +14,19 @@ import java.util.List;
 /**
  * Created by mayu on 16/7/18,下午1:35.
  */
-public class MainPresenter extends MainContract.Presenter {
+public class CommentsListPresenter extends CommentsListContract.Presenter {
     @Override
-    public void loadBrickList(final int fragmentId, int pageNO) {
-        mModel.loadBrickList(pageNO, new HttpListener<JSONObject>() {
+    public void loadCommentList(int pageNO) {
+        mModel.loadCommentsList(pageNO, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
                 if(response.optBoolean("success")){
-                    List<BrickBean> brickList = new Gson().fromJson(response.optJSONArray("data").toString(), new TypeToken<List<BrickBean>>(){}.getType());
-                    mView.loadSuccess(fragmentId, brickList, response.optInt("pageSize"), response.optBoolean("hasMore"));
+                    List<CommentBean> commentList = new Gson().fromJson(response.optJSONArray("data").toString(), new TypeToken<List<CommentBean>>(){}.getType());
+                    mView.loadSuccess(commentList, response.optInt("pageSize"), response.optBoolean("hasMore"));
                 } else {
                     mView.showMsg(response.optString("message"));
                 }
+                mView.dismissLoading();
             }
 
             @Override
@@ -39,6 +40,7 @@ public class MainPresenter extends MainContract.Presenter {
     @Override
     public void onStart() {
         super.onStart();
+        mView.showLoading();
     }
 
 }

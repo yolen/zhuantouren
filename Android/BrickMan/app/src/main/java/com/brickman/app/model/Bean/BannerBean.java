@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 作者： 巴掌 on 16/6/9 17:24
  */
-public class Banner {
+public class BannerBean {
 
     /**
      * brief_name :
