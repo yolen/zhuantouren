@@ -120,7 +120,7 @@ public class BrickDetailActivity extends BaseActivity<CommentsListPresenter, Com
                 .color(getResources().getColor(R.color.light_gray))
                 .sizeResId(R.dimen.dp_01)
                 .marginResId(R.dimen.dp_70, R.dimen.dp_00)
-                .build());
+                .build(), 0);
         mRecyclerView.setAdapter(mAdapter);
         mPresenter.loadCommentList(mPageNo);
 
