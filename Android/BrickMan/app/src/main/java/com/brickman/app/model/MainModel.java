@@ -7,10 +7,18 @@ import com.brickman.app.common.http.param.ParamBuilder;
 import com.brickman.app.common.http.param.RequestParam;
 import com.brickman.app.contract.MainContract;
 
+import org.json.JSONObject;
+
 /**
  * Created by mayu on 16/7/21,下午1:21.
  */
 public class MainModel implements MainContract.Model {
+
+    @Override
+    public void loadBanner(HttpListener<JSONObject> httpListener) {
+        RequestHelper.sendPOSTRequest(true, Api.REQUEST_BANNER, null, httpListener);
+    }
+
     @Override
     public void loadBrickList(int pageNO, HttpListener httpListener) {
         RequestParam param = ParamBuilder.buildParam("pageSize", "10").append("pageNO", pageNO+"");

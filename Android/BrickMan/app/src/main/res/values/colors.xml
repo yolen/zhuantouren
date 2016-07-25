@@ -15,6 +15,7 @@
     <color name="bg_tab">#f4f5f6</color>
     <color name="line">#e2e2e2</color>
     <color name="white">#ffffff</color>
+    <color name="click_bg">#33e2e2e2</color>
     <color name="light_gray">#f1f2f4</color>
     <color name="transparent">#00000000</color>
     <color name="green">#8bc385</color>

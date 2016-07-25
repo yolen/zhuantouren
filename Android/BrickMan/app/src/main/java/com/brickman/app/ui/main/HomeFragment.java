@@ -14,14 +14,12 @@ import android.widget.Toast;
 import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.base.BaseFragment;
-import com.brickman.app.common.utils.AssetUtil;
 import com.brickman.app.model.Bean.BannerBean;
 import com.brickman.app.ui.widget.banner.BannerEntity;
 import com.brickman.app.ui.widget.banner.BannerView;
 import com.brickman.app.ui.widget.banner.OnBannerClickListener;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +52,10 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
         mVp.setOffscreenPageLimit(3);
         mSlidingTab.setViewPager(mVp, titles);
         mSlidingTab.setOnTabSelectListener(this);
+        ((MainActivity)mActivity).mPresenter.loadBanner();
+    }
 
-        BannerBean bannerBean = new Gson().fromJson(AssetUtil.readAssets("banner.json"), BannerBean.class);
-
+    public void loadBanner(BannerBean bannerBean){
         final List<BannerEntity> entities = new ArrayList<>();
         for (int i = 0; i < bannerBean.getRecommends().size(); i++) {
             BannerEntity entity = new BannerEntity();
