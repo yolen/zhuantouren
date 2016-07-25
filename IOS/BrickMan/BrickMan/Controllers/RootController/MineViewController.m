@@ -10,6 +10,7 @@
 #import "Mine_headerCell.h"
 #import "Mine_titleCell.h"
 #import "PersonInfoController.h"
+#import "GalleryController.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UITableView *myTableView;
@@ -96,7 +97,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *view = [UIView new];
-    view.backgroundColor = RGBCOLOR(244, 245, 246);
+    view.backgroundColor = kViewBGColor;
     return view;
 }
 

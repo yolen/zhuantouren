@@ -24,7 +24,7 @@
         _subLabel = [[UILabel alloc]init];
         _subLabel.enabled = NO;
         _subLabel.textAlignment = NSTextAlignmentRight;
-        _subLabel.bounds = CGRectMake(0, 0, 150, 30);
+        _subLabel.bounds = CGRectMake(0, 0, 250, 30);
         _subLabel.center = CGPointMake(kScreen_Width - _subLabel.width/2 - 30, [[self class] cellHeight]/2);
         [self.contentView addSubview:_subLabel];
         _subImgView = [[UIImageView alloc]init];
@@ -40,7 +40,7 @@
 }
 
 + (CGFloat)cellHeight {
-    return 50.0;
+    return 74.0;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
