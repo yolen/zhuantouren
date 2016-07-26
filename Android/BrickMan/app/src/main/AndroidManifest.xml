@@ -40,6 +40,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
+            android:name=".ui.mine.UserInfoActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ColorActionBar" />
+        <activity
             android:name=".ui.brick.BrickDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"

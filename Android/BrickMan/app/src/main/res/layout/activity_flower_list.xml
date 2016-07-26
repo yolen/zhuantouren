@@ -40,7 +40,7 @@
                 android:text="@string/my_flower"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/sp_20"
-                android:textStyle="bold" />
+                android:textStyle="normal" />
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
