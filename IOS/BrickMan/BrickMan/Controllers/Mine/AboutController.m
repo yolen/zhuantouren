@@ -10,6 +10,8 @@
 
 @interface AboutController ()
 
+@property (nonatomic, strong) UIWebView *webView;
+
 @end
 
 @implementation AboutController
@@ -17,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"关于我们";
 }
 
 - (void)didReceiveMemoryWarning {

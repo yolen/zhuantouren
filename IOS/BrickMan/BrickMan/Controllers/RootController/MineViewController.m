@@ -11,6 +11,9 @@
 #import "Mine_titleCell.h"
 #import "PersonInfoController.h"
 #import "GalleryController.h"
+#import "BrickController.h"
+#import "FlowerController.h"
+#import "AboutController.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UITableView *myTableView;
@@ -103,24 +106,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    BaseViewController *viewController = nil;
     switch (indexPath.section) {
         case 0:{
-            PersonInfoController *personInfo = [[PersonInfoController alloc]init];
-            [self.navigationController pushViewController:personInfo animated:YES];
+            viewController = [[PersonInfoController alloc]init];
         }
             break;
         case 1:{
             switch (indexPath.row) {
                 case 0: {
-                    
+                    GalleryController *gallery = [[GalleryController alloc]init];
+                    viewController = gallery;
                 }
                     break;
                 case 1: {
-                    
+                    BrickController *brick = [[BrickController alloc]init];
+                    viewController = brick;
                 }
                     break;
                 case 2: {
-                    
+                    FlowerController *flower = [[FlowerController alloc]init];
+                    viewController = flower;
                 }
                     break;
                     
@@ -130,12 +136,14 @@
         }
             break;
         case 2:{
-            
+            AboutController *about = [[AboutController alloc]init];
+            [self.navigationController pushViewController:about animated:YES];
         }
             break;
         default:
             break;
     }
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark - Btn Action

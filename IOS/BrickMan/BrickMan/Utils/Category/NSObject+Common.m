@@ -64,6 +64,15 @@
     return error;
 }
 
+- (id)initWithDictionary:(NSDictionary *)dictionary {
+    return [[self class] modelWithDictionary:dictionary];
+}
+
++ (instancetype)modelWithDictionary:(NSDictionary *)dictionary {
+    id obj = [[self alloc]init];
+    [obj setValuesForKeysWithDictionary:dictionary];
+    return obj;
+}
 
 
 @end

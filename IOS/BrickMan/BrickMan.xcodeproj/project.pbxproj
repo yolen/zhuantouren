@@ -83,6 +83,8 @@
 		5A1CD6BB1D459D290007E4D1 /* man_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A1CD6B71D459D290007E4D1 /* man_sel@2x.png */; };
 		5A1CD6BC1D459D290007E4D1 /* woman_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A1CD6B81D459D290007E4D1 /* woman_nor@2x.png */; };
 		5A1CD6BD1D459D290007E4D1 /* woman_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A1CD6B91D459D290007E4D1 /* woman_sel@2x.png */; };
+		5A1CD6C11D476E670007E4D1 /* Mine_BrickModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1CD6C01D476E670007E4D1 /* Mine_BrickModel.m */; };
+		5A1CD6C41D4773C30007E4D1 /* Mine_BrickCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1CD6C31D4773C30007E4D1 /* Mine_BrickCell.m */; };
 		5A52DE1F1D41D9DB00D28DB2 /* PersonInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE1E1D41D9DB00D28DB2 /* PersonInfoController.m */; };
 		5A52DE221D41DF7A00D28DB2 /* Mine_infoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE211D41DF7A00D28DB2 /* Mine_infoCell.m */; };
 		5A52DE261D41ECC300D28DB2 /* MBProgressHUD+GR.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE251D41ECC300D28DB2 /* MBProgressHUD+GR.m */; };
@@ -232,6 +234,10 @@
 		5A1CD6B71D459D290007E4D1 /* man_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "man_sel@2x.png"; sourceTree = "<group>"; };
 		5A1CD6B81D459D290007E4D1 /* woman_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman_nor@2x.png"; sourceTree = "<group>"; };
 		5A1CD6B91D459D290007E4D1 /* woman_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman_sel@2x.png"; sourceTree = "<group>"; };
+		5A1CD6BF1D476E670007E4D1 /* Mine_BrickModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mine_BrickModel.h; sourceTree = "<group>"; };
+		5A1CD6C01D476E670007E4D1 /* Mine_BrickModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mine_BrickModel.m; sourceTree = "<group>"; };
+		5A1CD6C21D4773C30007E4D1 /* Mine_BrickCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mine_BrickCell.h; sourceTree = "<group>"; };
+		5A1CD6C31D4773C30007E4D1 /* Mine_BrickCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mine_BrickCell.m; sourceTree = "<group>"; };
 		5A52DE1D1D41D9DB00D28DB2 /* PersonInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInfoController.h; sourceTree = "<group>"; };
 		5A52DE1E1D41D9DB00D28DB2 /* PersonInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInfoController.m; sourceTree = "<group>"; };
 		5A52DE201D41DF7A00D28DB2 /* Mine_infoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mine_infoCell.h; sourceTree = "<group>"; };
@@ -397,6 +403,7 @@
 		1BFD4D2C1D3CCC9800ABE8E6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5A1CD6BE1D475F6E0007E4D1 /* Mine */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -528,6 +535,8 @@
 				30C5BADA1D406008001DF9D2 /* Mine_titleCell.m */,
 				5A52DE201D41DF7A00D28DB2 /* Mine_infoCell.h */,
 				5A52DE211D41DF7A00D28DB2 /* Mine_infoCell.m */,
+				5A1CD6C21D4773C30007E4D1 /* Mine_BrickCell.h */,
+				5A1CD6C31D4773C30007E4D1 /* Mine_BrickCell.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -628,6 +637,15 @@
 				72B83A4BDDEF156C469B028E /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		5A1CD6BE1D475F6E0007E4D1 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				5A1CD6BF1D476E670007E4D1 /* Mine_BrickModel.h */,
+				5A1CD6C01D476E670007E4D1 /* Mine_BrickModel.m */,
+			);
+			path = Mine;
 			sourceTree = "<group>";
 		};
 		5A52DE1C1D41D97100D28DB2 /* Mine */ = {
@@ -936,7 +954,9 @@
 				30C5BAE61D40655E001DF9D2 /* UILabel+Common.m in Sources */,
 				30C5BADC1D406008001DF9D2 /* Mine_titleCell.m in Sources */,
 				302D99FF1D3E058700F295A0 /* BrickManAPIManager.m in Sources */,
+				5A1CD6C11D476E670007E4D1 /* Mine_BrickModel.m in Sources */,
 				5A52DE391D41FCB500D28DB2 /* CutHeadController.m in Sources */,
+				5A1CD6C41D4773C30007E4D1 /* Mine_BrickCell.m in Sources */,
 				30C5BB1D1D408A20001DF9D2 /* BrickListView.m in Sources */,
 				5A52DE291D41EF1000D28DB2 /* GalleryController.m in Sources */,
 				30721A851D3E587A00D54E09 /* UITableView+Common.m in Sources */,
@@ -1054,7 +1074,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1092,7 +1112,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1108,6 +1128,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BrickMan/BrickMan-Prefix.pch";
 				INFOPLIST_FILE = BrickMan/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TZ.BrickMan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1124,6 +1145,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BrickMan/BrickMan-Prefix.pch";
 				INFOPLIST_FILE = BrickMan/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TZ.BrickMan;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -14,4 +14,8 @@
 + (BOOL)showError:(NSError *)error;
 - (id)handleResponse:(id)responseJSON autoShowError:(BOOL)autoShowError;
 
+- (id)initWithDictionary:(NSDictionary *)dictionary;
+
++ (instancetype)modelWithDictionary:(NSDictionary *)dictionary;
+
 @end
