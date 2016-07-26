@@ -54,4 +54,5 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.+'
     // https://github.com/IsseiAoki/SimpleCropView
     compile 'com.isseiaoki:simplecropview:1.1.4'
+    compile project(':social_sdk_library_project')
 }

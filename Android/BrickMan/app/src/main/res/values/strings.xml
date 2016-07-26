@@ -5,6 +5,7 @@
     <string name="my_brick">我的砖头</string>
     <string name="city">我的地点</string>
     <string name="detail">详情</string>
+    <string name="userInfo">个人资料</string>
     <string name="comment">评论</string>
     <string name="btn_camera">拍照</string>
     <string name="btn_photo">相册</string>

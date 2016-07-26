@@ -13,6 +13,7 @@ import com.brickman.app.common.base.BaseFragment;
 import com.brickman.app.ui.brick.BrickListActivity;
 import com.brickman.app.ui.mine.BricksListActivity;
 import com.brickman.app.ui.mine.FlowerListActivity;
+import com.brickman.app.ui.mine.UserInfoActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -61,10 +62,14 @@ public class UserFragment extends BaseFragment {
         super.onDestroyView();
     }
 
-    @OnClick({R.id.mybricks, R.id.mybrick, R.id.myflower, R.id.about, R.id.logout})
+    @OnClick({R.id.userInfo, R.id.mybricks, R.id.mybrick, R.id.myflower, R.id.about, R.id.logout})
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.userInfo:
+                intent = new Intent(mActivity, UserInfoActivity.class);
+                mActivity.startActivityWithAnim(intent);
+                break;
             case R.id.mybricks:
                 intent = new Intent(mActivity, BrickListActivity.class);
                 intent.putExtra("title", getResources().getString(R.string.my_bricks));
