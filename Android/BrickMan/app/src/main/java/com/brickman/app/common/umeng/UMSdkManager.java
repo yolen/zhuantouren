@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
+import com.brickman.app.R;
+import com.brickman.app.common.utils.LogUtil;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners;
@@ -19,8 +21,6 @@ import com.umeng.socialize.sso.UMSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
-import com.winxiang.yuantian.R;
-import com.winxiang.yuantian.util.LogUtil;
 
 
 /**
@@ -55,7 +55,7 @@ public class UMSdkManager {
 		try {
 			boolean isWxInstalled = context.getPackageManager().getPackageInfo("com.tencent.mm", PackageManager.GET_ACTIVITIES) != null;
 			if (!isWxInstalled)
-				LogUtil.error("UMSdkManager", "~~~~~~~~~~~~~~微信客户端未安装，请确认");
+				LogUtil.info("~~~~~~~~~~~~~~微信客户端未安装，请确认");
 			return isWxInstalled;
 		} catch (NameNotFoundException e) {
 			LogUtil.error("UMSdkManager", e);
@@ -114,7 +114,7 @@ public class UMSdkManager {
 		if (share.getShareImage() != null) {
 			urlImage = share.getShareImage();
 		} else {
-			urlImage = new UMImage(act, R.drawable.ic_launcher);
+			urlImage = new UMImage(act, R.mipmap.ic_launcher);
 		}
 
 		/** 1.设置微信好友分享的内容 */
