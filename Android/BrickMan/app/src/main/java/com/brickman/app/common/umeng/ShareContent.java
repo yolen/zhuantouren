@@ -1,8 +1,8 @@
 package com.brickman.app.common.umeng;
 
+import com.brickman.app.MApplication;
+import com.brickman.app.R;
 import com.umeng.socialize.media.UMImage;
-import com.winxiang.yuantian.R;
-import com.winxiang.yuantian.base.MyApplication;
 
 /**
  * 分享实体类（用于存储一条分享信息）
@@ -43,7 +43,7 @@ public class ShareContent {
 		this.shareTitle = shareTitle;
 		this.shareContent = shareContent;
 		if(shareImage == null){
-			this.shareImage = new UMImage(MyApplication.sContext, R.drawable.ic_launcher);
+			this.shareImage = new UMImage(MApplication.mAppContext, R.mipmap.ic_launcher);
 		} else {
 			this.shareImage = shareImage;
 		}

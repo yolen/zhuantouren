@@ -14,14 +14,17 @@ import com.brickman.app.R;
 import com.brickman.app.adapter.CommentListAdapter;
 import com.brickman.app.adapter.ImagesAdapter;
 import com.brickman.app.common.base.BaseActivity;
+import com.brickman.app.common.umeng.ShareContent;
 import com.brickman.app.contract.CommentsListContract;
 import com.brickman.app.model.Bean.BrickBean;
 import com.brickman.app.model.Bean.CommentBean;
 import com.brickman.app.model.CommentsListModel;
 import com.brickman.app.presenter.CommentsListPresenter;
+import com.brickman.app.ui.dialog.ShareDialog;
 import com.brickman.app.ui.widget.view.CircleImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.umeng.socialize.media.UMImage;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.List;
@@ -196,8 +199,20 @@ public class BrickDetailActivity extends BaseActivity<CommentsListPresenter, Com
         showToast(msg);
     }
 
-    @OnClick(R.id.back)
-    public void onClick() {
-        finishWithAnim();
+    @OnClick({R.id.back, R.id.share})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.back:
+                finishWithAnim();
+                break;
+            case R.id.share:
+                new ShareDialog(this, new ShareContent("标题", "内容", new UMImage(this, R.mipmap.bm_avator), "http://www.baidu.com"), new ShareDialog.OnShareListener() {
+                    @Override
+                    public void result(boolean result) {
+
+                    }
+                }).show();
+                break;
+        }
     }
 }
