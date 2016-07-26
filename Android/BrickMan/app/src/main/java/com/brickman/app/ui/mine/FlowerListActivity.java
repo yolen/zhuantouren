@@ -40,6 +40,7 @@ public class FlowerListActivity extends BaseActivity<FlowerListPresenter, Flower
     RecyclerView mRecyclerView;
     @BindView(R.id.ptr)
     PtrClassicFrameLayout mPtr;
+    View headView;
 
     private FlowerListAdapter mAdapter;
     private List<FlowerBean> mData = new ArrayList<FlowerBean>();
@@ -64,6 +65,8 @@ public class FlowerListActivity extends BaseActivity<FlowerListPresenter, Flower
         });
         mAdapter = new FlowerListAdapter(this, R.layout.item_flower_list, mData);
         View loadingView = this.getLayoutInflater().inflate(R.layout.loading_more_view, (ViewGroup) mRecyclerView.getParent(), false);
+        headView = this.getLayoutInflater().inflate(R.layout.header_my_flower, (ViewGroup) mRecyclerView.getParent(), false);
+        mAdapter.addHeaderView(headView);
         mAdapter.setLoadingView(loadingView);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {

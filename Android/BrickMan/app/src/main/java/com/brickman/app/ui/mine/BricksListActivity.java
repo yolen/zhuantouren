@@ -40,6 +40,7 @@ public class BricksListActivity extends BaseActivity<BricksListPresenter, Bricks
     RecyclerView mRecyclerView;
     @BindView(R.id.ptr)
     PtrClassicFrameLayout mPtr;
+    View headView;
 
     private BricksListAdapter mAdapter;
     private List<BricksBean> mData = new ArrayList<BricksBean>();
@@ -64,6 +65,8 @@ public class BricksListActivity extends BaseActivity<BricksListPresenter, Bricks
         });
         mAdapter = new BricksListAdapter(this, R.layout.item_bricks_list, mData);
         View loadingView = this.getLayoutInflater().inflate(R.layout.loading_more_view, (ViewGroup) mRecyclerView.getParent(), false);
+        headView = this.getLayoutInflater().inflate(R.layout.header_my_brick, (ViewGroup) mRecyclerView.getParent(), false);
+        mAdapter.addHeaderView(headView);
         mAdapter.setLoadingView(loadingView);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {

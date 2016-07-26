@@ -6,13 +6,16 @@
 
 
     <color name="window_background">#FFF5F5F5</color>
+    <color name="text_color_deep">#333333</color>
     <color name="text_color">#555555</color>
     <color name="text_gray">#bfbfbf</color>
     <color name="loading_bg">#aa555555</color>
     <color name="theme_black_7f">#8f000000</color>
     <color name="gray">#a3a3a3</color>
+    <color name="bg_tab">#f4f5f6</color>
     <color name="line">#e2e2e2</color>
     <color name="white">#ffffff</color>
+    <color name="click_bg">#33e2e2e2</color>
     <color name="light_gray">#f1f2f4</color>
     <color name="transparent">#00000000</color>
     <color name="green">#8bc385</color>

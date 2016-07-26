@@ -1,4 +1,6 @@
 {
+  "success": true,
+  "message": "获取数据成功",
   "brief_name": "",
   "name": "banner",
   "recommends": [

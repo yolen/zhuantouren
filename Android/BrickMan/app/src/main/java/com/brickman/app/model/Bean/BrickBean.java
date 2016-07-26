@@ -1,11 +1,12 @@
 package com.brickman.app.model.Bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by mayu on 16/7/20,下午2:38.
  */
-public class BrickBean {
+public class BrickBean implements Serializable {
 
     /**
      * id : a-------------

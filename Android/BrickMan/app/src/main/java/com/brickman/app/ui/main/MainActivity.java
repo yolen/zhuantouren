@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
-import com.brickman.app.common.utils.LogUtil;
 import com.brickman.app.contract.MainContract;
+import com.brickman.app.model.Bean.BannerBean;
 import com.brickman.app.model.Bean.BrickBean;
 import com.brickman.app.model.MainModel;
 import com.brickman.app.presenter.MainPresenter;
@@ -83,11 +83,17 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
 
     @Override
     public void loadSuccess(int fragmentId, List<BrickBean> brickList, int pageSize, boolean hasMore) {
-        LogUtil.info(fragmentId+"============");
         ((BrickListFragment) ((HomeFragment) mTabManager
                 .getTab(tabNames[0]).getFragment())
                 .mAdapter.getItem(fragmentId))
                 .loadSuccess(brickList, pageSize, hasMore);
+    }
+
+    @Override
+    public void loadBannerSuccess(BannerBean bannerBean) {
+        ((HomeFragment) mTabManager
+                .getTab(tabNames[0]).getFragment())
+                .loadBanner(bannerBean);
     }
 
     // 设置TabBar、TabItem及样式

@@ -96,6 +96,7 @@ public class ImagesAdapter{
 		imageView.setBackgroundColor(mCtx.getResources().getColor(R.color.light_gray));
 		LinearLayout.LayoutParams lp = null;
 		if(n == 1){
+			w = w - margin * 2;
 			lp = new LinearLayout.LayoutParams(w , w / 2);
 		} else if(n == 2){
             w = w - margin * 4;

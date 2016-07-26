@@ -1,110 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/item_bg"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line" />
-
-    <RelativeLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/dp_10"
-        android:paddingLeft="@dimen/dp_15"
-        android:paddingRight="@dimen/dp_15"
-        android:paddingTop="@dimen/dp_10">
+        android:background="?attr/colorAccent"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_scrollFlags="enterAlwaysCollapsed">
 
-        <com.brickman.app.ui.widget.view.CircleImageView
-            android:id="@+id/avator"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:src="@mipmap/bm_avator" />
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginTop="@dimen/dp_02"
-            android:layout_toRightOf="@id/avator"
-            android:text="@string/app_name"
-            android:textColor="@color/text_color"
-            android:textSize="@dimen/sp_16" />
+            <ImageView
+                android:layout_width="@dimen/dp_18"
+                android:layout_height="@dimen/dp_24"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/bm_back" />
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/dateAddress"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/name"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginTop="@dimen/dp_04"
-            android:layout_toRightOf="@id/avator"
-            android:text="2016-07-21  08:23   苏州市"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/sp_12" />
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="@string/detail"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold" />
+    </android.support.v7.widget.Toolbar>
 
-        <ImageView
-            android:id="@+id/report"
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="@dimen/dp_20"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/bm_reporting_sel" />
-    </RelativeLayout>
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/ptr"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:ptr_duration_to_close="300"
+        app:ptr_duration_to_close_header="2000"
+        app:ptr_keep_header_when_refresh="true"
+        app:ptr_pull_to_fresh="false"
+        app:ptr_ratio_of_header_height_to_refresh="1.2"
+        app:ptr_resistance="2.5">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
-        android:background="@color/line" />
-
-    <TextView
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:lineSpacingExtra="@dimen/dp_03"
-        android:paddingBottom="@dimen/dp_05"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
-        android:paddingTop="@dimen/dp_10"
-        android:text="人生应该如蜡烛一样，从顶燃到底，一直都是光明的。身边总有那么些好人好事，让生活更美好！"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/sp_14" />
-
-    <LinearLayout
-        android:id="@+id/imageList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_05"
-        android:layout_marginLeft="@dimen/dp_00"
-        android:layout_marginRight="@dimen/dp_00"
-        android:orientation="vertical" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_10"
-        android:background="@color/line" />
+        android:background="@color/gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_32"
+        android:layout_height="@dimen/dp_45"
+        android:background="@color/bg_tab"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
         android:weightSum="3">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
@@ -119,7 +89,7 @@
                 android:layout_marginLeft="@dimen/dp_04"
                 android:text="评论"
                 android:textColor="@color/gray"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_15" />
 
             <TextView
                 android:id="@+id/commentNum"
@@ -131,11 +101,18 @@
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
+        <View
+            android:layout_width="@dimen/dp_01"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp_04"
+            android:layout_marginTop="@dimen/dp_04"
+            android:background="@color/line" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
@@ -150,7 +127,7 @@
                 android:layout_marginLeft="@dimen/dp_04"
                 android:text="鲜花"
                 android:textColor="@color/gray"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_15" />
 
             <TextView
                 android:id="@+id/flowerNum"
@@ -162,11 +139,18 @@
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
+        <View
+            android:layout_width="@dimen/dp_01"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp_04"
+            android:layout_marginTop="@dimen/dp_04"
+            android:background="@color/line" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
@@ -181,7 +165,7 @@
                 android:layout_marginLeft="@dimen/dp_04"
                 android:text="分享"
                 android:textColor="@color/gray"
-                android:textSize="@dimen/sp_14" />
+                android:textSize="@dimen/sp_15" />
 
             <TextView
                 android:id="@+id/shareNum"
@@ -193,10 +177,4 @@
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/line" />
-
 </LinearLayout>

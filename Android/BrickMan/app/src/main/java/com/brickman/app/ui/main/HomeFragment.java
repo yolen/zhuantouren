@@ -14,14 +14,12 @@ import android.widget.Toast;
 import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.base.BaseFragment;
-import com.brickman.app.common.utils.AssetUtil;
-import com.brickman.app.model.Bean.Banner;
+import com.brickman.app.model.Bean.BannerBean;
 import com.brickman.app.ui.widget.banner.BannerEntity;
 import com.brickman.app.ui.widget.banner.BannerView;
 import com.brickman.app.ui.widget.banner.OnBannerClickListener;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,14 +52,15 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
         mVp.setOffscreenPageLimit(3);
         mSlidingTab.setViewPager(mVp, titles);
         mSlidingTab.setOnTabSelectListener(this);
+        ((MainActivity)mActivity).mPresenter.loadBanner();
+    }
 
-        Banner banner = new Gson().fromJson(AssetUtil.readAssets("banner.json"), Banner.class);
-
+    public void loadBanner(BannerBean bannerBean){
         final List<BannerEntity> entities = new ArrayList<>();
-        for (int i = 0; i < banner.getRecommends().size(); i++) {
+        for (int i = 0; i < bannerBean.getRecommends().size(); i++) {
             BannerEntity entity = new BannerEntity();
-            entity.imageUrl = banner.getRecommends().get(i).getThumb();
-            entity.title = banner.getRecommends().get(i).getTitle();
+            entity.imageUrl = bannerBean.getRecommends().get(i).getThumb();
+            entity.title = bannerBean.getRecommends().get(i).getTitle();
             entities.add(entity);
         }
 
