@@ -125,12 +125,10 @@ const static NSString *reuseInfoCell = @"infoCell";
 - (void)presentMySexSelection {
     Mine_infoCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     if ([cell.subLabel.text isEqualToString:@"男"]) {
-        [self.male setTitleColor:kNavigationBarColor forState:UIControlStateNormal];
-        [self.male setImage:[UIImage imageNamed:@"tabbar2_sel@3x"] forState:UIControlStateNormal];
+        [self.male setImage:[UIImage imageNamed:@"man_sel"] forState:UIControlStateNormal];
         _oldSelected = self.male;
     } else {
-        [self.female setTitleColor:kNavigationBarColor forState:UIControlStateNormal];
-        [self.female setImage:[UIImage imageNamed:@"tabbar2_sel@3x"] forState:UIControlStateNormal];
+        [self.female setImage:[UIImage imageNamed:@"woman_sel"] forState:UIControlStateNormal];
         _oldSelected = self.female;
     }
     self.mySexSelection = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height)];
@@ -236,10 +234,13 @@ const static NSString *reuseInfoCell = @"infoCell";
     if (sender == _oldSelected) {
         return;
     }
-    [_oldSelected setImage:[UIImage imageNamed:@"tabbar2_nor@3x"] forState:UIControlStateNormal];
-    [_oldSelected setTitleColor:RGBCOLOR(100, 202, 234) forState:UIControlStateNormal];
-    [sender setImage:[UIImage imageNamed:@"tabbar2_sel@3x"] forState:UIControlStateNormal];
-    [sender setTitleColor:kNavigationBarColor forState:UIControlStateNormal];
+    if (_oldSelected == self.male) {
+        [_oldSelected setImage:[UIImage imageNamed:@"man_nor"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"woman_sel"] forState:UIControlStateNormal];
+    } else {
+        [_oldSelected setImage:[UIImage imageNamed:@"woman_nor"] forState:UIControlStateNormal];
+        [sender setImage:[UIImage imageNamed:@"man_sel"] forState:UIControlStateNormal];
+    }
     _oldSelected = sender;
 }
 
@@ -272,7 +273,7 @@ const static NSString *reuseInfoCell = @"infoCell";
 - (UIButton *)male {
     if (!_male) {
         _male = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_male setImage:[UIImage imageNamed:@"tabbar2_nor@3x"] forState:UIControlStateNormal];
+        [_male setImage:[UIImage imageNamed:@"man_nor"] forState:UIControlStateNormal];
         [_male setTitle:@"男" forState:UIControlStateNormal];
         _male.titleLabel.font = [UIFont systemFontOfSize:13];
         [_male addTarget:self action:@selector(selectedSex:) forControlEvents:UIControlEventTouchUpInside];
@@ -285,11 +286,11 @@ const static NSString *reuseInfoCell = @"infoCell";
 - (UIButton *)female {
     if (!_female) {
         _female = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_female setImage:[UIImage imageNamed:@"tabbar2_nor@3x"] forState:UIControlStateNormal];
+        [_female setImage:[UIImage imageNamed:@"woman_nor"] forState:UIControlStateNormal];
         [_female setTitle:@"女" forState:UIControlStateNormal];
         _female.titleLabel.font = [UIFont systemFontOfSize:13];
         [_female addTarget:self action:@selector(selectedSex:) forControlEvents:UIControlEventTouchUpInside];
-        [_female setTitleColor:RGBCOLOR(100, 202, 234) forState:UIControlStateNormal];
+        [_female setTitleColor:kNavigationBarColor forState:UIControlStateNormal];
         _female.adjustsImageWhenHighlighted = NO;
     }
     return _female;
