@@ -10,4 +10,6 @@
 
 @interface DetailBrickViewController : BaseViewController
 
+@property (strong, nonatomic) NSDictionary *dataDic;
+
 @end

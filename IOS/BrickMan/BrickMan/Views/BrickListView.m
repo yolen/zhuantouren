@@ -8,6 +8,7 @@
 
 #import "BrickListView.h"
 #import "MainTableViewCell.h"
+#import "ShareView.h"
 
 @interface BrickListView()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) UITableView *myTableView;
@@ -19,7 +20,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"Address" ofType:@"json"];
+        NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"];
         NSData *jsonData = [[NSData alloc] initWithContentsOfFile:resourcePath];
         NSError *error = nil;
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
@@ -46,6 +47,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
     [cell setData:self.dataList[indexPath.row]];
+    cell.shareBlock = ^(){
+        [ShareView showShareView];
+    };
     return cell;
 }
 
@@ -55,8 +59,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *dic = self.dataList[indexPath.row];
     if (self.goToDetailBlock) {
-        self.goToDetailBlock();
+        self.goToDetailBlock(dic);
+    }
+}
+
+#pragma mark - scroll
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.scrollBlock) {
+        self.scrollBlock(scrollView.contentOffset.y);
     }
 }
 

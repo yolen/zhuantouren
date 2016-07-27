@@ -12,6 +12,8 @@
 @interface MainTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) NSString *contentStr;
+@property (strong, nonatomic) void(^commentBlock)();
+@property (copy, nonatomic) void(^shareBlock)();
 
 - (void)setData:(NSDictionary *)dataDic;
 + (CGFloat)cellHeightWithImageArray:(NSDictionary *)dataDic;
