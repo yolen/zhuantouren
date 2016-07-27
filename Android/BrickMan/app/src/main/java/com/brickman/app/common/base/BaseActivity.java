@@ -60,7 +60,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
-        if (layoutResID == R.layout.activity_main) {
+        if (layoutResID == R.layout.activity_main || layoutResID == R.layout.activity_login) {
             super.setContentView(layoutResID);
         } else {
             super.setContentView(getContainer());
