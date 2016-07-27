@@ -12,6 +12,7 @@
     <color name="text_gray">#bfbfbf</color>
     <color name="text_light_gray">#cecece</color>
     <color name="loading_bg">#aa555555</color>
+    <color name="login_bg">#f5f5f5</color>
     <color name="theme_black_7f">#8f000000</color>
     <color name="gray">#a3a3a3</color>
     <color name="bg_tab">#f4f5f6</color>

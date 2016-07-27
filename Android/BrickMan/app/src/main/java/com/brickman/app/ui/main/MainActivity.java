@@ -1,5 +1,6 @@
 package com.brickman.app.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -74,6 +75,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                 }
             }
         });
+        startActivityWithAnim(new Intent(this, LoginActivity.class));
     }
 
     @Override

@@ -3,8 +3,9 @@
     package="com.brickman.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MApplication"
         android:allowBackup="true"
@@ -19,6 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.main.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ColorActionBar" />
         <activity
             android:name=".ui.brick.BrickListActivity"
             android:launchMode="singleTask"
@@ -64,7 +70,7 @@
         <!--TODO ....-->
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="572a9377e0f55a96ee003b95" />
+            android:value="579816f3e0f55a6988000f7a" />
 
         <!-- 微信 -->
         <activity
@@ -85,7 +91,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent1105290573" />
+                <data android:scheme="tencent1105498517" />
             </intent-filter>
         </activity>
         <activity

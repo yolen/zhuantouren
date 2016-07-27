@@ -5,12 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.brickman.app.R;
+import com.brickman.app.common.base.BaseActivity;
+import com.brickman.app.common.umeng.auth.LoginListener;
+import com.brickman.app.common.umeng.auth.LogoutListener;
 import com.brickman.app.common.utils.LogUtil;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeEntity;
+import com.umeng.socialize.bean.StatusCode;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.controller.listener.SocializeListeners;
+import com.umeng.socialize.exception.SocializeException;
 import com.umeng.socialize.media.QQShareContent;
 import com.umeng.socialize.media.QZoneShareContent;
 import com.umeng.socialize.media.SinaShareContent;
@@ -22,6 +30,8 @@ import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
+import java.util.Map;
+
 
 /**
  * Umeng分享、第三方登录、自动更新 Created by mayu on 15/8/11,上午10:07.
@@ -30,6 +40,7 @@ public class UMSdkManager {
 	private static Activity mAct;
 	private static UMSdkManager umSdkManager;
 	public static final String SHARE = "com.umeng.share";
+	public static final String LOGIN = "com.umeng.login";
 	public static UMSocialService mController;
 
 	public UMSdkManager(Activity act, UMSocialService controller) {
@@ -166,8 +177,8 @@ public class UMSdkManager {
 	 *       : 用户点击该分享时跳转到的目标地址 [必填] ( 若不填写则默认设置为友盟主页 )
 	 */
 	public void addQQQZonePlatform(Activity act) {
-		String appId = "1105290573";
-		String appKey = "Q9B9H4TFWaAbgFOS";
+		String appId = "1105498517";
+		String appKey = "JUQ12KZz3ErGrMM0";
 		// 添加QQ支持, 并且设置QQ分享内容的target url
 		UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(act, appId, appKey);
 		qqSsoHandler.addToSocialSDK();
@@ -194,4 +205,108 @@ public class UMSdkManager {
 		wxCircleHandler.setToCircle(true);
 		wxCircleHandler.addToSocialSDK();
 	}
+
+	/**§§§§§§§§§§§§第三方登录§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§*/
+
+	/**
+	 * 授权。如果授权成功，则获取用户信息
+	 *
+	 * @param platform
+	 */
+	public void login(final BaseActivity act, final SHARE_MEDIA platform, final LoginListener listener) {
+		mController.doOauthVerify(act, platform,
+				new SocializeListeners.UMAuthListener() {
+
+					@Override
+					public void onStart(SHARE_MEDIA platform) {
+						act.showToast("授权开始");
+						act.showLoading();
+					}
+
+					@Override
+					public void onError(SocializeException e, SHARE_MEDIA platform) {
+						act.showToast("授权失败");
+						act.dismissLoading();
+					}
+
+					@Override
+					public void onComplete(Bundle value, SHARE_MEDIA platform) {
+						// 获取uid
+						String uid = value.getString("uid");
+						if (!TextUtils.isEmpty(uid)) {
+//                             uid不为空，获取用户信息
+							getUserInfo(act, platform, listener);
+						} else {
+							act.showToast("授权失败");
+						}
+						act.dismissLoading();
+					}
+
+					@Override
+					public void onCancel(SHARE_MEDIA platform) {
+						act.showToast("授权取消");
+						act.dismissLoading();
+					}
+				});
+	}
+
+	/**
+	 * 注销本次登陆
+	 * @param platform
+	 */
+	public void logout(final BaseActivity act, final SHARE_MEDIA platform, final LogoutListener listener) {
+		mController.deleteOauth(act, platform, new SocializeListeners.SocializeClientListener() {
+			@Override
+			public void onStart() {
+				act.showLoading();
+			}
+
+			@Override
+			public void onComplete(int status, SocializeEntity entity) {
+				String showText = "解除" + platform.toString() + "平台授权成功";
+				if (status != StatusCode.ST_CODE_SUCCESSED) {
+					showText = "解除" + platform.toString() + "平台授权失败[" + status + "]";
+					if(listener != null){
+						listener.success();
+					}
+				}
+				act.showToast(showText);
+				act.dismissLoading();
+			}
+		});
+	}
+
+	/**
+	 * 获取用户信息
+	 *{  sex=1,
+	 nickname=shin,
+	 unionid=oZsRzv36zdqwFY8h2dEvUl_RtHjU,
+	 province=,
+	 openid=oUrfSwG87-YwAS-LWwlncnDxjMts,
+	 language=zh_CN,
+	 headimgurl=http://wx.qlogo.cn/mmopen/ajNVdqHZLLBPM1WmLIsXN4sg3oiazZu9WzaDUk7qyhbqB8Y6xMy55mIL9mZnay0UDswtmVpUSCIvK2bTGTYib4sA/0,
+	 country=中国,
+	 city=}
+	 * @param platform
+	 *
+	 * 目前用到的是【openID | nickname | sex | headingurl】
+	 */
+	public void getUserInfo(Activity act, SHARE_MEDIA platform, final LoginListener listener) {
+		mController.getPlatformInfo(act, platform,
+				new SocializeListeners.UMDataListener() {
+					@Override
+					public void onStart() {
+
+					}
+
+					@Override
+					public void onComplete(int status, Map<String, Object> info) {
+						if (!info.isEmpty()) {
+							listener.success(info);
+							LogUtil.info(info.toString());
+						}
+					}
+				});
+	}
+
 }

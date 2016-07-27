@@ -2,3 +2,23 @@
 Android/.DS_Store
 
 .DS_Store
+
+Android/BrickMan/social_sdk_library_project/build/generated/source/buildConfig/release/com/umeng_social_sdk_res_lib/BuildConfig.java
+
+Android/BrickMan/social_sdk_library_project/build/outputs/aar/social_sdk_library_project-release.aar
+
+*.jar
+
+*.xml
+
+*.class
+
+*.png
+
+*.txt
+
+*.java
+
+*.store
+
+*.mp3
