@@ -7,10 +7,11 @@
 //
 
 #import "AboutController.h"
+#import <WebKit/WebKit.h>
 
-@interface AboutController ()
+@interface AboutController ()<WKUIDelegate>
 
-@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) WKWebView *webView;
 
 @end
 
@@ -20,6 +21,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"关于我们";
+    [self.view addSubview:self.webView];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@""]];
+    [self.webView loadRequest:request];
+}
+
+- (WKWebView *)webView {
+    if (!_webView) {
+        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - 64)];
+        _webView.UIDelegate = self;
+        _webView.allowsBackForwardNavigationGestures = YES;
+    }
+    return _webView;
 }
 
 - (void)didReceiveMemoryWarning {

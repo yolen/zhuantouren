@@ -68,6 +68,7 @@ const static NSString *reuseMineBrickCell = @"brickCell";
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 0, kScreen_Width - 20, kScreen_Height - 64) style:UITableViewStylePlain];
+        _tableView.backgroundColor = [UIColor clearColor];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -113,7 +114,7 @@ const static NSString *reuseMineBrickCell = @"brickCell";
     gradeLbl.textAlignment = NSTextAlignmentCenter;
     gradeLbl.backgroundColor = RGBCOLOR(253, 238, 240);
     UILabel *numberLbl = [[UILabel alloc]initWithFrame:CGRectMake(gradeLbl.right, self.numberOfFlower.bottom, numberLblWidth, rankingLbl.height)];
-    numberLbl.text = @"砖数";
+    numberLbl.text = @"花数";
     numberLbl.textAlignment = NSTextAlignmentCenter;
     numberLbl.backgroundColor = RGBCOLOR(196, 226, 240);
     [tableHeaderView addSubview:rankingLbl];

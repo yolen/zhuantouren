@@ -85,6 +85,7 @@
 		5A1CD6BD1D459D290007E4D1 /* woman_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A1CD6B91D459D290007E4D1 /* woman_sel@2x.png */; };
 		5A1CD6C11D476E670007E4D1 /* Mine_BrickModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1CD6C01D476E670007E4D1 /* Mine_BrickModel.m */; };
 		5A1CD6C41D4773C30007E4D1 /* Mine_BrickCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1CD6C31D4773C30007E4D1 /* Mine_BrickCell.m */; };
+		5A1CD6C61D4847040007E4D1 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A1CD6C51D4847040007E4D1 /* WebKit.framework */; };
 		5A52DE1F1D41D9DB00D28DB2 /* PersonInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE1E1D41D9DB00D28DB2 /* PersonInfoController.m */; };
 		5A52DE221D41DF7A00D28DB2 /* Mine_infoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE211D41DF7A00D28DB2 /* Mine_infoCell.m */; };
 		5A52DE261D41ECC300D28DB2 /* MBProgressHUD+GR.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52DE251D41ECC300D28DB2 /* MBProgressHUD+GR.m */; };
@@ -238,6 +239,7 @@
 		5A1CD6C01D476E670007E4D1 /* Mine_BrickModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mine_BrickModel.m; sourceTree = "<group>"; };
 		5A1CD6C21D4773C30007E4D1 /* Mine_BrickCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mine_BrickCell.h; sourceTree = "<group>"; };
 		5A1CD6C31D4773C30007E4D1 /* Mine_BrickCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mine_BrickCell.m; sourceTree = "<group>"; };
+		5A1CD6C51D4847040007E4D1 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		5A52DE1D1D41D9DB00D28DB2 /* PersonInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonInfoController.h; sourceTree = "<group>"; };
 		5A52DE1E1D41D9DB00D28DB2 /* PersonInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonInfoController.m; sourceTree = "<group>"; };
 		5A52DE201D41DF7A00D28DB2 /* Mine_infoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mine_infoCell.h; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A1CD6C61D4847040007E4D1 /* WebKit.framework in Frameworks */,
 				B2FE35104D43DCFAA0DD8A35 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -729,6 +732,7 @@
 		938BAFAA53FE39238BB03740 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A1CD6C51D4847040007E4D1 /* WebKit.framework */,
 				60CE40E110EA4DC531D101B6 /* libPods.a */,
 			);
 			name = Frameworks;

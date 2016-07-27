@@ -87,6 +87,10 @@
         self.headImgView.image = [UIImage imageNamed:@"about_icon"];
         self.nicknameLbl.text = _model.nickname;
         self.gradeLbl.text = _model.grade;
+        if ([NSString isNULLString:_model.numberOfFlower]) {
+            self.numberLbl.text = _model.numberOfBrick;
+            return;
+        }
         self.numberLbl.text = _model.numberOfFlower;
     }
 }

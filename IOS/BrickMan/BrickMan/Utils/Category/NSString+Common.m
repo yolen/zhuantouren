@@ -31,4 +31,8 @@
     return resultSize;
 }
 
++ (BOOL)isNULLString:(NSString *)string {
+    return [string isEqualToString:@""] || string == nil || string.length == 0 || [string isKindOfClass:[NSNull class]];
+}
+
 @end

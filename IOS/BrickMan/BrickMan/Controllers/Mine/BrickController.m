@@ -33,7 +33,7 @@ const static NSString *reuseMineBrickCell = @"brickCell";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerClass:[Mine_BrickCell class] forCellReuseIdentifier:reuseMineBrickCell];
     for (int i = 0; i < 50; i ++) {
-        Mine_BrickModel *model = [Mine_BrickModel modelWithDictionary:@{@"ranking":[NSString stringWithFormat:@"%d",i + 1],@"headPath":@"",@"nickname":@"老马",@"grade":@"鲜花",@"numberOfBrick":@"52000"}];
+        Mine_BrickModel *model = [Mine_BrickModel modelWithDictionary:@{@"ranking":[NSString stringWithFormat:@"%d",i + 1],@"headPath":@"",@"nickname":@"老马",@"grade":@"金砖",@"numberOfBrick":@"52000"}];
         [self.dataList addObject:model];
     }
     [self.view addSubview:self.tableView];
@@ -68,6 +68,7 @@ const static NSString *reuseMineBrickCell = @"brickCell";
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 0, kScreen_Width - 20, kScreen_Height - 64) style:UITableViewStylePlain];
+        _tableView.backgroundColor = [UIColor clearColor];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
