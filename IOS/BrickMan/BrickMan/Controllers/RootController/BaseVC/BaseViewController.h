@@ -10,4 +10,9 @@
 
 @interface BaseViewController : UIViewController
 
+/**
+ *  用户登录状态
+ */
+@property (nonatomic, assign) BOOL isLogin;
+
 @end
