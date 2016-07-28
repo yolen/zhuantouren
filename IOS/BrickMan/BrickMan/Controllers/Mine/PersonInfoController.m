@@ -13,13 +13,11 @@
 
 #define kMaxLength 8
 
-const static NSString *reuseInfoCell = @"infoCell";
-
 @interface PersonInfoController ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate,MottoControllerDelegate> {
     UIButton *_oldSelected;
 }
 
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UITableView *myTableView;
 
 @property (nonatomic, strong) NSArray *titles;
 
@@ -38,11 +36,19 @@ const static NSString *reuseInfoCell = @"infoCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"个人资料";
+
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"compose"] style:UIBarButtonItemStylePlain target:self action:@selector(compose:)];
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    [self.view addSubview:self.tableView];
-    // Do any additional setup after loading the view.
+    self.myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.myTableView.dataSource = self;
+    self.myTableView.delegate = self;
+    self.myTableView.rowHeight = [Mine_infoCell cellHeight];
+    [self.myTableView registerClass:[Mine_infoCell class] forCellReuseIdentifier:kCellIdentifier_Mine_infoCell];
+    [self.view addSubview:self.self.myTableView];
+    [self.myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
 }
 
 - (void)compose:(UIBarButtonItem *)sender {
@@ -56,7 +62,7 @@ const static NSString *reuseInfoCell = @"infoCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Mine_infoCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseInfoCell forIndexPath:indexPath];
+    Mine_infoCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_infoCell forIndexPath:indexPath];
     cell.titleLabel.text = self.titles[indexPath.row];
     if (indexPath.row == 0) {
         cell.subImgView.image = [UIImage imageNamed:@"user_icon"];
@@ -67,6 +73,7 @@ const static NSString *reuseInfoCell = @"infoCell";
         [cell.subLabel setHidden:NO];
         [cell.subImgView setHidden:YES];
     }
+    [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:kPaddingLeft];
     return cell;
 }
 
@@ -89,7 +96,7 @@ const static NSString *reuseInfoCell = @"infoCell";
                 [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:[alert.textFields firstObject]];
             }];
             UIAlertAction *actionSure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                Mine_infoCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+                Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                 UITextField *tf = [alert.textFields firstObject];
                 cell.subLabel.text = tf.text;
             }];
@@ -112,7 +119,7 @@ const static NSString *reuseInfoCell = @"infoCell";
             //更改座右铭
             MottoController *motto = [[MottoController alloc]init];
             motto.delegate = self;
-            Mine_infoCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+            Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
             motto.textView.text = cell.subLabel.text;
             [self.navigationController pushViewController:motto animated:YES];
         }
@@ -123,7 +130,7 @@ const static NSString *reuseInfoCell = @"infoCell";
 }
 
 - (void)presentMySexSelection {
-    Mine_infoCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     if ([cell.subLabel.text isEqualToString:@"男"]) {
         [self.male setImage:[UIImage imageNamed:@"man_sel"] forState:UIControlStateNormal];
         _oldSelected = self.male;
@@ -187,7 +194,7 @@ const static NSString *reuseInfoCell = @"infoCell";
 }
 
 - (void)confirmSelection:(UIButton *)sender {
-    Mine_infoCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     cell.subLabel.text = _oldSelected.titleLabel.text;
     [self.mySexSelection removeFromSuperview];
 }
@@ -226,7 +233,7 @@ const static NSString *reuseInfoCell = @"infoCell";
 #pragma mark - MottoControllerDelegate
 
 - (void)saveMotto:(MottoController *)controller {
-    Mine_infoCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     cell.subLabel.text = controller.textView.text;
 }
 
@@ -242,18 +249,6 @@ const static NSString *reuseInfoCell = @"infoCell";
         [sender setImage:[UIImage imageNamed:@"man_sel"] forState:UIControlStateNormal];
     }
     _oldSelected = sender;
-}
-
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - 64) style:UITableViewStylePlain];
-        _tableView.backgroundColor = RGBCOLOR(247, 247, 247);
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.rowHeight = [Mine_infoCell cellHeight];
-        [_tableView registerClass:[Mine_infoCell class] forCellReuseIdentifier:reuseInfoCell];
-    }
-    return _tableView;
 }
 
 - (NSArray *)titles {

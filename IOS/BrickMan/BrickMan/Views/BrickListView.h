@@ -10,5 +10,7 @@
 
 @interface BrickListView : UIView
 
-@property (copy, nonatomic) void(^goToDetailBlock)();
+@property (copy, nonatomic) void(^scrollBlock)(CGFloat offset);
+
+@property (copy, nonatomic) void(^goToDetailBlock)(NSDictionary *dic);
 @end

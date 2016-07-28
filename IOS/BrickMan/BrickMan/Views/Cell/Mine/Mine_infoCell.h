@@ -6,6 +6,7 @@
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
+#define kCellIdentifier_Mine_infoCell @"Mine_infoCell"
 #import <UIKit/UIKit.h>
 
 @interface Mine_infoCell : UITableViewCell
