@@ -79,6 +79,8 @@
 - (UIImageView *)headImgView {
     if (!_headImgView) {
         _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Width)];
+        _headImgView.layer.masksToBounds = YES;
+        _headImgView.layer.cornerRadius = kScreen_Width/2;
     }
     return _headImgView;
 }

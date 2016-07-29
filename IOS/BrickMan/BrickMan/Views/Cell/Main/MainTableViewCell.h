@@ -12,7 +12,7 @@
 @interface MainTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) NSString *contentStr;
-
+@property (nonatomic, assign) BOOL isGallery;
 - (void)setData:(NSDictionary *)dataDic;
 + (CGFloat)cellHeightWithImageArray:(NSDictionary *)dataDic;
 @end
