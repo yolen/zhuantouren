@@ -5,7 +5,7 @@
 //  Created by TobyoTenma on 7/28/16.
 //  Copyright © 2016 BrickMan. All rights reserved.
 //
-
+// TODO: accessToken 过期时间验证
 #import "BMUserInfo.h"
 
 static NSString *userInfo = @"userInfo";
@@ -25,7 +25,7 @@ static NSString *userInfo = @"userInfo";
     return instance;
 }
 
--(instancetype)init{
+- (instancetype)init {
     if (self = [super init]) {
         [self loadUserInfo];
     }
@@ -42,14 +42,22 @@ static NSString *userInfo = @"userInfo";
     [[BMUserInfo sharedUserInfo] setValuesForKeysWithDictionary:userInfoDict];
 
     // 将模型转为字典,再保存
-    NSDictionary *userInfoNew = [self dictionaryWithValuesForKeys:@[@"nickname", @"gender", @"figureurl_qq_1", @"figureurl_qq_2", @"openId", @"accessToken", @"expirationDate"]];
+    NSDictionary *userInfoNew = [self dictionaryWithValuesForKeys:@[
+        @"nickname",
+        @"gender",
+        @"figureurl_qq_1",
+        @"figureurl_qq_2",
+        @"openId",
+        @"accessToken",
+        @"expirationDate"
+    ]];
     // 保存数据
     [[NSUserDefaults standardUserDefaults] setValue:userInfoNew forKey:userInfo];
 }
 /**
  *  从本地加载用户数据
  */
--(void)loadUserInfo {
+- (void)loadUserInfo {
     NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:userInfo];
     [self setValuesForKeysWithDictionary:dic];
 }
@@ -58,7 +66,7 @@ static NSString *userInfo = @"userInfo";
 }
 
 #pragma mark - Getter && Setter
--(BOOL)isLogin{
+- (BOOL)isLogin {
     return _accessToken != nil;
 }
 

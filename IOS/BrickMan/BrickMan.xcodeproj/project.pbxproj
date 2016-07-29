@@ -128,7 +128,6 @@
 		79F71F2E1D49DAEC00C2AF2D /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F71F2D1D49DAEC00C2AF2D /* libz.tbd */; };
 		79F71F321D49DF1100C2AF2D /* BMLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F71F311D49DF1100C2AF2D /* BMLoginViewController.m */; };
 		79F71F3A1D4A33A700C2AF2D /* BMUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F71F391D4A33A700C2AF2D /* BMUserInfo.m */; };
-		79F71F3E1D4A45E900C2AF2D /* NSObject+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F71F3D1D4A45E900C2AF2D /* NSObject+Log.m */; };
 		79FBFBE11D41DF00001C43C2 /* ComposeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FBFBE01D41DF00001C43C2 /* ComposeTextView.m */; };
 		79FBFBE71D41FCB2001C43C2 /* ComposePictureViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FBFBE61D41FCB2001C43C2 /* ComposePictureViewFlowLayout.m */; };
 		79FBFBEB1D420904001C43C2 /* ComposePictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FBFBEA1D420904001C43C2 /* ComposePictureCell.m */; };
@@ -1118,7 +1117,6 @@
 			files = (
 				30C5BB3A1D40B468001DF9D2 /* BaseViewController.m in Sources */,
 				5A52DE2C1D41EF4C00D28DB2 /* BrickController.m in Sources */,
-				79F71F3E1D4A45E900C2AF2D /* NSObject+Log.m in Sources */,
 				5A686DF41D446FB500455FB2 /* UITextView+Common.m in Sources */,
 				30F91D641D3DCC1F007D9BDB /* UIViewExt.m in Sources */,
 				30C5BAE91D406594001DF9D2 /* NSString+Common.m in Sources */,
@@ -1145,7 +1143,6 @@
 				79FBFBE71D41FCB2001C43C2 /* ComposePictureViewFlowLayout.m in Sources */,
 				1BFD4D401D3CD0BF00ABE8E6 /* PublishViewController.m in Sources */,
 				79F71F321D49DF1100C2AF2D /* BMLoginViewController.m in Sources */,
-				30C5BB411D411AE3001DF9D2 /* MainDetailCell.m in Sources */,
 				303529C81D4862BD00CFDD77 /* ShareView.m in Sources */,
 				5A686DF11D44629800455FB2 /* MottoController.m in Sources */,
 				1BFD4D321D3CD02500ABE8E6 /* RootTabBarController.m in Sources */,
