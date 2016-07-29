@@ -10,8 +10,6 @@
 #import "Mine_BrickModel.h"
 #import "Mine_BrickCell.h"
 
-const static NSString *reuseMineBrickCell = @"brickCell";
-
 @interface BrickController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -31,7 +29,7 @@ const static NSString *reuseMineBrickCell = @"brickCell";
     // Do any additional setup after loading the view.
     self.title = @"我的砖头";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.tableView registerClass:[Mine_BrickCell class] forCellReuseIdentifier:reuseMineBrickCell];
+    [self.tableView registerClass:[Mine_BrickCell class] forCellReuseIdentifier:kCellIdentifier_Mine_BrickCell];
     for (int i = 0; i < 50; i ++) {
         Mine_BrickModel *model = [Mine_BrickModel modelWithDictionary:@{@"ranking":[NSString stringWithFormat:@"%d",i + 1],@"headPath":@"",@"nickname":@"老马",@"grade":@"金砖",@"numberOfBrick":@"52000"}];
         [self.dataList addObject:model];
@@ -46,7 +44,7 @@ const static NSString *reuseMineBrickCell = @"brickCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Mine_BrickCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseMineBrickCell forIndexPath:indexPath];
+    Mine_BrickCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_BrickCell forIndexPath:indexPath];
     cell.model = self.dataList[indexPath.row];
     return cell;
 }
@@ -57,14 +55,6 @@ const static NSString *reuseMineBrickCell = @"brickCell";
     return [Mine_BrickCell cellHeight];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return self.tableHeaderView.height;
-}
-
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [self tableHeaderView];
-}
-
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 0, kScreen_Width - 20, kScreen_Height - 64) style:UITableViewStylePlain];
@@ -73,6 +63,7 @@ const static NSString *reuseMineBrickCell = @"brickCell";
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.allowsSelection = NO;
+        _tableView.tableHeaderView = [self tableHeaderView];
         _tableView.showsVerticalScrollIndicator = NO;
     }
     return _tableView;

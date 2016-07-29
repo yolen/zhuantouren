@@ -13,7 +13,6 @@
 @interface GalleryController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-
 @property (strong, nonatomic) NSArray *dataList;
 
 @end
@@ -24,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"我的砖集";
-    NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"Address" ofType:@"json"];
+    NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"];
     NSData *jsonData = [[NSData alloc] initWithContentsOfFile:resourcePath];
     NSError *error = nil;
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
@@ -54,6 +53,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DetailBrickViewController *vc = [[DetailBrickViewController alloc] init];
+    vc.dataDic = self.dataList[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 

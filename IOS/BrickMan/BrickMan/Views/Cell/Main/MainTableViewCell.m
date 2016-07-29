@@ -47,6 +47,7 @@
             _reportBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             _reportBtn.frame = CGRectMake(kScreen_Width - 40, 15, 30, 30);
             [_reportBtn setImage:[UIImage imageNamed:@"report_nor"] forState:UIControlStateNormal];
+            [_reportBtn addTarget:self action:@selector(reportAction:) forControlEvents:UIControlEventTouchUpInside];
             [self.contentView addSubview:_reportBtn];
         }
         if (!_separatorLine) {
@@ -84,6 +85,7 @@
             [_commentBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
             _commentBtn.titleLabel.font = [UIFont systemFontOfSize:12];
             [_commentBtn setTitle:@"评论" forState:UIControlStateNormal];
+            [_commentBtn addTarget:self action:@selector(commentAction:) forControlEvents:UIControlEventTouchUpInside];
             [self.contentView addSubview:_commentBtn];
         }
         if (!_flowerBtn) {
@@ -95,6 +97,7 @@
             [_flowerBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
             _flowerBtn.titleLabel.font = [UIFont systemFontOfSize:12];
             [_flowerBtn setTitle:@"鲜花" forState:UIControlStateNormal];
+            [_flowerBtn addTarget:self action:@selector(flowerAction:) forControlEvents:UIControlEventTouchUpInside];
             [self.contentView addSubview:_flowerBtn];
         }
         if (!_shareBtn) {
@@ -106,6 +109,7 @@
             [_shareBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
             _shareBtn.titleLabel.font = [UIFont systemFontOfSize:12];
             [_shareBtn setTitle:@"分享" forState:UIControlStateNormal];
+            [_shareBtn addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
             [self.contentView addSubview:_shareBtn];
         }
         if (!_bottomView) {
@@ -247,6 +251,29 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+}
+
+#pragma mark - Btn Action
+- (void)commentAction:(id)sender {
+    if (self.commentBlock) {
+        self.commentBlock();
+    }
+}
+
+- (void)flowerAction:(id)sender {
+    self.flowerBtn.selected = !self.flowerBtn.selected;
+    [self.flowerBtn setImage:[UIImage imageNamed:(self.flowerBtn.selected == YES ? @"flower_sel" : @"flower_nor")] forState:UIControlStateNormal];
+}
+
+- (void)shareAction:(id)sender {
+    if (self.shareBlock) {
+        self.shareBlock();
+    }
+}
+
+- (void)reportAction:(id)sender {
+    self.reportBtn.selected = !self.reportBtn.selected;
+    [self.reportBtn setImage:[UIImage imageNamed:(self.reportBtn.selected == YES ? @"report_sel" : @"report_nor")] forState:UIControlStateNormal];
 }
 
 #pragma mark - cellHeight
