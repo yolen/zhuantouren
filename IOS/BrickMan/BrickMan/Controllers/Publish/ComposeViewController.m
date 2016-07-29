@@ -192,12 +192,11 @@
 
 
 #pragma mark - Actions
+/**
+ *  直接返回到 Home
+ */
 - (void)returnHomeButtonAction {
-    // TODO: 回到 Home
-
-    [self dismissViewControllerAnimated:YES completion:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DismissPublishViewController" object:nil];
-
+    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)composeButtonAction {

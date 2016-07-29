@@ -6,6 +6,7 @@
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
+#import "BMLoginViewController.h"
 #import "ComposeViewController.h"
 #import "PublishViewController.h"
 #import "UITapImageView.h"
@@ -24,11 +25,6 @@
  */
 @property (nonatomic, strong) UIImage *image;
 
-/**
- *  选择或者捕获的 video
- */ // TODO: 视频待完善
-//@property (nonatomic, strong) <#type#> *<#name#>;
-
 
 @end
 
@@ -39,13 +35,6 @@
     // Do any additional setup after loading the view.
 
     [self customView];
-
-    // 确保在 ComposeViewController 中点击返回 Home 后,可以回到主界面
-    // TODO: 这里不能完美保证回到主界面
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector (dismissAction)
-                                                 name:@"DismissPublishViewController"
-                                               object:nil];
 }
 
 - (void)customView {
@@ -137,18 +126,32 @@
  *  点击拍照,进入相机拍照或者录相
  */
 - (void)cameraAction {
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.mediaTypes = [[NSArray alloc]
-    initWithObjects:(NSString *)kUTTypeMovie, (NSString *)kUTTypeImage, (NSString *)kUTTypeGIF, nil];
-    self.imagePicker.videoQuality = UIImagePickerControllerQualityTypeMedium;
-    [self presentViewController:self.imagePicker animated:YES completion:nil];
+    // 如果没有登录,显示登录界面
+    if (!self.isLogin) {
+        BMLoginViewController *loginViewController = [[BMLoginViewController alloc] init];
+        [self.navigationController pushViewController:loginViewController animated:YES];
+    } else {
+        // 否则显示图片选择页面
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.imagePicker.mediaTypes = [[NSArray alloc]
+        initWithObjects:(NSString *)kUTTypeMovie, (NSString *)kUTTypeImage, (NSString *)kUTTypeGIF, nil];
+        self.imagePicker.videoQuality = UIImagePickerControllerQualityTypeMedium;
+        [self presentViewController:self.imagePicker animated:YES completion:nil];
+    }
 }
 /**
  *  点击相册,进入相册选择照片
  */
 - (void)photoAction {
-    self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentViewController:self.imagePicker animated:YES completion:nil];
+    // 如果没有登录,显示登录界面
+    if (!self.isLogin) {
+        BMLoginViewController *loginViewController = [[BMLoginViewController alloc] init];
+        [self.navigationController pushViewController:loginViewController animated:YES];
+    } else {
+        // 否则显示图片选择页面
+        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:self.imagePicker animated:YES completion:nil];
+    }
 }
 
 
