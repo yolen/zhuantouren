@@ -48,7 +48,8 @@
 
 #pragma mark - UI
 - (void)setupUI {
-    self.view.backgroundColor = [UIColor whiteColor];
+//    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.layer.contents = (__bridge id _Nullable)([UIImage imageNamed:@"publishView_bg"].CGImage);
     // 添加
     UILabel *headerLabel = [[UILabel alloc] init];
     [self.view addSubview:headerLabel];

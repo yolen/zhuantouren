@@ -42,15 +42,23 @@ static NSString *userInfo = @"userInfo";
     [[BMUserInfo sharedUserInfo] setValuesForKeysWithDictionary:userInfoDict];
 
     // 将模型转为字典,再保存
-    NSDictionary *userInfoNew = [self dictionaryWithValuesForKeys:@[
-        @"nickname",
-        @"gender",
-        @"figureurl_qq_1",
-        @"figureurl_qq_2",
-        @"openId",
-        @"accessToken",
-        @"expirationDate"
-    ]];
+    NSMutableArray *userInfoArray = @[].mutableCopy;
+    // runtime模型转字典
+    unsigned int count = 0;
+    Ivar *ivars = class_copyIvarList(self.class, &count);
+    for (NSInteger i = 0; i < count; i++) {
+        Ivar ivar = ivars[i];
+        NSString *key = [NSString stringWithUTF8String:ivar_getName(ivar)];
+        // 去掉获取到的属性名的 "_"
+        key = [key substringFromIndex:1];
+
+        [userInfoArray addObject: key];
+    }
+    free(ivars);
+
+    // 将取到的所有的属性,从模型中取出 value,转为字典
+    NSDictionary *userInfoNew = [self dictionaryWithValuesForKeys:userInfoArray];
+
     // 保存数据
     [[NSUserDefaults standardUserDefaults] setValue:userInfoNew forKey:userInfo];
 }
