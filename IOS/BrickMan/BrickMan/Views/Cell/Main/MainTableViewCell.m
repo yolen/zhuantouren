@@ -121,6 +121,17 @@
     return self;
 }
 
+- (void)setIsGallery:(BOOL)isGallery {
+    _isGallery = isGallery;
+    if (_isGallery) {
+        [self.reportBtn removeFromSuperview];
+        [self.commentBtn removeFromSuperview];
+        [self.flowerBtn removeFromSuperview];
+        [self.shareBtn removeFromSuperview];
+        
+    }
+}
+
 - (void)setData:(NSDictionary *)dataDic {
     self.dic = dataDic;
 }
@@ -170,8 +181,8 @@
     [_commentBtn setY:curY];
     [_flowerBtn setY:curY];
     [_shareBtn setY:curY];
-    
-    curY += 30;
+    curY += self.isGallery? 10: 30;
+
     [_bottomView setY:curY];
 }
 

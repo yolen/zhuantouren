@@ -45,6 +45,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
     [cell setData:self.dataList[indexPath.row]];
+    [cell setIsGallery:YES];
     return cell;
 }
 
@@ -58,7 +59,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dic = self.dataList[indexPath.row];
-    return [MainTableViewCell cellHeightWithImageArray:dic];
+    return [MainTableViewCell cellHeightWithImageArray:dic] - 20;
 }
 
 

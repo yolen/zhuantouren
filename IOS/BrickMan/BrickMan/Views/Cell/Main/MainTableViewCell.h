@@ -12,6 +12,7 @@
 @interface MainTableViewCell : UITableViewCell
 
 @property (strong, nonatomic) NSString *contentStr;
+@property (nonatomic, assign) BOOL isGallery;
 @property (strong, nonatomic) void(^commentBlock)();
 @property (copy, nonatomic) void(^shareBlock)();
 
