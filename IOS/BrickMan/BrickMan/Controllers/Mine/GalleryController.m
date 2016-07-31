@@ -59,7 +59,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *dic = self.dataList[indexPath.row];
-    return [MainTableViewCell cellHeightWithImageArray:dic] - 20;
+    return [MainTableViewCell cellHeightWithImageArray:dic];
 }
 
 

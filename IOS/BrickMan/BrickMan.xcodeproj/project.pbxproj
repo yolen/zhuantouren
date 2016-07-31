@@ -84,6 +84,7 @@
 		30F91D6E1D3DCD33007D9BDB /* tabbar2_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30F91D691D3DCD33007D9BDB /* tabbar2_nor@2x.png */; };
 		30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */; };
 		3C3F68A84493DEF196A047EA /* libPods-BrickMan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABE84164D54F09E5568EE17 /* libPods-BrickMan.a */; };
+		55FE3510925051A0389E0BEA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9EFEBB182FBFF56B208B866 /* libPods.a */; };
 		5A1CD6BA1D459D290007E4D1 /* man_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A1CD6B61D459D290007E4D1 /* man_nor@2x.png */; };
 		5A1CD6BB1D459D290007E4D1 /* man_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A1CD6B71D459D290007E4D1 /* man_sel@2x.png */; };
 		5A1CD6BC1D459D290007E4D1 /* woman_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5A1CD6B81D459D290007E4D1 /* woman_nor@2x.png */; };
@@ -336,6 +337,7 @@
 		79FBFBE91D420904001C43C2 /* ComposePictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposePictureCell.h; sourceTree = "<group>"; };
 		79FBFBEA1D420904001C43C2 /* ComposePictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposePictureCell.m; sourceTree = "<group>"; };
 		C47F40737D60386F9E7760FE /* Pods-BrickMan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrickMan.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrickMan/Pods-BrickMan.release.xcconfig"; sourceTree = "<group>"; };
+		D9EFEBB182FBFF56B208B866 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -354,6 +356,7 @@
 				5A1CD6C61D4847040007E4D1 /* WebKit.framework in Frameworks */,
 				79F71F1E1D49DA2C00C2AF2D /* TencentOpenAPI.framework in Frameworks */,
 				3C3F68A84493DEF196A047EA /* libPods-BrickMan.a in Frameworks */,
+				55FE3510925051A0389E0BEA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -873,6 +876,7 @@
 				79F71F1C1D49DA2C00C2AF2D /* TencentOpenAPI.framework */,
 				5A1CD6C51D4847040007E4D1 /* WebKit.framework */,
 				1ABE84164D54F09E5568EE17 /* libPods-BrickMan.a */,
+				D9EFEBB182FBFF56B208B866 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -884,12 +888,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1BFD4D201D3CCC3100ABE8E6 /* Build configuration list for PBXNativeTarget "BrickMan" */;
 			buildPhases = (
+				D2B997F32C6B932B4B5965DE /* Check Pods Manifest.lock */,
 				20E05CD2F2AB0931248F5451 /* [CP] Check Pods Manifest.lock */,
 				1BFD4CEF1D3CCC3100ABE8E6 /* Sources */,
 				1BFD4CF01D3CCC3100ABE8E6 /* Frameworks */,
 				1BFD4CF11D3CCC3100ABE8E6 /* Resources */,
 				2FBDA946492EA837C3FE133A /* [CP] Embed Pods Frameworks */,
 				D1AB16CBCE247017ADF74C41 /* [CP] Copy Pods Resources */,
+				F080388F4B86DAD61D3D5559 /* Embed Pods Frameworks */,
+				E622F557AEEC2FF2626BF692 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1106,6 +1113,51 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrickMan/Pods-BrickMan-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2B997F32C6B932B4B5965DE /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E622F557AEEC2FF2626BF692 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrickMan/Pods-BrickMan-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F080388F4B86DAD61D3D5559 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrickMan/Pods-BrickMan-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
