@@ -124,10 +124,10 @@
 - (void)setIsGallery:(BOOL)isGallery {
     _isGallery = isGallery;
     if (_isGallery) {
-        [self.reportBtn removeFromSuperview];
-        [self.commentBtn removeFromSuperview];
-        [self.flowerBtn removeFromSuperview];
-        [self.shareBtn removeFromSuperview];
+        [self.reportBtn setUserInteractionEnabled:NO];
+        [self.commentBtn setUserInteractionEnabled:NO];
+        [self.flowerBtn setUserInteractionEnabled:NO];
+        [self.shareBtn setUserInteractionEnabled:NO];
         
     }
 }
@@ -181,7 +181,7 @@
     [_commentBtn setY:curY];
     [_flowerBtn setY:curY];
     [_shareBtn setY:curY];
-    curY += self.isGallery? 10: 30;
+    curY += 30;
 
     [_bottomView setY:curY];
 }
