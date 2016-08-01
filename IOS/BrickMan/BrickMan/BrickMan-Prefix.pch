@@ -31,7 +31,7 @@
 #endif
 
 
-#define kBaseUrl @""
+#define kBaseUrl @"http://115.28.211.119:1080"
 
 //常用变量
 #define DebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
