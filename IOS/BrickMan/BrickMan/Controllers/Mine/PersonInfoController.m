@@ -43,7 +43,7 @@
     self.myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.myTableView.dataSource = self;
     self.myTableView.delegate = self;
-    self.myTableView.rowHeight = [Mine_infoCell cellHeight];
+    self.myTableView.rowHeight = [Mine_infoCell cellHeight] * kMineCellHeightRadio;
     [self.myTableView registerClass:[Mine_infoCell class] forCellReuseIdentifier:kCellIdentifier_Mine_infoCell];
     [self.view addSubview:self.self.myTableView];
     [self.myTableView mas_makeConstraints:^(MASConstraintMaker *make) {

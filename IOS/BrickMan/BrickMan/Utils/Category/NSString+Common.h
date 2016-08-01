@@ -16,4 +16,6 @@
 
 + (BOOL)isNULLString:(NSString *)string;
 
+- (NSString *)md5Str;
+
 @end

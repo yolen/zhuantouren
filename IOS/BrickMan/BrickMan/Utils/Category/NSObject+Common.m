@@ -49,17 +49,14 @@
 //此处根据返回码做一些业务逻辑判断
 -(id)handleResponse:(id)responseJSON autoShowError:(BOOL)autoShowError {
     NSError *error = nil;
-    
-    //以code为非0值时，表示有错为例,根据实际情况处理
     NSNumber *resultCode = [responseJSON valueForKeyPath:@"code"];
-    
-    if (resultCode.intValue != 0) {
+    if (resultCode.intValue == 101) { //正常返回
+        
+    }else if (resultCode.integerValue == 102 || resultCode.integerValue == 104) { //102:发生业务逻辑错误时返回 104:发生校验身份错误或者系统内部错误时返回
         error = [NSError errorWithDomain:kBaseUrl code:resultCode.intValue userInfo:responseJSON];
         if (autoShowError) {
             [NSObject showError:error];
         }
-        
-        
     }
     return error;
 }
