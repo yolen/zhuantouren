@@ -46,13 +46,24 @@
     if (!aPath || aPath.length <= 0) {
         return;
     }
-    //log请求数据
-    DebugLog(@"request:%@\npath:%@:\nparams:%@", kNetworkMethodName[method], aPath, params);
+    //对params做处理
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:params];
+    NSString *randomString = [NSString stringWithFormat:@"%d",arc4random()];
+    [dic setObject:randomString forKey:@"rn"];
     
+    NSDateFormatter * formatter = [[NSDateFormatter alloc ] init];
+    [formatter setDateFormat:@"YYYYMMddhhmmssSSS"];
+    NSString *date =  [formatter stringFromDate:[NSDate date]];
+    NSString *timeString = [[NSString alloc] initWithFormat:@"%@", date];
+    [dic setObject:timeString forKey:@"ts"];
+    
+    NSString *cVal = [self getMD5StringWithParams:dic];
+    [dic setObject:cVal forKey:@"cVal"];
+    DebugLog(@"request:%@\npath:%@:\nparams:%@", kNetworkMethodName[method], aPath, dic);
     //发起请求
     switch (method) {
         case Get:{
-            [self GET:aPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self GET:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
@@ -67,7 +78,7 @@
             }];
             break;}
         case Post:{
-            [self POST:aPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self POST:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
@@ -82,7 +93,7 @@
             }];
             break;}
         case Put:{
-            [self PUT:aPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self PUT:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
@@ -97,7 +108,7 @@
             }];
             break;}
         case Delete:{
-            [self DELETE:aPath parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self DELETE:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
@@ -114,6 +125,32 @@
             break;
     }
     
+}
+
+- (NSString *)getMD5StringWithParams:(NSMutableDictionary *)params {
+    NSArray *allValues = [params allValues];
+    NSArray * sortlValues = [allValues sortedArrayUsingFunction:mycompare context:NULL];
+    
+    NSString * appendingString = @"";
+    for (NSString * value in sortlValues) {
+        NSString *string = [NSString stringWithFormat:@"%@,",value];
+        appendingString = [appendingString stringByAppendingString:string];
+    }
+    //去除最后一个','
+    appendingString = [appendingString substringToIndex:appendingString.length-1];
+    appendingString = [appendingString md5Str];
+    appendingString = [appendingString lowercaseString];
+    appendingString = [appendingString stringByAppendingString:[NSString stringWithFormat:@".%@",@"53b4be63fac688e0"]];
+    appendingString  = [appendingString md5Str];
+    NSString *cVal = [appendingString lowercaseString];
+    
+    return cVal;
+}
+
+NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数指针）
+    NSString * x = (NSString *)a;
+    NSString * y = (NSString *)b;
+    return [x compare:y];//可以加一个负号改变顺序和倒叙
 }
 
 

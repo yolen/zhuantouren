@@ -127,24 +127,24 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
     return _sharedManager;
 }
 
-#ifndef __clang_analyzer__
 + (instancetype)managerForDomain:(NSString *)domain {
+#ifndef __clang_analyzer__
     SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(kCFAllocatorDefault, [domain UTF8String]);
 
     AFNetworkReachabilityManager *manager = [[self alloc] initWithReachability:reachability];
 
     return manager;
-}
 #endif
+}
 
-#ifndef __clang_analyzer__
 + (instancetype)managerForAddress:(const void *)address {
+#ifndef __clang_analyzer__
     SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)address);
     AFNetworkReachabilityManager *manager = [[self alloc] initWithReachability:reachability];
 
     return manager;
-}
 #endif
+}
 
 - (instancetype)initWithReachability:(SCNetworkReachabilityRef)reachability {
     self = [super init];

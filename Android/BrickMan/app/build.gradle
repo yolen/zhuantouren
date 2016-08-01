@@ -25,6 +25,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled false
+        }
+        debug {
+            signingConfig signingConfigs.config
+            minifyEnabled false
+            zipAlignEnabled false
         }
     }
     productFlavors {
@@ -35,7 +41,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.0.0'
-    compile 'com.yolanda.nohttp:nohttp:1.0.3'
+    compile 'com.yolanda.nohttp:nohttp:1.0.4'
     compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.wang.avi:library:1.0.5'
@@ -55,4 +61,6 @@ dependencies {
     // https://github.com/IsseiAoki/SimpleCropView
     compile 'com.isseiaoki:simplecropview:1.1.4'
     compile project(':social_sdk_library_project')
+    compile 'cn.finalteam:galleryfinal:1.4.8.7'
+    compile 'com.makeramen:roundedimageview:2.2.1'
 }

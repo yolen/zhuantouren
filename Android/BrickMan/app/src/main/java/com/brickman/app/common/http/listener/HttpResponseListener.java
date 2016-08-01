@@ -45,7 +45,7 @@ public class HttpResponseListener<T> implements OnResponseListener<T> {
     public void onSucceed(int what, Response<T> response) {
         int responseCode = response.getHeaders().getResponseCode();
         if (responseCode == 200 && callback != null) {
-            LogUtil.info(responseCode + ">>>" + response.get());
+            LogUtil.info("【" + responseCode + "】" + "---" + response.get());
             callback.onSucceed(response.get());
         } else if (responseCode > 400) {
             if (responseCode == 405) {// 405表示服务器不支持这种请求方法，比如GET、POST、TRACE中的TRACE就很少有服务器支持。

@@ -28,6 +28,7 @@
     changeBtn.center = CGPointMake(self.view.center.x, self.headImgView.bottom + (kScreen_Height - 64 - self.headImgView.height)/2);
     changeBtn.backgroundColor = kNavigationBarColor;
     [changeBtn setTitle:@"上传头像" forState:UIControlStateNormal];
+    changeBtn.titleLabel.font = [UIFont systemFontOfSize:14.f];
     [changeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     changeBtn.layer.masksToBounds = YES;
     changeBtn.layer.cornerRadius = 5.f;

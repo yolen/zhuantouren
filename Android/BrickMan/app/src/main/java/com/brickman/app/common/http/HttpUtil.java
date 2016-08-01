@@ -11,6 +11,8 @@ import com.yolanda.nohttp.error.UnKnownHostError;
 import com.yolanda.nohttp.rest.Request;
 import com.yolanda.nohttp.rest.RequestQueue;
 
+import org.json.JSONObject;
+
 import java.net.ProtocolException;
 
 /**
@@ -106,5 +108,12 @@ public class HttpUtil {
         } else {
             return"未知错误。";
         }
+    }
+
+    public static boolean isSuccess(JSONObject jsonObject){
+        if(jsonObject.optInt("code") == 101)
+            return true;
+        else
+            return false;
     }
 }

@@ -20,13 +20,19 @@
     return share_instance;
 }
 
-- (void)requestWithParams:(id)params andBlock:(void (^)(id, NSError *))block {
-    [[BrickManAPIManager shareInstance] requestJsonDataWithPath:@"" withParams:nil withMethodType:Get andBlock:^(id data, NSError *error) {
+- (void)requestWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/content/test.json" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
         if (error) {
             block(nil,error);
         }else {
             block(data,error);
         }
+    }];
+}
+
+- (void)uploadFileWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/upload.json" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
+        
     }];
 }
 

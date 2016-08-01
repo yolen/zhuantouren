@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "RootTabBarController.h"
 #import <TencentOpenAPI/TencentOAuth.h>
+#import "BrickManAPIManager.h"
 
 @interface AppDelegate ()
 
@@ -32,6 +33,11 @@
     [navigationBar setTintColor:[UIColor whiteColor]];
     RootTabBarController *rootVC = [[RootTabBarController alloc] init];
     self.window.rootViewController = rootVC;
+    
+    [[BrickManAPIManager shareInstance] requestWithParams:@{@"userId":@"test1",@"param1":@"参数1",@"param2":@"参数2"} andBlock:^(id data, NSError *error) {
+        
+        
+    }];
     [self.window makeKeyAndVisible];
     return YES;
 }

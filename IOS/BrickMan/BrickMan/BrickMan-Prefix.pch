@@ -31,7 +31,7 @@
 #endif
 
 
-#define kBaseUrl @""
+#define kBaseUrl @"http://115.28.211.119:1080"
 
 //常用变量
 #define DebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
@@ -57,6 +57,8 @@
 #define kLineColor RGBCOLOR(213, 214, 215)
 
 #define kPaddingLeft 10
+
+#define kMineCellHeightRadio [UIScreen mainScreen].bounds.size.width/414
 
 #define kBrickPhotoCellWidth_One (kScreen_Width - 20.0)
 #define kBrickPhotoCellWidth_Two (kScreen_Width - 24.0)/2.0

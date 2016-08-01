@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#e64723</color>
-    <color name="colorPrimaryDark">#FF6633</color>
+    <color name="colorPrimary">#FF6633</color>
+    <color name="colorPrimaryDark">#E64723</color>
     <color name="colorAccent">#FF6633</color>
 
 
-    <color name="red">#ebff064c</color>
+    <color name="red">#EBFF064C</color>
     <color name="window_background">#FFF5F5F5</color>
     <color name="text_color_deep">#333333</color>
     <color name="text_color">#555555</color>
-    <color name="text_gray">#bfbfbf</color>
-    <color name="text_light_gray">#cecece</color>
-    <color name="loading_bg">#aa555555</color>
-    <color name="login_bg">#f5f5f5</color>
-    <color name="theme_black_7f">#8f000000</color>
-    <color name="gray">#a3a3a3</color>
-    <color name="bg_tab">#f4f5f6</color>
-    <color name="line">#e2e2e2</color>
-    <color name="white">#ffffff</color>
-    <color name="click_bg">#33e2e2e2</color>
-    <color name="light_gray">#f1f2f4</color>
+    <color name="text_gray">#BFBFBF</color>
+    <color name="text_light_gray">#CECECE</color>
+    <color name="loading_bg">#AA555555</color>
+    <color name="login_bg">#F5F5F5</color>
+    <color name="theme_black_7f">#8F000000</color>
+    <color name="gray">#A3A3A3</color>
+    <color name="bg_tab">#F4F5F6</color>
+    <color name="line">#E2E2E2</color>
+    <color name="white">#FFFFFF</color>
+    <color name="click_bg">#33E2E2E2</color>
+    <color name="light_gray">#F1F2F4</color>
     <color name="transparent">#00000000</color>
-    <color name="green">#8bc385</color>
+    <color name="green">#8BC385</color>
 
-    <color name="puple">#ecebff</color>
-    <color name="light_green">#dafff7</color>
-    <color name="yellow">#f7f4dd</color>
-    <color name="pink">#fbe9ec</color>
-    <color name="blue">#1db8f1</color>
+    <color name="puple">#ECEBFF</color>
+    <color name="light_green">#DAFFF7</color>
+    <color name="yellow">#F7F4DD</color>
+    <color name="pink">#FBE9EC</color>
+    <color name="blue">#1DB8F1</color>
 </resources>
