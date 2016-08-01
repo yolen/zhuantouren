@@ -48,7 +48,7 @@
     }
     //对params做处理
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:params];
-    NSString *randomString = [NSString stringWithFormat:@"1231231263781"];
+    NSString *randomString = [NSString stringWithFormat:@"%d",arc4random()];
     [dic setObject:randomString forKey:@"rn"];
     
     NSDateFormatter * formatter = [[NSDateFormatter alloc ] init];
