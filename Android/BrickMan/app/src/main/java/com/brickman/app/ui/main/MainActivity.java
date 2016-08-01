@@ -1,7 +1,10 @@
 package com.brickman.app.ui.main;
 
-import android.content.Intent;
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,11 +18,18 @@ import android.widget.Toast;
 
 import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
+import com.brickman.app.common.http.HttpListener;
+import com.brickman.app.common.http.HttpUtil;
+import com.brickman.app.common.http.RequestHelper;
+import com.brickman.app.common.http.param.ParamBuilder;
+import com.brickman.app.common.http.param.RequestParam;
 import com.brickman.app.contract.MainContract;
 import com.brickman.app.model.Bean.BannerBean;
 import com.brickman.app.model.Bean.BrickBean;
 import com.brickman.app.model.MainModel;
 import com.brickman.app.presenter.MainPresenter;
+
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -75,7 +85,23 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                 }
             }
         });
-        startActivityWithAnim(new Intent(this, LoginActivity.class));
+        RequestParam params = ParamBuilder.buildParam("param1", "参数1").append("param2", "参数2").append("userId", "test1");
+        RequestHelper.sendPOSTRequest(true, "http://115.28.211.119:1080/content/test.json", params, new HttpListener<JSONObject>() {
+            @Override
+            public void onSucceed(JSONObject response) {
+                if(HttpUtil.isSuccess(response)){
+
+                } else {
+                    showMsg(response.optString("body"));
+                }
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+
+            }
+        });
+        verifyStoragePermissions(this);
     }
 
     @Override
@@ -140,5 +166,33 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    /**
+     * Checks if the app has permission to write to device storage
+     *
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity
+     */
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
     }
 }
