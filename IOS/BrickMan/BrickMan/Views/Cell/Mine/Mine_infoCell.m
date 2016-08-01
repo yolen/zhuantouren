@@ -13,12 +13,12 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         if (!_titleLabel) {
-            _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 27 * kMineCellHeightRadio, 80, 20)];
+            _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 27 * kMineCellHeightRadio, 80, 20 * kMineCellHeightRadio)];
             _titleLabel.font = [UIFont systemFontOfSize:16];
             [self.contentView addSubview:_titleLabel];
         }
         if (!_subLabel) {
-            _subLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreen_Width - 180, 27 * kMineCellHeightRadio, 150, 20)];
+            _subLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreen_Width - 180, 27 * kMineCellHeightRadio, 150, 20 * kMineCellHeightRadio)];
             _subLabel.enabled = NO;
             _subLabel.font = [UIFont systemFontOfSize:16];
             _subLabel.numberOfLines = 0;
@@ -26,7 +26,7 @@
             [self.contentView addSubview:_subLabel];
         }
         if (!_subImgView) {
-            _subImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width - 70, 17 * kMineCellHeightRadio, 40 * kMineCellHeightRadio, 40 * kMineCellHeightRadio)];
+            _subImgView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreen_Width - 40 * kMineCellHeightRadio - 30, 17 * kMineCellHeightRadio, 40 * kMineCellHeightRadio, 40 * kMineCellHeightRadio)];
             _subImgView.layer.masksToBounds = YES;
             _subImgView.layer.cornerRadius = _subImgView.width/2;
             self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

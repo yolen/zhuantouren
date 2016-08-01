@@ -80,7 +80,7 @@
 - (UILabel *)placeholder {
     if (!_placeholder) {
         _placeholder = [[UILabel alloc] init];
-        _placeholder.text = @"请输入你的座右铭...";
+        _placeholder.text = @"请输入您的座右铭...";
         _placeholder.enabled = NO;
     }
     return _placeholder;

@@ -92,7 +92,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat height = indexPath.section == 0 ? [Mine_headerCell cellHeight] : [Mine_titleCell cellHeight];
-    return height * kScreen_Width/414;
+    return height * kMineCellHeightRadio;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

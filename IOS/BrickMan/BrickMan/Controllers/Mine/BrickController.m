@@ -55,14 +55,6 @@
     return [Mine_BrickCell cellHeight];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return [self tableHeaderView].height;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [self tableHeaderView];
-}
-
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 0, kScreen_Width - 20, kScreen_Height - 64) style:UITableViewStylePlain];
@@ -71,12 +63,11 @@
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.allowsSelection = NO;
+        _tableView.tableHeaderView = [self tableHeaderView];
         _tableView.showsVerticalScrollIndicator = NO;
     }
     return _tableView;
 }
-
-
 
 - (UIView *)tableHeaderView {
     UIView *tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width - 20, 210.f)];
