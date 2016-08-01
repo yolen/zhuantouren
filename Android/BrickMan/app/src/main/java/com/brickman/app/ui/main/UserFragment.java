@@ -14,6 +14,7 @@ import com.brickman.app.common.utils.LogUtil;
 import com.brickman.app.ui.brick.BrickListActivity;
 import com.brickman.app.ui.mine.BricksListActivity;
 import com.brickman.app.ui.mine.FlowerListActivity;
+import com.brickman.app.ui.mine.PublishActivity;
 import com.brickman.app.ui.mine.UserInfoActivity;
 import com.yolanda.nohttp.OnUploadListener;
 
@@ -26,7 +27,6 @@ import butterknife.OnClick;
  * Created by mayu on 16/7/18,下午5:11.
  */
 public class UserFragment extends BaseFragment {
-    private static final int REQUEST_CODE_GALLERY = 001;
     /**
      * 文件上传监听。
      */
@@ -128,26 +128,7 @@ public class UserFragment extends BaseFragment {
 //                fileList.add(Environment.getExternalStorageDirectory().getAbsolutePath()+"/NoHttpSample/image2.jpg");
 //                RequestParam param = ParamBuilder.buildParam("userId", "test1");
 //                RequestHelper.uploadFile(Api.UPLOAD_FILES, param, fileList, mOnUploadListener);
-//                FunctionConfig config = new FunctionConfig.Builder()
-//                        .setMutiSelectMaxSize(9)
-//                        .build();
-//                GalleryFinal.openGalleryMuti(REQUEST_CODE_GALLERY, config, new GalleryFinal.OnHanlderResultCallback() {
-//                    @Override
-//                    public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
-//                        if(reqeustCode == REQUEST_CODE_GALLERY){
-//                            for (int i = 0; i < resultList.size(); i++) {
-//                                LogUtil.info(resultList.get(i).getPhotoId() + "\n"
-//                                +resultList.get(i).getWidth()+"/"+resultList.get(i).getHeight()+"\n"
-//                                +resultList.get(i).getPhotoPath());
-//                            }
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onHanlderFailure(int requestCode, String errorMsg) {
-//
-//                    }
-//                });
+                startActivityForResult(new Intent(mActivity, PublishActivity.class), 1001);
                 break;
             case R.id.logout:
                 break;

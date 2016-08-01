@@ -62,4 +62,5 @@ dependencies {
     compile 'com.isseiaoki:simplecropview:1.1.4'
     compile project(':social_sdk_library_project')
     compile 'cn.finalteam:galleryfinal:1.4.8.7'
+    compile 'com.makeramen:roundedimageview:2.2.1'
 }
