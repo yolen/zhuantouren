@@ -7,17 +7,16 @@
 //
 
 #import "BMLoginViewController.h"
+#import "BMUserInfo.h"
 #import "MainViewController.h"
 #import <TencentOpenAPI/TencentApiInterface.h>
 #import <TencentOpenAPI/TencentOAuth.h>
-#import "BMUserInfo.h"
 
 #define LOGIN_HEADER_TEXT @"砖头人"
 #define LOGIN_TIP_TEXT @"左手鲜花,右手砖头的一群人\n只评论事儿,不评价人儿"
 
 #define GO_AROUND_BUTTON_TITLE @"先随便看看"
-#define WECHAT_TIP_TITLE @"微信登录"
-#define QQ_TIP_TITLE @"QQ登录"
+#define LOGIN_TIP_TITLE @"社交帐号登录"
 
 
 @interface BMLoginViewController () <TencentSessionDelegate>
@@ -50,68 +49,105 @@
 - (void)setupUI {
     self.view.backgroundColor = [UIColor whiteColor];
     // 添加
+    UIImageView *imageView =
+    [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loginbackground"]];
+    [self.view addSubview:imageView];
+
+    UIImageView *logoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
+    [self.view addSubview:logoImageView];
+
     UILabel *headerLabel = [[UILabel alloc] init];
     [self.view addSubview:headerLabel];
+
+    UILabel *tipLabel = [[UILabel alloc] init];
+    [self.view addSubview:tipLabel];
+
+    UIView *lineView = [[UIView alloc] init];
+    [self.view addSubview:lineView];
 
     UILabel *loginTipLabel = [[UILabel alloc] init];
     [self.view addSubview:loginTipLabel];
 
-    UILabel *weChatTipLabel = [[UILabel alloc] init];
-    [self.view addSubview:weChatTipLabel];
+    UIView *goAroundBgView = [[UIView alloc] init];
+    [self.view addSubview:goAroundBgView];
 
-    UILabel *qqTipLabel = [[UILabel alloc] init];
-    [self.view addSubview:qqTipLabel];
-
-    [self.view addSubview:self.goAroundButton];
+    [goAroundBgView addSubview:self.goAroundButton];
     [self.view addSubview:self.weChatLoginButton];
     [self.view addSubview:self.qqLoginButton];
+
     // 配置
     headerLabel.text        = LOGIN_HEADER_TEXT;
-    headerLabel.font        = [UIFont boldSystemFontOfSize:30];
-    headerLabel.textColor   = [UIColor darkGrayColor];
+    headerLabel.font        = [UIFont boldSystemFontOfSize:20];
+    headerLabel.textColor   = [UIColor whiteColor];
     headerLabel.contentMode = UIViewContentModeCenter;
 
-    loginTipLabel.text          = LOGIN_TIP_TEXT;
-    loginTipLabel.numberOfLines = 0;
-    loginTipLabel.textColor     = [UIColor grayColor];
-    loginTipLabel.textAlignment = NSTextAlignmentCenter;
+    tipLabel.text          = LOGIN_TIP_TEXT;
+    tipLabel.numberOfLines = 0;
+    tipLabel.textColor     = [UIColor whiteColor];
+    tipLabel.textAlignment = NSTextAlignmentCenter;
 
-    weChatTipLabel.text = WECHAT_TIP_TITLE;
-    qqTipLabel.text = QQ_TIP_TITLE;
+    lineView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.8];
+
+    loginTipLabel.text            = LOGIN_TIP_TITLE;
+    loginTipLabel.textAlignment   = NSTextAlignmentCenter;
+    loginTipLabel.backgroundColor = [UIColor whiteColor];
+
+    goAroundBgView.backgroundColor     = [UIColor whiteColor];
+    goAroundBgView.layer.cornerRadius  = 22;
+    goAroundBgView.layer.masksToBounds = YES;
+
     // 布局
-    [headerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo (self.view.mas_centerX);
-        make.top.equalTo (kScreen_Height / 4);
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo (self.view);
     }];
 
-    [loginTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo (self.view).offset (kScreen_Height * 2 / 5);
+    [logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo (kScreen_Height / 8);
+        make.centerX.equalTo (self.view.mas_centerX);
+    }];
+
+    [headerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo (self.view.mas_centerX);
+        make.top.equalTo (logoImageView.mas_bottom).offset (20);
+    }];
+
+    [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo (self.view.mas_centerY).offset (-20);
         make.centerX.equalTo (headerLabel.mas_centerX);
     }];
 
-    [self.goAroundButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [goAroundBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo (self.view.mas_centerX);
-        make.top.equalTo (self.view).offset (kScreen_Height * 3 / 5);
+        make.bottom.equalTo (imageView.mas_bottom).offset (-30);
+        make.height.equalTo (self.goAroundButton.mas_height).offset (20);
+        make.width.equalTo (self.goAroundButton.mas_width).offset (80);
+    }];
+
+    [self.goAroundButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo (goAroundBgView).offset (-10);
+        make.centerY.equalTo (goAroundBgView);
+    }];
+
+    [loginTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo (self.view.mas_centerX);
+        make.top.equalTo (imageView.mas_bottom).offset (30);
+        make.width.offset (150);
+    }];
+
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.centerY.equalTo (loginTipLabel);
+        make.width.equalTo (self.view);
+        make.height.equalTo (1);
     }];
 
     [self.weChatLoginButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo (self.view.mas_centerX).offset (-kScreen_Width / 4);
-        make.top.equalTo (self.view.mas_bottom).offset (-kScreen_Height / 4);
-    }];
-
-    [weChatTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.weChatLoginButton.mas_centerX);
-        make.top.equalTo(self.weChatLoginButton.mas_bottom).offset(5);
+        make.bottom.equalTo (self.view.mas_bottom).offset (-kScreen_Height / 20);
     }];
 
     [self.qqLoginButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo (self.view.mas_centerX).offset (kScreen_Width / 4);
         make.top.equalTo (self.weChatLoginButton);
-    }];
-
-    [qqTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.qqLoginButton.mas_centerX);
-        make.top.equalTo(weChatTipLabel);
     }];
 }
 
@@ -143,9 +179,9 @@
  */
 - (void)tencentDidLogin {
     // 保存用户 accessToken expirationDate openId
-    [BMUserInfo sharedUserInfo].accessToken = self.tencentOAuth.accessToken;
+    [BMUserInfo sharedUserInfo].accessToken    = self.tencentOAuth.accessToken;
     [BMUserInfo sharedUserInfo].expirationDate = self.tencentOAuth.expirationDate;
-    [BMUserInfo sharedUserInfo].openId = self.tencentOAuth.openId;
+    [BMUserInfo sharedUserInfo].openId         = self.tencentOAuth.openId;
     // 获取用户基本信息
     [self.tencentOAuth getUserInfo];
     [self.navigationController popViewControllerAnimated:YES];
@@ -172,10 +208,10 @@
  * \remarks 正确返回示例: \snippet example/getUserInfoResponse.exp success
  *          错误返回示例: \snippet example/getUserInfoResponse.exp fail
  */
-- (void)getUserInfoResponse:(APIResponse*) response{
+- (void)getUserInfoResponse:(APIResponse *)response {
     // 保存用户信息到本地
     [[BMUserInfo sharedUserInfo] saveUserInfoWithDict:response.jsonResponse];
-    //TODO: 用户数据与服务器对接
+    // TODO: 用户数据与服务器对接
 }
 
 
@@ -184,11 +220,11 @@
     if (_goAroundButton == nil) {
         _goAroundButton = [[UIButton alloc] init];
         [_goAroundButton setTitle:GO_AROUND_BUTTON_TITLE forState:UIControlStateNormal];
-        [_goAroundButton setImage:[UIImage imageNamed:@"right_arrow"]
-                         forState:UIControlStateNormal];
-        [_goAroundButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        UIImage *rightArrow = [UIImage imageNamed:@"right_arrow"];
+        [_goAroundButton setImage:rightArrow forState:UIControlStateNormal];
+        [_goAroundButton setTitleColor:kNavigationBarColor forState:UIControlStateNormal];
         [_goAroundButton setTitleEdgeInsets:UIEdgeInsetsMake (0, -20, 0, 0)];
-        [_goAroundButton setImageEdgeInsets:UIEdgeInsetsMake (0, 120, 0, 0)];
+        [_goAroundButton setImageEdgeInsets:UIEdgeInsetsMake (5, 120, 5, 0)];
         [_goAroundButton addTarget:self
                             action:@selector (didClickGoAroundButton:)
                   forControlEvents:UIControlEventTouchUpInside];
@@ -200,7 +236,6 @@
     if (_weChatLoginButton == nil) {
         _weChatLoginButton = [[UIButton alloc] init];
         [_weChatLoginButton setImage:[UIImage imageNamed:@"wechat"] forState:UIControlStateNormal];
-        [_weChatLoginButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [_weChatLoginButton addTarget:self
                                action:@selector (didClickWeChatLoginButton:)
                      forControlEvents:UIControlEventTouchUpInside];
@@ -213,7 +248,6 @@
     if (_qqLoginButton == nil) {
         _qqLoginButton = [[UIButton alloc] init];
         [_qqLoginButton setImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
-        [_qqLoginButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [_qqLoginButton addTarget:self
                            action:@selector (didClickQQLoginButton:)
                  forControlEvents:UIControlEventTouchUpInside];

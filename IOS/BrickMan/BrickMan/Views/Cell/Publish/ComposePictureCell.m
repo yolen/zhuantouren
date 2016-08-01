@@ -57,7 +57,8 @@
     }];
 
     [deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.equalTo (self.contentView);
+        make.top.equalTo(self.contentView).offset(5);
+        make.right.equalTo (self.contentView).offset(-5);
     }];
 }
 

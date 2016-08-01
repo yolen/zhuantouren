@@ -12,7 +12,7 @@
 #import "ComposeViewController.h"
 
 
-@interface ComposeViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, ComposePictureCellDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface ComposeViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, ComposePictureCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 /**
  *  返回 Home
  */
@@ -34,7 +34,7 @@
 /**
  *  好人好事开关
  */
-@property (nonatomic, strong) UISwitch *goodThingSwitch;
+//@property (nonatomic, strong) UISwitch *goodThingSwitch;
 /**
  *  选择图片的 CollectionView
  */
@@ -42,7 +42,7 @@
 /**
  *  图片数组
  */
-@property (nonatomic, strong) NSArray <UIImage *> *pictures;
+@property (nonatomic, strong) NSArray<UIImage *> *pictures;
 
 /**
  *  选中图片下标
@@ -101,7 +101,7 @@
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -113,13 +113,13 @@
     cell.textLabel.textColor = [UIColor grayColor];
 
     // 设置 Cell...
-    if (indexPath.row == 0) {
-        cell.textLabel.text = @"地点";
-        cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
-    } else {
-        cell.textLabel.text = @"好人好事";
-        cell.accessoryView  = self.goodThingSwitch;
-    }
+    //    if (indexPath.row == 0) {
+    cell.textLabel.text = @"地点";
+    cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+    //    } else {
+    //        cell.textLabel.text = @"好人好事";
+    //        cell.accessoryView  = self.goodThingSwitch;
+    //    }
     return cell;
 }
 
@@ -136,7 +136,7 @@
     return 10;
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.tableView endEditing:YES];
 }
 
@@ -161,14 +161,14 @@
 
 #pragma mark - ComposePictureCellDelegate
 - (void)composePictureCellAddPicture:(ComposePictureCell *)composePictureCell {
-    self.selectedIndex = [self.pictureView indexPathForCell:composePictureCell].item;
+    self.selectedIndex              = [self.pictureView indexPathForCell:composePictureCell].item;
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
+    picker.delegate                 = self;
     [self presentViewController:picker animated:YES completion:nil];
 }
 
 - (void)composePictureCellDeletePicture:(ComposePictureCell *)composePictureCell {
-    NSUInteger deleteIndex = [self.pictureView indexPathForCell:composePictureCell].item;
+    NSUInteger deleteIndex    = [self.pictureView indexPathForCell:composePictureCell].item;
     NSMutableArray *picturesM = [[NSMutableArray alloc] initWithArray:self.pictures];
     [picturesM removeObjectAtIndex:deleteIndex];
     self.pictures = picturesM.copy;
@@ -177,12 +177,13 @@
 
 
 #pragma mark - UIImagePickerControllerDelegate
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
+    UIImage *image            = info[UIImagePickerControllerOriginalImage];
     NSMutableArray *picturesM = [NSMutableArray arrayWithArray:self.pictures];
     if (self.selectedIndex == self.pictures.count) {
         [picturesM addObject:image];
-    }else{
+    } else {
         picturesM[self.selectedIndex] = image;
     }
     self.pictures = picturesM.copy;
@@ -196,7 +197,8 @@
  *  直接返回到 Home
  */
 - (void)returnHomeButtonAction {
-    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES
+                                                                               completion:nil];
 }
 
 - (void)composeButtonAction {
@@ -205,8 +207,8 @@
 }
 
 #pragma mark - Getter && Setter
--(void)setImage:(UIImage *)image{
-    _image = image;
+- (void)setImage:(UIImage *)image {
+    _image                    = image;
     NSMutableArray *picturesM = [NSMutableArray arrayWithArray:self.pictures];
     [picturesM addObject:image];
     self.pictures = picturesM.copy;
@@ -245,14 +247,14 @@
     return _tableView;
 }
 
-- (UISwitch *)goodThingSwitch {
-    if (_goodThingSwitch == nil) {
-        _goodThingSwitch             = [[UISwitch alloc] init];
-        _goodThingSwitch.on          = YES;
-        _goodThingSwitch.onTintColor = RGBCOLOR (251, 101, 52);
-    }
-    return _goodThingSwitch;
-}
+//- (UISwitch *)goodThingSwitch {
+//    if (_goodThingSwitch == nil) {
+//        _goodThingSwitch             = [[UISwitch alloc] init];
+//        _goodThingSwitch.on          = YES;
+//        _goodThingSwitch.onTintColor = RGBCOLOR (251, 101, 52);
+//    }
+//    return _goodThingSwitch;
+//}
 
 - (UICollectionView *)pictureView {
     if (_pictureView == nil) {
