@@ -26,12 +26,12 @@
         }
         if (!_nameLabel) {
             _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 26 * kMineCellHeightRadio, 100, 24 * kMineCellHeightRadio)];
-            _nameLabel.font = [UIFont systemFontOfSize:18];
+            _nameLabel.font = [UIFont systemFontOfSize:16];
             [self.contentView addSubview:_nameLabel];
         }
         if (!_subTitle) {
             _subTitle = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.left, _nameLabel.bottom, 150, 20 * kMineCellHeightRadio)];
-            _subTitle.font = [UIFont systemFontOfSize:14];
+            _subTitle.font = [UIFont systemFontOfSize:13];
             _subTitle.textColor = [UIColor lightGrayColor];
             [self.contentView addSubview:_subTitle];
         }

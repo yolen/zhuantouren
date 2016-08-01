@@ -26,7 +26,7 @@
         }
         if (!_titleLabel) {
             _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 25 * kMineCellHeightRadio, 100, 24 * kMineCellHeightRadio)];
-            _titleLabel.font = [UIFont systemFontOfSize:18];
+            _titleLabel.font = [UIFont systemFontOfSize:14];
             [self.contentView addSubview:_titleLabel];
         }
     }
