@@ -9,6 +9,7 @@
     <color name="window_background">#FFF5F5F5</color>
     <color name="text_color_deep">#333333</color>
     <color name="text_color">#555555</color>
+    <color name="text_color_light">#888888</color>
     <color name="text_gray">#BFBFBF</color>
     <color name="text_light_gray">#CECECE</color>
     <color name="loading_bg">#AA555555</color>
@@ -22,9 +23,9 @@
     <color name="light_gray">#F1F2F4</color>
     <color name="transparent">#00000000</color>
     <color name="green">#8BC385</color>
+    <color name="light_green">#23993B</color>
 
     <color name="puple">#ECEBFF</color>
-    <color name="light_green">#DAFFF7</color>
     <color name="yellow">#F7F4DD</color>
     <color name="pink">#FBE9EC</color>
     <color name="blue">#1DB8F1</color>

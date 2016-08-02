@@ -35,9 +35,9 @@
 
     <style name="AppThemeNight" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#39c1fc</item>
-        <item name="colorPrimaryDark">#39c1fc</item>
-        <item name="colorAccent">#39c1fc</item>
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#000000</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimTheme</item>
     </style>
 

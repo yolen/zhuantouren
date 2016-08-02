@@ -65,6 +65,7 @@ public class RequestHelper {
                 paramStr = params.append("cVal", params.encrypt()).toString();
             }
             LogUtil.info("参数:" + paramStr);
+            request.setCancelSign(url);
             request.setDefineRequestBody(paramStr, Headers.HEAD_VALUE_ACCEPT_APPLICATION_X_WWW_FORM_URLENCODED);
             mHttpUtil.add(0, request, listener, true);
         }
@@ -98,6 +99,7 @@ public class RequestHelper {
         }
         // 添加FileList到请求
         request.add("files", binaries);
+        request.setCancelSign(url);
         mHttpUtil.add(0, request, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
