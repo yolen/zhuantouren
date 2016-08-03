@@ -12,4 +12,5 @@ public interface Api {
     String REQUEST_BRICKSLIST = BASE_URL + "/DEMO_BRICKS_LIST.json";
     String REQUEST_DETAIL_SLIST = BASE_URL + "/DEMO_COMMENT_LIST.json";
     String UPLOAD_FILES = BASE_URL + "/upload.json";
+    String PUBLISH_BRICK = BASE_URL + "/upload.json";
 }

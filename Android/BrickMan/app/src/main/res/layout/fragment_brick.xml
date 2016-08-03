@@ -25,7 +25,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_100">
 
-        <Button
+        <Button android:id="@+id/take_photo"
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_70"
             android:layout_alignParentLeft="true"
@@ -35,7 +35,7 @@
             android:textSize="@dimen/sp_14" />
 
 
-        <Button
+        <Button android:id="@+id/open_galley"
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_70"
             android:layout_alignParentRight="true"

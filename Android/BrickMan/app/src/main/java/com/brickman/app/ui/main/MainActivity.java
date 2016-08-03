@@ -1,10 +1,8 @@
 package com.brickman.app.ui.main;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.pm.PackageManager;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,6 +16,7 @@ import android.widget.Toast;
 
 import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
+import com.brickman.app.common.base.PermissionsChecker;
 import com.brickman.app.common.http.HttpListener;
 import com.brickman.app.common.http.HttpUtil;
 import com.brickman.app.common.http.RequestHelper;
@@ -61,6 +60,14 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
     private Class[] clzzs = new Class[]{HomeFragment.class, BrickFragment.class, UserFragment.class};
     private int[] tabImgs = new int[]{R.drawable.tab_home, R.drawable.tab_brick, R.drawable.tab_user};
 
+    private static final int REQUEST_CODE = 0; // 请求码
+    private PermissionsChecker mPermissionsChecker; // 权限检测器
+    // 所需的全部权限
+    static final String[] PERMISSIONS = new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +76,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        mPermissionsChecker = new PermissionsChecker(this);
         title.setText(tabNames[0]);
         mInflator = LayoutInflater.from(this);
         mTabHost = (TabHost) findViewById(android.R.id.tabhost);
@@ -101,9 +109,28 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
 
             }
         });
-        verifyStoragePermissions(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 缺少权限时, 进入权限配置页面
+        if (mPermissionsChecker.lacksPermissions(PERMISSIONS)) {
+            startPermissionsActivity();
+        }
+    }
+
+    private void startPermissionsActivity() {
+        PermissionsActivity.startActivityForResult(this, REQUEST_CODE, PERMISSIONS);
+    }
+
+    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
+        if (requestCode == REQUEST_CODE && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
+            finish();
+        }
+    }
     @Override
     public void showMsg(String msg) {
         showToast(msg);
@@ -166,33 +193,5 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-    // Storage Permissions
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
-
-    /**
-     * Checks if the app has permission to write to device storage
-     *
-     * If the app does not has permission then the user will be prompted to grant permissions
-     *
-     * @param activity
-     */
-    public static void verifyStoragePermissions(Activity activity) {
-        // Check if we have write permission
-        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            // We don't have permission so prompt the user
-            ActivityCompat.requestPermissions(
-                    activity,
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
-            );
-        }
     }
 }

@@ -30,7 +30,7 @@ public class MApplication extends Application {
         //设置主题
         ThemeConfig theme = new ThemeConfig.Builder()
                 .setCheckNornalColor(getResources().getColor(R.color.light_gray))
-                .setCheckSelectedColor(getResources().getColor(R.color.colorAccent))
+                .setCheckSelectedColor(getResources().getColor(R.color.light_green))
                 .setCropControlColor(getResources().getColor(R.color.colorAccent))
                 .setTitleBarBgColor(getResources().getColor(R.color.colorAccent))
                 .setTitleBarTextColor(getResources().getColor(R.color.white))

@@ -61,11 +61,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
+            android:name=".ui.main.PermissionsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ColorActionBar" />
+        <activity
             android:name=".ui.brick.BrickDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
-        
+
 
         <!-- 友盟社会化分享 -->
         <!-- 分享内容编辑页 -->
