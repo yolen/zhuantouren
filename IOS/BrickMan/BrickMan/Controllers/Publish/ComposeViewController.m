@@ -84,7 +84,7 @@
  *  设置 nabigationBar
  */
 - (void)setupNavigationBar {
-    [self.returnHomeButton setImage:[UIImage imageNamed:@"back_arrow"]
+    [self.returnHomeButton setImage:[UIImage imageNamed:@"back"]
                            forState:UIControlStateNormal];
     UIBarButtonItem *returnItem = [[UIBarButtonItem alloc] initWithCustomView:self.returnHomeButton];
     self.navigationItem.leftBarButtonItem = returnItem;
