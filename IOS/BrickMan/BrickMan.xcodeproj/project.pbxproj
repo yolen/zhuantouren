@@ -1037,6 +1037,7 @@
 				1BFD4CF11D3CCC3100ABE8E6 /* Resources */,
 				2FBDA946492EA837C3FE133A /* [CP] Embed Pods Frameworks */,
 				D1AB16CBCE247017ADF74C41 /* [CP] Copy Pods Resources */,
+				689FB1B832677FBDA9760E04 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1095,7 +1096,7 @@
 				TargetAttributes = {
 					1BFD4CF21D3CCC3100ABE8E6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = EPSPHDMRQR;
+						DevelopmentTeam = EPS9LLZTCS;
 					};
 					1BFD4D0B1D3CCC3100ABE8E6 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1274,6 +1275,21 @@
 			inputPaths = (
 			);
 			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrickMan/Pods-BrickMan-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		689FB1B832677FBDA9760E04 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1519,7 +1535,7 @@
 					"\"UIKit\"",
 					"-fobjc-arc",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1560,7 +1576,7 @@
 					"\"UIKit\"",
 					"-fobjc-arc",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
