@@ -11,7 +11,8 @@
 #import "HeadEditController.h"
 #import "MottoController.h"
 
-#define kMaxLength 8
+#define kMaxLength 10
+#define kMinLength 2
 
 @interface PersonInfoController ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate,MottoControllerDelegate> {
     UIButton *_oldSelected;
@@ -96,12 +97,19 @@
                 [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:[alert.textFields firstObject]];
             }];
             UIAlertAction *actionSure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                UITextField *textField = alert.textFields.firstObject;
+                if (textField.text.length < kMinLength) {
+                    
+                    [MBProgressHUD showMessage:@"昵称长度不够" toView:self.navigationController.view complication:nil];
+                    return;
+                }
                 Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                 UITextField *tf = [alert.textFields firstObject];
                 cell.subLabel.text = tf.text;
             }];
             [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.delegate = self;
+                textField.text = self.subTitles[0];
             }];
             [alert addAction:actionCancel];
             [alert addAction:actionSure];
@@ -199,14 +207,25 @@
     [self.mySexSelection removeFromSuperview];
 }
 
+//控制最长输入长度,不允许输入emoji
 - (void)textFiledEditChanged:(NSNotification *)notify {
     UITextField *textField = (UITextField *)notify.object;
     NSString *toBeString = textField.text;
     NSString *lang = [textField.textInputMode primaryLanguage]; // 键盘输入模式
     toBeString = [textField disable_emoji:toBeString];
     if ([lang isEqualToString:@"zh-Hans"]) { // 简体中文输入，包括简体拼音，健体五笔，简体手写
-        if (toBeString.length > kMaxLength) {
-            textField.text = [toBeString substringToIndex:kMaxLength];
+        UITextRange *selectedRange = [textField markedTextRange];
+        //获取高亮部分
+        UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+        //没有高亮选择的字，则对已输入的文字进行字数统计和限制
+        if(!position) {
+            if (toBeString.length > kMaxLength) {
+                textField.text = [toBeString substringToIndex:kMaxLength];
+            }
+        }
+        //有高亮选择的字符串，则暂不对文字进行统计和限制
+        else{
+            
         }
     }else if (toBeString.length > kMaxLength) {
         textField.text = [toBeString substringToIndex:kMaxLength];
@@ -222,7 +241,7 @@
 }
 
 #pragma mark - UITableViewDelegate
-
+//不允许输入空格
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([string isEqualToString:@" "]) {
         return NO;

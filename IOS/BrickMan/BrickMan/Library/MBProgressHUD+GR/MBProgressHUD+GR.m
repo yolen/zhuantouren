@@ -69,7 +69,7 @@
     hud.animationType = MBProgressHUDAnimationZoom;
     
     // 1秒之后再消失
-    [hud hide:YES afterDelay:1.5];
+    [hud hide:YES afterDelay:2.5];
     
     
 //    __unsafe_unretained typeof(hud) weakHud = hud;

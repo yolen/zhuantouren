@@ -34,7 +34,7 @@
     
     MineViewController *meVC = [[MineViewController alloc] init];
     UINavigationController *meNav = [[BaseNavigationController alloc]initWithRootViewController:meVC];
-    meVC.title = @"砖头人";
+    meVC.title = @"我的";
     self.delegate = self;
     self.viewControllers = @[mainNav,publishNav,meNav];
     
