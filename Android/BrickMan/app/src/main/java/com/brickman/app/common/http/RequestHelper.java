@@ -7,7 +7,6 @@ import com.brickman.app.common.utils.AssetUtil;
 import com.brickman.app.common.utils.LogUtil;
 import com.yolanda.nohttp.BasicBinary;
 import com.yolanda.nohttp.Binary;
-import com.yolanda.nohttp.Headers;
 import com.yolanda.nohttp.InputStreamBinary;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.OnUploadListener;
@@ -21,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -33,17 +33,31 @@ public class RequestHelper {
         mHttpUtil = HttpUtil.getRequestInstance();
     }
 
-    public static void sendGETRequest(boolean isCache, String url, JSONObject params, boolean isLoading, HttpListener listener) {
+    public static void sendGETRequest(boolean isCache, final String url, RequestParam params, final HttpListener listener){
         LogUtil.info(url);
-        Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.GET);
-        request.setHeader("platform", "Android");
-        request.setCacheMode(isCache ? CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
-        if (params != null) {
-            String param = RequestParam.JsonToParams(params);
-            LogUtil.info("请求参数=" + param);
-            request.setDefineRequestBody(param, NoHttp.CHARSET_UTF8);
+        if (url.contains("DEMO")) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    JSONObject json = AssetUtil.readJSONAssets(url.split("/")[3]);
+                    listener.onSucceed(json);
+                }
+            }, 800);
+        } else {
+            Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.GET);
+            request.setHeader("platform", "Android");
+            request.setCacheMode(isCache ? CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
+            if (params != null) {
+                params.append("cVal", params.encrypt());
+            }
+            HashMap<String, String> paramMap = params.toHashMap();
+            for (String key : paramMap.keySet()) {
+                request.add(key, paramMap.get(key));
+            }
+            LogUtil.info(params.toString());
+            request.setCancelSign(url);
+            mHttpUtil.add(0, request, listener, true);
         }
-        mHttpUtil.add(0, request, listener, true);
     }
 
     public static void sendPOSTRequest(boolean isCache, final String url, RequestParam params, final HttpListener listener) {
@@ -60,13 +74,14 @@ public class RequestHelper {
             Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
             request.setHeader("platform", "Android");
             request.setCacheMode(isCache ? CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
-            String paramStr = "";
             if (params != null) {
-                paramStr = params.append("cVal", params.encrypt()).toString();
+                params.append("cVal", params.encrypt());
             }
-            LogUtil.info("参数:" + paramStr);
+            HashMap<String, String> paramMap = params.toHashMap();
+            for (String key : paramMap.keySet()) {
+                request.add(key, paramMap.get(key));
+            }
             request.setCancelSign(url);
-            request.setDefineRequestBody(paramStr, Headers.HEAD_VALUE_ACCEPT_APPLICATION_X_WWW_FORM_URLENCODED);
             mHttpUtil.add(0, request, listener, true);
         }
     }

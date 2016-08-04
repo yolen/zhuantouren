@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TabHost;
 
+import com.brickman.app.R;
+
 import java.util.HashMap;
 
 public class TabManager implements TabHost.OnTabChangeListener {
@@ -81,7 +83,6 @@ public class TabManager implements TabHost.OnTabChangeListener {
         TabInfo newTab = mTabs.get(tabId);
         if (mLastTab != newTab) {
             FragmentTransaction ft = mActivity.getSupportFragmentManager().beginTransaction();
-
             if (mLastTab != null) {
                 if (mLastTab.fragment != null) {
                     ft.hide(mLastTab.fragment);
@@ -96,6 +97,11 @@ public class TabManager implements TabHost.OnTabChangeListener {
                 }
             }
             ((MainActivity)mActivity).title.setText(newTab.tag);
+            if(newTab.tag.equals(mActivity.getResources().getStringArray(R.array.tabNames)[1])){
+                ((MainActivity) mActivity).publish.setVisibility(View.VISIBLE);
+            } else {
+                ((MainActivity) mActivity).publish.setVisibility(View.GONE);
+            }
             mLastTab = newTab;
             ft.commit();
             mActivity.getSupportFragmentManager().executePendingTransactions();

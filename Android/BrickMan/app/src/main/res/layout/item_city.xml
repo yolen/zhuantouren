@@ -12,6 +12,6 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/dp_15"
         android:text="北京"
-        android:textColor="@color/text_color"
+        android:textColor="?attr/text_color"
         android:textSize="@dimen/sp_16" />
 </RelativeLayout>

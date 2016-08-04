@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="text_color" format="color" />
+
     <declare-styleable name="QingtingBanner">
         <attr name="qt_line_color" format="color" />
     </declare-styleable>
@@ -18,4 +20,6 @@
         <attr name="sidebarChooseTextColor" format="color|reference"/>
         <attr name="sidebarTextSize" format="float"/>
     </declare-styleable>
+
+
 </resources>

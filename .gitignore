@@ -13,8 +13,6 @@ Android/BrickMan/social_sdk_library_project/build/outputs/aar/social_sdk_library
 
 *.class
 
-*.png
-
 *.txt
 
 *.java

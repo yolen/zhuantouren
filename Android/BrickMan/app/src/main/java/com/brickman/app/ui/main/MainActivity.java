@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
@@ -27,12 +28,14 @@ import com.brickman.app.model.Bean.BannerBean;
 import com.brickman.app.model.Bean.BrickBean;
 import com.brickman.app.model.MainModel;
 import com.brickman.app.presenter.MainPresenter;
+import com.brickman.app.ui.mine.PublishActivity;
 
 import org.json.JSONObject;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by mayu on 16/7/14,上午10:00.
@@ -51,6 +54,8 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
     FrameLayout realtabcontent;
     @BindView(android.R.id.tabhost)
     TabHost tabhost;
+    @BindView(R.id.publish)
+    RelativeLayout publish;
 
     private LayoutInflater mInflator;
     public TabHost mTabHost;
@@ -90,14 +95,15 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
             public void onClick(View view) {
                 if (mTabManager.getCurrentTab().equals(mTabManager.getTab(tabNames[0]))) {
                     // TODO ...
+                    reload();
                 }
             }
         });
-        RequestParam params = ParamBuilder.buildParam("param1", "参数1").append("param2", "参数2").append("userId", "test1");
-        RequestHelper.sendPOSTRequest(true, "http://115.28.211.119:1080/content/test.json", params, new HttpListener<JSONObject>() {
+        RequestParam params = ParamBuilder.buildParam("param1", "参数a").append("param2", "参数b").append("userId", "test1");
+        RequestHelper.sendGETRequest(true, "http://115.28.211.119:1080/content/test.json", params, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(HttpUtil.isSuccess(response)){
+                if (HttpUtil.isSuccess(response)) {
 
                 } else {
                     showMsg(response.optString("body"));
@@ -124,13 +130,15 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         PermissionsActivity.startActivityForResult(this, REQUEST_CODE, PERMISSIONS);
     }
 
-    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 拒绝时, 关闭页面, 缺少主要权限, 无法运行
         if (requestCode == REQUEST_CODE && resultCode == PermissionsActivity.PERMISSIONS_DENIED) {
             finish();
         }
     }
+
     @Override
     public void showMsg(String msg) {
         showToast(msg);
@@ -193,5 +201,10 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @OnClick(R.id.publish)
+    public void onClick() {
+        startActivityForResultWithAnim(new Intent(this, PublishActivity.class), 1001);
     }
 }
