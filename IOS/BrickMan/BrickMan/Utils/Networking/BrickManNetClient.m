@@ -7,8 +7,7 @@
 //
 
 #import "BrickManNetClient.h"
-
-#define kNetworkMethodName @[@"Get", @"Post", @"Put", @"Delete"]
+NSString *const key = @"53b4be63fac688e0";
 
 @implementation BrickManNetClient
 
@@ -59,7 +58,7 @@
     
     NSString *cVal = [self getMD5StringWithParams:dic];
     [dic setObject:cVal forKey:@"cVal"];
-    DebugLog(@"request:%@\npath:%@:\nparams:%@", kNetworkMethodName[method], aPath, dic);
+    DebugLog(@"request:path:%@:\nparams:%@", aPath, dic);
     //发起请求
     switch (method) {
         case Get:{
@@ -92,39 +91,9 @@
                 block(nil, error);
             }];
             break;}
-        case Put:{
-            [self PUT:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
-                id error = [self handleResponse:responseObject autoShowError:autoShowError];
-                if (error) {
-                    block(nil, error);
-                }else{
-                    block(responseObject, nil);
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
-                !autoShowError || [NSObject showError:error];
-                block(nil, error);
-            }];
-            break;}
-        case Delete:{
-            [self DELETE:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
-                id error = [self handleResponse:responseObject autoShowError:autoShowError];
-                if (error) {
-                    block(nil, error);
-                }else{
-                    block(responseObject, nil);
-                }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
-                !autoShowError || [NSObject showError:error];
-                block(nil, error);
-            }];}
         default:
             break;
     }
-    
 }
 
 - (NSString *)getMD5StringWithParams:(NSMutableDictionary *)params {
@@ -140,7 +109,7 @@
     appendingString = [appendingString substringToIndex:appendingString.length-1];
     appendingString = [appendingString md5Str];
     appendingString = [appendingString lowercaseString];
-    appendingString = [appendingString stringByAppendingString:[NSString stringWithFormat:@".%@",@"53b4be63fac688e0"]];
+    appendingString = [appendingString stringByAppendingString:[NSString stringWithFormat:@".%@",key]];
     appendingString  = [appendingString md5Str];
     NSString *cVal = [appendingString lowercaseString];
     
