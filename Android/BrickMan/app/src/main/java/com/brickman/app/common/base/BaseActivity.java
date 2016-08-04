@@ -39,7 +39,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(R.style.AppThemeDay);
+        setTheme(((MApplication)getApplication()).isNight ? R.style.AppThemeNight : R.style.AppThemeDay);
         // 设置状态栏颜色
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
             setTranslucentStatus(true);
@@ -148,6 +148,16 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         }
     }
 
+    public void reload() {
+        ((MApplication)getApplication()).isNight = !((MApplication)getApplication()).isNight;
+        Intent intent = getIntent();
+        overridePendingTransition(0, 0);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(intent);
+    }
+
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();
@@ -163,6 +173,11 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
 
     public void startActivityWithAnim(Intent intent) {
         startActivity(intent);
+        overridePendingTransition(R.anim.activity_animation_in_from_right, R.anim.activity_animation_out_to_left);
+    }
+
+    public void startActivityForResultWithAnim(Intent intent, int requestCode) {
+        startActivityForResult(intent, requestCode);
         overridePendingTransition(R.anim.activity_animation_in_from_right, R.anim.activity_animation_out_to_left);
     }
 

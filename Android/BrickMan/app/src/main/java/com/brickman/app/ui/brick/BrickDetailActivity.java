@@ -15,6 +15,7 @@ import com.brickman.app.adapter.CommentListAdapter;
 import com.brickman.app.adapter.ImagesAdapter;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.umeng.ShareContent;
+import com.brickman.app.common.utils.DateUtil;
 import com.brickman.app.contract.CommentsListContract;
 import com.brickman.app.model.Bean.BrickBean;
 import com.brickman.app.model.Bean.CommentBean;
@@ -151,19 +152,19 @@ public class BrickDetailActivity extends BaseActivity<CommentsListPresenter, Com
         imageList = ButterKnife.findById(headerView, R.id.imageList);
 
         linearLayout = (LinearLayout) ButterKnife.findById(headerView, R.id.imageList);
-        Glide.with(this).load(brickBean.avator).centerCrop().crossFade().into(avator);
-        name.setText(brickBean.name);
-        dateAddress.setText(brickBean.date + " " + brickBean.address);
-        report.setImageResource(brickBean.isReport ? R.mipmap.bm_reporting_sel : R.mipmap.bm_reporting_nor);
-        content.setText(brickBean.content);
-        iconComment.setImageResource(Integer.valueOf(brickBean.commentNum) > 0 ? R.mipmap.bm_comment_sel : R.mipmap.bm_comment_nor);
-        commentNum.setText(brickBean.commentNum);
-        iconFlower.setImageResource(Integer.valueOf(brickBean.flowerNum) > 0 ? R.mipmap.bm_flower_sel : R.mipmap.bm_flower_nor);
-        flowerNum.setText(brickBean.flowerNum);
-        iconShare.setImageResource(Integer.valueOf(brickBean.shareNum) > 0 ? R.mipmap.bm_share_sel : R.mipmap.bm_share_nor);
-        shareNum.setText(brickBean.shareNum);
+        Glide.with(this).load(brickBean.id).centerCrop().crossFade().into(avator);
+        name.setText(brickBean.userId);
+        dateAddress.setText(DateUtil.getMillon(brickBean.createdTime) + " " + brickBean.contentPlace);
+        report.setImageResource(brickBean.contentReports > 0 ? R.mipmap.bm_reporting_sel : R.mipmap.bm_reporting_nor);
+        content.setText(brickBean.contentTitle);
+        iconComment.setImageResource(brickBean.contentBricks > 0 ? R.mipmap.bm_comment_sel : R.mipmap.bm_comment_nor);
+        commentNum.setText(brickBean.contentBricks + "");
+        iconFlower.setImageResource(brickBean.contentFlowors > 0 ? R.mipmap.bm_flower_sel : R.mipmap.bm_flower_nor);
+        flowerNum.setText(brickBean.contentFlowors + "");
+        iconShare.setImageResource(brickBean.contentShares > 0 ? R.mipmap.bm_share_sel : R.mipmap.bm_share_nor);
+        shareNum.setText(brickBean.contentShares + "");
 
-        mImagesAdapter = new ImagesAdapter(this, linearLayout, brickBean.images);
+        mImagesAdapter = new ImagesAdapter(this, linearLayout, brickBean.brickContentAttachmentList);
         mImagesAdapter.init();
     }
 

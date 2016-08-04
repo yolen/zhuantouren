@@ -14,11 +14,8 @@ import com.brickman.app.common.utils.LogUtil;
 import com.brickman.app.ui.brick.BrickListActivity;
 import com.brickman.app.ui.mine.BricksListActivity;
 import com.brickman.app.ui.mine.FlowerListActivity;
-import com.brickman.app.ui.mine.PublishActivity;
 import com.brickman.app.ui.mine.UserInfoActivity;
 import com.yolanda.nohttp.OnUploadListener;
-
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -122,13 +119,13 @@ public class UserFragment extends BaseFragment {
                 mActivity.startActivityWithAnim(intent);
                 break;
             case R.id.about:
-                ArrayList<String> fileList = new ArrayList<String>();
+//                ArrayList<String> fileList = new ArrayList<String>();
 //                fileList.add(Environment.getExternalStorageDirectory().getAbsolutePath()+"/NoHttpSample/image1.jpg");
 //                fileList.add(Environment.getExternalStorageDirectory().getAbsolutePath()+"/NoHttpSample/image2.jpg");
 //                fileList.add(Environment.getExternalStorageDirectory().getAbsolutePath()+"/NoHttpSample/image2.jpg");
 //                RequestParam param = ParamBuilder.buildParam("userId", "test1");
 //                RequestHelper.uploadFile(Api.UPLOAD_FILES, param, fileList, mOnUploadListener);
-                startActivityForResult(new Intent(mActivity, PublishActivity.class), 1001);
+//                startActivityForResult(new Intent(mActivity, PublishActivity.class), 1001);
                 break;
             case R.id.logout:
                 break;

@@ -32,7 +32,7 @@
             app:tl_tab_padding="@dimen/dp_22"
             app:tl_tab_space_equal="true"
             app:tl_textSelectColor="@color/colorAccent"
-            app:tl_textUnselectColor="@color/text_color"
+            app:tl_textUnselectColor="?attr/text_color"
             app:tl_underline_color="@color/colorAccent"
             app:tl_underline_height="0dp" />
     </android.support.design.widget.AppBarLayout>

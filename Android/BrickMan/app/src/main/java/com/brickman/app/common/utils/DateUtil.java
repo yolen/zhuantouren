@@ -183,7 +183,7 @@ public class DateUtil {
 
     public static String getMillon(long time) {
 
-        return new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(time);
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(time);
 
     }
 

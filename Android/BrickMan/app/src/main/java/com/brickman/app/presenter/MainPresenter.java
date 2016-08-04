@@ -39,15 +39,16 @@ public class MainPresenter extends MainContract.Presenter {
 
     @Override
     public void loadBrickList(final int fragmentId, int pageNO) {
-        mModel.loadBrickList(pageNO, new HttpListener<JSONObject>() {
+        mModel.loadBrickList(fragmentId, pageNO, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(response.optBoolean("success")){
-                    List<BrickBean> brickList = new Gson().fromJson(response.optJSONArray("data").toString(), new TypeToken<List<BrickBean>>(){}.getType());
+                if(HttpUtil.isSuccess(response)){
+                    List<BrickBean> brickList = new Gson().fromJson(response.optJSONArray("body").toString(), new TypeToken<List<BrickBean>>(){}.getType());
                     mView.loadSuccess(fragmentId, brickList, response.optInt("pageSize"), response.optBoolean("hasMore"));
                 } else {
-                    mView.showMsg(response.optString("message"));
+                    mView.showMsg(response.optString("body"));
                 }
+                mView.dismissLoading();
             }
 
             @Override

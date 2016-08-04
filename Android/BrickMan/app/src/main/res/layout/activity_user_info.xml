@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="我的头像"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
 
@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="我的昵称"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
 
@@ -153,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="我的性别"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
 
@@ -196,7 +196,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="修改密码"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
 
@@ -228,7 +228,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="座右铭"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
         <ImageView
