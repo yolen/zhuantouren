@@ -11,8 +11,8 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "commnet_nor@3x.png"
+      "filename" : "commnet_nor@3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

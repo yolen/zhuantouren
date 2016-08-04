@@ -22,6 +22,7 @@
 		303529C51D4862AC00CFDD77 /* CommentInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529C41D4862AC00CFDD77 /* CommentInputView.m */; };
 		303529C81D4862BD00CFDD77 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529C71D4862BD00CFDD77 /* ShareView.m */; };
 		303529CF1D48766200CFDD77 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529CE1D48766200CFDD77 /* UIPlaceHolderTextView.m */; };
+		305E8E531D533A7600630B49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 305E8E521D533A7600630B49 /* Assets.xcassets */; };
 		30721A851D3E587A00D54E09 /* UITableView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30721A841D3E587A00D54E09 /* UITableView+Common.m */; };
 		30C5BADB1D406008001DF9D2 /* Mine_headerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BAD81D406008001DF9D2 /* Mine_headerCell.m */; };
 		30C5BADC1D406008001DF9D2 /* Mine_titleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BADA1D406008001DF9D2 /* Mine_titleCell.m */; };
@@ -98,7 +99,6 @@
 		1BFD4CF71D3CCC3100ABE8E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BFD4CF91D3CCC3100ABE8E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1BFD4CFA1D3CCC3100ABE8E6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1BFD4D021D3CCC3100ABE8E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1BFD4D051D3CCC3100ABE8E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BFD4D071D3CCC3100ABE8E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BFD4D0C1D3CCC3100ABE8E6 /* BrickManTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BrickManTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +132,7 @@
 		303529C71D4862BD00CFDD77 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		303529CD1D48766200CFDD77 /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
 		303529CE1D48766200CFDD77 /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
+		305E8E521D533A7600630B49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30721A831D3E587A00D54E09 /* UITableView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Common.h"; sourceTree = "<group>"; };
 		30721A841D3E587A00D54E09 /* UITableView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Common.m"; sourceTree = "<group>"; };
 		30C5BAD71D406008001DF9D2 /* Mine_headerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mine_headerCell.h; sourceTree = "<group>"; };
@@ -308,7 +309,7 @@
 				1BFD4CF71D3CCC3100ABE8E6 /* main.m */,
 				1BFD4D071D3CCC3100ABE8E6 /* Info.plist */,
 				1BFD4D291D3CCC8200ABE8E6 /* BrickMan-Prefix.pch */,
-				1BFD4D021D3CCC3100ABE8E6 /* Assets.xcassets */,
+				305E8E521D533A7600630B49 /* Assets.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -780,6 +781,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				305E8E531D533A7600630B49 /* Assets.xcassets in Resources */,
 				30C5BB631D4240A1001DF9D2 /* data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
