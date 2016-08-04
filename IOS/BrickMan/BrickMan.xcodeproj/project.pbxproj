@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1BFD4CF81D3CCC3100ABE8E6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4CF71D3CCC3100ABE8E6 /* main.m */; };
 		1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4CFA1D3CCC3100ABE8E6 /* AppDelegate.m */; };
-		1BFD4D061D3CCC3100ABE8E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BFD4D041D3CCC3100ABE8E6 /* LaunchScreen.storyboard */; };
 		1BFD4D111D3CCC3100ABE8E6 /* BrickManTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D101D3CCC3100ABE8E6 /* BrickManTests.m */; };
 		1BFD4D1C1D3CCC3100ABE8E6 /* BrickManUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D1B1D3CCC3100ABE8E6 /* BrickManUITests.m */; };
 		1BFD4D321D3CD02500ABE8E6 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D311D3CD02500ABE8E6 /* RootTabBarController.m */; };
@@ -61,7 +60,6 @@
 		5A686DF41D446FB500455FB2 /* UITextView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A686DF31D446FB500455FB2 /* UITextView+Common.m */; };
 		7907306E1D4114A700E726E2 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7907306D1D4114A700E726E2 /* ComposeViewController.m */; };
 		7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7959080B1D4107F000C72617 /* UIAlertController+Common.m */; };
-		79A8E7161D533FCB00FD0D2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79A8E7151D533FCB00FD0D2E /* Assets.xcassets */; };
 		79F71F1D1D49DA2C00C2AF2D /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 79F71F1B1D49DA2C00C2AF2D /* TencentOpenApi_IOS_Bundle.bundle */; };
 		79F71F1E1D49DA2C00C2AF2D /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F71F1C1D49DA2C00C2AF2D /* TencentOpenAPI.framework */; };
 		79F71F201D49DA9900C2AF2D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F71F1F1D49DA9900C2AF2D /* Security.framework */; };
@@ -205,7 +203,6 @@
 		7907306D1D4114A700E726E2 /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		7959080A1D4107F000C72617 /* UIAlertController+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Common.h"; sourceTree = "<group>"; };
 		7959080B1D4107F000C72617 /* UIAlertController+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Common.m"; sourceTree = "<group>"; };
-		79A8E7151D533FCB00FD0D2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79F71F1B1D49DA2C00C2AF2D /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		79F71F1C1D49DA2C00C2AF2D /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		79F71F1F1D49DA9900C2AF2D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -313,7 +310,6 @@
 				1BFD4CF71D3CCC3100ABE8E6 /* main.m */,
 				1BFD4D071D3CCC3100ABE8E6 /* Info.plist */,
 				1BFD4D291D3CCC8200ABE8E6 /* BrickMan-Prefix.pch */,
-				79A8E7151D533FCB00FD0D2E /* Assets.xcassets */,
 				305E8E521D533A7600630B49 /* Assets.xcassets */,
 			);
 			name = "Supporting Files";
@@ -788,62 +784,7 @@
 			files = (
 				305E8E531D533A7600630B49 /* Assets.xcassets in Resources */,
 				30C5BB631D4240A1001DF9D2 /* data.json in Resources */,
-				790993941D530CB500C1DDED /* share_sel@2x.png in Resources */,
-				790993B31D530CB500C1DDED /* tabbar0_nor@3x.png in Resources */,
-				790993921D530CB500C1DDED /* report_sel@2x.png in Resources */,
-				7909938D1D530CB500C1DDED /* flower_nor@2x.png in Resources */,
-				790993981D530CB500C1DDED /* back@2x.png in Resources */,
-				790993A51D530CB500C1DDED /* flower_icon@2x.png in Resources */,
-				7909939C1D530CB500C1DDED /* publishView_bg@2x.png in Resources */,
-				7909938F1D530CB500C1DDED /* man_nor@2x.png in Resources */,
-				790993B51D530CB500C1DDED /* tabbar0_sel@3x.png in Resources */,
-				790993AC1D530CB500C1DDED /* photo_3.png in Resources */,
-				790993961D530CB500C1DDED /* woman_sel@2x.png in Resources */,
-				7909939D1D530CB500C1DDED /* right_arrow@2x.png in Resources */,
-				790993901D530CB500C1DDED /* man_sel@2x.png in Resources */,
-				790993A91D530CB500C1DDED /* photo_0.png in Resources */,
-				790993B11D530CB500C1DDED /* photo_8.png in Resources */,
-				1BFD4D061D3CCC3100ABE8E6 /* LaunchScreen.storyboard in Resources */,
-				790993911D530CB500C1DDED /* report_nor@2x.png in Resources */,
 				79F71F1D1D49DA2C00C2AF2D /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				79A8E7161D533FCB00FD0D2E /* Assets.xcassets in Resources */,
-				790993AE1D530CB500C1DDED /* photo_5.png in Resources */,
-				7909938A1D530CB500C1DDED /* bm_brick5@2x.png in Resources */,
-				7909938C1D530CB500C1DDED /* commnet_nor@2x.png in Resources */,
-				7909939E1D530CB500C1DDED /* bm_flower1@2x.png in Resources */,
-				790993A01D530CB500C1DDED /* bm_flower3@2x.png in Resources */,
-				790993931D530CB500C1DDED /* share_nor@2x.png in Resources */,
-				30C1DB771D52FD3D005CB95A /* user_icon@2x.png in Resources */,
-				790993B91D530CB500C1DDED /* tabbar2_nor@3x.png in Resources */,
-				790993B61D530CB500C1DDED /* tabbar1_nor@2x.png in Resources */,
-				790993891D530CB500C1DDED /* bm_brick4@2x.png in Resources */,
-				30C1DB761D52FD3D005CB95A /* headerImg@2x.png in Resources */,
-				790993A21D530CB500C1DDED /* bm_flower5@2x.png in Resources */,
-				790993881D530CB500C1DDED /* bm_brick3@2x.png in Resources */,
-				7909939A1D530CB500C1DDED /* compose@2x.png in Resources */,
-				790993BE1D530CB500C1DDED /* tabBar_bg_6@2x.png in Resources */,
-				790993861D530CB500C1DDED /* bm_brick1@2x.png in Resources */,
-				790993AD1D530CB500C1DDED /* photo_4.png in Resources */,
-				790993A31D530CB500C1DDED /* about_icon@2x.png in Resources */,
-				790993B21D530CB500C1DDED /* tabbar0_nor@2x.png in Resources */,
-				790993B01D530CB500C1DDED /* photo_7.png in Resources */,
-				790993A41D530CB500C1DDED /* brick_icon@2x.png in Resources */,
-				790993BC1D530CB500C1DDED /* tabBar_bg@2x.png in Resources */,
-				790993951D530CB500C1DDED /* woman_nor@2x.png in Resources */,
-				790993AA1D530CB500C1DDED /* photo_1.png in Resources */,
-				7909939B1D530CB500C1DDED /* delete_image@2x.png in Resources */,
-				790993BB1D530CB500C1DDED /* tabbar2_sel@3x.png in Resources */,
-				790993AB1D530CB500C1DDED /* photo_2.png in Resources */,
-				7909939F1D530CB500C1DDED /* bm_flower2@2x.png in Resources */,
-				790993991D530CB500C1DDED /* circle@2x.png in Resources */,
-				790993BD1D530CB500C1DDED /* tabBar_bg@3x.png in Resources */,
-				790993971D530CB500C1DDED /* add_pic@2x.png in Resources */,
-				790993A11D530CB500C1DDED /* bm_flower4@2x.png in Resources */,
-				790993AF1D530CB500C1DDED /* photo_6.png in Resources */,
-				790993B41D530CB500C1DDED /* tabbar0_sel@2x.png in Resources */,
-				790993A61D530CB500C1DDED /* mine_icon@2x.png in Resources */,
-				790993B81D530CB500C1DDED /* tabbar2_nor@2x.png in Resources */,
-				790993A81D530CB500C1DDED /* share_wxtimeline@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
