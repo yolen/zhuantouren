@@ -18,7 +18,7 @@
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_70"
             android:layout_centerVertical="true"
-            android:src="@mipmap/bm_avator"
+            android:src="@mipmap/ic_launcher"
             app:border_color="@color/colorAccent"
             app:border_width="0dp" />
 
@@ -30,7 +30,7 @@
             android:layout_marginTop="@dimen/dp_25"
             android:layout_toRightOf="@id/avator"
             android:text="@string/app_name"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
         <TextView
@@ -89,7 +89,7 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_toRightOf="@id/icon1"
             android:text="我的砖集"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
 
@@ -131,7 +131,7 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_toRightOf="@id/icon2"
             android:text="我的砖头"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
 
@@ -173,7 +173,7 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_toRightOf="@id/icon3"
             android:text="我的鲜花"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
 
@@ -221,7 +221,7 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_toRightOf="@id/icon4"
             android:text="关于我们"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
 

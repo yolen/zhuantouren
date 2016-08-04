@@ -32,7 +32,7 @@
             android:layout_marginTop="@dimen/dp_02"
             android:layout_toRightOf="@id/avator"
             android:text="@string/app_name"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
         <TextView
@@ -73,7 +73,7 @@
         android:paddingRight="@dimen/dp_10"
         android:paddingTop="@dimen/dp_10"
         android:text="人生应该如蜡烛一样，从顶燃到底，一直都是光明的。身边总有那么些好人好事，让生活更美好！"
-        android:textColor="@color/text_color"
+        android:textColor="?attr/text_color"
         android:textSize="@dimen/sp_14" />
 
     <LinearLayout

@@ -16,7 +16,7 @@
         android:layout_height="45dp"
         android:gravity="center"
         android:text="分享"
-        android:textColor="@color/text_color"
+        android:textColor="?attr/text_color"
         android:textSize="@dimen/dp_16" />
 
     <View
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="微信好友"
-                android:textColor="@color/text_color"
+                android:textColor="?attr/text_color"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="朋友圈"
-                android:textColor="@color/text_color"
+                android:textColor="?attr/text_color"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="QQ好友"
-                android:textColor="@color/text_color"
+                android:textColor="?attr/text_color"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="QQ空间"
-                android:textColor="@color/text_color"
+                android:textColor="?attr/text_color"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
 
@@ -147,7 +147,7 @@
             android:layout_height="45dp"
             android:background="@drawable/item_bg"
             android:text="取消"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
     </RelativeLayout>
 </LinearLayout>

@@ -17,7 +17,7 @@ import java.util.List;
 public interface MainContract {
     interface Model extends BaseModel {
         void loadBanner(HttpListener<JSONObject> httpListener);
-        void loadBrickList(int pageNO, HttpListener httpListener);
+        void loadBrickList(int type, int pageNO, HttpListener httpListener);
     }
 
     interface View extends BaseView {

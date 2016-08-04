@@ -34,6 +34,21 @@
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/sp_20"
                     android:textStyle="normal" />
+
+                <RelativeLayout
+                    android:id="@+id/publish"
+                    android:layout_width="?attr/actionBarSize"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_gravity="right"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_28"
+                        android:layout_height="@dimen/dp_22"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/bm_send" />
+                </RelativeLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 

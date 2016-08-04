@@ -27,7 +27,7 @@
             android:layout_marginTop="@dimen/dp_02"
             android:layout_toRightOf="@id/avator"
             android:text="@string/app_name"
-            android:textColor="@color/text_color"
+            android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_16" />
 
         <TextView
