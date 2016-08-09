@@ -12,10 +12,12 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <CoreLocation/CoreLocation.h>
     #import <objc/runtime.h>
     #import <Masonry/Masonry.h>
     #import <AFNetworking.h>
     #import "MBProgressHUD+GR.h"
+    #import "YYModel.h"
 
     #import "MyLog.h"
     #import "UIViewExt.h"

@@ -10,7 +10,8 @@
 #import "ComposePictureViewFlowLayout.h"
 #import "ComposeTextView.h"
 #import "ComposeViewController.h"
-
+#import "BMLocationViewController.h"
+#import "BMLocationCell.h"
 
 @interface ComposeViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, ComposePictureCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 /**
@@ -107,14 +108,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableCell"];
-
+    BMLocationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableCell"];
+    
     cell.textLabel.font      = PUBLISH_TEXT_FONT_SIZE;
     cell.textLabel.textColor = [UIColor grayColor];
 
     // 设置 Cell...
     //    if (indexPath.row == 0) {
     cell.textLabel.text = @"地点";
+    cell.detailTextLabel.text = @"";
     cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
     //    } else {
     //        cell.textLabel.text = @"好人好事";
@@ -126,6 +128,13 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    BMLocationViewController *locationController = [[BMLocationViewController alloc] init];
+    locationController.title = @"地点";
+    locationController.locationFinish = ^(NSString *location){
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.detailTextLabel.text = location;
+    };
+    [self.navigationController pushViewController:locationController animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -134,10 +143,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 10;
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self.tableView endEditing:YES];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -242,7 +247,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate   = self;
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"TableCell"];
+        [_tableView registerClass:[BMLocationCell class] forCellReuseIdentifier:@"TableCell"];
     }
     return _tableView;
 }

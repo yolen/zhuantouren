@@ -59,7 +59,13 @@
 		5A686DF11D44629800455FB2 /* MottoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A686DF01D44629800455FB2 /* MottoController.m */; };
 		5A686DF41D446FB500455FB2 /* UITextView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A686DF31D446FB500455FB2 /* UITextView+Common.m */; };
 		7907306E1D4114A700E726E2 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7907306D1D4114A700E726E2 /* ComposeViewController.m */; };
+		792C201B1D58507B0047E4D2 /* BMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792C201A1D58507B0047E4D2 /* BMLocationViewController.m */; };
+		792C201C1D5860A90047E4D2 /* NSObject+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F71F3D1D4A45E900C2AF2D /* NSObject+Log.m */; };
+		792C20281D5893D80047E4D2 /* BMCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 792C20271D5893D80047E4D2 /* BMCity.m */; };
 		7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7959080B1D4107F000C72617 /* UIAlertController+Common.m */; };
+		79F39E8E1D596DF400FEAB40 /* city.json in Resources */ = {isa = PBXBuildFile; fileRef = 79F39E8D1D596DF400FEAB40 /* city.json */; };
+		79F39E911D596F7400FEAB40 /* BMCityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F39E901D596F7400FEAB40 /* BMCityList.m */; };
+		79F39E941D598B0300FEAB40 /* BMLocationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F39E931D598B0300FEAB40 /* BMLocationCell.m */; };
 		79F71F1D1D49DA2C00C2AF2D /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 79F71F1B1D49DA2C00C2AF2D /* TencentOpenApi_IOS_Bundle.bundle */; };
 		79F71F1E1D49DA2C00C2AF2D /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F71F1C1D49DA2C00C2AF2D /* TencentOpenAPI.framework */; };
 		79F71F201D49DA9900C2AF2D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F71F1F1D49DA9900C2AF2D /* Security.framework */; };
@@ -201,8 +207,17 @@
 		5A686DF31D446FB500455FB2 /* UITextView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Common.m"; sourceTree = "<group>"; };
 		7907306C1D4114A700E726E2 /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		7907306D1D4114A700E726E2 /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		792C20191D58507B0047E4D2 /* BMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLocationViewController.h; sourceTree = "<group>"; };
+		792C201A1D58507B0047E4D2 /* BMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLocationViewController.m; sourceTree = "<group>"; };
+		792C20261D5893D80047E4D2 /* BMCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCity.h; sourceTree = "<group>"; };
+		792C20271D5893D80047E4D2 /* BMCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCity.m; sourceTree = "<group>"; };
 		7959080A1D4107F000C72617 /* UIAlertController+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Common.h"; sourceTree = "<group>"; };
 		7959080B1D4107F000C72617 /* UIAlertController+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Common.m"; sourceTree = "<group>"; };
+		79F39E8D1D596DF400FEAB40 /* city.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.json; sourceTree = "<group>"; };
+		79F39E8F1D596F7400FEAB40 /* BMCityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCityList.h; sourceTree = "<group>"; };
+		79F39E901D596F7400FEAB40 /* BMCityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCityList.m; sourceTree = "<group>"; };
+		79F39E921D598B0300FEAB40 /* BMLocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLocationCell.h; sourceTree = "<group>"; };
+		79F39E931D598B0300FEAB40 /* BMLocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLocationCell.m; sourceTree = "<group>"; };
 		79F71F1B1D49DA2C00C2AF2D /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		79F71F1C1D49DA2C00C2AF2D /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		79F71F1F1D49DA9900C2AF2D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -306,6 +321,7 @@
 		1BFD4CF61D3CCC3100ABE8E6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				79F39E8D1D596DF400FEAB40 /* city.json */,
 				30C5BB621D4240A1001DF9D2 /* data.json */,
 				1BFD4CF71D3CCC3100ABE8E6 /* main.m */,
 				1BFD4D071D3CCC3100ABE8E6 /* Info.plist */,
@@ -364,6 +380,7 @@
 		1BFD4D2C1D3CCC9800ABE8E6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				792C201F1D5890D80047E4D2 /* Location */,
 				79F71F371D4A25EA00C2AF2D /* UserInfo */,
 				5A1CD6BE1D475F6E0007E4D1 /* Mine */,
 			);
@@ -599,11 +616,24 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		792C201F1D5890D80047E4D2 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				79F39E8F1D596F7400FEAB40 /* BMCityList.h */,
+				79F39E901D596F7400FEAB40 /* BMCityList.m */,
+				792C20261D5893D80047E4D2 /* BMCity.h */,
+				792C20271D5893D80047E4D2 /* BMCity.m */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
 		795908091D40FCB500C72617 /* Publish */ = {
 			isa = PBXGroup;
 			children = (
 				7907306C1D4114A700E726E2 /* ComposeViewController.h */,
 				7907306D1D4114A700E726E2 /* ComposeViewController.m */,
+				792C20191D58507B0047E4D2 /* BMLocationViewController.h */,
+				792C201A1D58507B0047E4D2 /* BMLocationViewController.m */,
 			);
 			path = Publish;
 			sourceTree = "<group>";
@@ -651,6 +681,8 @@
 			children = (
 				79FBFBE91D420904001C43C2 /* ComposePictureCell.h */,
 				79FBFBEA1D420904001C43C2 /* ComposePictureCell.m */,
+				79F39E921D598B0300FEAB40 /* BMLocationCell.h */,
+				79F39E931D598B0300FEAB40 /* BMLocationCell.m */,
 			);
 			path = Publish;
 			sourceTree = "<group>";
@@ -746,7 +778,7 @@
 				TargetAttributes = {
 					1BFD4CF21D3CCC3100ABE8E6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = EPS9LLZTCS;
+						DevelopmentTeam = EPSPHDMRQR;
 					};
 					1BFD4D0B1D3CCC3100ABE8E6 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -785,6 +817,7 @@
 			files = (
 				305E8E531D533A7600630B49 /* Assets.xcassets in Resources */,
 				30C5BB631D4240A1001DF9D2 /* data.json in Resources */,
+				79F39E8E1D596DF400FEAB40 /* city.json in Resources */,
 				79F71F1D1D49DA2C00C2AF2D /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -873,6 +906,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				792C201C1D5860A90047E4D2 /* NSObject+Log.m in Sources */,
 				30C5BB3A1D40B468001DF9D2 /* BaseViewController.m in Sources */,
 				5A52DE2C1D41EF4C00D28DB2 /* BrickController.m in Sources */,
 				5A686DF41D446FB500455FB2 /* UITextView+Common.m in Sources */,
@@ -883,6 +917,7 @@
 				30C5BB4E1D4209F8001DF9D2 /* DetailBrickViewController.m in Sources */,
 				1BFD4D3D1D3CD0B500ABE8E6 /* MainViewController.m in Sources */,
 				30C5BAE61D40655E001DF9D2 /* UILabel+Common.m in Sources */,
+				792C20281D5893D80047E4D2 /* BMCity.m in Sources */,
 				30C5BADC1D406008001DF9D2 /* Mine_titleCell.m in Sources */,
 				302D99FF1D3E058700F295A0 /* BrickManAPIManager.m in Sources */,
 				5A1CD6C11D476E670007E4D1 /* Mine_BrickModel.m in Sources */,
@@ -905,13 +940,16 @@
 				5A686DF11D44629800455FB2 /* MottoController.m in Sources */,
 				1BFD4D321D3CD02500ABE8E6 /* RootTabBarController.m in Sources */,
 				303529C51D4862AC00CFDD77 /* CommentInputView.m in Sources */,
+				79F39E941D598B0300FEAB40 /* BMLocationCell.m in Sources */,
 				5A52DE221D41DF7A00D28DB2 /* Mine_infoCell.m in Sources */,
 				302D9A021D3E069800F295A0 /* BaseNavigationController.m in Sources */,
 				79FBFBEB1D420904001C43C2 /* ComposePictureCell.m in Sources */,
 				1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */,
 				30C5BB101D408250001DF9D2 /* iCarousel.m in Sources */,
 				5A52DE361D41F21A00D28DB2 /* HeadEditController.m in Sources */,
+				792C201B1D58507B0047E4D2 /* BMLocationViewController.m in Sources */,
 				5A52DE261D41ECC300D28DB2 /* MBProgressHUD+GR.m in Sources */,
+				79F39E911D596F7400FEAB40 /* BMCityList.m in Sources */,
 				30C5BB441D411D8A001DF9D2 /* CommentCell.m in Sources */,
 				30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */,
 				5A52DE2F1D41EF5E00D28DB2 /* FlowerController.m in Sources */,
@@ -1089,7 +1127,7 @@
 					"\"UIKit\"",
 					"-fobjc-arc",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -1130,7 +1168,7 @@
 					"\"UIKit\"",
 					"-fobjc-arc",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
