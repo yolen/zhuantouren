@@ -36,7 +36,7 @@ public class MApplication extends Application {
         ThemeConfig theme = new ThemeConfig.Builder()
                 .setCheckNornalColor(getResources().getColor(R.color.light_gray))
                 .setCheckSelectedColor(getResources().getColor(R.color.dark_green))
-                .setCropControlColor(getResources().getColor(R.color.colorAccent))
+                .setCropControlColor(getResources().getColor(R.color.white))
                 .setTitleBarBgColor(getResources().getColor(R.color.colorAccent))
                 .setTitleBarTextColor(getResources().getColor(R.color.white))
                 .setTitleBarIconColor(getResources().getColor(R.color.white))
