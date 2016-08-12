@@ -13,6 +13,9 @@
 @interface GalleryController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+/**
+ *  数据源
+ */
 @property (strong, nonatomic) NSArray *dataList;
 
 @end
@@ -45,6 +48,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
     [cell setData:self.dataList[indexPath.row]];
+    //判断在我的砖集状态下,cell的四个按钮不可点击
     [cell setIsGallery:YES];
     return cell;
 }
@@ -62,6 +66,7 @@
     return [MainTableViewCell cellHeightWithImageArray:dic];
 }
 
+#pragma mark - 懒加载
 
 - (UITableView *)tableView {
     if (!_tableView) {

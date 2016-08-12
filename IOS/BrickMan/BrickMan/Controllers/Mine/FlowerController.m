@@ -13,11 +13,17 @@
 @interface FlowerController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-
+/**
+ *  数据源
+ */
 @property (nonatomic, strong) NSMutableArray *dataList;
-
+/**
+ *  顶部等级图片和砖数显示视图
+ */
 @property (nonatomic, strong) UIView *tableHeaderView;
-
+/**
+ *  砖数显示视图
+ */
 @property (nonatomic, strong) UILabel *numberOfFlower;
 
 @end
@@ -115,6 +121,8 @@
     
     return tableHeaderView;
 }
+
+#pragma mark - 懒加载
 
 - (NSMutableArray *)dataList {
     if (!_dataList) {

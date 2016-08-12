@@ -9,17 +9,29 @@
 #import <Foundation/Foundation.h>
 
 @interface Mine_BrickModel : NSObject
-
-@property (nonatomic, strong) NSString *ranking;
-
-@property (nonatomic, strong) NSString *headPath;
-
-@property (nonatomic, strong) NSString *nickname;
-
-@property (nonatomic, strong) NSString *grade;
-
-@property (nonatomic, strong) NSString *numberOfBrick;
-
-@property (nonatomic, strong) NSString *numberOfFlower;
+/**
+ *  砖头数或鲜花数排名
+ */
+@property (nonatomic, copy) NSString *ranking;
+/**
+ *  头像路径
+ */
+@property (nonatomic, copy) NSString *headPath;
+/**
+ *  用户昵称
+ */
+@property (nonatomic, copy) NSString *nickname;
+/**
+ *  等级
+ */
+@property (nonatomic, copy) NSString *grade;
+/**
+ *  砖头数
+ */
+@property (nonatomic, copy) NSString *numberOfBrick;
+/**
+ *  鲜花数
+ */
+@property (nonatomic, copy) NSString *numberOfFlower;
 
 @end

@@ -19,11 +19,17 @@
 }
 
 @property (nonatomic, strong) UITableView *myTableView;
-
+/**
+ *  cell左侧名称数组
+ */
 @property (nonatomic, strong) NSArray *titles;
-
+/**
+ *  cell右侧值数组
+ */
 @property (nonatomic, strong) NSArray *subTitles;
-
+/**
+ *  自定义性别选择视图
+ */
 @property (nonatomic, strong) UIView *mySexSelection;
 
 @property (nonatomic, strong) UIButton *male;
@@ -269,6 +275,8 @@
     }
     _oldSelected = sender;
 }
+
+#pragma mark - 懒加载
 
 - (NSArray *)titles {
     if (!_titles) {
