@@ -8,6 +8,7 @@
 
 #import "BrickManAPIManager.h"
 #import "BrickManNetClient.h"
+#import <YYModel/YYModel.h>
 
 @implementation BrickManAPIManager
 
@@ -30,11 +31,27 @@
     }];
 }
 
-- (void)uploadFileWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
-    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/upload.json" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
-        
+//获取内容列表
+- (void)requestContentListWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    NSDictionary *dic = @{@"pageNo" : @"1",
+                          @"pageSize" : @"10",
+                          @"orderType" : @"0"};
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"content/list_content.json" withParams:dic withMethodType:Get andBlock:^(id data, NSError *error) {
+        if (error) {
+            block(nil,error);
+        }else {
+            NSDictionary *list = [data objectForKey:@"body"];
+            
+            block(data,nil);
+        }
     }];
 }
+
+//获取内容详情
+- (void)requestDetailContentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    
+}
+
 
 
 

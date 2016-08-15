@@ -97,7 +97,7 @@ public class TabManager implements TabHost.OnTabChangeListener {
                 }
             }
             ((MainActivity)mActivity).title.setText(newTab.tag);
-            if(newTab.tag.equals(mActivity.getResources().getStringArray(R.array.tabNames)[1])){
+            if(newTab.tag.equals(mActivity.getResources().getStringArray(R.array.tabNames)[0])){
                 ((MainActivity) mActivity).publish.setVisibility(View.VISIBLE);
             } else {
                 ((MainActivity) mActivity).publish.setVisibility(View.GONE);

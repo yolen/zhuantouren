@@ -177,8 +177,8 @@ public class UMSdkManager {
 	 *       : 用户点击该分享时跳转到的目标地址 [必填] ( 若不填写则默认设置为友盟主页 )
 	 */
 	public void addQQQZonePlatform(Activity act) {
-		String appId = "1105498517";
-		String appKey = "JUQ12KZz3ErGrMM0";
+		String appId = "1105593438";
+		String appKey = "dBRx3jsdC5UT6Drw";
 		// 添加QQ支持, 并且设置QQ分享内容的target url
 		UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(act, appId, appKey);
 		qqSsoHandler.addToSocialSDK();

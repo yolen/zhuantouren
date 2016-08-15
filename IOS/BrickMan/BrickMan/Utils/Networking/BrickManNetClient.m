@@ -22,14 +22,8 @@ NSString *const key = @"53b4be63fac688e0";
 
 - (instancetype)initWithBaseURL:(NSURL *)url {
     if (self = [super initWithBaseURL:url]) {
-        self.responseSerializer = [AFJSONResponseSerializer serializer];
-        self.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/html", nil];
-        
-        [self.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-        [self.requestSerializer setValue:url.absoluteString forHTTPHeaderField:@"Referer"];
-        
-        //SSL
-        self.securityPolicy.allowInvalidCertificates = YES;
+//        self.responseSerializer = [AFJSONResponseSerializer serializer];
+        self.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"text/html", nil];
     }
     return self;
 }

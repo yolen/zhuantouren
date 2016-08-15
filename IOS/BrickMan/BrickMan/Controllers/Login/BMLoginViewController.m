@@ -119,8 +119,8 @@
     [goAroundBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo (self.view.mas_centerX);
         make.bottom.equalTo (imageView.mas_bottom).offset (-30);
-        make.height.equalTo (self.goAroundButton.mas_height).offset (20);
-        make.width.equalTo (self.goAroundButton.mas_width).offset (80);
+        make.height.equalTo (self.goAroundButton.mas_height).offset (10);
+        make.width.equalTo (self.goAroundButton.mas_width).offset (60);
     }];
 
     [self.goAroundButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -224,7 +224,7 @@
         [_goAroundButton setImage:rightArrow forState:UIControlStateNormal];
         [_goAroundButton setTitleColor:kNavigationBarColor forState:UIControlStateNormal];
         [_goAroundButton setTitleEdgeInsets:UIEdgeInsetsMake (0, -20, 0, 0)];
-        [_goAroundButton setImageEdgeInsets:UIEdgeInsetsMake (5, 120, 5, 0)];
+        [_goAroundButton setImageEdgeInsets:UIEdgeInsetsMake (10, 130, 10, 0)];
         [_goAroundButton addTarget:self
                             action:@selector (didClickGoAroundButton:)
                   forControlEvents:UIControlEventTouchUpInside];

@@ -80,7 +80,7 @@
 #define MAX_SELECTE_PICTURE_NUM 9
 
 /*====================QQ Login========================*/
-#define QQ_LOGIN_APP_ID @"1105575082"
+#define QQ_LOGIN_APP_ID @"1105537857"
 
 
 
