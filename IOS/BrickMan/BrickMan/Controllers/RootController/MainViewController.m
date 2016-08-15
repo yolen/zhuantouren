@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.titleArray = @[@"最近发布",@"砖头最多",@"鲜花最多"];
+    self.titleArray = @[@"最近发布",@"砖头最多",@"鲜花最多",@"评论最多"];
     
     self.headerView = [self customHeaderView];
     
@@ -68,7 +68,6 @@
     BrickListView *brickList = [[BrickListView alloc] initWithFrame:carousel.bounds];
     __weak typeof(self) weakSelf = self;
     brickList.scrollBlock = ^(CGFloat offset){
-        DebugLog(@"%f",offset);
         if (offset < 0) {
             [weakSelf.headerView setY:0];
             [weakSelf.myCarousel setY:170];

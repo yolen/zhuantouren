@@ -22,6 +22,8 @@
 		303529C51D4862AC00CFDD77 /* CommentInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529C41D4862AC00CFDD77 /* CommentInputView.m */; };
 		303529C81D4862BD00CFDD77 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529C71D4862BD00CFDD77 /* ShareView.m */; };
 		303529CF1D48766200CFDD77 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529CE1D48766200CFDD77 /* UIPlaceHolderTextView.m */; };
+		30466C861D617511006BAEDE /* BMContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30466C851D617511006BAEDE /* BMContentModel.m */; };
+		30466C891D61761E006BAEDE /* IntroduceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30466C881D61761E006BAEDE /* IntroduceViewController.m */; };
 		305E8E531D533A7600630B49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 305E8E521D533A7600630B49 /* Assets.xcassets */; };
 		30721A851D3E587A00D54E09 /* UITableView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30721A841D3E587A00D54E09 /* UITableView+Common.m */; };
 		30C5BADB1D406008001DF9D2 /* Mine_headerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BAD81D406008001DF9D2 /* Mine_headerCell.m */; };
@@ -81,7 +83,7 @@
 		79FBFBE11D41DF00001C43C2 /* ComposeTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FBFBE01D41DF00001C43C2 /* ComposeTextView.m */; };
 		79FBFBE71D41FCB2001C43C2 /* ComposePictureViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FBFBE61D41FCB2001C43C2 /* ComposePictureViewFlowLayout.m */; };
 		79FBFBEB1D420904001C43C2 /* ComposePictureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FBFBEA1D420904001C43C2 /* ComposePictureCell.m */; };
-		F6357FC9715FCF5B24D9C717 /* libPods-BrickMan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA4C9206F9F9B3EB03F1F2A5 /* libPods-BrickMan.a */; };
+		F034EAA91EDA124BBA8D128B /* libPods-BrickMan.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 536F2B97C1FB44EAEDF91AE7 /* libPods-BrickMan.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,6 +104,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18C02DE13356856B653813CB /* Pods-BrickMan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrickMan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrickMan/Pods-BrickMan.debug.xcconfig"; sourceTree = "<group>"; };
 		1BFD4CF31D3CCC3100ABE8E6 /* BrickMan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrickMan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BFD4CF71D3CCC3100ABE8E6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1BFD4CF91D3CCC3100ABE8E6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -139,6 +142,10 @@
 		303529C71D4862BD00CFDD77 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		303529CD1D48766200CFDD77 /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
 		303529CE1D48766200CFDD77 /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
+		30466C841D617511006BAEDE /* BMContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMContentModel.h; sourceTree = "<group>"; };
+		30466C851D617511006BAEDE /* BMContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMContentModel.m; sourceTree = "<group>"; };
+		30466C871D61761E006BAEDE /* IntroduceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceViewController.h; sourceTree = "<group>"; };
+		30466C881D61761E006BAEDE /* IntroduceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceViewController.m; sourceTree = "<group>"; };
 		305E8E521D533A7600630B49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30721A831D3E587A00D54E09 /* UITableView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Common.h"; sourceTree = "<group>"; };
 		30721A841D3E587A00D54E09 /* UITableView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Common.m"; sourceTree = "<group>"; };
@@ -173,7 +180,7 @@
 		30F91D631D3DCC1F007D9BDB /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		30F91D741D3DE8F3007D9BDB /* UIImage+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Common.h"; sourceTree = "<group>"; };
 		30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Common.m"; sourceTree = "<group>"; };
-		55710C9B5A35144F8189BE32 /* Pods-BrickMan.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrickMan.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BrickMan/Pods-BrickMan.debug.xcconfig"; sourceTree = "<group>"; };
+		536F2B97C1FB44EAEDF91AE7 /* libPods-BrickMan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BrickMan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A1CD6BF1D476E670007E4D1 /* Mine_BrickModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mine_BrickModel.h; sourceTree = "<group>"; };
 		5A1CD6C01D476E670007E4D1 /* Mine_BrickModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mine_BrickModel.m; sourceTree = "<group>"; };
 		5A1CD6C21D4773C30007E4D1 /* Mine_BrickCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mine_BrickCell.h; sourceTree = "<group>"; };
@@ -240,8 +247,7 @@
 		79FBFBE61D41FCB2001C43C2 /* ComposePictureViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposePictureViewFlowLayout.m; sourceTree = "<group>"; };
 		79FBFBE91D420904001C43C2 /* ComposePictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposePictureCell.h; sourceTree = "<group>"; };
 		79FBFBEA1D420904001C43C2 /* ComposePictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposePictureCell.m; sourceTree = "<group>"; };
-		A0A211E21BCEDF89EC66AE60 /* Pods-BrickMan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrickMan.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrickMan/Pods-BrickMan.release.xcconfig"; sourceTree = "<group>"; };
-		FA4C9206F9F9B3EB03F1F2A5 /* libPods-BrickMan.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BrickMan.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC575DF819A8D79155317353 /* Pods-BrickMan.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BrickMan.release.xcconfig"; path = "Pods/Target Support Files/Pods-BrickMan/Pods-BrickMan.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,7 +265,7 @@
 				79F71F201D49DA9900C2AF2D /* Security.framework in Frameworks */,
 				5A1CD6C61D4847040007E4D1 /* WebKit.framework in Frameworks */,
 				79F71F1E1D49DA2C00C2AF2D /* TencentOpenAPI.framework in Frameworks */,
-				F6357FC9715FCF5B24D9C717 /* libPods-BrickMan.a in Frameworks */,
+				F034EAA91EDA124BBA8D128B /* libPods-BrickMan.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +294,7 @@
 				1BFD4D1A1D3CCC3100ABE8E6 /* BrickManUITests */,
 				1BFD4CF41D3CCC3100ABE8E6 /* Products */,
 				938BAFAA53FE39238BB03740 /* Frameworks */,
-				6EDC3C92417E7165946949C4 /* Pods */,
+				95D0B63E1112DCCE4B8DCB84 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -373,6 +379,8 @@
 				1BFD4D3F1D3CD0BF00ABE8E6 /* PublishViewController.m */,
 				1BFD4D411D3CD0F100ABE8E6 /* MineViewController.h */,
 				1BFD4D421D3CD0F100ABE8E6 /* MineViewController.m */,
+				30466C871D61761E006BAEDE /* IntroduceViewController.h */,
+				30466C881D61761E006BAEDE /* IntroduceViewController.m */,
 			);
 			path = RootController;
 			sourceTree = "<group>";
@@ -380,6 +388,7 @@
 		1BFD4D2C1D3CCC9800ABE8E6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				30466C801D6174E0006BAEDE /* Main */,
 				792C201F1D5890D80047E4D2 /* Location */,
 				79F71F371D4A25EA00C2AF2D /* UserInfo */,
 				5A1CD6BE1D475F6E0007E4D1 /* Mine */,
@@ -444,6 +453,15 @@
 				79FBFBE81D41FF14001C43C2 /* Publish */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		30466C801D6174E0006BAEDE /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				30466C841D617511006BAEDE /* BMContentModel.h */,
+				30466C851D617511006BAEDE /* BMContentModel.m */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		30C5BAD51D406008001DF9D2 /* Main */ = {
@@ -607,15 +625,6 @@
 			path = MyLog;
 			sourceTree = "<group>";
 		};
-		6EDC3C92417E7165946949C4 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				55710C9B5A35144F8189BE32 /* Pods-BrickMan.debug.xcconfig */,
-				A0A211E21BCEDF89EC66AE60 /* Pods-BrickMan.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		792C201F1D5890D80047E4D2 /* Location */ = {
 			isa = PBXGroup;
 			children = (
@@ -701,9 +710,18 @@
 				79F71F1B1D49DA2C00C2AF2D /* TencentOpenApi_IOS_Bundle.bundle */,
 				79F71F1C1D49DA2C00C2AF2D /* TencentOpenAPI.framework */,
 				5A1CD6C51D4847040007E4D1 /* WebKit.framework */,
-				FA4C9206F9F9B3EB03F1F2A5 /* libPods-BrickMan.a */,
+				536F2B97C1FB44EAEDF91AE7 /* libPods-BrickMan.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		95D0B63E1112DCCE4B8DCB84 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				18C02DE13356856B653813CB /* Pods-BrickMan.debug.xcconfig */,
+				DC575DF819A8D79155317353 /* Pods-BrickMan.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -719,7 +737,6 @@
 				1BFD4CF11D3CCC3100ABE8E6 /* Resources */,
 				2FBDA946492EA837C3FE133A /* [CP] Embed Pods Frameworks */,
 				D1AB16CBCE247017ADF74C41 /* [CP] Copy Pods Resources */,
-				689FB1B832677FBDA9760E04 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -869,21 +886,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrickMan/Pods-BrickMan-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		689FB1B832677FBDA9760E04 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BrickMan/Pods-BrickMan-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D1AB16CBCE247017ADF74C41 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -930,6 +932,7 @@
 				30721A851D3E587A00D54E09 /* UITableView+Common.m in Sources */,
 				30C5BB6C1D425699001DF9D2 /* MainTableViewCell.m in Sources */,
 				7959080C1D4107F000C72617 /* UIAlertController+Common.m in Sources */,
+				30466C891D61761E006BAEDE /* IntroduceViewController.m in Sources */,
 				30C5BB541D4210A8001DF9D2 /* BrickPhotoCell.m in Sources */,
 				5A686DEE1D445DFC00455FB2 /* UITextField+Common.m in Sources */,
 				30C5BB2C1D40A09B001DF9D2 /* UITapImageView.m in Sources */,
@@ -946,6 +949,7 @@
 				79FBFBEB1D420904001C43C2 /* ComposePictureCell.m in Sources */,
 				1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */,
 				30C5BB101D408250001DF9D2 /* iCarousel.m in Sources */,
+				30466C861D617511006BAEDE /* BMContentModel.m in Sources */,
 				5A52DE361D41F21A00D28DB2 /* HeadEditController.m in Sources */,
 				792C201B1D58507B0047E4D2 /* BMLocationViewController.m in Sources */,
 				5A52DE261D41ECC300D28DB2 /* MBProgressHUD+GR.m in Sources */,
@@ -1094,9 +1098,10 @@
 		};
 		1BFD4D211D3CCC3100ABE8E6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 55710C9B5A35144F8189BE32 /* Pods-BrickMan.debug.xcconfig */;
+			baseConfigurationReference = 18C02DE13356856B653813CB /* Pods-BrickMan.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1130,14 +1135,17 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "BrickMan/Models/Main/BrickMan-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		1BFD4D221D3CCC3100ABE8E6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0A211E21BCEDF89EC66AE60 /* Pods-BrickMan.release.xcconfig */;
+			baseConfigurationReference = DC575DF819A8D79155317353 /* Pods-BrickMan.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1171,6 +1179,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "BrickMan/Models/Main/BrickMan-Bridging-Header.h";
 			};
 			name = Release;
 		};

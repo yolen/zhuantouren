@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "BrickManAPIManager.h"
 #import "RootTabBarController.h"
+#import "IntroduceViewController.h"
 #import <TencentOpenAPI/TencentOAuth.h>
 
 @interface AppDelegate ()
@@ -33,17 +34,27 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     };
     [navigationBar setTitleTextAttributes:textAttributes];
     [navigationBar setTintColor:[UIColor whiteColor]];
-    RootTabBarController *rootVC   = [[RootTabBarController alloc] init];
-    self.window.rootViewController = rootVC;
-
-    [[BrickManAPIManager shareInstance] requestWithParams:@{
-        @"userId": @"test1",
-        @"param1": @"参数1",
-        @"param2": @"参数2"
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"isShowIntroducePage"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isShowIntroducePage"];
+        
+        IntroduceViewController *introduceVC = [[IntroduceViewController alloc] init];
+        self.window.rootViewController = introduceVC;
+    }else {
+        RootTabBarController *rootVC   = [RootTabBarController sharedInstance];
+        self.window.rootViewController = rootVC;
     }
-                                                 andBlock:^(id data, NSError *error){
 
-                                                 }];
+//    [[BrickManAPIManager shareInstance] requestWithParams:@{
+//        @"userId": @"test1",
+//        @"param1": @"参数1",
+//        @"param2": @"参数2"
+//    }
+//                                                 andBlock:^(id data, NSError *error){
+//
+//                                                 }];
+    [[BrickManAPIManager shareInstance] requestContentListWithParams:nil andBlock:^(id data, NSError *error) {
+        DebugLog(@"%@",data);
+    }];
     [self.window makeKeyAndVisible];
     return YES;
 }

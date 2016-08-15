@@ -18,6 +18,17 @@
 
 @implementation RootTabBarController
 
++ (instancetype)sharedInstance {
+    static RootTabBarController* instance = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [RootTabBarController new];
+    });
+
+    return instance;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
