@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BMContentListModel.h"
 
-@interface BrickManAPIManager : NSObject<NSCoding, NSCopying>
+@interface BrickManAPIManager : NSObject
 
 + (id)shareInstance;
 
@@ -17,13 +17,10 @@
 - (void)requestDetailContentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestOperContentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestAuthLoginWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
+- (void)requestMyBrickFlowerWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestUserContentListWithObj:(BMContentListModel *)contentList andBlock:(void(^)(id data, NSError *error))block;
 //上传文件
 - (void)uploadFileWithImage:(UIImage *)image
                   doneBlock:(void (^)(NSString *imagePath, NSError *error))block
               progerssBlock:(void (^)(CGFloat progressValue))progress;
-
-- (void)uploadFileWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
-- (void)requestContentListWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
-- (void)requestMyBrickFlowerWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 @end
