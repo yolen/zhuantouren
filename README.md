@@ -25,3 +25,7 @@
   Today, we walk on the road, the street, we sat on the subway, standing on the bus, in the process of our trip, we play in the process, in or moving around us, or stimulate us, or provoke us, or to our anger, or to our teeth cold, or to our shame; Now, you can be released to the brick one app. Here only focus on the social events. Release social events around you, how do you think people will be a brick?
   
   `如今，我们走在马路上，大街上，我们坐在地铁上，站在公交车上，我们旅行过程中，我们游玩过程中，发生在身边的或感动我们，或刺激我们，或激怒我们，或令我们愤恨，或令我们齿寒，或令我们汗颜；现在，你可以发布到砖头人app上了。这里只关注社会事件。发布身边的社会事件，你觉得砖头人们会怎么看？`
+  
+  BrickMan app, a public release side, comments about an app. Good good, you to send flowers; Bad bad thing, you to clap brick. Dare to love dare to hate, aizeng clear, is promoting the quality of the brick on the people. Still envy chaoyang people down a peg or two? Still covet wl's charm? To a brick, you will be the next...
+  
+  `砖头人app，一个面向大众，发布身边事儿，评论身边事儿的一款应用。好人好事儿，你就来送花；坏人坏事儿，你就来拍砖。敢爱敢恨，爱憎分明，是砖头人推崇的品质。还在羡慕朝阳群众的威风？还在垂涎西城大妈的魅力？来砖头人，你就是下一个......`
