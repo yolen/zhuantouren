@@ -9,12 +9,13 @@
 #import "GalleryController.h"
 #import "MainTableViewCell.h"
 #import "DetailBrickViewController.h"
+#import "ODRefreshControl.h"
+#import "SVPullToRefresh.h"
 
 @interface GalleryController ()<UITableViewDataSource,UITableViewDelegate>
-
-@property (nonatomic, strong) UITableView *tableView;
-@property (strong, nonatomic) NSArray *dataList;
-
+@property (nonatomic, strong) UITableView *myTableView;
+@property (nonatomic, strong) ODRefreshControl *refreshControl;
+@property (strong, nonatomic) BMContentListModel *contentList;
 @end
 
 @implementation GalleryController
@@ -22,29 +23,67 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.title = @"我的砖集";
-    NSString *resourcePath = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"];
-    NSData *jsonData = [[NSData alloc] initWithContentsOfFile:resourcePath];
-    NSError *error = nil;
-    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
-    if (!dict) {
-        self.dataList = [NSArray array];
-    }
-    self.dataList = [dict objectForKey:@"list"];
-    [self.tableView registerClass:[MainTableViewCell class] forCellReuseIdentifier:kCellIdentifier_MainTableViewCell];
-    [self.view addSubview:self.tableView];
+    self.contentList = [[BMContentListModel alloc] init];
+    
+    self.myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.myTableView.dataSource = self;
+    self.myTableView.delegate = self;
+    self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.myTableView registerClass:[MainTableViewCell class] forCellReuseIdentifier:kCellIdentifier_MainTableViewCell];
+    [self.view addSubview:self.myTableView];
+    
+    __weak typeof(self) weakSelf = self;
+    [self.myTableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf refreshMore];
+    }];
+    
+    self.refreshControl = [[ODRefreshControl alloc] initInScrollView:self.myTableView];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    [self refresh];
+}
 
+#pragma mark - refresh
+- (void)refresh {
+    if (self.contentList.isLoading) {
+        return;
+    }
+    self.contentList.willLoadMore = NO;
+    [self sendRequest];
+}
+
+- (void)refreshMore {
+    if (self.contentList.isLoading || !self.contentList.canLoadMore) {
+        return;
+    }
+    self.contentList.willLoadMore = YES;
+    [self sendRequest];
+}
+
+- (void)sendRequest {
+    __weak typeof(self) weakSelf = self;
+    [[BrickManAPIManager shareInstance] requestUserContentListWithObj:self.contentList andBlock:^(id data, NSError *error) {
+        [weakSelf.refreshControl endRefreshing];
+        if (data) {
+            [weakSelf.contentList configWithData:data];
+            [weakSelf.myTableView reloadData];
+            weakSelf.myTableView.showsInfiniteScrolling = weakSelf.contentList.canLoadMore;
+        }else {
+            weakSelf.myTableView.showsInfiniteScrolling = NO;
+        }
+    }];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.dataList.count;
+    return self.contentList.body.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
-    [cell setData:self.dataList[indexPath.row]];
+//    [cell setData:self.dataList[indexPath.row]];
     [cell setIsGallery:YES];
     return cell;
 }
@@ -53,39 +92,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DetailBrickViewController *vc = [[DetailBrickViewController alloc] init];
-    vc.dataDic = self.dataList[indexPath.row];
+    vc.model = self.contentList.body[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *dic = self.dataList[indexPath.row];
-    return [MainTableViewCell cellHeightWithImageArray:dic];
-}
-
-
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - 64) style:UITableViewStylePlain];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    }
-    return _tableView;
+    BMContentModel  *model = self.contentList.body[indexPath.row];
+    return [MainTableViewCell cellHeightWithModel:model];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

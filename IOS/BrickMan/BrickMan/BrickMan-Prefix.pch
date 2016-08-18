@@ -16,6 +16,7 @@
     #import <objc/runtime.h>
     #import <Masonry/Masonry.h>
     #import <AFNetworking.h>
+    #import <SDWebImage/UIImageView+WebCache.h>
     #import "MBProgressHUD+GR.h"
     #import "YYModel.h"
 
@@ -29,11 +30,14 @@
     #import "UIColor+expanded.h"
     #import "UIAlertController+Common.h"
     #import "UITextField+Common.h"
-
+    #import "BrickManAPIManager.h"
+    #import "NSDate+Common.h"
 #endif
 
 
 #define kBaseUrl @"http://115.28.211.119:1080"
+#define kImageUrl @"http://115.28.211.119:2080"
+#define QQ_LOGIN_APP_ID @"1105537857"
 
 //常用变量
 #define DebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
@@ -56,7 +60,7 @@
 
 #define kNavigationBarColor [UIColor colorWithHexString:@"0xff6633"]
 #define kViewBGColor RGBCOLOR(244, 245, 246)
-#define kLineColor RGBCOLOR(213, 214, 215)
+#define kLineColor RGBCOLOR(231, 231, 231)
 
 #define kPaddingLeft 10
 
@@ -72,13 +76,6 @@
 #define PUBLISH_TEXT_FONT_SIZE [UIFont systemFontOfSize:15]
 
 #define MAX_SELECTE_PICTURE_NUM 9
-
-/*====================QQ Login========================*/
-#define QQ_LOGIN_APP_ID @"1105537857"
-
-
-
-
 
 
 

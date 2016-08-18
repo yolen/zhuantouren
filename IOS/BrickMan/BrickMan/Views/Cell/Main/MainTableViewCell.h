@@ -8,6 +8,7 @@
 
 #define kCellIdentifier_MainTableViewCell @"MainTableViewCell"
 #import <UIKit/UIKit.h>
+#import "BMContentModel.h"
 
 @interface MainTableViewCell : UITableViewCell
 
@@ -15,7 +16,8 @@
 @property (nonatomic, assign) BOOL isGallery;
 @property (strong, nonatomic) void(^commentBlock)();
 @property (copy, nonatomic) void(^shareBlock)();
+@property (strong, nonatomic) BMContentModel *model;
 
-- (void)setData:(NSDictionary *)dataDic;
-+ (CGFloat)cellHeightWithImageArray:(NSDictionary *)dataDic;
+//- (void)setData:(NSDictionary *)dataDic;
++ (CGFloat)cellHeightWithModel:(BMContentModel *)contentModel;
 @end

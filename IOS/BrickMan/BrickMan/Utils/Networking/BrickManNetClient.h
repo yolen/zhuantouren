@@ -38,4 +38,9 @@ typedef enum {
                   autoShowError:(BOOL)autoShowError
                        andBlock:(void (^)(id data, NSError *error))block;
 
+- (void)uploadImage:(UIImage *)image WithPath:(NSString *)path
+        successBlock:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+       failureBlock:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+      progerssBlock:(void (^)(CGFloat progressValue))progress;
+
 @end

@@ -15,7 +15,7 @@
 
 @implementation BrickPhotoCell
 
-- (void)setPhotoImage:(UIImage *)photoImage {
+- (void)setAttachmentModel:(BMAttachmentModel *)attachmentModel {
     if (!_photoImgView) {
         _photoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kBrickPhotoCellWidth_Three, kBrickPhotoCellWidth_Three)];
         _photoImgView.contentMode = UIViewContentModeScaleAspectFill;
@@ -23,10 +23,8 @@
         [self.contentView addSubview:_photoImgView];
     }
     
-    if (_photoImage != photoImage) {
-        _photoImage = photoImage;
-        _photoImgView.image = photoImage;
-    }
+    NSString *imageStr = [NSString stringWithFormat:@"%@/%@",kImageUrl,attachmentModel.attachmentPath];
+    [_photoImgView sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:nil];
 }
 
 - (void)layoutSubviews {

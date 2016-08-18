@@ -184,7 +184,13 @@
     [BMUserInfo sharedUserInfo].openId         = self.tencentOAuth.openId;
     // 获取用户基本信息
     [self.tencentOAuth getUserInfo];
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    [[BrickManAPIManager shareInstance] requestAuthLoginWithParams:@{@"thirdAuth" : @"qq", @"accessToken" : self.tencentOAuth.accessToken, @"openId" : self.tencentOAuth.openId} andBlock:^(id data, NSError *error) {
+        if (data) {
+            [[NSUserDefaults standardUserDefaults] setObject:data[@"userId"] forKey:@"UserId"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 
 /**

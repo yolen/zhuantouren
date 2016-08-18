@@ -9,6 +9,12 @@
 #import "BrickManNetClient.h"
 NSString *const key = @"53b4be63fac688e0";
 
+static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数指针）
+    NSString * x = (NSString *)a;
+    NSString * y = (NSString *)b;
+    return [x compare:y];//可以加一个负号改变顺序和倒叙
+}
+
 @implementation BrickManNetClient
 
 + (id)sharedJsonClient {
@@ -52,7 +58,7 @@ NSString *const key = @"53b4be63fac688e0";
     
     NSString *cVal = [self getMD5StringWithParams:dic];
     [dic setObject:cVal forKey:@"cVal"];
-    DebugLog(@"request:path:%@:\nparams:%@", aPath, dic);
+    DebugLog(@"request:%@ \nparams:%@", aPath, dic);
     //发起请求
     switch (method) {
         case Get:{
@@ -85,11 +91,82 @@ NSString *const key = @"53b4be63fac688e0";
                 block(nil, error);
             }];
             break;}
+        case Put:{
+            [self PUT:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
+                id error = [self handleResponse:responseObject autoShowError:autoShowError];
+                if (error) {
+                    block(nil, error);
+                }else{
+                    block(responseObject, nil);
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
+                !autoShowError || [NSObject showError:error];
+                block(nil, error);
+            }];
+            break;}
         default:
             break;
     }
 }
 
+- (void)uploadImage:(UIImage *)image WithPath:(NSString *)path
+        successBlock:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+       failureBlock:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+      progerssBlock:(void (^)(CGFloat progressValue))progress {
+    NSData *data = UIImageJPEGRepresentation(image, 1.0);
+    if ((float)data.length/1024 > 1000) {
+        data = UIImageJPEGRepresentation(image, 1024*1000.0/(float)data.length);
+    }
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *dateString = [formatter stringFromDate:[NSDate date]];
+    NSString *fileName = [NSString stringWithFormat:@"%@.jpg", dateString];
+    
+    //对params做处理
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    NSString *randomString = [NSString stringWithFormat:@"%d",arc4random()];
+    [dic setObject:randomString forKey:@"rn"];
+    
+    NSDateFormatter * formatter1 = [[NSDateFormatter alloc ] init];
+    [formatter1 setDateFormat:@"YYYYMMddhhmmssSSS"];
+    NSString *date =  [formatter1 stringFromDate:[NSDate date]];
+    NSString *timeString = [[NSString alloc] initWithFormat:@"%@", date];
+    [dic setObject:timeString forKey:@"ts"];
+    
+    NSString *cVal = [self getMD5StringWithParams:dic];
+    [dic setObject:cVal forKey:@"cVal"];
+    [dic setObject:@"test1" forKey:@"userId"];
+    
+    AFHTTPRequestOperation *operation = [self POST:path parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:data name:@"image" fileName:fileName mimeType:@"image/jpeg"];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DebugLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+        id error = [self handleResponse:responseObject autoShowError:YES];
+        if (error && failure) {
+            failure(operation, error);
+        }else{
+            success(operation, responseObject);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        DebugLog(@"Error: %@ ***** %@", operation.responseString, error);
+        if (failure) {
+            failure(operation, error);
+        }
+    }];
+    
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        CGFloat progressValue = (float)totalBytesWritten/(float)totalBytesExpectedToWrite;
+        if (progress) {
+            progress(progressValue);
+        }
+    }];
+    [operation start];
+}
+
+#pragma mark - Others
 - (NSString *)getMD5StringWithParams:(NSMutableDictionary *)params {
     NSArray *allValues = [params allValues];
     NSArray * sortlValues = [allValues sortedArrayUsingFunction:mycompare context:NULL];
@@ -108,12 +185,6 @@ NSString *const key = @"53b4be63fac688e0";
     NSString *cVal = [appendingString lowercaseString];
     
     return cVal;
-}
-
-NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数指针）
-    NSString * x = (NSString *)a;
-    NSString * y = (NSString *)b;
-    return [x compare:y];//可以加一个负号改变顺序和倒叙
 }
 
 

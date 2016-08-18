@@ -18,6 +18,7 @@
 @property (strong, nonatomic) iCarousel *myCarousel;
 @property (strong, nonatomic) NSArray *titleArray;
 @property (strong, nonatomic) UIView *headerView;
+@property (assign, nonatomic) NSInteger oldSelectedIndex;
 @end
 
 @implementation MainViewController
@@ -28,7 +29,7 @@
     self.titleArray = @[@"最近发布",@"砖头最多",@"鲜花最多",@"评论最多"];
     
     self.headerView = [self customHeaderView];
-    
+    self.oldSelectedIndex = 0;
     
     _myCarousel = [[iCarousel alloc] initWithFrame:CGRectMake(0, self.headerView.bottom, kScreen_Width, self.view.height - 155)];
     _myCarousel.dataSource = self;
@@ -51,6 +52,9 @@
     
     __weak typeof(self) weakSelf = self;
     _mySegmentControl = [[XTSegmentControl alloc] initWithFrame:CGRectMake(0, imageView.bottom, kScreen_Width, 50) Items:self.titleArray selectedBlock:^(NSInteger index) {
+        if (index == self.oldSelectedIndex) {
+            return ;
+        }
         [weakSelf.myCarousel scrollToItemAtIndex:index animated:NO];
     }];
     _mySegmentControl.backgroundColor = kViewBGColor;
@@ -65,9 +69,15 @@
 }
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view {
-    BrickListView *brickList = [[BrickListView alloc] initWithFrame:carousel.bounds];
+    BrickListView *listView = (BrickListView *)view;
+    if (listView) {
+        
+    }else {
+        listView = [[BrickListView alloc] initWithFrame:carousel.bounds andIndex:index];
+    }
+    
     __weak typeof(self) weakSelf = self;
-    brickList.scrollBlock = ^(CGFloat offset){
+    listView.scrollBlock = ^(CGFloat offset){
         if (offset < 0) {
             [weakSelf.headerView setY:0];
             [weakSelf.myCarousel setY:170];
@@ -79,12 +89,12 @@
             [weakSelf.myCarousel setY:50];
         }
     };
-    brickList.goToDetailBlock = ^(NSDictionary *dic){
+    listView.goToDetailBlock = ^(BMContentModel *model){
         DetailBrickViewController *vc = [[DetailBrickViewController alloc] init];
-        vc.dataDic = dic;
+        vc.model = model;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
-    return brickList;
+    return listView;
 }
 
 - (void)carouselDidScroll:(iCarousel *)carousel{
@@ -99,6 +109,11 @@
 - (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel{
     if (_mySegmentControl) {
         _mySegmentControl.currentIndex = carousel.currentItemIndex;
+    }
+    if (_oldSelectedIndex != carousel.currentItemIndex) {
+        _oldSelectedIndex = carousel.currentItemIndex;
+        BrickListView *listView = (BrickListView *)carousel.currentItemView;
+        [listView refresh];
     }
 }
 

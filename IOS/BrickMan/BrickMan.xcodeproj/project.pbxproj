@@ -15,6 +15,7 @@
 		1BFD4D3D1D3CD0B500ABE8E6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D3C1D3CD0B500ABE8E6 /* MainViewController.m */; };
 		1BFD4D401D3CD0BF00ABE8E6 /* PublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D3F1D3CD0BF00ABE8E6 /* PublishViewController.m */; };
 		1BFD4D431D3CD0F100ABE8E6 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D421D3CD0F100ABE8E6 /* MineViewController.m */; };
+		302C7BB11D65A9420019BA3B /* BMAttachmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 302C7BB01D65A9420019BA3B /* BMAttachmentModel.m */; };
 		302D99F91D3DF34400F295A0 /* BrickManNetClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D99F81D3DF34400F295A0 /* BrickManNetClient.m */; };
 		302D99FC1D3DF45C00F295A0 /* NSObject+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D99FB1D3DF45C00F295A0 /* NSObject+Common.m */; };
 		302D99FF1D3E058700F295A0 /* BrickManAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D99FE1D3E058700F295A0 /* BrickManAPIManager.m */; };
@@ -22,7 +23,15 @@
 		303529C51D4862AC00CFDD77 /* CommentInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529C41D4862AC00CFDD77 /* CommentInputView.m */; };
 		303529C81D4862BD00CFDD77 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529C71D4862BD00CFDD77 /* ShareView.m */; };
 		303529CF1D48766200CFDD77 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529CE1D48766200CFDD77 /* UIPlaceHolderTextView.m */; };
-		30466C861D617511006BAEDE /* BMContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30466C851D617511006BAEDE /* BMContentModel.m */; };
+		30353B971D64BEA200A7D554 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 30353B961D64BEA200A7D554 /* ODRefreshControl.m */; };
+		30353B9E1D64BF1100A7D554 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 30353B9B1D64BF1100A7D554 /* UIScrollView+SVInfiniteScrolling.m */; };
+		30353B9F1D64BF1100A7D554 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 30353B9D1D64BF1100A7D554 /* UIScrollView+SVPullToRefresh.m */; };
+		30353BA21D64C36800A7D554 /* BMContentListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30353BA11D64C36800A7D554 /* BMContentListModel.m */; };
+		30353BA51D64C37300A7D554 /* BMContentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30353BA41D64C37300A7D554 /* BMContentModel.m */; };
+		30353BAB1D64D50800A7D554 /* BMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 30353BAA1D64D50800A7D554 /* BMUser.m */; };
+		30353BAE1D65579F00A7D554 /* NSDate+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30353BAD1D65579F00A7D554 /* NSDate+Common.m */; };
+		30353BB31D6557BE00A7D554 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 30353BB11D6557BE00A7D554 /* NSDate+Helper.m */; };
+		30353BB41D6557BE00A7D554 /* README.textile in Resources */ = {isa = PBXBuildFile; fileRef = 30353BB21D6557BE00A7D554 /* README.textile */; };
 		30466C891D61761E006BAEDE /* IntroduceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30466C881D61761E006BAEDE /* IntroduceViewController.m */; };
 		305E8E531D533A7600630B49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 305E8E521D533A7600630B49 /* Assets.xcassets */; };
 		30721A851D3E587A00D54E09 /* UITableView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30721A841D3E587A00D54E09 /* UITableView+Common.m */; };
@@ -39,7 +48,6 @@
 		30C5BB441D411D8A001DF9D2 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB431D411D8A001DF9D2 /* CommentCell.m */; };
 		30C5BB4E1D4209F8001DF9D2 /* DetailBrickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB4D1D4209F8001DF9D2 /* DetailBrickViewController.m */; };
 		30C5BB541D4210A8001DF9D2 /* BrickPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB531D4210A8001DF9D2 /* BrickPhotoCell.m */; };
-		30C5BB631D4240A1001DF9D2 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 30C5BB621D4240A1001DF9D2 /* data.json */; };
 		30C5BB6C1D425699001DF9D2 /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB6A1D425699001DF9D2 /* MainTableViewCell.m */; };
 		30C5BB6D1D430C80001DF9D2 /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB6A1D425699001DF9D2 /* MainTableViewCell.m */; };
 		30F91D641D3DCC1F007D9BDB /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F91D631D3DCC1F007D9BDB /* UIViewExt.m */; };
@@ -128,6 +136,8 @@
 		1BFD4D3F1D3CD0BF00ABE8E6 /* PublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishViewController.m; sourceTree = "<group>"; };
 		1BFD4D411D3CD0F100ABE8E6 /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		1BFD4D421D3CD0F100ABE8E6 /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		302C7BAF1D65A9420019BA3B /* BMAttachmentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAttachmentModel.h; sourceTree = "<group>"; };
+		302C7BB01D65A9420019BA3B /* BMAttachmentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAttachmentModel.m; sourceTree = "<group>"; };
 		302D99F71D3DF34400F295A0 /* BrickManNetClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickManNetClient.h; sourceTree = "<group>"; };
 		302D99F81D3DF34400F295A0 /* BrickManNetClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickManNetClient.m; sourceTree = "<group>"; };
 		302D99FA1D3DF45C00F295A0 /* NSObject+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Common.h"; sourceTree = "<group>"; };
@@ -142,8 +152,24 @@
 		303529C71D4862BD00CFDD77 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		303529CD1D48766200CFDD77 /* UIPlaceHolderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceHolderTextView.h; sourceTree = "<group>"; };
 		303529CE1D48766200CFDD77 /* UIPlaceHolderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceHolderTextView.m; sourceTree = "<group>"; };
-		30466C841D617511006BAEDE /* BMContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMContentModel.h; sourceTree = "<group>"; };
-		30466C851D617511006BAEDE /* BMContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMContentModel.m; sourceTree = "<group>"; };
+		30353B951D64BEA200A7D554 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
+		30353B961D64BEA200A7D554 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
+		30353B991D64BF1100A7D554 /* SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVPullToRefresh.h; sourceTree = "<group>"; };
+		30353B9A1D64BF1100A7D554 /* UIScrollView+SVInfiniteScrolling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVInfiniteScrolling.h"; sourceTree = "<group>"; };
+		30353B9B1D64BF1100A7D554 /* UIScrollView+SVInfiniteScrolling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVInfiniteScrolling.m"; sourceTree = "<group>"; };
+		30353B9C1D64BF1100A7D554 /* UIScrollView+SVPullToRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+SVPullToRefresh.h"; sourceTree = "<group>"; };
+		30353B9D1D64BF1100A7D554 /* UIScrollView+SVPullToRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+SVPullToRefresh.m"; sourceTree = "<group>"; };
+		30353BA01D64C36800A7D554 /* BMContentListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMContentListModel.h; sourceTree = "<group>"; };
+		30353BA11D64C36800A7D554 /* BMContentListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMContentListModel.m; sourceTree = "<group>"; };
+		30353BA31D64C37300A7D554 /* BMContentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMContentModel.h; sourceTree = "<group>"; };
+		30353BA41D64C37300A7D554 /* BMContentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMContentModel.m; sourceTree = "<group>"; };
+		30353BA91D64D50800A7D554 /* BMUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMUser.h; sourceTree = "<group>"; };
+		30353BAA1D64D50800A7D554 /* BMUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMUser.m; sourceTree = "<group>"; };
+		30353BAC1D65579F00A7D554 /* NSDate+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Common.h"; sourceTree = "<group>"; };
+		30353BAD1D65579F00A7D554 /* NSDate+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Common.m"; sourceTree = "<group>"; };
+		30353BB01D6557BE00A7D554 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
+		30353BB11D6557BE00A7D554 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
+		30353BB21D6557BE00A7D554 /* README.textile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.textile; sourceTree = "<group>"; };
 		30466C871D61761E006BAEDE /* IntroduceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroduceViewController.h; sourceTree = "<group>"; };
 		30466C881D61761E006BAEDE /* IntroduceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroduceViewController.m; sourceTree = "<group>"; };
 		305E8E521D533A7600630B49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -173,7 +199,6 @@
 		30C5BB4D1D4209F8001DF9D2 /* DetailBrickViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailBrickViewController.m; sourceTree = "<group>"; };
 		30C5BB521D4210A8001DF9D2 /* BrickPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickPhotoCell.h; sourceTree = "<group>"; };
 		30C5BB531D4210A8001DF9D2 /* BrickPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickPhotoCell.m; sourceTree = "<group>"; };
-		30C5BB621D4240A1001DF9D2 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		30C5BB6A1D425699001DF9D2 /* MainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewCell.m; sourceTree = "<group>"; };
 		30C5BB6B1D425699001DF9D2 /* MainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewCell.h; sourceTree = "<group>"; };
 		30F91D621D3DCC1F007D9BDB /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
@@ -328,7 +353,6 @@
 			isa = PBXGroup;
 			children = (
 				79F39E8D1D596DF400FEAB40 /* city.json */,
-				30C5BB621D4240A1001DF9D2 /* data.json */,
 				1BFD4CF71D3CCC3100ABE8E6 /* main.m */,
 				1BFD4D071D3CCC3100ABE8E6 /* Info.plist */,
 				1BFD4D291D3CCC8200ABE8E6 /* BrickMan-Prefix.pch */,
@@ -455,11 +479,48 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		30353B941D64BEA200A7D554 /* ODRefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				30353B951D64BEA200A7D554 /* ODRefreshControl.h */,
+				30353B961D64BEA200A7D554 /* ODRefreshControl.m */,
+			);
+			path = ODRefreshControl;
+			sourceTree = "<group>";
+		};
+		30353B981D64BF1100A7D554 /* SVPullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				30353B991D64BF1100A7D554 /* SVPullToRefresh.h */,
+				30353B9A1D64BF1100A7D554 /* UIScrollView+SVInfiniteScrolling.h */,
+				30353B9B1D64BF1100A7D554 /* UIScrollView+SVInfiniteScrolling.m */,
+				30353B9C1D64BF1100A7D554 /* UIScrollView+SVPullToRefresh.h */,
+				30353B9D1D64BF1100A7D554 /* UIScrollView+SVPullToRefresh.m */,
+			);
+			path = SVPullToRefresh;
+			sourceTree = "<group>";
+		};
+		30353BAF1D6557BE00A7D554 /* NSDate+Helper */ = {
+			isa = PBXGroup;
+			children = (
+				30353BB01D6557BE00A7D554 /* NSDate+Helper.h */,
+				30353BB11D6557BE00A7D554 /* NSDate+Helper.m */,
+				30353BB21D6557BE00A7D554 /* README.textile */,
+			);
+			path = "NSDate+Helper";
+			sourceTree = "<group>";
+		};
 		30466C801D6174E0006BAEDE /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				30466C841D617511006BAEDE /* BMContentModel.h */,
-				30466C851D617511006BAEDE /* BMContentModel.m */,
+				30353BA01D64C36800A7D554 /* BMContentListModel.h */,
+				30353BA11D64C36800A7D554 /* BMContentListModel.m */,
+				30353BA31D64C37300A7D554 /* BMContentModel.h */,
+				30353BA41D64C37300A7D554 /* BMContentModel.m */,
+				30353BA91D64D50800A7D554 /* BMUser.h */,
+				30353BAA1D64D50800A7D554 /* BMUser.m */,
+				302C7BAF1D65A9420019BA3B /* BMAttachmentModel.h */,
+				302C7BB01D65A9420019BA3B /* BMAttachmentModel.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -495,6 +556,9 @@
 		30C5BB061D408167001DF9D2 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				30353BAF1D6557BE00A7D554 /* NSDate+Helper */,
+				30353B981D64BF1100A7D554 /* SVPullToRefresh */,
+				30353B941D64BEA200A7D554 /* ODRefreshControl */,
 				5A52DE231D41ECC300D28DB2 /* MBProgressHUD+GR */,
 				30C5BB111D40837E001DF9D2 /* XTSegmentControl */,
 				30C5BB0D1D408250001DF9D2 /* iCarousel */,
@@ -563,6 +627,8 @@
 				5A686DED1D445DFC00455FB2 /* UITextField+Common.m */,
 				5A686DF21D446FB500455FB2 /* UITextView+Common.h */,
 				5A686DF31D446FB500455FB2 /* UITextView+Common.m */,
+				30353BAC1D65579F00A7D554 /* NSDate+Common.h */,
+				30353BAD1D65579F00A7D554 /* NSDate+Common.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -833,7 +899,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				305E8E531D533A7600630B49 /* Assets.xcassets in Resources */,
-				30C5BB631D4240A1001DF9D2 /* data.json in Resources */,
+				30353BB41D6557BE00A7D554 /* README.textile in Resources */,
 				79F39E8E1D596DF400FEAB40 /* city.json in Resources */,
 				79F71F1D1D49DA2C00C2AF2D /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 			);
@@ -914,6 +980,7 @@
 				5A686DF41D446FB500455FB2 /* UITextView+Common.m in Sources */,
 				30F91D641D3DCC1F007D9BDB /* UIViewExt.m in Sources */,
 				30C5BAE91D406594001DF9D2 /* NSString+Common.m in Sources */,
+				30353B9E1D64BF1100A7D554 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				30C5BB1A1D4084A1001DF9D2 /* UIColor+expanded.m in Sources */,
 				5A52DE1F1D41D9DB00D28DB2 /* PersonInfoController.m in Sources */,
 				30C5BB4E1D4209F8001DF9D2 /* DetailBrickViewController.m in Sources */,
@@ -921,8 +988,11 @@
 				30C5BAE61D40655E001DF9D2 /* UILabel+Common.m in Sources */,
 				792C20281D5893D80047E4D2 /* BMCity.m in Sources */,
 				30C5BADC1D406008001DF9D2 /* Mine_titleCell.m in Sources */,
+				30353BA21D64C36800A7D554 /* BMContentListModel.m in Sources */,
 				302D99FF1D3E058700F295A0 /* BrickManAPIManager.m in Sources */,
 				5A1CD6C11D476E670007E4D1 /* Mine_BrickModel.m in Sources */,
+				302C7BB11D65A9420019BA3B /* BMAttachmentModel.m in Sources */,
+				30353BAB1D64D50800A7D554 /* BMUser.m in Sources */,
 				5A52DE391D41FCB500D28DB2 /* CutHeadController.m in Sources */,
 				5A1CD6C41D4773C30007E4D1 /* Mine_BrickCell.m in Sources */,
 				79F71F3A1D4A33A700C2AF2D /* BMUserInfo.m in Sources */,
@@ -941,15 +1011,18 @@
 				79F71F321D49DF1100C2AF2D /* BMLoginViewController.m in Sources */,
 				303529C81D4862BD00CFDD77 /* ShareView.m in Sources */,
 				5A686DF11D44629800455FB2 /* MottoController.m in Sources */,
+				30353BB31D6557BE00A7D554 /* NSDate+Helper.m in Sources */,
+				30353BA51D64C37300A7D554 /* BMContentModel.m in Sources */,
 				1BFD4D321D3CD02500ABE8E6 /* RootTabBarController.m in Sources */,
 				303529C51D4862AC00CFDD77 /* CommentInputView.m in Sources */,
+				30353B9F1D64BF1100A7D554 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				79F39E941D598B0300FEAB40 /* BMLocationCell.m in Sources */,
 				5A52DE221D41DF7A00D28DB2 /* Mine_infoCell.m in Sources */,
 				302D9A021D3E069800F295A0 /* BaseNavigationController.m in Sources */,
 				79FBFBEB1D420904001C43C2 /* ComposePictureCell.m in Sources */,
 				1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */,
+				30353B971D64BEA200A7D554 /* ODRefreshControl.m in Sources */,
 				30C5BB101D408250001DF9D2 /* iCarousel.m in Sources */,
-				30466C861D617511006BAEDE /* BMContentModel.m in Sources */,
 				5A52DE361D41F21A00D28DB2 /* HeadEditController.m in Sources */,
 				792C201B1D58507B0047E4D2 /* BMLocationViewController.m in Sources */,
 				5A52DE261D41ECC300D28DB2 /* MBProgressHUD+GR.m in Sources */,
@@ -961,6 +1034,7 @@
 				302D99F91D3DF34400F295A0 /* BrickManNetClient.m in Sources */,
 				1BFD4D431D3CD0F100ABE8E6 /* MineViewController.m in Sources */,
 				5A52DE3D1D420D0200D28DB2 /* MyLog.m in Sources */,
+				30353BAE1D65579F00A7D554 /* NSDate+Common.m in Sources */,
 				5A52DE321D41EF7400D28DB2 /* AboutController.m in Sources */,
 				1BFD4CF81D3CCC3100ABE8E6 /* main.m in Sources */,
 				7907306E1D4114A700E726E2 /* ComposeViewController.m in Sources */,

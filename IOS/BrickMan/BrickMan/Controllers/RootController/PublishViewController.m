@@ -184,6 +184,11 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
             }
         }
     }
+    [[BrickManAPIManager shareInstance] uploadFileWithImage:self.image doneBlock:^(NSString *imagePath, NSError *error) {
+        
+    } progerssBlock:^(CGFloat progressValue) {
+        
+    }];
     [self dismissViewControllerAnimated:YES completion:nil];
     [self composePhotosOrVideos];
 }
