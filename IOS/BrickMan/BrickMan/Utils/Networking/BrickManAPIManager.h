@@ -23,4 +23,7 @@
                   doneBlock:(void (^)(NSString *imagePath, NSError *error))block
               progerssBlock:(void (^)(CGFloat progressValue))progress;
 
+- (void)uploadFileWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
+- (void)requestContentListWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
+- (void)requestMyBrickFlowerWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 @end

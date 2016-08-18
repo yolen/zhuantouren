@@ -43,4 +43,6 @@ typedef enum {
        failureBlock:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
       progerssBlock:(void (^)(CGFloat progressValue))progress;
 
+- (BOOL)checkoutJsonData:(id)data;
+
 @end

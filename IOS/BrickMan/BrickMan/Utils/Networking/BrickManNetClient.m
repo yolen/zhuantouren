@@ -167,6 +167,30 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
 }
 
 #pragma mark - Others
+- (BOOL)checkoutJsonData:(id)data {
+    NSString *cVal = [data objectForKey:@"cVal"];
+    NSArray *list = [data objectForKey:@"body"];
+    NSString *md5CombinStr = @"";
+    if (list == nil || [list isKindOfClass:[NSNull class]]) {
+        NSString *md5String = [[@"" md5Str] lowercaseString];
+        NSString *combinStr = [md5String stringByAppendingString:[NSString stringWithFormat:@".%@",key]];
+        md5CombinStr = [combinStr md5Str];
+        md5CombinStr = [md5CombinStr lowercaseString];
+    } else {
+        NSString *string = [[NSString alloc]initWithData:[NSJSONSerialization dataWithJSONObject:list options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",string);
+        NSString *md5String = [[string md5Str] lowercaseString];
+        NSString *combinStr = [md5String stringByAppendingString:[NSString stringWithFormat:@".%@",key]];
+        md5CombinStr = [combinStr md5Str];
+        md5CombinStr = [md5CombinStr lowercaseString];
+    }
+    
+    if ([md5CombinStr isEqualToString:cVal]) {
+        return YES;
+    }
+    return NO;
+}
+
 - (NSString *)getMD5StringWithParams:(NSMutableDictionary *)params {
     NSArray *allValues = [params allValues];
     NSArray * sortlValues = [allValues sortedArrayUsingFunction:mycompare context:NULL];
@@ -180,7 +204,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     appendingString = [appendingString substringToIndex:appendingString.length-1];
     appendingString = [appendingString md5Str];
     appendingString = [appendingString lowercaseString];
-    appendingString = [appendingString stringByAppendingString:[NSString stringWithFormat:@".%@",key]];
+    appendingString = [appendingString stringByAppendingString:[NSString stringWithFormat:@"%@",key]];
     appendingString  = [appendingString md5Str];
     NSString *cVal = [appendingString lowercaseString];
     

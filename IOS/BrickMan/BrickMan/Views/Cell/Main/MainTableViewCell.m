@@ -132,7 +132,6 @@
         [self.commentBtn setUserInteractionEnabled:NO];
         [self.flowerBtn setUserInteractionEnabled:NO];
         [self.shareBtn setUserInteractionEnabled:NO];
-        
     }
 }
 

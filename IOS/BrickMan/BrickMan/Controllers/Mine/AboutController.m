@@ -22,9 +22,11 @@
     // Do any additional setup after loading the view.
     self.title = @"关于我们";
     [self.view addSubview:self.webView];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@""]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:ABOUTURL]];
     [self.webView loadRequest:request];
 }
+
+#pragma mark - 懒加载
 
 - (WKWebView *)webView {
     if (!_webView) {

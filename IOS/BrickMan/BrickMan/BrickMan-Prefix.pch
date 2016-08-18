@@ -38,7 +38,13 @@
 #define kBaseUrl @"http://115.28.211.119:1080"
 #define kImageUrl @"http://115.28.211.119:2080"
 #define QQ_LOGIN_APP_ID @"1105537857"
+#ifdef DEBUG
 
+#define ABOUTURL @""
+
+#else
+
+#endif
 //常用变量
 #define DebugLog(s, ...) NSLog(@"%s(%d): %@", __FUNCTION__, __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__])
 #define kTipAlert(_S_, ...)     [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:(_S_), ##__VA_ARGS__] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show]
@@ -74,7 +80,7 @@
 /*====================发布页面字体大小========================*/
 #define COMPOSE_TEXT_FONT_SIZE [UIFont systemFontOfSize:13]
 #define PUBLISH_TEXT_FONT_SIZE [UIFont systemFontOfSize:15]
-
+#define MINE_TEXT_FONT_SIZE [UIFont systemFontOfSize:13]
 #define MAX_SELECTE_PICTURE_NUM 9
 
 

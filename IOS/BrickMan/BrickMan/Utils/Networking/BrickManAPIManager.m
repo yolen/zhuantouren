@@ -8,6 +8,7 @@
 
 #import "BrickManAPIManager.h"
 #import "BrickManNetClient.h"
+#define CustomErrorDomain @"com.zhuantouren.error"
 
 @implementation BrickManAPIManager
 
@@ -58,6 +59,16 @@
             block(dic,nil);
         }else {
             block(nil,error);
+        }
+    }];
+}
+
+- (void)requestMyBrickFlowerWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/top_users.json" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
+        if (error) {
+            block(nil,error);
+        }else {
+            block(data,nil);
         }
     }];
 }

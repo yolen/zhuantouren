@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, strong) ODRefreshControl *refreshControl;
 @property (strong, nonatomic) BMContentListModel *contentList;
+
 @end
 
 @implementation GalleryController
@@ -83,7 +84,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
-//    [cell setData:self.dataList[indexPath.row]];
+    cell.model = self.contentList.body[indexPath.row];
+    //判断在我的砖集状态下,cell的四个按钮不可点击
     [cell setIsGallery:YES];
     return cell;
 }
