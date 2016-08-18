@@ -27,23 +27,27 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _rankingLbl = [[UILabel alloc]init];
+        _rankingLbl.font = MINE_TEXT_FONT_SIZE;
         _rankingLbl.textAlignment = NSTextAlignmentCenter;
         _rankingLbl.backgroundColor = RGBCOLOR(240, 239, 254);
         UIView *headBackView = [[UIView alloc]init];
         _headImgView = [[UIImageView alloc]init];
         _headImgView.layer.masksToBounds = YES;
-        _headImgView.layer.cornerRadius = 49.f/2;
+        _headImgView.layer.cornerRadius = 49.f * kMineCellHeightRadio/2;
         headBackView.backgroundColor = RGBCOLOR(224, 255, 249);
         [headBackView addSubview:_headImgView];
         _headImgView.translatesAutoresizingMaskIntoConstraints = NO;
         _nicknameLbl = [[UILabel alloc]init];
+        _nicknameLbl.font = MINE_TEXT_FONT_SIZE;
         _nicknameLbl.textAlignment = NSTextAlignmentCenter;
         _nicknameLbl.numberOfLines = 0;
         _nicknameLbl.backgroundColor = RGBCOLOR(249, 246, 229);
         _gradeLbl = [[UILabel alloc]init];
+        _gradeLbl.font = MINE_TEXT_FONT_SIZE;
         _gradeLbl.textAlignment = NSTextAlignmentCenter;
         _gradeLbl.backgroundColor = RGBCOLOR(253, 238, 240);
         _numberLbl = [[UILabel alloc]init];
+        _numberLbl.font = MINE_TEXT_FONT_SIZE;
         _numberLbl.textAlignment = NSTextAlignmentCenter;
         _numberLbl.backgroundColor = RGBCOLOR(196, 226, 240);
         [self.contentView addSubview:_rankingLbl];
@@ -73,8 +77,8 @@
         [_headImgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.mas_equalTo(headBackView.mas_centerX);
             make.centerY.mas_equalTo(headBackView.mas_centerY);
-            make.height.equalTo(@(49));
-            make.width.equalTo(@(49));
+            make.height.equalTo(@(49.f * kMineCellHeightRadio));
+            make.width.equalTo(@(49.f * kMineCellHeightRadio));
         }];
     }
     return self;
@@ -96,7 +100,7 @@
 }
 
 + (CGFloat)cellHeight {
-    return 67.f;
+    return 67.f * kMineCellHeightRadio;
 }
 
 - (void)awakeFromNib {

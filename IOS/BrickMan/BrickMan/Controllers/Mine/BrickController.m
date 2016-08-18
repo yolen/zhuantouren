@@ -10,7 +10,11 @@
 #import "Mine_BrickModel.h"
 #import "Mine_BrickCell.h"
 
+#define TITLE_FONT [UIFont systemFontOfSize:16]
+
 @interface BrickController ()<UITableViewDataSource,UITableViewDelegate>
+
+@property (nonatomic, strong) BrickManAPIManager *netManager;
 
 @property (nonatomic, strong) UITableView *tableView;
 /**
@@ -33,6 +37,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    NSLog(@"??????");
+    [self.netManager requestMyBrickFlowerWithParams:@{@"type":@"1"} andBlock:^(id data, NSError *error) {
+        NSLog(@"%@",error.localizedDescription);
+    }];
     self.title = @"我的砖头";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.tableView registerClass:[Mine_BrickCell class] forCellReuseIdentifier:kCellIdentifier_Mine_BrickCell];
@@ -94,23 +102,28 @@
     CGFloat gradeLblWidth = cellWidth * 260/1185.f;
     CGFloat numberLblWidth = cellWidth * 261/1185.f;
     UILabel *rankingLbl = [[UILabel alloc]initWithFrame:CGRectMake(0, self.numberOfBrick.bottom, rankingLblWidth, 46.f)];
+    rankingLbl.font = TITLE_FONT;
     rankingLbl.text = @"排名";
     rankingLbl.textAlignment = NSTextAlignmentCenter;
     rankingLbl.backgroundColor = RGBCOLOR(240, 239, 254);
     UILabel *head = [[UILabel alloc]initWithFrame:CGRectMake(rankingLbl.right, self.numberOfBrick.bottom, headWidth, rankingLbl.height)];
+    head.font = TITLE_FONT;
     head.text = @"头像";
     head.textAlignment = NSTextAlignmentCenter;
     head.backgroundColor = RGBCOLOR(224, 255, 249);
     UILabel *nicknameLbl = [[UILabel alloc]initWithFrame:CGRectMake(head.right, self.numberOfBrick.bottom, nicknameLblWidth, rankingLbl.height)];
+    nicknameLbl.font = TITLE_FONT;
     nicknameLbl.text = @"昵称";
     nicknameLbl.textAlignment = NSTextAlignmentCenter;
     nicknameLbl.numberOfLines = 0;
     nicknameLbl.backgroundColor = RGBCOLOR(249, 246, 229);
     UILabel *gradeLbl = [[UILabel alloc]initWithFrame:CGRectMake(nicknameLbl.right, self.numberOfBrick.bottom, gradeLblWidth, rankingLbl.height)];
+    gradeLbl.font = TITLE_FONT;
     gradeLbl.text = @"等级";
     gradeLbl.textAlignment = NSTextAlignmentCenter;
     gradeLbl.backgroundColor = RGBCOLOR(253, 238, 240);
     UILabel *numberLbl = [[UILabel alloc]initWithFrame:CGRectMake(gradeLbl.right, self.numberOfBrick.bottom, numberLblWidth, rankingLbl.height)];
+    numberLbl.font = TITLE_FONT;
     numberLbl.text = @"砖数";
     numberLbl.textAlignment = NSTextAlignmentCenter;
     numberLbl.backgroundColor = RGBCOLOR(196, 226, 240);
@@ -130,6 +143,13 @@
         _dataList = [NSMutableArray arrayWithCapacity:0];
     }
     return _dataList;
+}
+
+- (BrickManAPIManager *)netManager {
+    if (!_netManager) {
+        _netManager = [BrickManAPIManager shareInstance];
+    }
+    return _netManager;
 }
 
 - (void)didReceiveMemoryWarning {

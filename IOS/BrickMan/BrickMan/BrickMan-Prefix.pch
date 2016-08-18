@@ -29,7 +29,7 @@
     #import "UIColor+expanded.h"
     #import "UIAlertController+Common.h"
     #import "UITextField+Common.h"
-
+    #import "BrickManAPIManager.h"
 #endif
 
 
@@ -76,7 +76,7 @@
 /*====================发布页面字体大小========================*/
 #define COMPOSE_TEXT_FONT_SIZE [UIFont systemFontOfSize:13]
 #define PUBLISH_TEXT_FONT_SIZE [UIFont systemFontOfSize:15]
-
+#define MINE_TEXT_FONT_SIZE [UIFont systemFontOfSize:13]
 #define MAX_SELECTE_PICTURE_NUM 9
 
 /*====================QQ Login========================*/

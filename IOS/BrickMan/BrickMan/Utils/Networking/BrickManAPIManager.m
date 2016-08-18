@@ -9,7 +9,7 @@
 #import "BrickManAPIManager.h"
 #import "BrickManNetClient.h"
 #import <YYModel/YYModel.h>
-
+#define CustomErrorDomain @"com.zhuantouren.error"
 @implementation BrickManAPIManager
 
 + (id)shareInstance {
@@ -52,6 +52,20 @@
     
 }
 
+- (void)requestMyBrickFlowerWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/top_users.json" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
+        if (error) {
+            block(nil,error);
+        }else {
+//            if ([[BrickManNetClient sharedJsonClient] checkoutJsonData:data]) {
+//                block(data,nil);
+//            }
+//            NSError *newError = [NSError errorWithDomain:CustomErrorDomain code:-1 userInfo:@{NSLocalizedDescriptionKey:@"verify failed"}];
+//            block(nil,newError);
+            block(data,nil);
+        }
+    }];
+}
 
 
 

@@ -14,14 +14,6 @@
 #define NSLog(format, ...)
 #endif
 
-/**
- *  基准测试必须先extern申明
- *
- *  @param count  执行次数
- *  @param ^block 待执行代码块
- *
- *  @return 消耗时间(单位纳秒)
- */
 #ifdef DEBUG
 
 #else

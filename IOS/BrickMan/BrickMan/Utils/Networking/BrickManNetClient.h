@@ -37,5 +37,5 @@ typedef enum {
                  withMethodType:(NetworkMethod)method
                   autoShowError:(BOOL)autoShowError
                        andBlock:(void (^)(id data, NSError *error))block;
-
+- (BOOL)checkoutJsonData:(id)data;
 @end

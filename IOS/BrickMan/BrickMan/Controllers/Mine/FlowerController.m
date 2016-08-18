@@ -9,6 +9,7 @@
 #import "FlowerController.h"
 #import "Mine_BrickModel.h"
 #import "Mine_BrickCell.h"
+#define TITLE_FONT [UIFont systemFontOfSize:16]
 
 @interface FlowerController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -93,23 +94,28 @@
     CGFloat gradeLblWidth = cellWidth * 260/1185.f;
     CGFloat numberLblWidth = cellWidth * 261/1185.f;
     UILabel *rankingLbl = [[UILabel alloc]initWithFrame:CGRectMake(0, self.numberOfFlower.bottom, rankingLblWidth, 46.f)];
+    rankingLbl.font = TITLE_FONT;
     rankingLbl.text = @"排名";
     rankingLbl.textAlignment = NSTextAlignmentCenter;
     rankingLbl.backgroundColor = RGBCOLOR(240, 239, 254);
     UILabel *head = [[UILabel alloc]initWithFrame:CGRectMake(rankingLbl.right, self.numberOfFlower.bottom, headWidth, rankingLbl.height)];
+    head.font = TITLE_FONT;
     head.text = @"头像";
     head.textAlignment = NSTextAlignmentCenter;
     head.backgroundColor = RGBCOLOR(224, 255, 249);
     UILabel *nicknameLbl = [[UILabel alloc]initWithFrame:CGRectMake(head.right, self.numberOfFlower.bottom, nicknameLblWidth, rankingLbl.height)];
+    nicknameLbl.font = TITLE_FONT;
     nicknameLbl.text = @"昵称";
     nicknameLbl.textAlignment = NSTextAlignmentCenter;
     nicknameLbl.numberOfLines = 0;
     nicknameLbl.backgroundColor = RGBCOLOR(249, 246, 229);
     UILabel *gradeLbl = [[UILabel alloc]initWithFrame:CGRectMake(nicknameLbl.right, self.numberOfFlower.bottom, gradeLblWidth, rankingLbl.height)];
+    gradeLbl.font = TITLE_FONT;
     gradeLbl.text = @"等级";
     gradeLbl.textAlignment = NSTextAlignmentCenter;
     gradeLbl.backgroundColor = RGBCOLOR(253, 238, 240);
     UILabel *numberLbl = [[UILabel alloc]initWithFrame:CGRectMake(gradeLbl.right, self.numberOfFlower.bottom, numberLblWidth, rankingLbl.height)];
+    numberLbl.font = TITLE_FONT;
     numberLbl.text = @"花数";
     numberLbl.textAlignment = NSTextAlignmentCenter;
     numberLbl.backgroundColor = RGBCOLOR(196, 226, 240);

@@ -14,5 +14,5 @@
 - (void)requestWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block; //调试接口
 - (void)uploadFileWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestContentListWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
-
+- (void)requestMyBrickFlowerWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 @end
