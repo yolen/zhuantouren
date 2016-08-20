@@ -14,49 +14,36 @@
 #import "BMLocationCell.h"
 
 @interface ComposeViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, ComposePictureCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-/**
- *  返回 Home
- */
+
 @property (nonatomic, strong) UIButton *returnHomeButton;
-
-/**
- *  发布按钮
- */
 @property (nonatomic, strong) UIButton *composeButton;
-
-/**
- *  tableView
- */
 @property (nonatomic, strong) UITableView *tableView;
-/**
- *  文本输入框
- */
 @property (nonatomic, strong) ComposeTextView *textView;
-/**
- *  好人好事开关
- */
-//@property (nonatomic, strong) UISwitch *goodThingSwitch;
-/**
- *  选择图片的 CollectionView
- */
+//@property (nonatomic, strong) UISwitch *goodThingSwitch; //好人好事开关
 @property (nonatomic, strong) UICollectionView *pictureView;
-/**
- *  图片数组
- */
 @property (nonatomic, strong) NSArray<UIImage *> *pictures;
-
-/**
- *  选中图片下标
- */
 @property (nonatomic, assign) NSUInteger selectedIndex;
 
 @end
 
 @implementation ComposeViewController
 
++ (instancetype)sharedInstance {
+    static ComposeViewController* instance = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [ComposeViewController new];
+    });
+
+    return instance;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupUI];
+    
+    [self setupNavigationBar];
+    [self setupTableView];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -64,16 +51,6 @@
 }
 
 #pragma mark - UI
-- (void)setupUI {
-    [self setupNavigationBar];
-
-    [self setupTableView];
-}
-
-
-/**
- *  设置 tableView
- */
 - (void)setupTableView {
     [self.view addSubview:self.tableView];
     self.textView = [[ComposeTextView alloc] initWithFrame:CGRectMake (0, 0, kScreen_Width, 150)];
@@ -81,9 +58,6 @@
     self.tableView.tableFooterView = self.pictureView;
 }
 
-/**
- *  设置 nabigationBar
- */
 - (void)setupNavigationBar {
     [self.returnHomeButton setImage:[UIImage imageNamed:@"back"]
                            forState:UIControlStateNormal];
@@ -207,8 +181,22 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
 }
 
 - (void)composeButtonAction {
-    // TODO: 发布
-    DebugLog (@"%s", __FUNCTION__);
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserId"];
+    
+    NSString *imagePathStr = @"";
+    for (NSString *imagePath in self.imagePathArray) {
+        [imagePathStr stringByAppendingString:[NSString stringWithFormat:@"%@,",imagePath]];
+    }
+    imagePathStr = [imagePathStr substringToIndex:imagePathStr.length-1];
+    NSDictionary *params = @{@"userId" : userId,
+                             @"imgPaths" : imagePathStr,
+                             @"contentTitle" : self.textView.text,
+                             @"contentPlace" : @"上海"};
+    [[BrickManAPIManager shareInstance] requestAddContentWithParams:params andBlock:^(id data, NSError *error) {
+        if (data) {
+            [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
 }
 
 #pragma mark - Getter && Setter

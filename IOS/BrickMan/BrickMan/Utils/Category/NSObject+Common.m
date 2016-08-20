@@ -20,8 +20,8 @@
 - (NSString *)tipFromError:(NSError *)error{
     if (error && error.userInfo) {
         NSMutableString *tipStr = [[NSMutableString alloc] init];
-        if ([error.userInfo objectForKey:@""]) {
-            
+        if ([error.userInfo objectForKey:@"body"]) {
+            tipStr = error.userInfo[@"body"];
         }else{
             if ([error.userInfo objectForKey:@"NSLocalizedDescription"]) {
                 tipStr = [error.userInfo objectForKey:@"NSLocalizedDescription"];

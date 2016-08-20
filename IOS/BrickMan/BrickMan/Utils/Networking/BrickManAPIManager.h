@@ -19,8 +19,9 @@
 - (void)requestAuthLoginWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestMyBrickFlowerWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestUserContentListWithObj:(BMContentListModel *)contentList andBlock:(void(^)(id data, NSError *error))block;
+- (void)requestAddContentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 //上传文件
 - (void)uploadFileWithImage:(UIImage *)image
-                  doneBlock:(void (^)(NSString *imagePath, NSError *error))block
+                  doneBlock:(void (^)(NSArray *imgPathArray, NSError *error))block
               progerssBlock:(void (^)(CGFloat progressValue))progress;
 @end

@@ -74,9 +74,10 @@
     }];
 }
 
+//我的砖集
 - (void)requestUserContentListWithObj:(BMContentListModel *)contentList andBlock:(void(^)(id data, NSError *error))block {
     contentList.isLoading = YES;
-    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/user_content_list.json" withParams:[contentList getUserContentListParams] withMethodType:Get andBlock:^(id data, NSError *error) {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/user_content_list.do" withParams:[contentList getUserContentListParams] withMethodType:Get andBlock:^(id data, NSError *error) {
         contentList.isLoading = NO;
         if (data) {
             BMContentListModel *model = [BMContentListModel yy_modelWithJSON:data];
@@ -87,13 +88,28 @@
     }];
 }
 
+//发布
+- (void)requestAddContentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/content/add_content.do" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
+        if (data) {
+            block(data,nil);
+        }else {
+            block(nil,error);
+        }
+            
+    }];
+}
+
 //上传文件
 - (void)uploadFileWithImage:(UIImage *)image
-               doneBlock:(void (^)(NSString *imagePath, NSError *error))block
+               doneBlock:(void (^)(NSArray *imgPathArray, NSError *error))block
            progerssBlock:(void (^)(CGFloat progressValue))progress {
-    [[BrickManNetClient sharedJsonClient] uploadImage:image WithPath:@"/upload.json" successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DebugLog(@"%@",responseObject);
-    } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+    [[BrickManNetClient sharedJsonClient] uploadImage:image WithPath:@"/upload/upload_file.do" successBlock:^(NSURLSessionDataTask *task, id responseObject) {
+        if (responseObject) {
+            NSArray *array = [NSArray arrayWithObject:responseObject[@"body"]];
+            block(array,nil);
+        }
+    } failureBlock:^(NSURLSessionDataTask *task, NSError *error) {
         block(nil, error);
     } progerssBlock:^(CGFloat progressValue) {
         progress(progressValue);

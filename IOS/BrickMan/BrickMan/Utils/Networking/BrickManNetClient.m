@@ -29,9 +29,13 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
 - (instancetype)initWithBaseURL:(NSURL *)url {
     if (self = [super initWithBaseURL:url]) {
 //        self.responseSerializer = [AFJSONResponseSerializer serializer];
-        self.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"text/html", nil];
+        self.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"text/html",@"text/javascript", nil];
     }
     return self;
+}
+
+- (void)setToken:(NSString *)token {
+    [self.requestSerializer setValue:token forHTTPHeaderField:@"token"];
 }
 
 - (void)requestJsonDataWithPath:(NSString *)aPath
@@ -45,9 +49,11 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     if (!aPath || aPath.length <= 0) {
         return;
     }
+    
     //对params做处理
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:params];
-    NSString *randomString = [NSString stringWithFormat:@"%d",arc4random()];
+    int rand = arc4random();
+    NSString *randomString = [NSString stringWithFormat:@"%d",abs(rand)];
     [dic setObject:randomString forKey:@"rn"];
     
     NSDateFormatter * formatter = [[NSDateFormatter alloc ] init];
@@ -62,7 +68,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     //发起请求
     switch (method) {
         case Get:{
-            [self GET:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self GET:aPath parameters:dic progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
@@ -70,14 +76,15 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
                 }else{
                     block(responseObject, nil);
                 }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
                 !autoShowError || [NSObject showError:error];
                 block(nil, error);
             }];
             break;}
         case Post:{
-            [self POST:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self POST:aPath parameters:dic progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
@@ -85,14 +92,15 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
                 }else{
                     block(responseObject, nil);
                 }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
                 !autoShowError || [NSObject showError:error];
                 block(nil, error);
             }];
             break;}
         case Put:{
-            [self PUT:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self PUT:aPath parameters:dic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
@@ -100,7 +108,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
                 }else{
                     block(responseObject, nil);
                 }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
                 !autoShowError || [NSObject showError:error];
                 block(nil, error);
@@ -112,12 +120,12 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
 }
 
 - (void)uploadImage:(UIImage *)image WithPath:(NSString *)path
-        successBlock:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-       failureBlock:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+        successBlock:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+       failureBlock:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
       progerssBlock:(void (^)(CGFloat progressValue))progress {
     NSData *data = UIImageJPEGRepresentation(image, 1.0);
-    if ((float)data.length/1024 > 1000) {
-        data = UIImageJPEGRepresentation(image, 1024*1000.0/(float)data.length);
+    if ((float)data.length/1024 > 300) {
+        data = UIImageJPEGRepresentation(image, 1024*300/(float)data.length);
     }
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -127,7 +135,8 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     
     //对params做处理
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    NSString *randomString = [NSString stringWithFormat:@"%d",arc4random()];
+    int rand = arc4random();
+    NSString *randomString = [NSString stringWithFormat:@"%d",abs(rand)];
     [dic setObject:randomString forKey:@"rn"];
     
     NSDateFormatter * formatter1 = [[NSDateFormatter alloc ] init];
@@ -138,32 +147,28 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     
     NSString *cVal = [self getMD5StringWithParams:dic];
     [dic setObject:cVal forKey:@"cVal"];
-    [dic setObject:@"test1" forKey:@"userId"];
+    [dic setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"UserId"] forKey:@"userId"];
     
-    AFHTTPRequestOperation *operation = [self POST:path parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    DebugLog(@"%@",self.requestSerializer.HTTPRequestHeaders);
+    [self POST:path parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:data name:@"image" fileName:fileName mimeType:@"image/jpeg"];
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        DebugLog(@"Success: %@ ***** %@", operation.responseString, responseObject);
+    } progress:^(NSProgress *uploadProgress) {
+        DebugLog(@"%@",progress);
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        DebugLog(@"Success: %@\n%@", task, responseObject);
         id error = [self handleResponse:responseObject autoShowError:YES];
         if (error && failure) {
-            failure(operation, error);
+            failure(task, error);
         }else{
-            success(operation, responseObject);
+            success(task, responseObject);
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DebugLog(@"Error: %@ ***** %@", operation.responseString, error);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        DebugLog(@"Error: %@\n%@", task, error);
         if (failure) {
-            failure(operation, error);
+            failure(task, error);
         }
+
     }];
-    
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        CGFloat progressValue = (float)totalBytesWritten/(float)totalBytesExpectedToWrite;
-        if (progress) {
-            progress(progressValue);
-        }
-    }];
-    [operation start];
 }
 
 #pragma mark - Others

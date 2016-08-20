@@ -11,6 +11,8 @@
 #import "RootTabBarController.h"
 #import "IntroduceViewController.h"
 #import <TencentOpenAPI/TencentOAuth.h>
+#import "BMUserInfo.h"
+#import "BrickManNetClient.h"
 
 static void customHandler() {
     UINavigationBar *navigationBar = [UINavigationBar appearance];
@@ -47,6 +49,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     }else {
         RootTabBarController *rootVC   = [RootTabBarController sharedInstance];
         self.window.rootViewController = rootVC;
+    }
+    
+    if ([BMUserInfo sharedUserInfo].isLogin) {
+        [[BrickManNetClient sharedJsonClient] setToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]];
     }
 
     [self.window makeKeyAndVisible];

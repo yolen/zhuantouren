@@ -13,6 +13,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "ComposeViewController.h"
 
 @interface PublishViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 /**
@@ -184,8 +185,10 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
             }
         }
     }
-    [[BrickManAPIManager shareInstance] uploadFileWithImage:self.image doneBlock:^(NSString *imagePath, NSError *error) {
-        
+    [[BrickManAPIManager shareInstance] uploadFileWithImage:self.image doneBlock:^(NSArray *imgPathArray, NSError *error) {
+        if (imgPathArray.count > 0) {
+            [ComposeViewController sharedInstance].imagePathArray = imgPathArray;
+        }
     } progerssBlock:^(CGFloat progressValue) {
         
     }];

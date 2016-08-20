@@ -30,6 +30,10 @@
     return self;
 }
 
+- (NSString *)text {
+    return self.textView.text;
+}
+
 #pragma mark - Setup UI
 -(void)setupUI {
     [self setupTextPartView];
@@ -79,8 +83,5 @@
     }
     return _placeHolderLabel;
 }
-
-
-
 
 @end
