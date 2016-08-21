@@ -199,9 +199,11 @@
  *          错误返回示例: \snippet example/getUserInfoResponse.exp fail
  */
 - (void)getUserInfoResponse:(APIResponse *)response {
-    // 保存用户信息到本地
-    [[BMUserInfo sharedUserInfo] saveUserInfoWithDict:response.jsonResponse];
-    // TODO: 用户数据与服务器对接
+    //处理超时错误
+    if (response.detailRetCode == kOpenSDKErrorSuccess) {
+        // 保存用户信息到本地
+        [[BMUserInfo sharedUserInfo] saveUserInfoWithDict:response.jsonResponse];
+    }
 }
 
 

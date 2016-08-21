@@ -41,14 +41,17 @@
     if (scrollView.contentSize.width - scrollView.frame.size.width == scrollView.contentOffset.x) {
         RootTabBarController *root = [RootTabBarController sharedInstance];
         root.view.alpha = 0.0;
-        [[[[UIApplication sharedApplication] delegate] window] addSubview:root.view];
+        UIWindow *window = [[[UIApplication sharedApplication] delegate] window];
+        [window addSubview:root.view];
         [UIView animateWithDuration:1.5 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.view.alpha = 0.0;
         } completion:nil];
         
         [UIView animateWithDuration:1.3 delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             root.view.alpha = 1.0;
-        } completion:nil];
+        } completion:^(BOOL finished) {
+            window.rootViewController = root;
+        }];
     }
 }
 

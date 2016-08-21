@@ -37,7 +37,7 @@
 
 #define kBaseUrl @"http://115.28.211.119:1080"
 #define kImageUrl @"http://115.28.211.119:2080"
-#define QQ_LOGIN_APP_ID @"1105537857"
+#define QQ_LOGIN_APP_ID @"1105593438"
 #ifdef DEBUG
 
 #define ABOUTURL @""
@@ -82,8 +82,4 @@
 #define PUBLISH_TEXT_FONT_SIZE [UIFont systemFontOfSize:15]
 #define MINE_TEXT_FONT_SIZE [UIFont systemFontOfSize:13]
 #define MAX_SELECTE_PICTURE_NUM 9
-
-
-
-
 
