@@ -9,6 +9,8 @@
 #import "MainTableViewCell.h"
 #import "BrickPhotoCell.h"
 #import "BMAttachmentModel.h"
+#import "MSSBrowseModel.h"
+#import "MSSBrowseNetworkViewController.h"
 
 @interface MainTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) UIImageView *iconImageView;
@@ -199,6 +201,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BrickPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier_BrickPhotoCell forIndexPath:indexPath];
     cell.attachmentModel = self.model.brickContentAttachmentList[indexPath.row];
+    cell.photoImgView.tag = indexPath.row + 100;
     return cell;
 }
 
@@ -256,7 +259,27 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (self.inputView) {
+        [self.inputView p_dismiss];
+    }
+    NSMutableArray *browseItemArray = [[NSMutableArray alloc]init];
+    for (int i = 0; i < self.model.brickContentAttachmentList.count; i++) {
+        BMAttachmentModel *attachment = self.model.brickContentAttachmentList[i];
+        NSString *imageStr = [NSString stringWithFormat:@"%@/%@",kImageUrl,attachment.attachmentPath];
+        UIImageView *imageView = [collectionView viewWithTag:i + 100];
+        MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
+        browseItem.bigImageUrl = imageStr;
+        browseItem.smallImageView = imageView;
+        [browseItemArray addObject:browseItem];
+    }
+    BrickPhotoCell *cell = (BrickPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.photoImgView.tag - 100];
+    if (self.inputView) {
+        bvc.tapBlock = ^(){
+            [self.inputView p_show];
+        };
+    }
+    [bvc showBrowseViewController];
 }
 
 #pragma mark - Btn Action

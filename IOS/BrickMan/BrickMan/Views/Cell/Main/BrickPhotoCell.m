@@ -8,11 +8,6 @@
 
 #import "BrickPhotoCell.h"
 
-@interface BrickPhotoCell()
-@property (strong, nonatomic) UIImageView *photoImgView;
-
-@end
-
 @implementation BrickPhotoCell
 
 - (void)setAttachmentModel:(BMAttachmentModel *)attachmentModel {

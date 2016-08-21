@@ -9,6 +9,7 @@
 #define kCellIdentifier_MainTableViewCell @"MainTableViewCell"
 #import <UIKit/UIKit.h>
 #import "BMContentModel.h"
+#import "CommentInputView.h"
 
 @interface MainTableViewCell : UITableViewCell
 
@@ -17,6 +18,7 @@
 @property (strong, nonatomic) void(^commentBlock)();
 @property (copy, nonatomic) void(^shareBlock)();
 @property (strong, nonatomic) BMContentModel *model;
+@property (strong, nonatomic) CommentInputView *inputView;
 
 //- (void)setData:(NSDictionary *)dataDic;
 + (CGFloat)cellHeightWithModel:(BMContentModel *)contentModel;

@@ -60,6 +60,7 @@
     if (indexPath.row == 0) {
         MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
         cell.model = self.model;
+        cell.inputView = self.inputView;
         __weak typeof(self) weakSelf = self;
         cell.commentBlock = ^(){
             [weakSelf.inputView becomeFirstResponder];

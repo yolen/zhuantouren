@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, BrickPhotoCellType) {
 
 @interface BrickPhotoCell : UICollectionViewCell
 
+@property (strong, nonatomic) UIImageView *photoImgView;
 @property (strong, nonatomic) BMAttachmentModel *attachmentModel;
 @property (assign, nonatomic) BrickPhotoCellType type;
 
