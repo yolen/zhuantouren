@@ -8,12 +8,12 @@
 
 #import "BMLoginViewController.h"
 #import "ComposeViewController.h"
+#import "ComposeViewController.h"
 #import "PublishViewController.h"
 #import "UITapImageView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "ComposeViewController.h"
 
 @interface PublishViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 /**
@@ -34,6 +34,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _imagePicker          = [[UIImagePickerController alloc] init];
+    _imagePicker.delegate = self;
 
     [self customView];
 }
@@ -185,12 +187,14 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
             }
         }
     }
-    [[BrickManAPIManager shareInstance] uploadFileWithImage:self.image doneBlock:^(NSArray *imgPathArray, NSError *error) {
+    [[BrickManAPIManager shareInstance] uploadFileWithImage:self.image
+    doneBlock:^(NSArray *imgPathArray, NSError *error) {
         if (imgPathArray.count > 0) {
             [ComposeViewController sharedInstance].imagePathArray = imgPathArray;
         }
-    } progerssBlock:^(CGFloat progressValue) {
-        
+    }
+    progerssBlock:^(CGFloat progressValue){
+
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
     [self composePhotosOrVideos];
@@ -238,13 +242,13 @@ didFinishSavingWithError:(NSError *)error
 }
 
 #pragma mark - lazy loading
-- (UIImagePickerController *)imagePicker {
-    if (_imagePicker == nil) {
-        _imagePicker          = [[UIImagePickerController alloc] init];
-        _imagePicker.delegate = self;
-    }
-    return _imagePicker;
-}
+//- (UIImagePickerController *)imagePicker {
+//    if (_imagePicker == nil) {
+//        _imagePicker          = [[UIImagePickerController alloc] init];
+//        _imagePicker.delegate = self;
+//    }
+//    return _imagePicker;
+//}
 
 
 @end
