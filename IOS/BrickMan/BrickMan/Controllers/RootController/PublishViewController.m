@@ -8,6 +8,7 @@
 
 #import "BMLoginViewController.h"
 #import "ComposeViewController.h"
+#import "ComposeViewController.h"
 #import "PublishViewController.h"
 #import "UITapImageView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
@@ -28,6 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _imagePicker          = [[UIImagePickerController alloc] init];
+    _imagePicker.delegate = self;
 
     [self customView];
     self.composeViewController = [[ComposeViewController alloc] init];
@@ -198,6 +201,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
 //            [ComposeViewController sharedInstance].imagePathArray = imgPathArray;
 //        }
 //    } progerssBlock:nil];
+   
     [self dismissViewControllerAnimated:YES completion:nil];
     [self composePhotosOrVideos];
 }
@@ -244,13 +248,13 @@ didFinishSavingWithError:(NSError *)error
 }
 
 #pragma mark - lazy loading
-- (UIImagePickerController *)imagePicker {
-    if (_imagePicker == nil) {
-        _imagePicker          = [[UIImagePickerController alloc] init];
-        _imagePicker.delegate = self;
-    }
-    return _imagePicker;
-}
+//- (UIImagePickerController *)imagePicker {
+//    if (_imagePicker == nil) {
+//        _imagePicker          = [[UIImagePickerController alloc] init];
+//        _imagePicker.delegate = self;
+//    }
+//    return _imagePicker;
+//}
 
 
 @end
