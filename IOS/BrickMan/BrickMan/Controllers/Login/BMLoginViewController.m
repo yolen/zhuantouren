@@ -12,6 +12,7 @@
 #import <TencentOpenAPI/TencentApiInterface.h>
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "BrickManNetClient.h"
+#import "BMUser.h"
 
 #define LOGIN_HEADER_TEXT @"砖头人"
 #define LOGIN_TIP_TEXT @"左手鲜花,右手砖头的一群人\n只评论事儿,不评价人儿"
@@ -176,8 +177,8 @@
     
     [[BrickManAPIManager shareInstance] requestAuthLoginWithParams:@{@"thirdAuth" : @"qq", @"accessToken" : self.tencentOAuth.accessToken, @"openId" : self.tencentOAuth.openId} andBlock:^(id data, NSError *error) {
         if (data) {
-            [[NSUserDefaults standardUserDefaults] setObject:data[@"userId"] forKey:@"UserId"];
-            [[NSUserDefaults standardUserDefaults] setObject:data[@"token"] forKey:@"token"];
+            //缓存用户信息
+            [NSObject saveLoginData:data];
             [[BrickManNetClient sharedJsonClient] setToken:data[@"token"]];
             [self.navigationController popViewControllerAnimated:YES];
         }

@@ -65,6 +65,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     NSString *cVal = [self getMD5StringWithParams:dic];
     [dic setObject:cVal forKey:@"cVal"];
     DebugLog(@"request:%@ \nparams:%@", aPath, dic);
+    
     //发起请求
     switch (method) {
         case Get:{
@@ -100,7 +101,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
             }];
             break;}
         case Put:{
-            [self PUT:aPath parameters:dic success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [self PUT:aPath parameters:dic success:^(NSURLSessionDataTask *task, id responseObject) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
@@ -108,7 +109,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
                 }else{
                     block(responseObject, nil);
                 }
-            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
                 !autoShowError || [NSObject showError:error];
                 block(nil, error);
@@ -119,20 +120,10 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     }
 }
 
-- (void)uploadImage:(UIImage *)image WithPath:(NSString *)path
+- (void)uploadImages:(NSArray *)images WithPath:(NSString *)path
         successBlock:(void (^)(NSURLSessionDataTask *task, id responseObject))success
        failureBlock:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
       progerssBlock:(void (^)(CGFloat progressValue))progress {
-    NSData *data = UIImageJPEGRepresentation(image, 1.0);
-    if ((float)data.length/1024 > 300) {
-        data = UIImageJPEGRepresentation(image, 1024*300/(float)data.length);
-    }
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyyMMddHHmmss";
-    NSString *dateString = [formatter stringFromDate:[NSDate date]];
-    NSString *fileName = [NSString stringWithFormat:@"%@.jpg", dateString];
-    
     //对params做处理
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     int rand = arc4random();
@@ -147,11 +138,21 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     
     NSString *cVal = [self getMD5StringWithParams:dic];
     [dic setObject:cVal forKey:@"cVal"];
-    [dic setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"UserId"] forKey:@"userId"];
+    [dic setObject:[[NSObject loginData] objectForKey:@"userId"] forKey:@"userId"];
     
-    DebugLog(@"%@",self.requestSerializer.HTTPRequestHeaders);
     [self POST:path parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:data name:@"image" fileName:fileName mimeType:@"image/jpeg"];
+        for (UIImage *image in images) {
+            NSData *data = UIImageJPEGRepresentation(image, 1.0);
+            if ((float)data.length/1024 > 300) {
+                data = UIImageJPEGRepresentation(image, 1024*300/(float)data.length);
+            }
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyyMMddHHmmss";
+            NSString *dateString = [formatter stringFromDate:[NSDate date]];
+            NSString *fileName = [NSString stringWithFormat:@"%@.jpg", dateString];
+            [formData appendPartWithFileData:data name:@"image" fileName:fileName mimeType:@"image/jpeg"];
+        }
     } progress:^(NSProgress *uploadProgress) {
         DebugLog(@"%@",progress);
     } success:^(NSURLSessionDataTask *task, id responseObject) {

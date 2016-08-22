@@ -71,5 +71,33 @@
     return obj;
 }
 
+#pragma mark - 
++ (void)saveLoginData:(NSDictionary *)data {
+    NSMutableDictionary *dataDic = [NSMutableDictionary dictionaryWithDictionary:data];
+    NSArray *keys = [data allKeys];
+    for (NSString *key in keys) {
+        if ([data[key] isKindOfClass:[NSNull class]]) {
+            [dataDic removeObjectForKey:key];
+        }
+    }
+    [dataDic writeToFile:[self loginDataPath] atomically:YES];
+}
+
++ (NSMutableDictionary *)loginData {
+    return [NSMutableDictionary dictionaryWithContentsOfFile:[self loginDataPath]];
+}
+
++ (BOOL)isLogin {
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self loginDataPath]];
+}
+
++ (BOOL)removeLoginData {
+    return [[NSFileManager defaultManager] removeItemAtPath:[self loginDataPath] error:nil];
+}
+
++ (NSString *)loginDataPath {
+    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    return [documentPath stringByAppendingPathComponent:@"user.plist"];
+}
 
 @end

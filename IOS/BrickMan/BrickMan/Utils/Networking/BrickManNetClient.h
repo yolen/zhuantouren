@@ -11,8 +11,7 @@
 typedef enum {
     Get = 0,
     Post,
-    Put,
-    Delete
+    Put
 } NetworkMethod;
 
 @interface BrickManNetClient : AFHTTPSessionManager
@@ -40,11 +39,13 @@ typedef enum {
                   autoShowError:(BOOL)autoShowError
                        andBlock:(void (^)(id data, NSError *error))block;
 
-- (void)uploadImage:(UIImage *)image WithPath:(NSString *)path
-       successBlock:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-       failureBlock:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
-      progerssBlock:(void (^)(CGFloat progressValue))progress;
+- (void)uploadImages:(NSArray *)images WithPath:(NSString *)path
+        successBlock:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+        failureBlock:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+       progerssBlock:(void (^)(CGFloat progressValue))progress;
 
 - (BOOL)checkoutJsonData:(id)data;
 
 @end
+
+

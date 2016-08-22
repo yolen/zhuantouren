@@ -47,7 +47,7 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:3];
     [params setObject:[NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:page]] forKey:@"pageNo"];
     [params setObject:[NSString stringWithFormat:@"%@",self.pageSize] forKey:@"pageSize"];
-    [params setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"UserId"] forKey:@"userId"];
+    [params setObject:[[NSObject loginData] objectForKey:@"userId"] forKey:@"userId"];
     return params;
 }
 

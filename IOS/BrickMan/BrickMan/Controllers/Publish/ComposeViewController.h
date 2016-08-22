@@ -10,9 +10,7 @@
 
 @interface ComposeViewController : UIViewController
 
-@property (nonatomic, strong) UIImage *image; //接收捕获的图片
-@property (strong, nonatomic) NSArray *imagePathArray;
-
-+ (instancetype)sharedInstance;
+@property (strong, nonatomic) NSString *imagePath;
+@property (strong, nonatomic) NSArray *images;
 
 @end

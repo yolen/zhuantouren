@@ -96,18 +96,28 @@
         }else {
             block(nil,error);
         }
-            
+    }];
+}
+
+//修改我的信息
+- (void)requestUpdateUserInfoWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/update_user_info.do" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
+        if (data) {
+            block(data,nil);
+        }else {
+            block(nil,error);
+        }
     }];
 }
 
 //上传文件
-- (void)uploadFileWithImage:(UIImage *)image
-               doneBlock:(void (^)(NSArray *imgPathArray, NSError *error))block
+- (void)uploadFileWithImages:(NSArray *)images
+               doneBlock:(void (^)(NSString *imagePath, NSError *error))block
            progerssBlock:(void (^)(CGFloat progressValue))progress {
-    [[BrickManNetClient sharedJsonClient] uploadImage:image WithPath:@"/upload/upload_file.do" successBlock:^(NSURLSessionDataTask *task, id responseObject) {
+    [[BrickManNetClient sharedJsonClient] uploadImages:images WithPath:@"/upload/upload_file.do" successBlock:^(NSURLSessionDataTask *task, id responseObject) {
         if (responseObject) {
-            NSArray *array = [NSArray arrayWithObject:responseObject[@"body"]];
-            block(array,nil);
+            NSString *result = responseObject[@"body"];
+            block(result,nil);
         }
     } failureBlock:^(NSURLSessionDataTask *task, NSError *error) {
         block(nil, error);

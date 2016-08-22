@@ -51,8 +51,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         self.window.rootViewController = rootVC;
     }
     
-    if ([BMUserInfo sharedUserInfo].isLogin) {
-        [[BrickManNetClient sharedJsonClient] setToken:[[NSUserDefaults standardUserDefaults] objectForKey:@"token"]];
+    if ([NSObject isLogin]) {
+        [[BrickManNetClient sharedJsonClient] setToken:[[NSObject loginData] objectForKey:@"token"]];
     }
 
     [self.window makeKeyAndVisible];

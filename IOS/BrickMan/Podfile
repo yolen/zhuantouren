@@ -7,4 +7,5 @@ target 'BrickMan' do
     pod 'Masonry', '~> 0.6.3'
     pod 'YYModel'
     pod 'SDWebImage'
+    pod 'TZImagePickerController'
 end

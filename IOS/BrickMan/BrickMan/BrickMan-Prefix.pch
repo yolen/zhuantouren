@@ -83,3 +83,6 @@
 #define MINE_TEXT_FONT_SIZE [UIFont systemFontOfSize:13]
 #define MAX_SELECTE_PICTURE_NUM 9
 
+//Notification
+#define kNotification_RefreshUserInfo @"RefreshUserInfoNotification"
+

@@ -40,7 +40,7 @@
 }
 
 - (void)setUserIcon:(NSString *)iconStr nameTitle:(NSString *)nameStr subTitle:(NSString *)subTitleStr {
-    _iconImageView.image = [UIImage imageNamed:iconStr];
+    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:iconStr] placeholderImage:nil];
     _nameLabel.text = nameStr;
     _subTitle.text = subTitleStr;
 }

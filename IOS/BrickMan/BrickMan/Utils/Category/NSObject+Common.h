@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BMUser.h"
 
 @interface NSObject (Common)
 
@@ -17,5 +18,11 @@
 - (id)initWithDictionary:(NSDictionary *)dictionary;
 
 + (instancetype)modelWithDictionary:(NSDictionary *)dictionary;
+
++ (void)saveLoginData:(NSDictionary *)data;
++ (NSMutableDictionary *)loginData;
++ (BOOL)isLogin;
++ (BOOL)removeLoginData;
++ (NSString *)loginDataPath;
 
 @end

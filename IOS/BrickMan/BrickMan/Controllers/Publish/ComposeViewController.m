@@ -28,17 +28,6 @@
 
 @implementation ComposeViewController
 
-+ (instancetype)sharedInstance {
-    static ComposeViewController* instance = nil;
-
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [ComposeViewController new];
-    });
-
-    return instance;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -147,6 +136,7 @@
 }
 
 - (void)composePictureCellDeletePicture:(ComposePictureCell *)composePictureCell {
+    
     NSUInteger deleteIndex    = [self.pictureView indexPathForCell:composePictureCell].item;
     NSMutableArray *picturesM = [[NSMutableArray alloc] initWithArray:self.pictures];
     [picturesM removeObjectAtIndex:deleteIndex];
@@ -172,38 +162,28 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
 
 
 #pragma mark - Actions
-/**
- *  直接返回到 Home
- */
 - (void)returnHomeButtonAction {
-    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES
-                                                                               completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)composeButtonAction {
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserId"];
-    
-    NSString *imagePathStr = @"";
-    for (NSString *imagePath in self.imagePathArray) {
-        [imagePathStr stringByAppendingString:[NSString stringWithFormat:@"%@,",imagePath]];
-    }
-    imagePathStr = [imagePathStr substringToIndex:imagePathStr.length-1];
-    NSDictionary *params = @{@"userId" : userId,
-                             @"imgPaths" : imagePathStr,
+    NSDictionary *dataDic = [NSObject loginData];
+    NSDictionary *params = @{@"userId" : dataDic[@"userId"],
+                             @"imgPaths" : self.imagePath,
                              @"contentTitle" : self.textView.text,
                              @"contentPlace" : @"上海"};
     [[BrickManAPIManager shareInstance] requestAddContentWithParams:params andBlock:^(id data, NSError *error) {
         if (data) {
-            [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
 
 #pragma mark - Getter && Setter
-- (void)setImage:(UIImage *)image {
-    _image                    = image;
+- (void)setImages:(NSArray *)images {
+    _images = images;
     NSMutableArray *picturesM = [NSMutableArray arrayWithArray:self.pictures];
-    [picturesM addObject:image];
+    [picturesM addObjectsFromArray:images];
     self.pictures = picturesM.copy;
     [self.pictureView reloadData];
 }
