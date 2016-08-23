@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-import static com.brickman.app.common.base.Api.UPLOAD_FILES;
+import static com.brickman.app.common.base.Api.UPLOAD_AVATOR;
 
 /**
  * Created by mayu on 16/7/26,上午10:05.
@@ -23,7 +23,7 @@ public class UserInfoModel implements UserInfoContract.Model {
     @Override
     public void uploadImages(List<String> imageList, OnUploadListener onUploadListener, HttpListener<JSONObject> httpListener) {
         RequestParam param = ParamBuilder.buildParam("userId", MApplication.getInstance().mUser.userId);
-        RequestHelper.uploadFile(UPLOAD_FILES, param, imageList, onUploadListener, httpListener);
+        RequestHelper.uploadFile(UPLOAD_AVATOR, param, imageList, onUploadListener, httpListener);
     }
 
     @Override

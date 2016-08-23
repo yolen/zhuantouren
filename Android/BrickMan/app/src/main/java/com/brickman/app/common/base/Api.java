@@ -25,6 +25,8 @@ public interface Api {
     String REQUEST_DETAIL_COMMENT = BASE_URL + "/comment/add_comment.json";
     // 上传图片接口
     String UPLOAD_FILES = BASE_URL + "/upload/upload_file.do";
+    // 上传头像接口
+    String UPLOAD_AVATOR = BASE_URL + "/upload/upload_user_head.do";
     // 更改用户信息
     String UPDATE_USERINFO = BASE_URL + "/user/update_user_info.do";
 
