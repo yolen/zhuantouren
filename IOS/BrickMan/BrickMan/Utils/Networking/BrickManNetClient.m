@@ -9,6 +9,12 @@
 #import "BrickManNetClient.h"
 NSString *const key = @"53b4be63fac688e0";
 
+static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数指针）
+    NSString * x = (NSString *)a;
+    NSString * y = (NSString *)b;
+    return [x compare:y];//可以加一个负号改变顺序和倒叙
+}
+
 @implementation BrickManNetClient
 
 + (id)sharedJsonClient {
@@ -23,9 +29,13 @@ NSString *const key = @"53b4be63fac688e0";
 - (instancetype)initWithBaseURL:(NSURL *)url {
     if (self = [super initWithBaseURL:url]) {
 //        self.responseSerializer = [AFJSONResponseSerializer serializer];
-        self.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"text/html", nil];
+        self.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"text/html",@"text/javascript", nil];
     }
     return self;
+}
+
+- (void)setToken:(NSString *)token {
+    [self.requestSerializer setValue:token forHTTPHeaderField:@"token"];
 }
 
 - (void)requestJsonDataWithPath:(NSString *)aPath
@@ -39,9 +49,11 @@ NSString *const key = @"53b4be63fac688e0";
     if (!aPath || aPath.length <= 0) {
         return;
     }
+    
     //对params做处理
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:params];
-    NSString *randomString = [NSString stringWithFormat:@"%d",arc4random()];
+    int rand = arc4random();
+    NSString *randomString = [NSString stringWithFormat:@"%d",abs(rand)];
     [dic setObject:randomString forKey:@"rn"];
     
     NSDateFormatter * formatter = [[NSDateFormatter alloc ] init];
@@ -52,11 +64,12 @@ NSString *const key = @"53b4be63fac688e0";
     
     NSString *cVal = [self getMD5StringWithParams:dic];
     [dic setObject:cVal forKey:@"cVal"];
-    DebugLog(@"request:path:%@:\nparams:%@", aPath, dic);
+    DebugLog(@"request:%@ \nparams:%@", aPath, dic);
+    
     //发起请求
     switch (method) {
         case Get:{
-            [self GET:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self GET:aPath parameters:dic progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
@@ -64,14 +77,15 @@ NSString *const key = @"53b4be63fac688e0";
                 }else{
                     block(responseObject, nil);
                 }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
                 !autoShowError || [NSObject showError:error];
                 block(nil, error);
             }];
             break;}
         case Post:{
-            [self POST:aPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            [self POST:aPath parameters:dic progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
@@ -79,7 +93,23 @@ NSString *const key = @"53b4be63fac688e0";
                 }else{
                     block(responseObject, nil);
                 }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
+                !autoShowError || [NSObject showError:error];
+                block(nil, error);
+            }];
+            break;}
+        case Put:{
+            [self PUT:aPath parameters:dic success:^(NSURLSessionDataTask *task, id responseObject) {
+                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
+                id error = [self handleResponse:responseObject autoShowError:autoShowError];
+                if (error) {
+                    block(nil, error);
+                }else{
+                    block(responseObject, nil);
+                }
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
                 !autoShowError || [NSObject showError:error];
                 block(nil, error);
@@ -88,6 +118,83 @@ NSString *const key = @"53b4be63fac688e0";
         default:
             break;
     }
+}
+
+- (void)uploadImages:(NSArray *)images WithPath:(NSString *)path
+        successBlock:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+       failureBlock:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+      progerssBlock:(void (^)(CGFloat progressValue))progress {
+    //对params做处理
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    int rand = arc4random();
+    NSString *randomString = [NSString stringWithFormat:@"%d",abs(rand)];
+    [dic setObject:randomString forKey:@"rn"];
+    
+    NSDateFormatter * formatter1 = [[NSDateFormatter alloc ] init];
+    [formatter1 setDateFormat:@"YYYYMMddhhmmssSSS"];
+    NSString *date =  [formatter1 stringFromDate:[NSDate date]];
+    NSString *timeString = [[NSString alloc] initWithFormat:@"%@", date];
+    [dic setObject:timeString forKey:@"ts"];
+    
+    NSString *cVal = [self getMD5StringWithParams:dic];
+    [dic setObject:cVal forKey:@"cVal"];
+    [dic setObject:[[NSObject loginData] objectForKey:@"userId"] forKey:@"userId"];
+    
+    [self POST:path parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        for (UIImage *image in images) {
+            NSData *data = UIImageJPEGRepresentation(image, 1.0);
+            if ((float)data.length/1024 > 300) {
+                data = UIImageJPEGRepresentation(image, 1024*300/(float)data.length);
+            }
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyyMMddHHmmss";
+            NSString *dateString = [formatter stringFromDate:[NSDate date]];
+            NSString *fileName = [NSString stringWithFormat:@"%@.jpg", dateString];
+            [formData appendPartWithFileData:data name:@"image" fileName:fileName mimeType:@"image/jpeg"];
+        }
+    } progress:^(NSProgress *uploadProgress) {
+        DebugLog(@"%@",progress);
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        DebugLog(@"Success: %@\n%@", task, responseObject);
+        id error = [self handleResponse:responseObject autoShowError:YES];
+        if (error && failure) {
+            failure(task, error);
+        }else{
+            success(task, responseObject);
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        DebugLog(@"Error: %@\n%@", task, error);
+        if (failure) {
+            failure(task, error);
+        }
+
+    }];
+}
+
+#pragma mark - Others
+- (BOOL)checkoutJsonData:(id)data {
+    NSString *cVal = [data objectForKey:@"cVal"];
+    NSArray *list = [data objectForKey:@"body"];
+    NSString *md5CombinStr = @"";
+    if (list == nil || [list isKindOfClass:[NSNull class]]) {
+        NSString *md5String = [[@"" md5Str] lowercaseString];
+        NSString *combinStr = [md5String stringByAppendingString:[NSString stringWithFormat:@".%@",key]];
+        md5CombinStr = [combinStr md5Str];
+        md5CombinStr = [md5CombinStr lowercaseString];
+    } else {
+        NSString *string = [[NSString alloc]initWithData:[NSJSONSerialization dataWithJSONObject:list options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",string);
+        NSString *md5String = [[string md5Str] lowercaseString];
+        NSString *combinStr = [md5String stringByAppendingString:[NSString stringWithFormat:@".%@",key]];
+        md5CombinStr = [combinStr md5Str];
+        md5CombinStr = [md5CombinStr lowercaseString];
+    }
+    
+    if ([md5CombinStr isEqualToString:cVal]) {
+        return YES;
+    }
+    return NO;
 }
 
 - (NSString *)getMD5StringWithParams:(NSMutableDictionary *)params {
@@ -103,17 +210,11 @@ NSString *const key = @"53b4be63fac688e0";
     appendingString = [appendingString substringToIndex:appendingString.length-1];
     appendingString = [appendingString md5Str];
     appendingString = [appendingString lowercaseString];
-    appendingString = [appendingString stringByAppendingString:[NSString stringWithFormat:@".%@",key]];
+    appendingString = [appendingString stringByAppendingString:[NSString stringWithFormat:@"%@",key]];
     appendingString  = [appendingString md5Str];
     NSString *cVal = [appendingString lowercaseString];
     
     return cVal;
-}
-
-NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数指针）
-    NSString * x = (NSString *)a;
-    NSString * y = (NSString *)b;
-    return [x compare:y];//可以加一个负号改变顺序和倒叙
 }
 
 

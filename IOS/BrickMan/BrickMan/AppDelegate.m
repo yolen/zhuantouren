@@ -11,6 +11,21 @@
 #import "RootTabBarController.h"
 #import "IntroduceViewController.h"
 #import <TencentOpenAPI/TencentOAuth.h>
+#import "BMUserInfo.h"
+#import "BrickManNetClient.h"
+
+static void customHandler() {
+    UINavigationBar *navigationBar = [UINavigationBar appearance];
+    [navigationBar setBackgroundImage:[UIImage imageWithColor:kNavigationBarColor]
+                        forBarMetrics:UIBarMetricsDefault];
+    [navigationBar setTintColor:[UIColor whiteColor]];
+    NSDictionary *textAttributes = @{
+                                     NSFontAttributeName: [UIFont systemFontOfSize:16],
+                                     NSForegroundColorAttributeName: [UIColor whiteColor],
+                                     };
+    [navigationBar setTitleTextAttributes:textAttributes];
+    [navigationBar setTintColor:[UIColor whiteColor]];
+}
 
 @interface AppDelegate ()
 
@@ -21,19 +36,11 @@
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window                 = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 
-    UINavigationBar *navigationBar = [UINavigationBar appearance];
-    [navigationBar setBackgroundImage:[UIImage imageWithColor:kNavigationBarColor]
-                        forBarMetrics:UIBarMetricsDefault];
-    [navigationBar setTintColor:[UIColor whiteColor]];
-    NSDictionary *textAttributes = @{
-        NSFontAttributeName: [UIFont systemFontOfSize:16],
-        NSForegroundColorAttributeName: [UIColor whiteColor],
-    };
-    [navigationBar setTitleTextAttributes:textAttributes];
-    [navigationBar setTintColor:[UIColor whiteColor]];
+    customHandler();
+    
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"isShowIntroducePage"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isShowIntroducePage"];
         
@@ -43,18 +50,11 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         RootTabBarController *rootVC   = [RootTabBarController sharedInstance];
         self.window.rootViewController = rootVC;
     }
+    
+    if ([NSObject isLogin]) {
+        [[BrickManNetClient sharedJsonClient] setToken:[[NSObject loginData] objectForKey:@"token"]];
+    }
 
-//    [[BrickManAPIManager shareInstance] requestWithParams:@{
-//        @"userId": @"test1",
-//        @"param1": @"参数1",
-//        @"param2": @"参数2"
-//    }
-//                                                 andBlock:^(id data, NSError *error){
-//
-//                                                 }];
-    [[BrickManAPIManager shareInstance] requestContentListWithParams:nil andBlock:^(id data, NSError *error) {
-        DebugLog(@"%@",data);
-    }];
     [self.window makeKeyAndVisible];
     return YES;
 }

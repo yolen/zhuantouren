@@ -14,40 +14,14 @@
 #import "BMLocationCell.h"
 
 @interface ComposeViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, ComposePictureCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-/**
- *  返回 Home
- */
+
 @property (nonatomic, strong) UIButton *returnHomeButton;
-
-/**
- *  发布按钮
- */
 @property (nonatomic, strong) UIButton *composeButton;
-
-/**
- *  tableView
- */
 @property (nonatomic, strong) UITableView *tableView;
-/**
- *  文本输入框
- */
 @property (nonatomic, strong) ComposeTextView *textView;
-/**
- *  好人好事开关
- */
-//@property (nonatomic, strong) UISwitch *goodThingSwitch;
-/**
- *  选择图片的 CollectionView
- */
+//@property (nonatomic, strong) UISwitch *goodThingSwitch; //好人好事开关
 @property (nonatomic, strong) UICollectionView *pictureView;
-/**
- *  图片数组
- */
 @property (nonatomic, strong) NSArray<UIImage *> *pictures;
-
-/**
- *  选中图片下标
- */
 @property (nonatomic, assign) NSUInteger selectedIndex;
 
 @end
@@ -56,7 +30,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupUI];
+    
+    [self setupNavigationBar];
+    [self setupTableView];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -64,16 +40,6 @@
 }
 
 #pragma mark - UI
-- (void)setupUI {
-    [self setupNavigationBar];
-
-    [self setupTableView];
-}
-
-
-/**
- *  设置 tableView
- */
 - (void)setupTableView {
     [self.view addSubview:self.tableView];
     self.textView = [[ComposeTextView alloc] initWithFrame:CGRectMake (0, 0, kScreen_Width, 150)];
@@ -81,9 +47,6 @@
     self.tableView.tableFooterView = self.pictureView;
 }
 
-/**
- *  设置 nabigationBar
- */
 - (void)setupNavigationBar {
     [self.returnHomeButton setImage:[UIImage imageNamed:@"back"]
                            forState:UIControlStateNormal];
@@ -173,6 +136,7 @@
 }
 
 - (void)composePictureCellDeletePicture:(ComposePictureCell *)composePictureCell {
+    
     NSUInteger deleteIndex    = [self.pictureView indexPathForCell:composePictureCell].item;
     NSMutableArray *picturesM = [[NSMutableArray alloc] initWithArray:self.pictures];
     [picturesM removeObjectAtIndex:deleteIndex];
@@ -198,24 +162,28 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
 
 
 #pragma mark - Actions
-/**
- *  直接返回到 Home
- */
 - (void)returnHomeButtonAction {
-    [self.presentingViewController.presentingViewController dismissViewControllerAnimated:YES
-                                                                               completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)composeButtonAction {
-    // TODO: 发布
-    DebugLog (@"%s", __FUNCTION__);
+    NSDictionary *dataDic = [NSObject loginData];
+    NSDictionary *params = @{@"userId" : dataDic[@"userId"],
+                             @"imgPaths" : self.imagePath,
+                             @"contentTitle" : self.textView.text,
+                             @"contentPlace" : @"上海"};
+    [[BrickManAPIManager shareInstance] requestAddContentWithParams:params andBlock:^(id data, NSError *error) {
+        if (data) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
 }
 
 #pragma mark - Getter && Setter
-- (void)setImage:(UIImage *)image {
-    _image                    = image;
+- (void)setImages:(NSArray *)images {
+    _images = images;
     NSMutableArray *picturesM = [NSMutableArray arrayWithArray:self.pictures];
-    [picturesM addObject:image];
+    [picturesM addObjectsFromArray:images];
     self.pictures = picturesM.copy;
     [self.pictureView reloadData];
 }

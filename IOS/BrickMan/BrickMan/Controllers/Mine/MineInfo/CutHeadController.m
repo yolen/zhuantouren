@@ -16,13 +16,9 @@
 }
 
 @property (nonatomic, assign) CGFloat scale;
-
 @property (nonatomic, strong) UIScrollView *scrollView;
-
 @property (nonatomic, strong) UIView *cutView;
-
 @property (nonatomic, strong) UIImageView *imgView;
-
 @end
 
 @implementation CutHeadController
@@ -67,9 +63,20 @@
     origin.x = (self.scrollView.contentOffset.x + self.scrollView.contentInset.left) * _rate;
     origin.y = (self.scrollView.contentOffset.y + self.scrollView.contentInset.top) * _rate;
     UIImage *newImage = [self image:image NewSize:CGSizeMake(_rate * self.cutView.width, _rate * self.cutView.width) newOrigin:CGPointMake(origin.x, origin.y)];
-    HeadEditController *headEdit = self.navigationController.viewControllers[self.navigationController.viewControllers.count - 2];
-    headEdit.headImgView.image = newImage;
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    [[BrickManAPIManager shareInstance] uploadFileWithImages:@[newImage] doneBlock:^(NSString *imagePath, NSError *error) {
+        if (imagePath) {
+            //更新缓存
+            NSMutableDictionary *userData = [NSObject loginData];
+            userData[@"userHead"] = [NSString stringWithFormat:@"%@/%@",kImageUrl,imagePath];
+            [userData writeToFile:[NSObject loginDataPath] atomically:YES];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
+            HeadEditController *headEdit = self.navigationController.viewControllers[self.navigationController.viewControllers.count - 2];
+            headEdit.headImgView.image = newImage;
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    } progerssBlock:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

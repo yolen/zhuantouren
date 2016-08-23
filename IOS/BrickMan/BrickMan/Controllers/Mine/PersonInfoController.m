@@ -19,16 +19,14 @@
 }
 
 @property (nonatomic, strong) UITableView *myTableView;
-
 @property (nonatomic, strong) NSArray *titles;
-
-@property (nonatomic, strong) NSArray *subTitles;
-
+/**
+ *  自定义性别选择视图
+ */
 @property (nonatomic, strong) UIView *mySexSelection;
-
 @property (nonatomic, strong) UIButton *male;
-
 @property (nonatomic, strong) UIButton *female;
+@property (strong, nonatomic) NSMutableDictionary *dataDic;
 
 @end
 
@@ -50,6 +48,13 @@
     [self.myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
+    self.dataDic = [NSObject loginData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:kNotification_RefreshUserInfo object:nil];
+}
+
+- (void)reloadData {
+    [self.myTableView reloadData];
 }
 
 - (void)compose:(UIBarButtonItem *)sender {
@@ -66,11 +71,18 @@
     Mine_infoCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_infoCell forIndexPath:indexPath];
     cell.titleLabel.text = self.titles[indexPath.row];
     if (indexPath.row == 0) {
-        cell.subImgView.image = [UIImage imageNamed:@"user_icon"];
+        NSString *imagePath = [NSObject loginData][@"userHead"];
+        [cell.subImgView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil];
         [cell.subLabel setHidden:YES];
         [cell.subImgView setHidden:NO];
     } else {
-        cell.subLabel.text = self.subTitles[indexPath.row - 1];
+        if (indexPath.row == 1) {
+            cell.subLabel.text = self.dataDic[@"userAlias"];
+        }else if(indexPath.row == 2) {
+            cell.subLabel.text = self.dataDic[@"userSexStr"];
+        }else if (indexPath.row == 3) {
+            cell.subLabel.text = @"路见不平,拍砖相助!";
+        }
         [cell.subLabel setHidden:NO];
         [cell.subImgView setHidden:YES];
     }
@@ -79,37 +91,41 @@
 }
 
 #pragma mark - UITableViewDelegate
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.row) {
         case 0: {
             //更改头像
             HeadEditController *headEdit = [[HeadEditController alloc]init];
-            headEdit.headImgView.image = [UIImage imageNamed:@"user_icon"];
+            NSString *imagePath = self.dataDic[@"userHead"];
+            [headEdit.headImgView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil];
             [self.navigationController pushViewController:headEdit animated:YES];
         }
             break;
         case 1: {
             //更改昵称
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"昵称" message:@"请输入新的昵称" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
                 [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:[alert.textFields firstObject]];
             }];
-            UIAlertAction *actionSure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *actionSure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 UITextField *textField = alert.textFields.firstObject;
                 if (textField.text.length < kMinLength) {
                     
                     [MBProgressHUD showMessage:@"昵称长度不够" toView:self.navigationController.view complication:nil];
                     return;
                 }
-                Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
                 UITextField *tf = [alert.textFields firstObject];
-                cell.subLabel.text = tf.text;
+                [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : self.dataDic[@"userId"], @"userAlias" : @"TZ123"} andBlock:^(id data, NSError *error) {
+                    if (data) {
+                        Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+                        cell.subLabel.text = tf.text;
+                    }
+                }];
             }];
-            [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
                 textField.delegate = self;
-                textField.text = self.subTitles[0];
+                textField.text = self.dataDic[@"userAlias"];
             }];
             [alert addAction:actionCancel];
             [alert addAction:actionSure];
@@ -270,18 +286,12 @@
     _oldSelected = sender;
 }
 
+#pragma mark - 懒加载
 - (NSArray *)titles {
     if (!_titles) {
         _titles = @[@"我的头像",@"我的昵称",@"我的性别",@"座右铭"];
     }
     return _titles;
-}
-
-- (NSArray *)subTitles {
-    if (!_subTitles) {
-        _subTitles = @[@"砖头人",@"男",@"路见不平,拍砖相助!"];
-    }
-    return _subTitles;
 }
 
 - (UIButton *)male {
@@ -315,14 +325,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-*/
-
 @end

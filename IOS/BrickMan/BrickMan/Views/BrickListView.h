@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BMContentModel.h"
 
 @interface BrickListView : UIView
-
 @property (copy, nonatomic) void(^scrollBlock)(CGFloat offset);
+@property (copy, nonatomic) void(^goToDetailBlock)(BMContentModel *model);
 
-@property (copy, nonatomic) void(^goToDetailBlock)(NSDictionary *dic);
+- (instancetype)initWithFrame:(CGRect)frame andIndex:(NSInteger)index;
+- (void)refresh;
 @end

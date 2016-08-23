@@ -35,6 +35,8 @@
         make.edges.equalTo(self.view);
     }];
     self.inputView = [CommentInputView getInputView];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -57,7 +59,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
-        [cell setData:self.dataDic];
+        cell.model = self.model;
+        cell.inputView = self.inputView;
         __weak typeof(self) weakSelf = self;
         cell.commentBlock = ^(){
             [weakSelf.inputView becomeFirstResponder];
@@ -72,9 +75,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row == 0 ? [MainTableViewCell cellHeightWithImageArray:self.dataDic] : [CommentCell cellHeight];
+    return indexPath.row == 0 ? [MainTableViewCell cellHeightWithModel:self.model] : [CommentCell cellHeight];
 }
-
 
 
 @end

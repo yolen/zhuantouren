@@ -6,16 +6,17 @@
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
-#import "AFHTTPRequestOperationManager.h"
+#import <AFNetworking/AFNetworking.h>
 
 typedef enum {
     Get = 0,
     Post,
-    Put,
-    Delete
+    Put
 } NetworkMethod;
 
-@interface BrickManNetClient : AFHTTPRequestOperationManager
+@interface BrickManNetClient : AFHTTPSessionManager
+
+@property (strong, nonatomic) NSString *token;
 
 + (id)sharedJsonClient;
 
@@ -38,4 +39,13 @@ typedef enum {
                   autoShowError:(BOOL)autoShowError
                        andBlock:(void (^)(id data, NSError *error))block;
 
+- (void)uploadImages:(NSArray *)images WithPath:(NSString *)path
+        successBlock:(void (^)(NSURLSessionDataTask *task, id responseObject))success
+        failureBlock:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+       progerssBlock:(void (^)(CGFloat progressValue))progress;
+
+- (BOOL)checkoutJsonData:(id)data;
+
 @end
+
+

@@ -11,6 +11,8 @@
 #import "MainViewController.h"
 #import <TencentOpenAPI/TencentApiInterface.h>
 #import <TencentOpenAPI/TencentOAuth.h>
+#import "BrickManNetClient.h"
+#import "BMUser.h"
 
 #define LOGIN_HEADER_TEXT @"砖头人"
 #define LOGIN_TIP_TEXT @"左手鲜花,右手砖头的一群人\n只评论事儿,不评价人儿"
@@ -20,17 +22,9 @@
 
 
 @interface BMLoginViewController () <TencentSessionDelegate>
-/**
- *  随便看看
- */
+
 @property (nonatomic, strong) UIButton *goAroundButton;
-/**
- *  微信登录
- */
 @property (nonatomic, strong) UIButton *weChatLoginButton;
-/**
- *  QQ 登录
- */
 @property (nonatomic, strong) UIButton *qqLoginButton;
 
 #pragma mark - QQ Login Propreties
@@ -155,8 +149,7 @@
 - (void)loginWithQQ {
     self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQ_LOGIN_APP_ID andDelegate:self];
     // 设置权限//TODO:  qq 登录权限可以精简
-    NSArray *permissions =
-    [NSArray arrayWithObjects:kOPEN_PERMISSION_GET_USER_INFO, kOPEN_PERMISSION_GET_SIMPLE_USER_INFO, nil];
+    NSArray *permissions =[NSArray arrayWithObjects:kOPEN_PERMISSION_GET_USER_INFO, kOPEN_PERMISSION_GET_SIMPLE_USER_INFO, nil];;
     [self.tencentOAuth authorize:permissions inSafari:NO];
 }
 
@@ -174,9 +167,6 @@
 }
 
 #pragma mark - TencentSessionDelegate
-/**
- * 登录成功后的回调
- */
 - (void)tencentDidLogin {
     // 保存用户 accessToken expirationDate openId
     [BMUserInfo sharedUserInfo].accessToken    = self.tencentOAuth.accessToken;
@@ -184,21 +174,22 @@
     [BMUserInfo sharedUserInfo].openId         = self.tencentOAuth.openId;
     // 获取用户基本信息
     [self.tencentOAuth getUserInfo];
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    [[BrickManAPIManager shareInstance] requestAuthLoginWithParams:@{@"thirdAuth" : @"qq", @"accessToken" : self.tencentOAuth.accessToken, @"openId" : self.tencentOAuth.openId} andBlock:^(id data, NSError *error) {
+        if (data) {
+            //缓存用户信息
+            [NSObject saveLoginData:data];
+            [[BrickManNetClient sharedJsonClient] setToken:data[@"token"]];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 }
 
-/**
- * 登录失败后的回调
- * @param cancelled 代表用户是否主动退出登录
- */
 - (void)tencentDidNotLogin:(BOOL)cancelled {
     UIAlertController *alert = [UIAlertController errorAlertWithMessage:@"登录失败"];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-/**
- * 登录时网络有问题的回调
- */
 - (void)tencentDidNotNetWork {
 }
 
@@ -209,9 +200,11 @@
  *          错误返回示例: \snippet example/getUserInfoResponse.exp fail
  */
 - (void)getUserInfoResponse:(APIResponse *)response {
-    // 保存用户信息到本地
-    [[BMUserInfo sharedUserInfo] saveUserInfoWithDict:response.jsonResponse];
-    // TODO: 用户数据与服务器对接
+    //处理超时错误
+    if (response.detailRetCode == kOpenSDKErrorSuccess) {
+        // 保存用户信息到本地
+        [[BMUserInfo sharedUserInfo] saveUserInfoWithDict:response.jsonResponse];
+    }
 }
 
 

@@ -6,9 +6,10 @@
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
-#define kCellIdentifier_Mine_BrickCell @"Mine_BrickCell"
 #import <UIKit/UIKit.h>
 #import "Mine_BrickModel.h"
+
+static NSString * const kCellIdentifier_Mine_BrickCell = @"Mine_BrickCell";
 
 @interface Mine_BrickCell : UITableViewCell
 

@@ -8,7 +8,7 @@
 
 #import "BrickManAPIManager.h"
 #import "BrickManNetClient.h"
-#import <YYModel/YYModel.h>
+#define CustomErrorDomain @"com.zhuantouren.error"
 
 @implementation BrickManAPIManager
 
@@ -21,28 +21,16 @@
     return share_instance;
 }
 
-- (void)requestWithParams:(id)params andBlock:(void (^)(id data, NSError *error))block {
-    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/content/test.json" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
-        if (error) {
-            block(nil,error);
-        }else {
-            block(data,error);
-        }
-    }];
-}
-
 //获取内容列表
-- (void)requestContentListWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
-    NSDictionary *dic = @{@"pageNo" : @"1",
-                          @"pageSize" : @"10",
-                          @"orderType" : @"0"};
-    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"content/list_content.json" withParams:dic withMethodType:Get andBlock:^(id data, NSError *error) {
-        if (error) {
-            block(nil,error);
+- (void)requestContentListWithObj:(BMContentListModel *)contentList andBlock:(void(^)(id data, NSError *error))block {
+    contentList.isLoading = YES;
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/content/list_content.json" withParams:[contentList getContentListParams] withMethodType:Get andBlock:^(id data, NSError *error) {
+        contentList.isLoading = NO;
+        if (data) {
+            BMContentListModel *model = [BMContentListModel yy_modelWithJSON:data];
+            block(model, nil);
         }else {
-            NSDictionary *list = [data objectForKey:@"body"];
-            
-            block(data,nil);
+            block(nil,error);
         }
     }];
 }
@@ -52,7 +40,90 @@
     
 }
 
+//送鲜花、拍砖、举报
+- (void)requestOperContentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/content/oper_content.json" withParams:params withMethodType:Put andBlock:^(id data, NSError *error) {
+        if (data) {
+            block(data,nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
 
+//授权登录
+- (void)requestAuthLoginWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/auth_login.json" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
+        if (data) {
+            NSDictionary *dic = data[@"body"];
+            block(dic,nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
 
+//我的鲜花
+- (void)requestMyBrickFlowerWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/top_users.json" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
+        if (error) {
+            block(nil,error);
+        }else {
+            block(data,nil);
+        }
+    }];
+}
+
+//我的砖集
+- (void)requestUserContentListWithObj:(BMContentListModel *)contentList andBlock:(void(^)(id data, NSError *error))block {
+    contentList.isLoading = YES;
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/user_content_list.do" withParams:[contentList getUserContentListParams] withMethodType:Get andBlock:^(id data, NSError *error) {
+        contentList.isLoading = NO;
+        if (data) {
+            BMContentListModel *model = [BMContentListModel yy_modelWithJSON:data];
+            block(model, nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
+
+//发布
+- (void)requestAddContentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/content/add_content.do" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
+        if (data) {
+            block(data,nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
+
+//修改我的信息
+- (void)requestUpdateUserInfoWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/update_user_info.do" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
+        if (data) {
+            block(data,nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
+
+//上传文件
+- (void)uploadFileWithImages:(NSArray *)images
+               doneBlock:(void (^)(NSString *imagePath, NSError *error))block
+           progerssBlock:(void (^)(CGFloat progressValue))progress {
+    [[BrickManNetClient sharedJsonClient] uploadImages:images WithPath:@"/upload/upload_file.do" successBlock:^(NSURLSessionDataTask *task, id responseObject) {
+        if (responseObject) {
+            NSString *result = responseObject[@"body"];
+            block(result,nil);
+        }
+    } failureBlock:^(NSURLSessionDataTask *task, NSError *error) {
+        block(nil, error);
+    } progerssBlock:^(CGFloat progressValue) {
+        progress(progressValue);
+    }];
+}
 
 @end

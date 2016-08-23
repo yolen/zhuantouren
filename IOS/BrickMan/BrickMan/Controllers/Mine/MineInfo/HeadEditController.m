@@ -20,7 +20,6 @@
     self.title = @"我的头像";
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveHead:)];
     self.navigationItem.rightBarButtonItem = rightItem;
-    self.headImgView.image = [UIImage imageNamed:@"user_icon"];
     [self.view addSubview:self.headImgView];
     
     UIButton *changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -43,7 +42,7 @@
 
 - (void)changeHead:(UIButton *)sender {
     UIAlertController *actionSheet = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *takePhoto = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction *  action) {
         UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
         imagePicker.delegate = (id)self;
         imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -65,23 +64,25 @@
 }
 
 #pragma mark - UIImagePickerControllerDelegate
-
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    NSLog(@"%@",info);
+    UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     
+    //保存原图片到相册中
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera && originalImage) {
+        UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, NULL);
+    }
     [picker dismissViewControllerAnimated:YES completion:^{
         CutHeadController *cutHead = [[CutHeadController alloc]init];
-        cutHead.image = info[UIImagePickerControllerOriginalImage];
+        cutHead.image = originalImage;
         [self.navigationController pushViewController:cutHead animated:YES];
     }];
 }
 
 - (UIImageView *)headImgView {
     if (!_headImgView) {
-        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Width)];
+        _headImgView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 20, kScreen_Width - 10, kScreen_Width - 10)];
         _headImgView.layer.masksToBounds = YES;
-        _headImgView.layer.cornerRadius = kScreen_Width/2;
+        _headImgView.layer.cornerRadius = (kScreen_Width - 10)/2;
     }
     return _headImgView;
 }

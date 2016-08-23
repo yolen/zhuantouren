@@ -10,4 +10,6 @@
 
 @interface ComposeTextView : UIView
 
+@property (strong, nonatomic) NSString *text;
+
 @end

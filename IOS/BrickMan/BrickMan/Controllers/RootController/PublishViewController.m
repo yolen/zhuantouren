@@ -8,24 +8,20 @@
 
 #import "BMLoginViewController.h"
 #import "ComposeViewController.h"
+#import "ComposeViewController.h"
 #import "PublishViewController.h"
 #import "UITapImageView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "ComposeViewController.h"
+#import <TZImagePickerController/TZImagePickerController.h>
 
-@interface PublishViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
-/**
- *  相册或者相机控制器
- */
+@interface PublishViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate,TZImagePickerControllerDelegate>
+
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
-
-/**
- *  选择或者捕获的 image
- */
 @property (nonatomic, strong) UIImage *image;
-
-
+@property (strong, nonatomic) ComposeViewController *composeViewController;
 @end
 
 @implementation PublishViewController
@@ -33,8 +29,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _imagePicker          = [[UIImagePickerController alloc] init];
+    _imagePicker.delegate = self;
 
     [self customView];
+    self.composeViewController = [[ComposeViewController alloc] init];
 }
 
 - (void)customView {
@@ -104,10 +103,8 @@
  *  modal 出发布界面
  */
 - (void)composePhotosOrVideos {
-    ComposeViewController *composeViewController = [[ComposeViewController alloc] init];
     UINavigationController *navigationController =
-    [[UINavigationController alloc] initWithRootViewController:composeViewController];
-    composeViewController.image = self.image;
+    [[UINavigationController alloc] initWithRootViewController:self.composeViewController];
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -143,15 +140,30 @@
  *  点击相册,进入相册选择照片
  */
 - (void)photoAction {
-    // 如果没有登录,显示登录界面
     if (!self.isLogin) {
         BMLoginViewController *loginViewController = [[BMLoginViewController alloc] init];
         [self.navigationController pushViewController:loginViewController animated:YES];
     } else {
-        // 否则显示图片选择页面
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:self.imagePicker animated:YES completion:nil];
+        TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
+        imagePickerVc.allowTakePicture = NO; // 隐藏拍照按钮
+        imagePickerVc.oKButtonTitleColorDisabled = [UIColor lightGrayColor];
+        imagePickerVc.allowPickingVideo = NO;
+        [self presentViewController:imagePickerVc animated:YES completion:nil];
     }
+}
+
+#pragma mark - TZImagePickerControllerDelegate
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto infos:(NSArray<NSDictionary *> *)infos {
+    __weak typeof(self) weakSelf = self;
+    [[BrickManAPIManager shareInstance] uploadFileWithImages:photos doneBlock:^(NSString *imagePath, NSError *error) {
+        if (imagePath) {
+            weakSelf.composeViewController.imagePath = imagePath;
+            weakSelf.composeViewController.images = photos;
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [self composePhotosOrVideos];
+        }
+    } progerssBlock:nil];
 }
 
 
@@ -184,6 +196,12 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
             }
         }
     }
+//    [[BrickManAPIManager shareInstance] uploadFileWithImage:self.image doneBlock:^(NSArray *imgPathArray, NSError *error) {
+//        if (imgPathArray.count > 0) {
+//            [ComposeViewController sharedInstance].imagePathArray = imgPathArray;
+//        }
+//    } progerssBlock:nil];
+   
     [self dismissViewControllerAnimated:YES completion:nil];
     [self composePhotosOrVideos];
 }
@@ -230,13 +248,13 @@ didFinishSavingWithError:(NSError *)error
 }
 
 #pragma mark - lazy loading
-- (UIImagePickerController *)imagePicker {
-    if (_imagePicker == nil) {
-        _imagePicker          = [[UIImagePickerController alloc] init];
-        _imagePicker.delegate = self;
-    }
-    return _imagePicker;
-}
+//- (UIImagePickerController *)imagePicker {
+//    if (_imagePicker == nil) {
+//        _imagePicker          = [[UIImagePickerController alloc] init];
+//        _imagePicker.delegate = self;
+//    }
+//    return _imagePicker;
+//}
 
 
 @end
