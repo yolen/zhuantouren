@@ -18,8 +18,8 @@ import android.widget.Toast;
 import com.brickman.app.MApplication;
 import com.brickman.app.R;
 import com.brickman.app.common.utils.TUtil;
-import com.brickman.app.ui.dialog.LoadingDialog;
-import com.brickman.app.ui.widget.view.SwipeBackLayout;
+import com.brickman.app.module.dialog.LoadingDialog;
+import com.brickman.app.module.widget.view.SwipeBackLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import butterknife.ButterKnife;
@@ -35,19 +35,38 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     private SwipeBackLayout swipeBackLayout;
     private ImageView ivShadow;
     protected boolean isInitMVP = true;
+    protected int statusBar_color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme(((MApplication)getApplication()).isNight ? R.style.AppThemeNight : R.style.AppThemeDay);
-        // 设置状态栏颜色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
-            setTranslucentStatus(true);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.colorPrimary);//通知栏所需颜色
+        int layoutId = getLayoutId();
+        if(layoutId == R.layout.activity_spalish
+                || layoutId == R.layout.activity_login
+                || layoutId == R.layout.activity_image_switcher){
+            setTheme(R.style.Transparent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                Window window = getWindow();
+                window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                        WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+                setTranslucentStatus(true);
+                SystemBarTintManager tintManager = new SystemBarTintManager(this);
+                tintManager.setStatusBarTintEnabled(true);
+                tintManager.setStatusBarTintResource(R.color.transparent);//通知栏所需颜色
+            }
+        } else {
+            setTheme(((MApplication)getApplication()).isNight ? R.style.AppThemeNight : R.style.AppThemeDay);
+            // 设置状态栏颜色
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+                setTranslucentStatus(true);
+                SystemBarTintManager tintManager = new SystemBarTintManager(this);
+                tintManager.setStatusBarTintEnabled(true);
+                tintManager.setStatusBarTintResource(R.color.colorPrimary);//通知栏所需颜色
+            }
         }
-        this.setContentView(this.getLayoutId());
+        setContentView(layoutId);
         ButterKnife.bind(this);
         mApp = MApplication.getInstance();
         mLoadingDialog = new LoadingDialog(this);
@@ -60,7 +79,10 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
-        if (layoutResID == R.layout.activity_main || layoutResID == R.layout.activity_login) {
+        if (layoutResID == R.layout.activity_main
+                || layoutResID == R.layout.activity_login
+                || layoutResID == R.layout.activity_spalish
+                || layoutResID == R.layout.activity_image_switcher) {
             super.setContentView(layoutResID);
         } else {
             super.setContentView(getContainer());

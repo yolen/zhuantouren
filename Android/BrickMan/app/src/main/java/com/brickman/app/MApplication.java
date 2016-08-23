@@ -5,8 +5,10 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 
+import com.brickman.app.common.data.DataKeeper;
 import com.brickman.app.common.glide.GlideImageLoader;
 import com.brickman.app.common.glide.GlidePauseOnScrollListener;
+import com.brickman.app.model.Bean.UserBean;
 import com.orhanobut.logger.Logger;
 import com.yolanda.nohttp.NoHttp;
 
@@ -22,6 +24,8 @@ import cn.finalteam.galleryfinal.ThemeConfig;
  */
 public class MApplication extends Application {
     public static MApplication mAppContext;
+    public static DataKeeper mDataKeeper;
+    public UserBean mUser;
     public boolean isNight = false;
     @Override
     public void onCreate() {
@@ -30,6 +34,8 @@ public class MApplication extends Application {
         //配置程序异常退出处理
 //        Thread.setDefaultUncaughtExceptionHandler(new LocalFileHandler(this));
         Logger.init("BRICK_MAN");
+        mDataKeeper = new DataKeeper(this, "BRICK_MAN");
+        mUser = (UserBean) mDataKeeper.get("user_info");
         NoHttp.initialize(this);
 
         //设置主题
@@ -59,7 +65,7 @@ public class MApplication extends Application {
         GalleryFinal.init(coreConfig);
     }
 
-    public static MApplication getInstance() {
+    public static MApplication getInstance(){
         return mAppContext;
     }
 

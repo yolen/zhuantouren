@@ -25,6 +25,7 @@
         android:background="@color/line" />
 
     <RadioGroup
+        android:id="@+id/rg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dp_10"
@@ -38,9 +39,9 @@
             android:layout_weight="1"
             android:background="@null"
             android:button="@null"
-            android:checked="true"
             android:drawablePadding="@dimen/dp_04"
             android:drawableTop="@drawable/radio_man"
+            android:tag="USER_SEX01"
             android:text="男"
             android:textAlignment="center"
             android:textColor="@color/blue"
@@ -63,6 +64,7 @@
             android:button="@null"
             android:drawablePadding="@dimen/dp_04"
             android:drawableTop="@drawable/radio_woman"
+            android:tag="USER_SEX02"
             android:text="女"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"

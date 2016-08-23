@@ -6,6 +6,7 @@
     <string name="cancel">取消</string>
     <string name="know">知道了</string>
     <string name="tip">提示</string>
+    <string name="send">发送</string>
     <string name="wait_dialog_title">正在请求，请稍后…</string>
 
     <!-- title field -->

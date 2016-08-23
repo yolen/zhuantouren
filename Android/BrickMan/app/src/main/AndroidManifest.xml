@@ -18,55 +18,66 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.main.LoginActivity"
-            android:theme="@style/AppTheme.ColorActionBar">
+            android:name=".module.main.SpalishActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".module.main.LoginActivity"
+            android:theme="@style/AppTheme.ColorActionBar" />
+        <activity
+            android:name=".module.main.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
-            android:name=".ui.brick.BrickListActivity"
+            android:name=".module.brick.BrickListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
-            android:name=".ui.mine.FlowerListActivity"
+            android:name=".module.brick.ImageSwitcherActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
-            android:name=".ui.mine.BricksListActivity"
+            android:name=".module.mine.FlowerListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
-            android:name=".ui.mine.CityActivity"
+            android:name=".module.mine.BricksListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
-            android:name=".ui.mine.PublishActivity"
+            android:name=".module.mine.CityActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
-            android:name=".ui.mine.UserInfoActivity"
+            android:name=".module.mine.PublishActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
-            android:name=".ui.main.PermissionsActivity"
+            android:name=".module.mine.UserInfoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
-            android:name=".ui.brick.BrickDetailActivity"
+            android:name=".module.main.PermissionsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ColorActionBar" />
+        <activity
+            android:name=".module.brick.BrickDetailActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />

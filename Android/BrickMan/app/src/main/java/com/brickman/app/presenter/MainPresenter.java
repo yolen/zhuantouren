@@ -22,7 +22,7 @@ public class MainPresenter extends MainContract.Presenter {
         mModel.loadBanner(new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(response.optBoolean("success")){
+                if (response.optBoolean("success")) {
                     BannerBean bannerBean = new Gson().fromJson(response.toString(), BannerBean.class);
                     mView.loadBannerSuccess(bannerBean);
                 } else {
@@ -42,9 +42,13 @@ public class MainPresenter extends MainContract.Presenter {
         mModel.loadBrickList(fragmentId, pageNO, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(HttpUtil.isSuccess(response)){
-                    List<BrickBean> brickList = new Gson().fromJson(response.optJSONArray("body").toString(), new TypeToken<List<BrickBean>>(){}.getType());
-                    mView.loadSuccess(fragmentId, brickList, response.optInt("pageSize"), response.optBoolean("hasMore"));
+                if (HttpUtil.isSuccess(response)) {
+                    List<BrickBean> brickList = new Gson().fromJson(response.optJSONObject("body").optJSONArray("data").toString(), new TypeToken<List<BrickBean>>() {
+                    }.getType());
+                    int pageNo = response.optJSONObject("body").optJSONObject("page").optInt("pageNo");
+                    int totalRecords = response.optJSONObject("body").optJSONObject("page").optInt("totalRecords");
+                    boolean hasMore = totalRecords > pageNo * 10;
+                    mView.loadSuccess(fragmentId, brickList, (int) Math.ceil((double) totalRecords / 10.0), hasMore);
                 } else {
                     mView.showMsg(response.optString("body"));
                 }

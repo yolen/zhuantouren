@@ -16,15 +16,15 @@ import java.util.List;
  */
 public class CommentsListPresenter extends CommentsListContract.Presenter {
     @Override
-    public void loadCommentList(int pageNO) {
-        mModel.loadCommentsList(pageNO, new HttpListener<JSONObject>() {
+    public void loadCommentList(int pageNO, int contentId) {
+        mModel.loadCommentsList(pageNO, contentId, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(response.optBoolean("success")){
-                    List<CommentBean> commentList = new Gson().fromJson(response.optJSONArray("data").toString(), new TypeToken<List<CommentBean>>(){}.getType());
+                if(HttpUtil.isSuccess(response)){
+                    List<CommentBean> commentList = new Gson().fromJson(response.optJSONArray("body").toString(), new TypeToken<List<CommentBean>>(){}.getType());
                     mView.loadSuccess(commentList, response.optInt("pageSize"), response.optBoolean("hasMore"));
                 } else {
-                    mView.showMsg(response.optString("message"));
+                    mView.showMsg(response.optString("body"));
                 }
                 mView.dismissLoading();
             }
@@ -42,10 +42,10 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
         mModel.flower(id, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(response.optBoolean("success")){
+                if(HttpUtil.isSuccess(response)){
                     mView.flowerSuccess();
                 } else {
-                    mView.showMsg(response.optString("message"));
+                    mView.showMsg(response.optString("body"));
                 }
             }
 
@@ -61,10 +61,10 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
         mModel.share(title, content, url, imgUrl, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(response.optBoolean("success")){
-                    mView.flowerSuccess();
+                if(HttpUtil.isSuccess(response)){
+                    mView.shareSuccess();
                 } else {
-                    mView.showMsg(response.optString("message"));
+                    mView.showMsg(response.optString("body"));
                 }
             }
 
@@ -77,19 +77,22 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
 
     @Override
     public void comment(String id, String text, String date) {
+        mView.showLoading();
         mModel.comment(id, text, date, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(response.optBoolean("success")){
-                    mView.flowerSuccess();
+                if(HttpUtil.isSuccess(response)){
+                    mView.commentSuccess();
                 } else {
-                    mView.showMsg(response.optString("message"));
+                    mView.showMsg(response.optString("body"));
                 }
+                mView.dismissLoading();
             }
 
             @Override
             public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
                 mView.showMsg(HttpUtil.makeErrorMessage(exception));
+                mView.dismissLoading();
             }
         });
     }

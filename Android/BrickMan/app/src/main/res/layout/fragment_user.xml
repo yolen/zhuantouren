@@ -6,14 +6,15 @@
     android:background="@color/light_gray"
     android:orientation="vertical">
 
-    <RelativeLayout android:id="@+id/userInfo"
+    <RelativeLayout
+        android:id="@+id/userInfo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_90"
         android:background="@drawable/item_bg"
         android:paddingLeft="@dimen/dp_15"
         android:paddingRight="@dimen/dp_15">
 
-        <com.brickman.app.ui.widget.view.CircleImageView
+        <com.brickman.app.module.widget.view.CircleImageView
             android:id="@+id/avator"
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_70"
@@ -41,6 +42,8 @@
             android:layout_marginLeft="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_08"
             android:layout_toRightOf="@id/avator"
+            android:ellipsize="end"
+            android:maxLength="20"
             android:text="路见不平拔刀相助"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/sp_12" />
@@ -73,7 +76,7 @@
         android:paddingLeft="@dimen/dp_15"
         android:paddingRight="@dimen/dp_15">
 
-        <com.brickman.app.ui.widget.view.CircleImageView
+        <com.brickman.app.module.widget.view.CircleImageView
             android:id="@+id/icon1"
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36"
@@ -115,7 +118,7 @@
         android:paddingLeft="@dimen/dp_15"
         android:paddingRight="@dimen/dp_15">
 
-        <com.brickman.app.ui.widget.view.CircleImageView
+        <com.brickman.app.module.widget.view.CircleImageView
             android:id="@+id/icon2"
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36"
@@ -157,7 +160,7 @@
         android:paddingLeft="@dimen/dp_15"
         android:paddingRight="@dimen/dp_15">
 
-        <com.brickman.app.ui.widget.view.CircleImageView
+        <com.brickman.app.module.widget.view.CircleImageView
             android:id="@+id/icon3"
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36"
@@ -205,7 +208,7 @@
         android:paddingLeft="@dimen/dp_15"
         android:paddingRight="@dimen/dp_15">
 
-        <com.brickman.app.ui.widget.view.CircleImageView
+        <com.brickman.app.module.widget.view.CircleImageView
             android:id="@+id/icon4"
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36"

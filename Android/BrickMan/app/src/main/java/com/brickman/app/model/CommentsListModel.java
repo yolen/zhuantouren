@@ -1,5 +1,6 @@
 package com.brickman.app.model;
 
+import com.brickman.app.MApplication;
 import com.brickman.app.common.base.Api;
 import com.brickman.app.common.http.HttpListener;
 import com.brickman.app.common.http.RequestHelper;
@@ -12,14 +13,20 @@ import com.brickman.app.contract.CommentsListContract;
  */
 public class CommentsListModel implements CommentsListContract.Model {
     @Override
-    public void loadCommentsList(int pageNO, HttpListener httpListener) {
-        RequestParam param = ParamBuilder.buildParam("pageSize", "10").append("pageNO", pageNO+"");
-        RequestHelper.sendPOSTRequest(true, Api.REQUEST_DETAIL_SLIST, param, httpListener);
+    public void loadCommentsList(int pageNo, int contentId, HttpListener httpListener) {
+        RequestParam param = ParamBuilder.buildParam("pageSize", "10")
+                .append("pageNo", pageNo+"")
+                .append("orderType", "0")
+                .append("contentId", contentId + "");
+        RequestHelper.sendGETRequest(true, Api.REQUEST_DETAIL_LIST, param, httpListener);
     }
 
     @Override
     public void comment(String id, String text, String date, HttpListener httpListener) {
-
+        RequestParam param = ParamBuilder.buildParam("userId", MApplication.getInstance().mUser.userId)
+                .append("contentId", id)
+                .append("commentContent", text);
+        RequestHelper.sendPOSTRequest(false, Api.REQUEST_DETAIL_COMMENT, param, httpListener);
     }
 
     @Override

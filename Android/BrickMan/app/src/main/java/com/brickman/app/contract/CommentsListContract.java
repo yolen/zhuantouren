@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface CommentsListContract {
     interface Model extends BaseModel {
-        void loadCommentsList(int pageNO, HttpListener httpListener);
+        void loadCommentsList(int pageNO, int contentId, HttpListener httpListener);
         void comment(String id, String text, String date, HttpListener httpListener);
         void flower(String id, HttpListener httpListener);
         void share(String title, String content, String url, String imgUrl, HttpListener httpListener);
@@ -28,7 +28,7 @@ public interface CommentsListContract {
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {
-        public abstract void loadCommentList(int pageNO);
+        public abstract void loadCommentList(int pageNO, int contentId);
         public abstract void comment(String id, String text, String date);
         public abstract void flower(String id);
         public abstract void share(String title, String content, String url, String imgUrl);

@@ -3,8 +3,9 @@ package com.brickman.app.adapter;
 import android.content.Context;
 
 import com.brickman.app.R;
+import com.brickman.app.common.utils.DateUtil;
 import com.brickman.app.model.Bean.CommentBean;
-import com.brickman.app.ui.widget.view.CircleImageView;
+import com.brickman.app.module.widget.view.CircleImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -23,9 +24,9 @@ public class CommentListAdapter extends BaseQuickAdapter<CommentBean> {
 
     @Override
     protected void convert(BaseViewHolder helper, CommentBean item) {
-        Glide.with(mCtx).load(item.avator).centerCrop().crossFade().into((CircleImageView)helper.getView(R.id.avator));
-        helper.setText(R.id.date, item.date);
-        helper.setText(R.id.nickName, item.nickName);
-        helper.setText(R.id.content, item.content);
+        Glide.with(mCtx).load(item.userId).centerCrop().crossFade().into((CircleImageView)helper.getView(R.id.avator));
+        helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
+        helper.setText(R.id.nickName, item.userId);
+        helper.setText(R.id.content, item.commentContent);
     }
 }

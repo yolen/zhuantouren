@@ -20,6 +20,7 @@
     <color name="bg_tab">#F4F5F6</color>
     <color name="line">#E2E2E2</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
     <color name="click_bg">#33E2E2E2</color>
     <color name="light_gray">#F1F2F4</color>
     <color name="transparent">#00000000</color>

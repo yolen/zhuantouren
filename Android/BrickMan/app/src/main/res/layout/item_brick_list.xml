@@ -18,7 +18,7 @@
         android:paddingRight="@dimen/dp_15"
         android:paddingTop="@dimen/dp_10">
 
-        <com.brickman.app.ui.widget.view.CircleImageView
+        <com.brickman.app.module.widget.view.CircleImageView
             android:id="@+id/avator"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"

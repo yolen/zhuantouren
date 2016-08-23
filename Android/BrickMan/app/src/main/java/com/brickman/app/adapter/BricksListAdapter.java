@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.brickman.app.R;
 import com.brickman.app.model.Bean.BricksBean;
-import com.brickman.app.ui.widget.view.CircleImageView;
+import com.brickman.app.module.widget.view.CircleImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

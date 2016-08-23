@@ -2,6 +2,7 @@ package com.brickman.app.common.http;
 
 import android.os.Handler;
 
+import com.brickman.app.MApplication;
 import com.brickman.app.common.http.param.RequestParam;
 import com.brickman.app.common.utils.AssetUtil;
 import com.brickman.app.common.utils.LogUtil;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.yolanda.nohttp.rest.CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE;
+
 /**
  * Created by mayu on 16/6/21,上午11:27.
  */
@@ -33,7 +36,7 @@ public class RequestHelper {
         mHttpUtil = HttpUtil.getRequestInstance();
     }
 
-    public static void sendGETRequest(boolean isCache, final String url, RequestParam params, final HttpListener listener){
+    public static void sendGETRequest(boolean isCache, final String url, RequestParam params, final HttpListener listener) {
         LogUtil.info(url);
         if (url.contains("DEMO")) {
             new Handler().postDelayed(new Runnable() {
@@ -46,15 +49,18 @@ public class RequestHelper {
         } else {
             Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.GET);
             request.setHeader("platform", "Android");
+            if (MApplication.getInstance().mUser != null) {
+                request.setHeader("token", MApplication.getInstance().mUser.token);
+            }
             request.setCacheMode(isCache ? CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
             if (params != null) {
                 params.append("cVal", params.encrypt());
+                HashMap<String, String> paramMap = params.toHashMap();
+                for (String key : paramMap.keySet()) {
+                    request.add(key, paramMap.get(key));
+                }
+                LogUtil.info(params.toString());
             }
-            HashMap<String, String> paramMap = params.toHashMap();
-            for (String key : paramMap.keySet()) {
-                request.add(key, paramMap.get(key));
-            }
-            LogUtil.info(params.toString());
             request.setCancelSign(url);
             mHttpUtil.add(0, request, listener, true);
         }
@@ -73,29 +79,50 @@ public class RequestHelper {
         } else {
             Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
             request.setHeader("platform", "Android");
-            request.setCacheMode(isCache ? CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
+            if (MApplication.mAppContext.mUser != null) {
+                LogUtil.info(MApplication.mAppContext.mUser.toString());
+                request.setHeader("token", MApplication.getInstance().mUser.token);
+            }
+            request.setCacheMode(isCache ? REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
             if (params != null) {
                 params.append("cVal", params.encrypt());
-            }
-            HashMap<String, String> paramMap = params.toHashMap();
-            for (String key : paramMap.keySet()) {
-                request.add(key, paramMap.get(key));
+                HashMap<String, String> paramMap = params.toHashMap();
+                for (String key : paramMap.keySet()) {
+                    request.add(key, paramMap.get(key));
+                }
+                LogUtil.info(params.toString());
             }
             request.setCancelSign(url);
             mHttpUtil.add(0, request, listener, true);
         }
     }
 
-    public static void uploadFile(String url, RequestParam params, List<String> fileList, OnUploadListener onUploadListener) {
-//        +"?ts=9371859&userId=test1&cVal=6d51d0721e7c2a7e9c975b49d4844d86&rn=1469607952195"
+    public static void sendPUTRequest(String url, RequestParam params, final HttpListener listener) {
         LogUtil.info(url);
-        String paramStr = "";
-        if (params != null) {
-            paramStr = params.append("cVal", params.encrypt()).toString();
-        }
-        LogUtil.info("参数:" + paramStr);
-        Request<JSONObject> request = NoHttp.createJsonObjectRequest(url+"?"+paramStr, RequestMethod.POST);
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.PUT);
         request.setHeader("platform", "Android");
+        if (MApplication.getInstance().mUser != null) {
+            request.setHeader("token", MApplication.getInstance().mUser.token);
+        }
+        if (params != null) {
+            params.append("cVal", params.encrypt());
+            HashMap<String, String> paramMap = params.toHashMap();
+            for (String key : paramMap.keySet()) {
+                request.add(key, paramMap.get(key));
+            }
+            LogUtil.info(params.toString());
+        }
+        request.setCancelSign(url);
+        mHttpUtil.add(0, request, listener, true);
+    }
+
+    public static void uploadFile(String url, RequestParam params, List<String> fileList, OnUploadListener onUploadListener, HttpListener<JSONObject> httpListener) {
+        LogUtil.info(url);
+        Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+        request.setHeader("platform", "Android");
+        if (MApplication.getInstance().mUser != null) {
+            request.setHeader("token", MApplication.getInstance().mUser.token);
+        }
         List<Binary> binaries = new ArrayList<>();
         for (int i = 0; i < fileList.size(); i++) {
             File dir = new File(fileList.get(i));
@@ -112,19 +139,16 @@ public class RequestHelper {
             binary.setUploadListener(i, onUploadListener);
             binaries.add(binary);
         }
+        if (params != null) {
+            params.append("cVal", params.encrypt());
+            HashMap<String, String> paramMap = params.toHashMap();
+            for (String key : paramMap.keySet()) {
+                request.add(key, paramMap.get(key));
+            }
+        }
         // 添加FileList到请求
         request.add("files", binaries);
         request.setCancelSign(url);
-        mHttpUtil.add(0, request, new HttpListener<JSONObject>() {
-            @Override
-            public void onSucceed(JSONObject response) {
-
-            }
-
-            @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-
-            }
-        }, true);
+        mHttpUtil.add(0, request, httpListener, true);
     }
 }

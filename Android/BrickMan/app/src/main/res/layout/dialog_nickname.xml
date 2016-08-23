@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="昵称"
+            android:maxLength="10"
             android:textColorHighlight="@color/text_light_gray"
             android:textColorHint="@color/text_light_gray"
             android:inputType="text"

@@ -194,8 +194,8 @@ public class UMSdkManager {
 	 */
 	public void addWXPlatform(Activity act) {
 		// 注意：在微信授权的时候，必须传递appSecret
-		String appId = "wxa5b550cd9a1817d6";
-		String appSecret = "daec9fff6ab7c9c2043035f53aeb8301";
+		String appId = "wxe73d155105fc13b7";
+		String appSecret = "9b254b479e930ee3257665d732520f83";
 		// 添加微信平台
 		UMWXHandler wxHandler = new UMWXHandler(act, appId, appSecret);
 		wxHandler.addToSocialSDK();
@@ -232,10 +232,11 @@ public class UMSdkManager {
 					@Override
 					public void onComplete(Bundle value, SHARE_MEDIA platform) {
 						// 获取uid
+//						【Bundle[{access_token=BAC7206F8A5FB925FDCE1E94119BAAD1, openid=C1A39E141323F11A746B57313129D6B9, expires_in=7776000, pay_token=C0FE96CFF6446FBD1F2A3DCD69351F6C, pf=desktop_m_qq-10000144-android-2002-, ret=0, uid=C1A39E141323F11A746B57313129D6B9, sendinstall=, appid=, pfkey=f1f1465e050e990f0113acaddef640dd, page_type=, auth_time=}]】
 						String uid = value.getString("uid");
 						if (!TextUtils.isEmpty(uid)) {
 //                             uid不为空，获取用户信息
-							getUserInfo(act, platform, listener);
+							getUserInfo(act, platform, value.getString("access_token"), value.getString("openid"), listener);
 						} else {
 							act.showToast("授权失败");
 						}
@@ -263,12 +264,16 @@ public class UMSdkManager {
 
 			@Override
 			public void onComplete(int status, SocializeEntity entity) {
-				String showText = "解除" + platform.toString() + "平台授权成功";
-				if (status != StatusCode.ST_CODE_SUCCESSED) {
-					showText = "解除" + platform.toString() + "平台授权失败[" + status + "]";
-					if(listener != null){
-						listener.success();
-					}
+				String showText;
+				if (status == StatusCode.ST_CODE_SUCCESSED) {
+					showText = "解除" + platform.name() + "平台授权成功";
+				} else {
+					showText = "解除" + platform.name() + "平台授权失败[" + status + "]";
+				}
+				LogUtil.debug("status", showText);
+				showText = "您已退出登录状态";
+				if(listener != null){
+					listener.success();
 				}
 				act.showToast(showText);
 				act.dismissLoading();
@@ -291,7 +296,7 @@ public class UMSdkManager {
 	 *
 	 * 目前用到的是【openID | nickname | sex | headingurl】
 	 */
-	public void getUserInfo(Activity act, SHARE_MEDIA platform, final LoginListener listener) {
+	public void getUserInfo(Activity act, SHARE_MEDIA platform, final String access_token, final String openid, final LoginListener listener) {
 		mController.getPlatformInfo(act, platform,
 				new SocializeListeners.UMDataListener() {
 					@Override
@@ -302,7 +307,7 @@ public class UMSdkManager {
 					@Override
 					public void onComplete(int status, Map<String, Object> info) {
 						if (!info.isEmpty()) {
-							listener.success(info);
+							listener.success(access_token, openid, info);
 							LogUtil.info(info.toString());
 						}
 					}

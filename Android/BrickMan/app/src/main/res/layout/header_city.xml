@@ -11,7 +11,7 @@
         android:background="@color/light_gray"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/dp_15"
-        android:text="当前定位城市"
+        android:text=""
         android:textColor="@color/text_gray"
         android:textSize="@dimen/sp_16" />
 

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <com.brickman.app.ui.widget.banner.BannerView
+        <com.brickman.app.module.widget.banner.BannerView
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_120"
@@ -29,7 +29,7 @@
             app:tl_indicator_color="@color/colorAccent"
             app:tl_indicator_height="@dimen/dp_02"
             app:tl_indicator_width_equal_title="true"
-            app:tl_tab_padding="@dimen/dp_22"
+            app:tl_tab_padding="@dimen/dp_00"
             app:tl_tab_space_equal="true"
             app:tl_textSelectColor="@color/colorAccent"
             app:tl_textUnselectColor="?attr/text_color"

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"  />
 
-    <com.brickman.app.ui.widget.banner.BannerLine
+    <com.brickman.app.module.widget.banner.BannerLine
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_03"
