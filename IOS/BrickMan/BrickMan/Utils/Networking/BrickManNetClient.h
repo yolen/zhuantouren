@@ -28,12 +28,12 @@ typedef enum {
  *  @param method 请求方式
  *  @param block  block回调
  */
-- (void)requestJsonDataWithPath:(NSString *)aPath
+- (void)requestJsonDataWithPath:(NSString *)path
                      withParams:(NSDictionary*)params
                  withMethodType:(NetworkMethod)method
                        andBlock:(void (^)(id data, NSError *error))block;
 
-- (void)requestJsonDataWithPath:(NSString *)aPath
+- (void)requestJsonDataWithPath:(NSString *)path
                      withParams:(NSDictionary*)params
                  withMethodType:(NetworkMethod)method
                   autoShowError:(BOOL)autoShowError

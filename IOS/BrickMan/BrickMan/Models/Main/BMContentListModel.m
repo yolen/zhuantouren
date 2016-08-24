@@ -8,7 +8,6 @@
 
 #import "BMContentListModel.h"
 #import "BMContentModel.h"
-#import "BMUserInfo.h"
 
 @implementation BMContentListModel
 
@@ -24,7 +23,7 @@
 }
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"body" : [BMContentModel class]};
+    return @{@"data" : [BMContentModel class]};
 }
 
 + (BMContentListModel *)contentListlWithType:(NSInteger)type {
@@ -43,23 +42,25 @@
 }
 
 - (NSDictionary *)getUserContentListParams {
-    NSInteger page = self.willLoadMore ? self.pageNo.integerValue + 1 : 1;
+    NSInteger page = self.willLoadMore ? self.page.pageNo.integerValue + 1 : 1;
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:3];
     [params setObject:[NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:page]] forKey:@"pageNo"];
     [params setObject:[NSString stringWithFormat:@"%@",self.pageSize] forKey:@"pageSize"];
-    [params setObject:[[NSObject loginData] objectForKey:@"userId"] forKey:@"userId"];
+    [params setObject:[[BMUser getUserInfo] objectForKey:@"userId"] forKey:@"userId"];
     return params;
 }
 
-- (void)configWithData:(BMContentListModel *)data {
-    if (data.body.count == 0) {
+- (void)configWithData:(BMContentListModel *)model {
+    if (model.data.count == 0) {
         return;
     }
     if (_willLoadMore) {
-        [self.body addObjectsFromArray:data.body];
+        [self.data addObjectsFromArray:model.data];
     }else {
-        self.body = [NSMutableArray arrayWithArray:data.body];
+        self.data = [NSMutableArray arrayWithArray:model.data];
     }
+    self.page = model.page;
+    _canLoadMore = model.page.pageNo.integerValue < model.page.totalRecords.integerValue;
 }
 
 @end

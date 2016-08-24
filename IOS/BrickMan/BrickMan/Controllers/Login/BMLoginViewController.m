@@ -7,7 +7,6 @@
 //
 
 #import "BMLoginViewController.h"
-#import "BMUserInfo.h"
 #import "MainViewController.h"
 #import <TencentOpenAPI/TencentApiInterface.h>
 #import <TencentOpenAPI/TencentOAuth.h>
@@ -168,17 +167,10 @@
 
 #pragma mark - TencentSessionDelegate
 - (void)tencentDidLogin {
-    // 保存用户 accessToken expirationDate openId
-    [BMUserInfo sharedUserInfo].accessToken    = self.tencentOAuth.accessToken;
-    [BMUserInfo sharedUserInfo].expirationDate = self.tencentOAuth.expirationDate;
-    [BMUserInfo sharedUserInfo].openId         = self.tencentOAuth.openId;
-    // 获取用户基本信息
-    [self.tencentOAuth getUserInfo];
-    
     [[BrickManAPIManager shareInstance] requestAuthLoginWithParams:@{@"thirdAuth" : @"qq", @"accessToken" : self.tencentOAuth.accessToken, @"openId" : self.tencentOAuth.openId} andBlock:^(id data, NSError *error) {
         if (data) {
             //缓存用户信息
-            [NSObject saveLoginData:data];
+            [BMUser saveUserInfo:data];
             [[BrickManNetClient sharedJsonClient] setToken:data[@"token"]];
             [self.navigationController popViewControllerAnimated:YES];
         }
@@ -191,20 +183,7 @@
 }
 
 - (void)tencentDidNotNetWork {
-}
-
-/**
- * 获取用户个人信息回调
- * \param response API返回结果，具体定义参见sdkdef.h文件中\ref APIResponse
- * \remarks 正确返回示例: \snippet example/getUserInfoResponse.exp success
- *          错误返回示例: \snippet example/getUserInfoResponse.exp fail
- */
-- (void)getUserInfoResponse:(APIResponse *)response {
-    //处理超时错误
-    if (response.detailRetCode == kOpenSDKErrorSuccess) {
-        // 保存用户信息到本地
-        [[BMUserInfo sharedUserInfo] saveUserInfoWithDict:response.jsonResponse];
-    }
+    
 }
 
 

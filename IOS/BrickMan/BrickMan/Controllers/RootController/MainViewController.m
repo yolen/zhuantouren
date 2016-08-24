@@ -113,7 +113,7 @@
     if (_oldSelectedIndex != carousel.currentItemIndex) {
         _oldSelectedIndex = carousel.currentItemIndex;
         BrickListView *listView = (BrickListView *)carousel.currentItemView;
-        [listView refresh];
+        [listView refreshFirst];
     }
 }
 

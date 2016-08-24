@@ -167,7 +167,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
 }
 
 - (void)composeButtonAction {
-    NSDictionary *dataDic = [NSObject loginData];
+    NSDictionary *dataDic = [BMUser getUserInfo];
     NSDictionary *params = @{@"userId" : dataDic[@"userId"],
                              @"imgPaths" : self.imagePath,
                              @"contentTitle" : self.textView.text,

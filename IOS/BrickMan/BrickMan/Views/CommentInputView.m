@@ -53,6 +53,10 @@
 
 - (void)sendAction:(id)sender {
     [self.inputTextView resignFirstResponder];
+    
+    if (self.sendCommentBlock) {
+        self.sendCommentBlock();
+    }
 }
 
 #pragma mark - Show Or Hidden

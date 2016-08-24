@@ -17,14 +17,17 @@
 @property (strong, nonatomic) UITableView *myTableView;
 @property (nonatomic, strong) ODRefreshControl *refreshControl;
 
-@property (strong, nonatomic) BMContentListModel *contentList;
+@property (strong, nonatomic) NSMutableDictionary *contentListDic;
+@property (assign, nonatomic) NSInteger curIndex;
 @end
 
 @implementation BrickListView
 
 - (instancetype)initWithFrame:(CGRect)frame andIndex:(NSInteger)index {
     if (self = [super initWithFrame:frame]) {
-        self.contentList = [BMContentListModel contentListlWithType:index];
+        self.contentListDic = [NSMutableDictionary dictionaryWithCapacity:4];
+        self.curIndex = index;
+        
         self.myTableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
         self.myTableView.dataSource = self;
         self.myTableView.delegate = self;
@@ -39,51 +42,81 @@
         
         self.refreshControl = [[ODRefreshControl alloc] initInScrollView:self.myTableView];
         [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-        [self refresh];
+        [self refreshFirst];
 
     }
     return self;
 }
 
+
+
 #pragma mark - refresh
+- (void)refreshFirst {
+    BMContentListModel *contentList = [self getContentList];
+    if (contentList) {
+        self.myTableView.showsInfiniteScrolling = contentList.canLoadMore;
+    }else {
+        contentList = [BMContentListModel contentListlWithType:self.curIndex];
+        [self saveContentList:contentList];
+    }
+    if (contentList.data.count <= 0) {
+        [self refresh];
+    }
+}
+
 - (void)refresh {
-    if (self.contentList.isLoading) {
+    BMContentListModel *contentList = [self getContentList];
+    if (contentList.isLoading) {
         return;
     }
-    self.contentList.willLoadMore = NO;
+    contentList.willLoadMore = NO;
     [self sendRequest];
 }
 
 - (void)refreshMore {
-    if (self.contentList.isLoading || !self.contentList.canLoadMore) {
+    BMContentListModel *contentList = [self getContentList];
+    if (contentList.isLoading || !contentList.canLoadMore) {
         return;
     }
-    self.contentList.willLoadMore = YES;
+    contentList.willLoadMore = YES;
     [self sendRequest];
 }
 
 - (void)sendRequest {
+    BMContentListModel *contentList = [self getContentList];
+    
     __weak typeof(self) weakSelf = self;
-    [[BrickManAPIManager shareInstance] requestContentListWithObj:self.contentList andBlock:^(id data, NSError *error) {
+    [[BrickManAPIManager shareInstance] requestContentListWithObj:contentList andBlock:^(id data, NSError *error) {
         [weakSelf.refreshControl endRefreshing];
+        [weakSelf.myTableView.infiniteScrollingView stopAnimating];
+        
         if (data) {
-            [weakSelf.contentList configWithData:data];
+            [contentList configWithData:data];
             [weakSelf.myTableView reloadData];
-            weakSelf.myTableView.showsInfiniteScrolling = weakSelf.contentList.canLoadMore;
-        }else {
-            weakSelf.myTableView.showsInfiniteScrolling = NO;
+            weakSelf.myTableView.showsInfiniteScrolling = contentList.canLoadMore;
         }
     }];
 }
 
+#pragma mark - Get And Set
+- (void)saveContentList:(BMContentListModel *)model {
+    [self.contentListDic setObject:model forKey:[NSNumber numberWithInteger:self.curIndex]];
+}
+
+- (BMContentListModel *)getContentList {
+    return [self.contentListDic objectForKey:[NSNumber numberWithInteger:self.curIndex]];
+}
+
 #pragma mark - tableView
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.contentList.body.count;
+    BMContentListModel *contentList = [self getContentList];
+    return contentList.data.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
-    cell.model = self.contentList.body[indexPath.row];
+    BMContentListModel *contentList = [self getContentList];
+    cell.model = contentList.data[indexPath.row];
     cell.shareBlock = ^(){
         [ShareView showShareView];
     };
@@ -91,12 +124,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BMContentModel  *model = self.contentList.body[indexPath.row];
+    BMContentListModel *contentList = [self getContentList];
+    BMContentModel  *model = contentList.data[indexPath.row];
     return [MainTableViewCell cellHeightWithModel:model];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BMContentModel *model = self.contentList.body[indexPath.row];
+    BMContentListModel *contentList = [self getContentList];
+    BMContentModel *model = contentList.data[indexPath.row];
     if (self.goToDetailBlock) {
         self.goToDetailBlock(model);
     }

@@ -38,15 +38,15 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     [self.requestSerializer setValue:token forHTTPHeaderField:@"token"];
 }
 
-- (void)requestJsonDataWithPath:(NSString *)aPath
+- (void)requestJsonDataWithPath:(NSString *)path
                      withParams:(NSDictionary*)params
                  withMethodType:(NetworkMethod)method
                        andBlock:(void (^)(id data, NSError *error))block {
-    [self requestJsonDataWithPath:aPath withParams:params withMethodType:method autoShowError:YES andBlock:block];
+    [self requestJsonDataWithPath:path withParams:params withMethodType:method autoShowError:YES andBlock:block];
 }
 
-- (void)requestJsonDataWithPath:(NSString *)aPath withParams:(NSDictionary *)params withMethodType:(NetworkMethod)method autoShowError:(BOOL)autoShowError andBlock:(void (^)(id, NSError *))block {
-    if (!aPath || aPath.length <= 0) {
+- (void)requestJsonDataWithPath:(NSString *)path withParams:(NSDictionary *)params withMethodType:(NetworkMethod)method autoShowError:(BOOL)autoShowError andBlock:(void (^)(id, NSError *))block {
+    if (!path || path.length <= 0) {
         return;
     }
     
@@ -64,29 +64,33 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     
     NSString *cVal = [self getMD5StringWithParams:dic];
     [dic setObject:cVal forKey:@"cVal"];
-    DebugLog(@"request:%@ \nparams:%@", aPath, dic);
+    DebugLog(@"request:%@ \nparams:%@", path, dic);
     
     //发起请求
     switch (method) {
         case Get:{
-            [self GET:aPath parameters:dic progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
+            [self GET:path parameters:dic progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+                DebugLog(@"\n===========response===========\n%@:\n%@", path, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
-                    block(nil,error);
+                    responseObject = [NSObject loadResponseWithPath:path];
+                    block(responseObject,error);
                 }else{
-                    block(responseObject, nil);
+                    id result = [responseObject valueForKey:@"body"];
+                    [NSObject saveResponseData:result toPath:path];
+                    block(result, nil);
                 }
 
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
+                DebugLog(@"\n===========response===========\n%@:\n%@", path, error);
                 !autoShowError || [NSObject showError:error];
-                block(nil, error);
+                NSDictionary *responseObject = [NSObject loadResponseWithPath:path];
+                block(responseObject, error);
             }];
             break;}
         case Post:{
-            [self POST:aPath parameters:dic progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
+            [self POST:path parameters:dic progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+                DebugLog(@"\n===========response===========\n%@:\n%@", path, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
                     block(nil, error);
@@ -95,14 +99,14 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
                 }
 
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
+                DebugLog(@"\n===========response===========\n%@:\n%@", path, error);
                 !autoShowError || [NSObject showError:error];
                 block(nil, error);
             }];
             break;}
         case Put:{
-            [self PUT:aPath parameters:dic success:^(NSURLSessionDataTask *task, id responseObject) {
-                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, responseObject);
+            [self PUT:path parameters:dic success:^(NSURLSessionDataTask *task, id responseObject) {
+                DebugLog(@"\n===========response===========\n%@:\n%@", path, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
                     block(nil, error);
@@ -110,7 +114,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
                     block(responseObject, nil);
                 }
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
-                DebugLog(@"\n===========response===========\n%@:\n%@", aPath, error);
+                DebugLog(@"\n===========response===========\n%@:\n%@", path, error);
                 !autoShowError || [NSObject showError:error];
                 block(nil, error);
             }];
@@ -138,7 +142,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     
     NSString *cVal = [self getMD5StringWithParams:dic];
     [dic setObject:cVal forKey:@"cVal"];
-    [dic setObject:[[NSObject loginData] objectForKey:@"userId"] forKey:@"userId"];
+    [dic setObject:[[BMUser getUserInfo] objectForKey:@"userId"] forKey:@"userId"];
     
     [self POST:path parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         for (UIImage *image in images) {

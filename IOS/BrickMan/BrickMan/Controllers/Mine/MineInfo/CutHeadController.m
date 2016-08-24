@@ -67,9 +67,8 @@
     [[BrickManAPIManager shareInstance] uploadFileWithImages:@[newImage] doneBlock:^(NSString *imagePath, NSError *error) {
         if (imagePath) {
             //更新缓存
-            NSMutableDictionary *userData = [NSObject loginData];
-            userData[@"userHead"] = [NSString stringWithFormat:@"%@/%@",kImageUrl,imagePath];
-            [userData writeToFile:[NSObject loginDataPath] atomically:YES];
+//            NSDictionary *userData = [BMUser getUserInfo];
+//            userData[@"userHead"] = [NSString stringWithFormat:@"%@/%@",kImageUrl,imagePath];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
             HeadEditController *headEdit = self.navigationController.viewControllers[self.navigationController.viewControllers.count - 2];

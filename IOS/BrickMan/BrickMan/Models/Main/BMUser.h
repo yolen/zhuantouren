@@ -12,4 +12,10 @@
 
 @property (strong, nonatomic) NSString *motto, *plat, *platId, *token, *userAlias, *userHead, *userId, *userName, *userPhone, *userSex, *userStatus;
 
+#pragma mark - user
++ (void)saveUserInfo:(NSDictionary *)data;
++ (NSDictionary *)getUserInfo;
++ (void)removeUserInfo;
++ (BOOL)isLogin;
+
 @end
