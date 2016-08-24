@@ -33,7 +33,7 @@
 }
 
 - (NSDictionary *)getContentListParams {
-    NSInteger page = self.willLoadMore ? self.pageNo.integerValue + 1 : 1;
+    NSInteger page = self.willLoadMore ? self.page.pageNo.integerValue + 1 : 1;
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:3];
     [params setObject:[NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:page]] forKey:@"pageNo"];
     [params setObject:[NSString stringWithFormat:@"%@",self.pageSize] forKey:@"pageSize"];
