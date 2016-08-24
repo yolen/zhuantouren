@@ -921,7 +921,7 @@
 				TargetAttributes = {
 					1BFD4CF21D3CCC3100ABE8E6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = EPSPHDMRQR;
+						DevelopmentTeam = 832EPSL7GQ;
 					};
 					1BFD4D0B1D3CCC3100ABE8E6 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1280,7 +1280,7 @@
 					"\"UIKit\"",
 					"-fobjc-arc",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.brickapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BrickMan/Models/Main/BrickMan-Bridging-Header.h";
@@ -1324,7 +1324,7 @@
 					"\"UIKit\"",
 					"-fobjc-arc",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.brickapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BrickMan/Models/Main/BrickMan-Bridging-Header.h";
