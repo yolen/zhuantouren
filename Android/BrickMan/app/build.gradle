@@ -10,8 +10,8 @@ android {
             storePassword 'brickman'
         }
     }
-    compileSdkVersion 24
-    buildToolsVersion '24.0.0'
+    compileSdkVersion 23
+    buildToolsVersion '23.0.3'
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         applicationId "com.brickman.app"
@@ -35,19 +35,22 @@ android {
     }
     productFlavors {
     }
+    dexOptions {
+        incremental true
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.yolanda.nohttp:nohttp:1.0.4'
     compile 'com.jakewharton:butterknife:8.2.1'
     apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.wang.avi:library:1.0.5'
     //    compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.orhanobut:logger:1.15'
-    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:design:23.0.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.6@aar'
@@ -68,5 +71,5 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
     // https://github.com/bingoogolapple/BGABadgeView-Android.git
-//    compile 'cn.bingoogolapple:bga-badgeview:latestVersion@aar'
+    //    compile 'cn.bingoogolapple:bga-badgeview:latestVersion@aar'
 }

@@ -58,12 +58,12 @@
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
             android:name=".module.mine.CityActivity"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
             android:name=".module.mine.PublishActivity"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity

@@ -80,7 +80,7 @@ public class RequestHelper {
             Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
             request.setHeader("platform", "Android");
             if (MApplication.mAppContext.mUser != null) {
-                LogUtil.info(MApplication.mAppContext.mUser.toString());
+                LogUtil.info("token = " + MApplication.mAppContext.mUser.token);
                 request.setHeader("token", MApplication.getInstance().mUser.token);
             }
             request.setCacheMode(isCache ? REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);

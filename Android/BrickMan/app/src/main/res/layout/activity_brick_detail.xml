@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -37,17 +38,17 @@
             android:textStyle="normal" />
 
         <!--<RelativeLayout-->
-            <!--android:id="@+id/share"-->
-            <!--android:layout_width="?attr/actionBarSize"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:layout_gravity="right"-->
-            <!--android:gravity="center">-->
+        <!--android:id="@+id/share"-->
+        <!--android:layout_width="?attr/actionBarSize"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:gravity="center">-->
 
-            <!--<ImageView-->
-                <!--android:layout_width="@dimen/dp_28"-->
-                <!--android:layout_height="@dimen/dp_22"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:src="@mipmap/bm_send" />-->
+        <!--<ImageView-->
+        <!--android:layout_width="@dimen/dp_28"-->
+        <!--android:layout_height="@dimen/dp_22"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:src="@mipmap/bm_send" />-->
         <!--</RelativeLayout>-->
     </android.support.v7.widget.Toolbar>
 
@@ -80,9 +81,10 @@
         android:layout_height="@dimen/dp_45"
         android:background="@color/bg_tab"
         android:orientation="horizontal"
-        android:weightSum="3">
+        android:weightSum="4">
 
-        <LinearLayout android:id="@+id/comment"
+        <LinearLayout
+            android:id="@+id/comment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -120,7 +122,8 @@
             android:layout_marginTop="@dimen/dp_04"
             android:background="@color/line" />
 
-        <LinearLayout android:id="@+id/flower"
+        <LinearLayout
+            android:id="@+id/flower"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -158,7 +161,47 @@
             android:layout_marginTop="@dimen/dp_04"
             android:background="@color/line" />
 
-        <LinearLayout android:id="@+id/share"
+        <LinearLayout
+            android:id="@+id/brick"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iconBrick"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_16"
+                android:src="@mipmap/bm_brick4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_04"
+                android:text="拍砖"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/sp_15" />
+
+            <TextView
+                android:id="@+id/brickNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_06"
+                android:text="34"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/sp_12" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="@dimen/dp_01"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dp_04"
+            android:layout_marginTop="@dimen/dp_04"
+            android:background="@color/line" />
+
+        <LinearLayout
+            android:id="@+id/share"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

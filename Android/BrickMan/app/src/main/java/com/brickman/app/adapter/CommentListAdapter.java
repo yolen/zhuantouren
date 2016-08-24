@@ -1,6 +1,7 @@
 package com.brickman.app.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.brickman.app.R;
 import com.brickman.app.common.utils.DateUtil;
@@ -24,9 +25,9 @@ public class CommentListAdapter extends BaseQuickAdapter<CommentBean> {
 
     @Override
     protected void convert(BaseViewHolder helper, CommentBean item) {
-        Glide.with(mCtx).load(item.userId).centerCrop().crossFade().into((CircleImageView)helper.getView(R.id.avator));
+        Glide.with(mCtx).load(item.userId).placeholder(R.mipmap.ic_launcher).centerCrop().crossFade().into((CircleImageView)helper.getView(R.id.avator));
         helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
-        helper.setText(R.id.nickName, item.userId);
+        helper.setText(R.id.nickName, TextUtils.isEmpty(item.userName) ? "砖头人" : item.userName);
         helper.setText(R.id.content, item.commentContent);
     }
 }

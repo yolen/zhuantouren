@@ -18,7 +18,7 @@ public class CommentsListModel implements CommentsListContract.Model {
                 .append("pageNo", pageNo+"")
                 .append("orderType", "0")
                 .append("contentId", contentId + "");
-        RequestHelper.sendGETRequest(true, Api.REQUEST_DETAIL_LIST, param, httpListener);
+        RequestHelper.sendGETRequest(true, Api.GET_DETAIL_LIST, param, httpListener);
     }
 
     @Override
@@ -26,16 +26,27 @@ public class CommentsListModel implements CommentsListContract.Model {
         RequestParam param = ParamBuilder.buildParam("userId", MApplication.getInstance().mUser.userId)
                 .append("contentId", id)
                 .append("commentContent", text);
-        RequestHelper.sendPOSTRequest(false, Api.REQUEST_DETAIL_COMMENT, param, httpListener);
+        RequestHelper.sendPOSTRequest(false, Api.POST_DETAIL_COMMENT, param, httpListener);
     }
 
     @Override
     public void flower(String id, HttpListener httpListener) {
-
+        RequestParam param = ParamBuilder.buildParam("contentId", id)
+                .append("operType", "1");
+        RequestHelper.sendPOSTRequest(false, Api.POST_DETAIL_DO, param, httpListener);
     }
 
     @Override
-    public void share(String title, String content, String url, String imgUrl, HttpListener httpListener) {
+    public void brick(String id, HttpListener httpListener) {
+        RequestParam param = ParamBuilder.buildParam("contentId", id)
+                .append("operType", "2");
+        RequestHelper.sendPOSTRequest(false, Api.POST_DETAIL_DO, param, httpListener);
+    }
 
+    @Override
+    public void report(String id, HttpListener httpListener) {
+        RequestParam param = ParamBuilder.buildParam("contentId", id)
+                .append("operType", "3");
+        RequestHelper.sendPOSTRequest(false, Api.POST_DETAIL_DO, param, httpListener);
     }
 }

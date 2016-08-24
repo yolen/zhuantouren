@@ -14,6 +14,6 @@ public class FlowerListModel implements FlowerListContract.Model {
     @Override
     public void loadFlowerList(int pageNO, HttpListener httpListener) {
         RequestParam param = ParamBuilder.buildParam("pageSize", "10").append("pageNO", pageNO+"");
-        RequestHelper.sendPOSTRequest(true, Api.REQUEST_FLOWERLIST, param, httpListener);
+        RequestHelper.sendPOSTRequest(true, Api.GET_FLOWERLIST, param, httpListener);
     }
 }

@@ -16,13 +16,16 @@ public interface CommentsListContract {
         void loadCommentsList(int pageNO, int contentId, HttpListener httpListener);
         void comment(String id, String text, String date, HttpListener httpListener);
         void flower(String id, HttpListener httpListener);
-        void share(String title, String content, String url, String imgUrl, HttpListener httpListener);
+        void brick(String id, HttpListener httpListener);
+        void report(String id, HttpListener httpListener);
     }
 
     interface View extends BaseView {
         void loadSuccess(List<CommentBean> commentList, int pageSize, boolean hasMore);
         void commentSuccess();
         void flowerSuccess();
+        void brickSuccess();
+        void reportSuccess();
         void shareSuccess();
         void showMsg(String msg);
     }
@@ -31,7 +34,8 @@ public interface CommentsListContract {
         public abstract void loadCommentList(int pageNO, int contentId);
         public abstract void comment(String id, String text, String date);
         public abstract void flower(String id);
-        public abstract void share(String title, String content, String url, String imgUrl);
+        public abstract void brick(String id);
+        public abstract void report(String id);
         @Override
         public void onStart() {}
     }

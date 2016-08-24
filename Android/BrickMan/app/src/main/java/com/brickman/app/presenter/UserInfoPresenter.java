@@ -72,7 +72,7 @@ public class UserInfoPresenter extends UserInfoContract.Presenter {
             @Override
             public void onSucceed(JSONObject response) {
                 if(HttpUtil.isSuccess(response)){
-                    mView.updateAvatorSuccess(avatorUri);
+                    mView.updateAvatorSuccess(response.optJSONObject("body").optString("userHead"));
                     mView.showMsg("更新成功!");
                 } else {
                     mView.showMsg(response.optString("body"));

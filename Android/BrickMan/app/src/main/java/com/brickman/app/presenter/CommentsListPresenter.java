@@ -21,8 +21,13 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
             @Override
             public void onSucceed(JSONObject response) {
                 if(HttpUtil.isSuccess(response)){
-                    List<CommentBean> commentList = new Gson().fromJson(response.optJSONArray("body").toString(), new TypeToken<List<CommentBean>>(){}.getType());
-                    mView.loadSuccess(commentList, response.optInt("pageSize"), response.optBoolean("hasMore"));
+                    if(response.optJSONObject("body") != null){
+                        List<CommentBean> commentList = new Gson().fromJson(response.optJSONObject("body").optJSONArray("data").toString(), new TypeToken<List<CommentBean>>(){}.getType());
+                        int pageNo = response.optJSONObject("body").optJSONObject("page").optInt("pageNo");
+                        int totalRecords = response.optJSONObject("body").optJSONObject("page").optInt("totalRecords");
+                        boolean hasMore = totalRecords > pageNo * 10;
+                        mView.loadSuccess(commentList, (int) Math.ceil((double) totalRecords / 10.0), hasMore);
+                    }
                 } else {
                     mView.showMsg(response.optString("body"));
                 }
@@ -57,12 +62,31 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
     }
 
     @Override
-    public void share(String title, String content, String url, String imgUrl) {
-        mModel.share(title, content, url, imgUrl, new HttpListener<JSONObject>() {
+    public void brick(String id) {
+        mModel.brick(id, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
                 if(HttpUtil.isSuccess(response)){
-                    mView.shareSuccess();
+                    mView.brickSuccess();
+                } else {
+                    mView.showMsg(response.optString("body"));
+                }
+            }
+
+            @Override
+            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+                mView.showMsg(HttpUtil.makeErrorMessage(exception));
+            }
+        });
+    }
+
+    @Override
+    public void report(String id) {
+        mModel.report(id, new HttpListener<JSONObject>() {
+            @Override
+            public void onSucceed(JSONObject response) {
+                if(HttpUtil.isSuccess(response)){
+                    mView.reportSuccess();
                 } else {
                     mView.showMsg(response.optString("body"));
                 }

@@ -32,6 +32,7 @@ public class BrickBean implements Serializable {
     public int contentBricks;
     public int contentFlowors;
     public int contentShares;
+    public int commmentCount;
     public long createdTime;
     public int contentReports;
     /**

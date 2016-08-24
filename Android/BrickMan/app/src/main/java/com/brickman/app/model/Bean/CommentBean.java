@@ -16,6 +16,7 @@ public class CommentBean {
 
     public int id;
     public String userId;
+    public String userName;
     public int contentId;
     public String commentContent;
     public long updateTime;

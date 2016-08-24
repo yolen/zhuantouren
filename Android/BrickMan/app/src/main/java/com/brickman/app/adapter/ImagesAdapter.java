@@ -3,7 +3,6 @@ package com.brickman.app.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -117,10 +116,10 @@ public class ImagesAdapter {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop().crossFade().into(imageView);
 
-        imageView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mClickble) {
+        if (mClickble) {
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     Intent intent = new Intent(mCtx, ImageSwitcherActivity.class);
                     intent.putExtra(ImageSwitcherActivity.INTENT_KEY_IMAGE_SOURCE_TYPE, ImageSwitcherActivity.SOURCE_TYPE_NETWORK);
                     ArrayList<String> imageList = new ArrayList<String>();
@@ -131,8 +130,8 @@ public class ImagesAdapter {
                     intent.putExtra(ImageSwitcherActivity.INTENT_KEY_POSITION, pos);
                     mCtx.startActivity(intent);
                 }
-            }
-        });
+            });
+        }
         parent.addView(imageView);
     }
 }

@@ -203,6 +203,11 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         overridePendingTransition(R.anim.activity_animation_in_from_right, R.anim.activity_animation_out_to_left);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     public void finishWithAnim() {
         finish();
         overridePendingTransition(R.anim.activity_animation_in_from_left, R.anim.activity_animation_out_to_right);
