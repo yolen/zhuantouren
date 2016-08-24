@@ -110,6 +110,16 @@
     }];
 }
 
+- (void)requestAddCommentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"comment/add_comment.json" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
+        if (data) {
+            block(data,nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
+
 //上传文件
 - (void)uploadFileWithImages:(NSArray *)images
                doneBlock:(void (^)(NSString *imagePath, NSError *error))block

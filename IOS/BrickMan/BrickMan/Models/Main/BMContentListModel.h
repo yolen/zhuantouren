@@ -7,18 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BMPage.h"
 
 @interface BMContentListModel : NSObject
 
 @property (assign, nonatomic) BOOL canLoadMore, willLoadMore, isLoading;
 @property (strong, nonatomic) NSNumber *pageNo, *pageSize, *orderType;
-@property (strong, nonatomic) NSMutableArray *body;
-@property (strong, nonatomic) NSString *cVal, *code;
+@property (strong, nonatomic) NSMutableArray *data;
+@property (strong, nonatomic) BMPage *page;
 
 + (BMContentListModel *)contentListlWithType:(NSInteger)type;
 
 - (NSDictionary *)getContentListParams;
 - (NSDictionary *)getUserContentListParams;
-- (void)configWithData:(BMContentListModel *)data;
+
+- (void)configWithData:(BMContentListModel *)model;
 
 @end
+
+

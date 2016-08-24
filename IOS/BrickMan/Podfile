@@ -8,4 +8,5 @@ target 'BrickMan' do
     pod 'YYModel'
     pod 'SDWebImage'
     pod 'TZImagePickerController'
+    pod 'FMDB'
 end

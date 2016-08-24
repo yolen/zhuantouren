@@ -9,6 +9,8 @@
 #import "NSObject+Common.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 
+#define kResponseCache_path  @"ResponseCache"
+
 @implementation NSObject (Common)
 
 + (BOOL)showError:(NSError *)error{
@@ -71,33 +73,44 @@
     return obj;
 }
 
-#pragma mark - 
-+ (void)saveLoginData:(NSDictionary *)data {
-    NSMutableDictionary *dataDic = [NSMutableDictionary dictionaryWithDictionary:data];
-    NSArray *keys = [data allKeys];
-    for (NSString *key in keys) {
-        if ([data[key] isKindOfClass:[NSNull class]]) {
-            [dataDic removeObjectForKey:key];
-        }
+#pragma mark - 缓存
++ (void)saveResponseData:(NSDictionary *)data toPath:(NSString *)requestPath {
+    if ([self createDirInCache:kResponseCache_path]) {
+        NSString *abslutePath = [NSString stringWithFormat:@"%@/%@.plist", [self pathInCacheDirectory:kResponseCache_path], [requestPath md5Str]];
+        //<null>处理
+        [data writeToFile:abslutePath atomically:YES];
     }
-    [dataDic writeToFile:[self loginDataPath] atomically:YES];
 }
 
-+ (NSMutableDictionary *)loginData {
-    return [NSMutableDictionary dictionaryWithContentsOfFile:[self loginDataPath]];
++ (id)loadResponseWithPath:(NSString *)requestPath {
+    NSString *abslutePath = [NSString stringWithFormat:@"%@/%@.plist", [self pathInCacheDirectory:kResponseCache_path], [requestPath md5Str]];
+    return [NSMutableDictionary dictionaryWithContentsOfFile:abslutePath];
 }
 
-+ (BOOL)isLogin {
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self loginDataPath]];
++ (NSString* )pathInCacheDirectory:(NSString *)fileName
+{
+    NSArray *cachePaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cachePath = [cachePaths objectAtIndex:0];
+    return [cachePath stringByAppendingPathComponent:fileName];
 }
 
-+ (BOOL)removeLoginData {
-    return [[NSFileManager defaultManager] removeItemAtPath:[self loginDataPath] error:nil];
++ (BOOL) createDirInCache:(NSString *)dirName
+{
+    NSString *dirPath = [self pathInCacheDirectory:dirName];
+    BOOL isDir = NO;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL existed = [fileManager fileExistsAtPath:dirPath isDirectory:&isDir];
+    BOOL isCreated = NO;
+    if ( !(isDir == YES && existed == YES) )
+    {
+        isCreated = [fileManager createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    if (existed) {
+        isCreated = YES;
+    }
+    return isCreated;
 }
 
-+ (NSString *)loginDataPath {
-    NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    return [documentPath stringByAppendingPathComponent:@"user.plist"];
-}
+
 
 @end

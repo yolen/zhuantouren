@@ -70,7 +70,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         Mine_headerCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_headerCell forIndexPath:indexPath];
-        NSMutableDictionary *userData = [NSObject loginData];
+        NSDictionary *userData = [BMUser getUserInfo];
         [cell setUserIcon:userData[@"userHead"] nameTitle:userData[@"userAlias"] subTitle:@"路见不平,拍砖相助!"];
         return cell;
     }else {

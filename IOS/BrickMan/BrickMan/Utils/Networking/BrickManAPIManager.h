@@ -21,6 +21,7 @@
 - (void)requestUserContentListWithObj:(BMContentListModel *)contentList andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestAddContentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestUpdateUserInfoWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
+- (void)requestAddCommentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 
 - (void)uploadFileWithImages:(NSArray *)images
                    doneBlock:(void (^)(NSString *imagePath, NSError *error))block

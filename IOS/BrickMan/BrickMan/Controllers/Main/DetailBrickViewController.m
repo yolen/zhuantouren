@@ -10,6 +10,7 @@
 #import "MainTableViewCell.h"
 #import "CommentCell.h"
 #import "CommentInputView.h"
+#import "BMAttachmentModel.h"
 
 @interface DetailBrickViewController()<UITableViewDelegate,UITableViewDataSource>
 @property(strong, nonatomic) UITableView *myTableView;
@@ -35,8 +36,9 @@
         make.edges.equalTo(self.view);
     }];
     self.inputView = [CommentInputView getInputView];
-    
-    
+    self.inputView.sendCommentBlock = ^(){
+        [self commentAction];
+    };
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -64,6 +66,7 @@
         __weak typeof(self) weakSelf = self;
         cell.commentBlock = ^(){
             [weakSelf.inputView becomeFirstResponder];
+            
         };
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:0 hasSectionLine:NO];
         return cell;
@@ -76,6 +79,21 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return indexPath.row == 0 ? [MainTableViewCell cellHeightWithModel:self.model] : [CommentCell cellHeight];
+}
+
+#pragma mark - Comment
+- (void)commentAction {
+    if (self.inputView.inputTextView.text.length == 0) {
+        return;
+    }
+    NSString *userId = [BMUser getUserInfo][@"userId"];
+    BMAttachmentModel *attachModel = self.model.brickContentAttachmentList[0];
+    NSDictionary *info = @{@"userId" : userId,
+                           @"contentId" : [attachModel.contentId stringValue],
+                           @"commentContent" : self.inputView.inputTextView.text};
+    [[BrickManAPIManager shareInstance] requestAddCommentWithParams:info andBlock:^(id data, NSError *error) {
+        
+    }];
 }
 
 

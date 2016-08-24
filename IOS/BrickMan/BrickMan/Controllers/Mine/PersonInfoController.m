@@ -26,7 +26,7 @@
 @property (nonatomic, strong) UIView *mySexSelection;
 @property (nonatomic, strong) UIButton *male;
 @property (nonatomic, strong) UIButton *female;
-@property (strong, nonatomic) NSMutableDictionary *dataDic;
+@property (strong, nonatomic) NSDictionary *dataDic;
 
 @end
 
@@ -49,7 +49,7 @@
         make.edges.equalTo(self.view);
     }];
     
-    self.dataDic = [NSObject loginData];
+    self.dataDic = [BMUser getUserInfo];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:kNotification_RefreshUserInfo object:nil];
 }
 
@@ -71,7 +71,7 @@
     Mine_infoCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_infoCell forIndexPath:indexPath];
     cell.titleLabel.text = self.titles[indexPath.row];
     if (indexPath.row == 0) {
-        NSString *imagePath = [NSObject loginData][@"userHead"];
+        NSString *imagePath = [BMUser getUserInfo][@"userHead"];
         [cell.subImgView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil];
         [cell.subLabel setHidden:YES];
         [cell.subImgView setHidden:NO];

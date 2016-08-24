@@ -80,12 +80,12 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.contentList.body.count;
+    return self.contentList.data.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
-    cell.model = self.contentList.body[indexPath.row];
+    cell.model = self.contentList.data[indexPath.row];
     //判断在我的砖集状态下,cell的四个按钮不可点击
     [cell setIsGallery:YES];
     return cell;
@@ -95,12 +95,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DetailBrickViewController *vc = [[DetailBrickViewController alloc] init];
-    vc.model = self.contentList.body[indexPath.row];
+    vc.model = self.contentList.data[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BMContentModel  *model = self.contentList.body[indexPath.row];
+    BMContentModel  *model = self.contentList.data[indexPath.row];
     return [MainTableViewCell cellHeightWithModel:model];
 }
 

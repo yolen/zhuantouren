@@ -14,5 +14,5 @@
 @property (copy, nonatomic) void(^goToDetailBlock)(BMContentModel *model);
 
 - (instancetype)initWithFrame:(CGRect)frame andIndex:(NSInteger)index;
-- (void)refresh;
+- (void)refreshFirst;
 @end

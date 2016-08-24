@@ -16,13 +16,10 @@
 - (id)handleResponse:(id)responseJSON autoShowError:(BOOL)autoShowError;
 
 - (id)initWithDictionary:(NSDictionary *)dictionary;
-
 + (instancetype)modelWithDictionary:(NSDictionary *)dictionary;
 
-+ (void)saveLoginData:(NSDictionary *)data;
-+ (NSMutableDictionary *)loginData;
-+ (BOOL)isLogin;
-+ (BOOL)removeLoginData;
-+ (NSString *)loginDataPath;
+#pragma mark - 缓存
++ (void)saveResponseData:(NSDictionary *)data toPath:(NSString *)requestPath;
++ (id)loadResponseWithPath:(NSString *)requestPath;
 
 @end

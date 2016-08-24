@@ -7,7 +7,6 @@
 //
 
 #import "BaseViewController.h"
-#import "BMUserInfo.h"
 
 @interface BaseViewController ()
 
@@ -35,10 +34,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (BOOL)isLogin {
-    return [BMUserInfo sharedUserInfo].isLogin;
-}
-
 
 @end

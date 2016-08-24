@@ -11,7 +11,6 @@
 #import "RootTabBarController.h"
 #import "IntroduceViewController.h"
 #import <TencentOpenAPI/TencentOAuth.h>
-#import "BMUserInfo.h"
 #import "BrickManNetClient.h"
 
 static void customHandler() {
@@ -51,8 +50,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         self.window.rootViewController = rootVC;
     }
     
-    if ([NSObject isLogin]) {
-        [[BrickManNetClient sharedJsonClient] setToken:[[NSObject loginData] objectForKey:@"token"]];
+    if ([BMUser isLogin]) {
+        [[BrickManNetClient sharedJsonClient] setToken:[[BMUser getUserInfo] objectForKey:@"token"]];
     }
 
     [self.window makeKeyAndVisible];

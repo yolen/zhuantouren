@@ -20,7 +20,6 @@
     #import "MBProgressHUD+GR.h"
     #import "YYModel.h"
 
-    #import "MyLog.h"
     #import "UIViewExt.h"
     #import "UIImage+Common.h"
     #import "NSObject+Common.h"
@@ -32,12 +31,14 @@
     #import "UITextField+Common.h"
     #import "BrickManAPIManager.h"
     #import "NSDate+Common.h"
+    #import "BMUser.h"
 #endif
 
 
 #define kBaseUrl @"http://115.28.211.119:1080"
 #define kImageUrl @"http://115.28.211.119:2080"
 #define QQ_LOGIN_APP_ID @"1105593438"
+
 #ifdef DEBUG
 
 #define ABOUTURL @""
