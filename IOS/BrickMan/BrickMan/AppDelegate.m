@@ -12,6 +12,7 @@
 #import "IntroduceViewController.h"
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "BrickManNetClient.h"
+#import <JPFPSStatus/JPFPSStatus.h>
 
 static void customHandler() {
     UINavigationBar *navigationBar = [UINavigationBar appearance];
@@ -19,7 +20,7 @@ static void customHandler() {
                         forBarMetrics:UIBarMetricsDefault];
     [navigationBar setTintColor:[UIColor whiteColor]];
     NSDictionary *textAttributes = @{
-                                     NSFontAttributeName: [UIFont systemFontOfSize:16],
+                                     NSFontAttributeName: [UIFont systemFontOfSize:18],
                                      NSForegroundColorAttributeName: [UIColor whiteColor],
                                      };
     [navigationBar setTitleTextAttributes:textAttributes];
@@ -54,6 +55,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         [[BrickManNetClient sharedJsonClient] setToken:[[BMUser getUserInfo] objectForKey:@"token"]];
     }
 
+#if defined(DEBUG)||defined(_DEBUG)
+    [[JPFPSStatus sharedInstance] open];
+#endif
     [self.window makeKeyAndVisible];
     return YES;
 }

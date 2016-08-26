@@ -10,5 +10,7 @@
 
 @interface MainViewController : BaseViewController
 
+- (void)pushLoginViewController;
+
 @end
 

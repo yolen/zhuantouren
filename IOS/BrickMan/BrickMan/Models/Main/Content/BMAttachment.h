@@ -1,5 +1,5 @@
 //
-//  BMAttachmentModel.h
+//  BMAttachment.h
 //  BrickMan
 //
 //  Created by TZ on 16/8/18.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BMAttachmentModel : NSObject
+@interface BMAttachment : NSObject
 
 @property (strong, nonatomic) NSString *attachmentPath, *type;
 @property (strong, nonatomic) NSNumber *contentId, *id;

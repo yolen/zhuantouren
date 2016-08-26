@@ -1,15 +1,15 @@
 //
-//  BMContentModel.m
+//  BMContent.m
 //  BrickMan
 //
 //  Created by TZ on 16/8/18.
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
-#import "BMContentModel.h"
-#import "BMAttachmentModel.h"
+#import "BMContent.h"
+#import "BMAttachment.h"
 
-@implementation BMContentModel
+@implementation BMContent
 
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"user":@"users"};
@@ -21,7 +21,7 @@
 }
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"brickContentAttachmentList" : [BMAttachmentModel class]};
+    return @{@"brickContentAttachmentList" : [BMAttachment class]};
 }
 
 

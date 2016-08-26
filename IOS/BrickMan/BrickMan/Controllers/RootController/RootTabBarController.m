@@ -11,6 +11,7 @@
 #import "PublishViewController.h"
 #import "MineViewController.h"
 #import "BaseNavigationController.h"
+#import "BMUser.h"
 
 @interface RootTabBarController ()<UITabBarControllerDelegate>
 
@@ -90,7 +91,12 @@
             if (shouldSelectIndex > 0) {
                 //selectedIndex是上一个选中的页面
                 UINavigationController* firstNavVC = (UINavigationController*)[viewControllersArray objectAtIndex:tabBarController.selectedIndex];
-                BaseViewController* vc = (BaseViewController*)[firstNavVC.viewControllers objectAtIndex:0];
+                MainViewController* vc = (MainViewController*)[firstNavVC.viewControllers objectAtIndex:0];
+                if (![BMUser isLogin]) { //未登录
+                    [vc pushLoginViewController];
+                    return NO;
+                }
+                
                 if (shouldSelectIndex == 1) {
                     PublishViewController *publishVC = [[PublishViewController alloc] init];
                     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:publishVC];

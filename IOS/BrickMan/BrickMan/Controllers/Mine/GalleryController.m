@@ -9,13 +9,11 @@
 #import "GalleryController.h"
 #import "MainTableViewCell.h"
 #import "DetailBrickViewController.h"
-#import "ODRefreshControl.h"
-#import "SVPullToRefresh.h"
+#import <MJRefresh/MJRefresh.h>
 
 @interface GalleryController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *myTableView;
-@property (nonatomic, strong) ODRefreshControl *refreshControl;
-@property (strong, nonatomic) BMContentListModel *contentList;
+@property (strong, nonatomic) BMContentList *contentList;
 
 @end
 
@@ -26,7 +24,7 @@
     // Do any additional setup after loading the view.
     
     self.title = @"我的砖集";
-    self.contentList = [[BMContentListModel alloc] init];
+    self.contentList = [[BMContentList alloc] init];
     
     self.myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.myTableView.dataSource = self;
@@ -35,15 +33,13 @@
     [self.myTableView registerClass:[MainTableViewCell class] forCellReuseIdentifier:kCellIdentifier_MainTableViewCell];
     [self.view addSubview:self.myTableView];
     
-    __weak typeof(self) weakSelf = self;
-    [self.myTableView addInfiniteScrollingWithActionHandler:^{
-        [weakSelf refreshMore];
-    }];
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
+    header.automaticallyChangeAlpha = YES;
+    header.lastUpdatedTimeLabel.hidden = YES;
+    self.myTableView.mj_header = header;
     
-    self.refreshControl = [[ODRefreshControl alloc] initInScrollView:self.myTableView];
-    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    self.myTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMore)];
     [self refresh];
-    
 }
 
 #pragma mark - refresh
@@ -66,13 +62,17 @@
 - (void)sendRequest {
     __weak typeof(self) weakSelf = self;
     [[BrickManAPIManager shareInstance] requestUserContentListWithObj:self.contentList andBlock:^(id data, NSError *error) {
-        [weakSelf.refreshControl endRefreshing];
+        [weakSelf.myTableView.mj_header endRefreshing];
+        [weakSelf.myTableView.mj_footer endRefreshing];
         if (data) {
             [weakSelf.contentList configWithData:data];
             [weakSelf.myTableView reloadData];
-            weakSelf.myTableView.showsInfiniteScrolling = weakSelf.contentList.canLoadMore;
-        }else {
-            weakSelf.myTableView.showsInfiniteScrolling = NO;
+            BMContentList *model = (BMContentList *)data;
+            if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
+                [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
+            }else {
+                [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
+            }
         }
     }];
 }
@@ -100,7 +100,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BMContentModel  *model = self.contentList.data[indexPath.row];
+    BMContent *model = self.contentList.data[indexPath.row];
     return [MainTableViewCell cellHeightWithModel:model];
 }
 

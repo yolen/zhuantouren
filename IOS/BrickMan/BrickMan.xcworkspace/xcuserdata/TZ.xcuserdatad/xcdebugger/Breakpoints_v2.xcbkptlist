@@ -13,5 +13,53 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BrickMan/Controllers/Mine/PersonInfoController.m"
+            timestampString = "493815038.378377"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "-confirmSelection:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[PersonInfoController confirmSelection:]"
+                  moduleName = "BrickMan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tonyzhang/Desktop/GitHub/zhuantouren/IOS/BrickMan/BrickMan/Controllers/Mine/PersonInfoController.m"
+                  timestampString = "493874651.657138"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "231"
+                  endingLineNumber = "231"
+                  offsetFromSymbolStart = "172">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__41-[PersonInfoController confirmSelection:]_block_invoke"
+                  moduleName = "BrickMan"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/tonyzhang/Desktop/GitHub/zhuantouren/IOS/BrickMan/BrickMan/Controllers/Mine/PersonInfoController.m"
+                  timestampString = "493874651.657444"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "232"
+                  endingLineNumber = "232"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

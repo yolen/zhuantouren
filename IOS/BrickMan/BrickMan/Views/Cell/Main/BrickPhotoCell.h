@@ -8,7 +8,7 @@
 
 #define kCellIdentifier_BrickPhotoCell @"BrickPhotoCell"
 #import <UIKit/UIKit.h>
-#import "BMAttachmentModel.h"
+#import "BMAttachment.h"
 
 typedef NS_ENUM(NSInteger, BrickPhotoCellType) {
     BrickPhotoCellType_One = 0,
@@ -19,8 +19,8 @@ typedef NS_ENUM(NSInteger, BrickPhotoCellType) {
 @interface BrickPhotoCell : UICollectionViewCell
 
 @property (strong, nonatomic) UIImageView *photoImgView;
-@property (strong, nonatomic) BMAttachmentModel *attachmentModel;
+@property (strong, nonatomic) BMAttachment *attachmentModel;
 @property (assign, nonatomic) BrickPhotoCellType type;
 
-+ (CGFloat)cellHeightWithType:(BrickPhotoCellType)type;
++ (CGSize)cellHeithWithAttachment:(BMAttachment *)attachment;
 @end

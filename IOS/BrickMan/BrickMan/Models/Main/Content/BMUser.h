@@ -17,5 +17,6 @@
 + (NSDictionary *)getUserInfo;
 + (void)removeUserInfo;
 + (BOOL)isLogin;
++ (void)changeUserInfoWithValue:(NSString *)value key:(NSString *)key;
 
 @end

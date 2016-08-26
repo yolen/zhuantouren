@@ -12,6 +12,8 @@
 #import "iCarousel.h"
 #import "BrickListView.h"
 #import "DetailBrickViewController.h"
+#import "BMLoginViewController.h"
+#import "BMContentList.h"
 
 @interface MainViewController ()<iCarouselDataSource, iCarouselDelegate>
 @property (strong, nonatomic) XTSegmentControl *mySegmentControl;
@@ -19,6 +21,7 @@
 @property (strong, nonatomic) NSArray *titleArray;
 @property (strong, nonatomic) UIView *headerView;
 @property (assign, nonatomic) NSInteger oldSelectedIndex;
+@property (strong, nonatomic) NSMutableDictionary *contentListDic;
 @end
 
 @implementation MainViewController
@@ -30,6 +33,7 @@
     
     self.headerView = [self customHeaderView];
     self.oldSelectedIndex = 0;
+    self.contentListDic = [NSMutableDictionary dictionaryWithCapacity:self.titleArray.count];
     
     _myCarousel = [[iCarousel alloc] initWithFrame:CGRectMake(0, self.headerView.bottom, kScreen_Width, self.view.height - 155)];
     _myCarousel.dataSource = self;
@@ -69,6 +73,10 @@
 }
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view {
+    BMContentList *contentList = [self.contentListDic objectForKey:[NSNumber numberWithInteger:index]];
+    if (!contentList) {
+        
+    }
     BrickListView *listView = (BrickListView *)view;
     if (listView) {
         
@@ -89,15 +97,16 @@
             [weakSelf.myCarousel setY:50];
         }
     };
-    listView.goToDetailBlock = ^(BMContentModel *model){
+    listView.goToDetailBlock = ^(BMContent *model){
         DetailBrickViewController *vc = [[DetailBrickViewController alloc] init];
         vc.model = model;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
+    [listView setSubScrollsToTop:(index == carousel.currentItemIndex)];
     return listView;
 }
 
-- (void)carouselDidScroll:(iCarousel *)carousel{
+- (void)carouselDidScroll:(iCarousel *)carousel {
     if (_mySegmentControl) {
         float offset = carousel.scrollOffset;
         if (offset > 0) {
@@ -106,15 +115,25 @@
     }
 }
 
-- (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel{
+- (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {
     if (_mySegmentControl) {
         _mySegmentControl.currentIndex = carousel.currentItemIndex;
     }
     if (_oldSelectedIndex != carousel.currentItemIndex) {
         _oldSelectedIndex = carousel.currentItemIndex;
         BrickListView *listView = (BrickListView *)carousel.currentItemView;
-        [listView refreshFirst];
+        [listView refresh];
     }
+    
+    [carousel.visibleItemViews enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
+        [obj setSubScrollsToTop:(obj == carousel.currentItemView)];
+    }];
+}
+
+#pragma mark - Public
+- (void)pushLoginViewController {
+    BMLoginViewController *vc = [[BMLoginViewController alloc] init];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

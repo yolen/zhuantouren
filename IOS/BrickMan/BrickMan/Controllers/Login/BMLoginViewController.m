@@ -13,13 +13,6 @@
 #import "BrickManNetClient.h"
 #import "BMUser.h"
 
-#define LOGIN_HEADER_TEXT @"砖头人"
-#define LOGIN_TIP_TEXT @"左手鲜花,右手砖头的一群人\n只评论事儿,不评价人儿"
-
-#define GO_AROUND_BUTTON_TITLE @"先随便看看"
-#define LOGIN_TIP_TITLE @"社交帐号登录"
-
-
 @interface BMLoginViewController () <TencentSessionDelegate>
 
 @property (nonatomic, strong) UIButton *goAroundButton;
@@ -42,8 +35,8 @@
 - (void)setupUI {
     self.view.backgroundColor = [UIColor whiteColor];
     // 添加
-    UIImageView *imageView =
-    [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loginbackground"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 400*SCALE)];
+    imageView.image = [UIImage imageNamed:@"loginbackground"];
     [self.view addSubview:imageView];
 
     UIImageView *logoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
@@ -69,19 +62,19 @@
     [self.view addSubview:self.qqLoginButton];
 
     // 配置
-    headerLabel.text        = LOGIN_HEADER_TEXT;
+    headerLabel.text        = @"砖头人";
     headerLabel.font        = [UIFont boldSystemFontOfSize:20];
     headerLabel.textColor   = [UIColor whiteColor];
     headerLabel.contentMode = UIViewContentModeCenter;
 
-    tipLabel.text          = LOGIN_TIP_TEXT;
+    tipLabel.text          = @"左手鲜花,右手砖头的一群人\n只评论事儿,不评价人儿";
     tipLabel.numberOfLines = 0;
     tipLabel.textColor     = [UIColor whiteColor];
     tipLabel.textAlignment = NSTextAlignmentCenter;
 
     lineView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.8];
 
-    loginTipLabel.text            = LOGIN_TIP_TITLE;
+    loginTipLabel.text            = @"社交帐号登录";
     loginTipLabel.textAlignment   = NSTextAlignmentCenter;
     loginTipLabel.backgroundColor = [UIColor whiteColor];
 
@@ -90,10 +83,6 @@
     goAroundBgView.layer.masksToBounds = YES;
 
     // 布局
-    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo (self.view);
-    }];
-
     [logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo (kScreen_Height / 8);
         make.centerX.equalTo (self.view.mas_centerX);
@@ -135,7 +124,7 @@
 
     [self.weChatLoginButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo (self.view.mas_centerX).offset (-kScreen_Width / 4);
-        make.bottom.equalTo (self.view.mas_bottom).offset (-kScreen_Height / 20);
+        make.bottom.equalTo (self.view.mas_bottom).offset (-40*SCALE);
     }];
 
     [self.qqLoginButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -144,25 +133,19 @@
     }];
 }
 
-#pragma mark - QQ Login
-- (void)loginWithQQ {
-    self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQ_LOGIN_APP_ID andDelegate:self];
-    // 设置权限//TODO:  qq 登录权限可以精简
-    NSArray *permissions =[NSArray arrayWithObjects:kOPEN_PERMISSION_GET_USER_INFO, kOPEN_PERMISSION_GET_SIMPLE_USER_INFO, nil];;
-    [self.tencentOAuth authorize:permissions inSafari:NO];
-}
-
 #pragma mark - Actions
 - (void)didClickGoAroundButton:(UIButton *)button {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didClickWeChatLoginButton:(UIButton *)button {
-    NSLog (@"%s", __FUNCTION__);
+    kTipAlert(@"暂不支持微信登录");
 }
 
 - (void)didClickQQLoginButton:(UIButton *)button {
-    [self loginWithQQ];
+    self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQ_LOGIN_APP_ID andDelegate:self];
+    NSArray *permissions =[NSArray arrayWithObjects:kOPEN_PERMISSION_GET_USER_INFO, kOPEN_PERMISSION_GET_SIMPLE_USER_INFO, nil];;
+    [self.tencentOAuth authorize:permissions inSafari:NO];
 }
 
 #pragma mark - TencentSessionDelegate
@@ -172,14 +155,13 @@
             //缓存用户信息
             [BMUser saveUserInfo:data];
             [[BrickManNetClient sharedJsonClient] setToken:data[@"token"]];
-            [self.navigationController popViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }];
 }
 
 - (void)tencentDidNotLogin:(BOOL)cancelled {
-    UIAlertController *alert = [UIAlertController errorAlertWithMessage:@"登录失败"];
-    [self presentViewController:alert animated:YES completion:nil];
+    kTipAlert(@"登录失败");
 }
 
 - (void)tencentDidNotNetWork {
@@ -191,7 +173,7 @@
 - (UIButton *)goAroundButton {
     if (_goAroundButton == nil) {
         _goAroundButton = [[UIButton alloc] init];
-        [_goAroundButton setTitle:GO_AROUND_BUTTON_TITLE forState:UIControlStateNormal];
+        [_goAroundButton setTitle:@"先随便看看" forState:UIControlStateNormal];
         UIImage *rightArrow = [UIImage imageNamed:@"right_arrow"];
         [_goAroundButton setImage:rightArrow forState:UIControlStateNormal];
         [_goAroundButton setTitleColor:kNavigationBarColor forState:UIControlStateNormal];

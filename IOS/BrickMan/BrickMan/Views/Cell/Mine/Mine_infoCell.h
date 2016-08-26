@@ -11,13 +11,9 @@
 static NSString * const kCellIdentifier_Mine_infoCell = @"Mine_infoCell";
 
 @interface Mine_infoCell : UITableViewCell
-
 @property (nonatomic, strong) UILabel *titleLabel;
-
 @property (nonatomic, strong) UILabel *subLabel;
-
 @property (nonatomic, strong) UIImageView *subImgView;
 
 + (CGFloat)cellHeight;
-
 @end
