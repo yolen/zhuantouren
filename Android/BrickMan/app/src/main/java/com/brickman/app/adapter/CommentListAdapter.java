@@ -25,9 +25,9 @@ public class CommentListAdapter extends BaseQuickAdapter<CommentBean> {
 
     @Override
     protected void convert(BaseViewHolder helper, CommentBean item) {
-        Glide.with(mCtx).load(item.userId).placeholder(R.mipmap.ic_launcher).centerCrop().crossFade().into((CircleImageView)helper.getView(R.id.avator));
+        Glide.with(mCtx).load(item.user.userHead).placeholder(R.mipmap.ic_launcher).centerCrop().crossFade().into((CircleImageView)helper.getView(R.id.avator));
         helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
-        helper.setText(R.id.nickName, TextUtils.isEmpty(item.userName) ? "砖头人" : item.userName);
+        helper.setText(R.id.nickName, TextUtils.isEmpty(item.user.userName) ? item.user.userAlias : item.user.userName);
         helper.setText(R.id.content, item.commentContent);
     }
 }

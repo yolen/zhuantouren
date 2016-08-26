@@ -121,6 +121,7 @@ public class RequestHelper {
         Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
         request.setHeader("platform", "Android");
         if (MApplication.getInstance().mUser != null) {
+            LogUtil.info("token = " + MApplication.mAppContext.mUser.token);
             request.setHeader("token", MApplication.getInstance().mUser.token);
         }
         List<Binary> binaries = new ArrayList<>();
@@ -145,6 +146,7 @@ public class RequestHelper {
             for (String key : paramMap.keySet()) {
                 request.add(key, paramMap.get(key));
             }
+            LogUtil.info(params.toString());
         }
         // 添加FileList到请求
         request.add("files", binaries);

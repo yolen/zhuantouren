@@ -32,7 +32,7 @@ public class BrickBean implements Serializable {
     public int contentBricks;
     public int contentFlowors;
     public int contentShares;
-    public int commmentCount;
+    public int commentCount;
     public long createdTime;
     public int contentReports;
     /**
@@ -79,20 +79,4 @@ public class BrickBean implements Serializable {
         public String type;
         public String attachmentPath;
     }
-    /**
-     * id : 4
-     * userId : test1
-     * contentTitle : test1
-     * contentPlace : 北京
-     * contentStatus : CONTENT_STS00
-     * contentType : CONTENT_TYPE01
-     * contentBricks : 1
-     * contentFlowors : 0
-     * contentShares : 0
-     * createdTime : 1469588122000
-     * contentReports : 0
-     * brickContentAttachmentList : ["123","1234545"]
-     */
-
-
 }

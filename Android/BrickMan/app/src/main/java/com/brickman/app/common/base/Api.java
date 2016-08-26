@@ -29,7 +29,7 @@ public interface Api {
     // 发布接口
     String POST_PUBLISH = BASE_URL + "/content/add_content.do";
     // 评论接口
-    String POST_DETAIL_COMMENT = BASE_URL + "/comment/add_comment.json";
+    String POST_DETAIL_COMMENT = BASE_URL + "/comment/add_comment.do";
     // 鲜花，拍砖，举报【1\2\3】
     String POST_DETAIL_DO = BASE_URL + "/content/oper_content.do";
     // 上传图片接口
@@ -39,6 +39,9 @@ public interface Api {
     // 更改用户信息
     String UPDATE_USERINFO = BASE_URL + "/user/update_user_info.do";
 
+
+    // -------------H5----------------
+    String ABOUT_US = IMG_URL + "html/brickman.html";
 
     // 登录成功
     String ACTION_LOGIN = "com.brickman.app.action.login";

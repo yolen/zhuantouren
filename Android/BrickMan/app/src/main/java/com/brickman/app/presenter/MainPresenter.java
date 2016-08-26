@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,12 +44,18 @@ public class MainPresenter extends MainContract.Presenter {
             @Override
             public void onSucceed(JSONObject response) {
                 if (HttpUtil.isSuccess(response)) {
-                    List<BrickBean> brickList = new Gson().fromJson(response.optJSONObject("body").optJSONArray("data").toString(), new TypeToken<List<BrickBean>>() {
-                    }.getType());
-                    int pageNo = response.optJSONObject("body").optJSONObject("page").optInt("pageNo");
-                    int totalRecords = response.optJSONObject("body").optJSONObject("page").optInt("totalRecords");
-                    boolean hasMore = totalRecords > pageNo * 10;
-                    mView.loadSuccess(fragmentId, brickList, (int) Math.ceil((double) totalRecords / 10.0), hasMore);
+                    List<BrickBean> brickList = new ArrayList<BrickBean>();
+                    if(response.optJSONObject("body").has("data")){
+                        brickList = new Gson().fromJson(response.optJSONObject("body").optJSONArray("data").toString(), new TypeToken<List<BrickBean>>() {
+                        }.getType());
+                        int pageNo = response.optJSONObject("body").optJSONObject("page").optInt("pageNo");
+                        int totalRecords = response.optJSONObject("body").optJSONObject("page").optInt("totalRecords");
+                        boolean hasMore = totalRecords > pageNo * 10;
+                        mView.loadSuccess(fragmentId, brickList, (int) Math.ceil((double) totalRecords / 10.0), hasMore);
+                    } else {
+                        mView.loadSuccess(fragmentId, brickList, 0, false);
+                    }
+
                 } else {
                     mView.showMsg(response.optString("body"));
                 }
