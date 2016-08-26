@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
 import com.brickman.app.R;
@@ -97,12 +96,18 @@ public class ImagesAdapter {
         int margin = DensityUtils.dip2px(mCtx, 2);
         int w = DensityUtils.getWidth(mCtx) - DensityUtils.dip2px(mCtx, 0);
         final ImageView imageView = new ImageView(mCtx);
-        imageView.setScaleType(ScaleType.CENTER_CROP);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setBackgroundColor(mCtx.getResources().getColor(R.color.light_gray));
         LinearLayout.LayoutParams lp = null;
         if (n == 1) {
+//            if(mImgList.size() == 1){
+//                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+//                w = w - margin * 2;
+//                lp = new LinearLayout.LayoutParams(w * 2 / 5, LinearLayout.LayoutParams.WRAP_CONTENT);
+//            } else {
             w = w - margin * 2;
             lp = new LinearLayout.LayoutParams(w, w / 2);
+//            }
         } else if (n == 2) {
             w = w - margin * 4;
             lp = new LinearLayout.LayoutParams(w / 2, w * 2 / 5);
@@ -113,8 +118,7 @@ public class ImagesAdapter {
         lp.setMargins(margin, margin, margin, margin);
         imageView.setLayoutParams(lp);
         Glide.with(mCtx).load(Api.IMG_URL + mImgList.get(pos).attachmentPath)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop().crossFade().into(imageView);
+                .diskCacheStrategy(DiskCacheStrategy.ALL).crossFade().into(imageView);
 
         if (mClickble) {
             imageView.setOnClickListener(new View.OnClickListener() {
