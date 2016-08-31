@@ -11,5 +11,6 @@
 @interface CutHeadController : BaseViewController
 
 @property (nonatomic, strong) UIImage *image;
+@property (copy, nonatomic) void(^updateBlock)(NSString *value);
 
 @end

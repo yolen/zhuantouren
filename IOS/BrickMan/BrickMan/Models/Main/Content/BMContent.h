@@ -11,7 +11,7 @@
 
 @interface BMContent : NSObject
 
-@property (strong, nonatomic) NSNumber *contentBricks, *contentFlowors, *contentReports, *contentShares, *id, *createdTime;
+@property (strong, nonatomic) NSNumber *commentCount, *contentBricks, *contentFlowors, *contentReports, *contentShares, *id, *createdTime;
 @property (strong, nonatomic) NSString *contentStatus, *contentTitle, *userId, *contentPlace;
 @property (strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) BMUser *user;

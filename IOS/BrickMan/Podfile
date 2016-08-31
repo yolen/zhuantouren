@@ -10,4 +10,5 @@ target 'BrickMan' do
     pod 'TZImagePickerController'
     pod 'JPFPSStatus', '~> 0.1'
     pod 'MJRefresh'
+    pod 'SVProgressHUD'
 end

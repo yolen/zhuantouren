@@ -45,6 +45,7 @@
     self.inputView = [CommentInputView getInputView];
     __weak typeof(self) weakSelf = self;
     self.inputView.sendCommentBlock = ^(){
+        [weakSelf.inputView.inputTextView resignFirstResponder];
         [weakSelf commentAction];
     };
     
@@ -120,11 +121,11 @@
         MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
         cell.model = self.model;
         cell.inputView = self.inputView;
-        __weak typeof(self) weakSelf = self;
-        cell.commentBlock = ^(){
-            [weakSelf.inputView becomeFirstResponder];
-            
-        };
+//        __weak typeof(self) weakSelf = self;
+//        cell.commentBlock = ^(){
+//            [weakSelf.inputView becomeFirstResponder];
+//            
+//        };
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:0 hasSectionLine:NO];
         return cell;
     }else {
@@ -145,19 +146,29 @@
     }
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if ([self.inputView.inputTextView isFirstResponder]) {
+        [self.inputView.inputTextView resignFirstResponder];
+    }
+}
+
 #pragma mark - Comment
 - (void)commentAction {
     if (self.inputView.inputTextView.text.length == 0) {
         return;
     }
-    NSString *userId = [BMUser getUserInfo][@"userId"];
+    NSString *userId = [BMUser getUserModel].userId;
     BMAttachment *attachModel = self.model.brickContentAttachmentList[0];
     NSDictionary *info = @{@"userId" : userId,
                            @"contentId" : [attachModel.contentId stringValue],
                            @"commentContent" : self.inputView.inputTextView.text};
+    __weak typeof(self) weakSelf = self;
     [[BrickManAPIManager shareInstance] requestAddCommentWithParams:info andBlock:^(id data, NSError *error) {
+        weakSelf.inputView.inputTextView.text = @"";
         if (data) {
-            
+            [weakSelf refresh];
+        }else {
+            [NSObject showErrorMsg:@"评论失败"];
         }
     }];
 }

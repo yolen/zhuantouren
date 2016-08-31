@@ -6,11 +6,9 @@
 //  Copyright © 2016 BrickMan. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface ComposeViewController : UIViewController
-
-@property (strong, nonatomic) NSString *imagePath;
+@interface ComposeViewController : BaseViewController
 @property (strong, nonatomic) NSArray *images;
 
 @end

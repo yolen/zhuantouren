@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) BMAttachment *attachmentModel;
 @property (strong, nonatomic) UIImageView *photoImgView;
+@property (copy, nonatomic) void(^refreshCellBlock)();
 
 + (CGSize)cellHeithWithAttachment:(BMAttachment *)attachment;
 

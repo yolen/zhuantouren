@@ -15,7 +15,9 @@
 @property (strong, nonatomic) UITableView *myTableView;
 
 - (instancetype)initWithFrame:(CGRect)frame andIndex:(NSInteger)index;
-//- (void)refreshFirst;
+- (void)setContentListWithType:(NSInteger)type;
+
 - (void)refresh;
 
+- (void)setSubScrollsToTop:(BOOL)scrollsToTop;
 @end

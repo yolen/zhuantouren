@@ -12,8 +12,9 @@
 #define kMottoMaxLength 100
 
 @interface MottoController ()<UITextViewDelegate>
-
+@property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UILabel *placeholder;
+@property (strong, nonatomic) BMUser *user;
 
 @end
 
@@ -22,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Do any additional setup after loading the view.
+    self.user = [BMUser getUserModel];
     self.view.backgroundColor = [UIColor whiteColor];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(submitHeadImage:)];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -37,6 +38,7 @@
     } else {
         self.placeholder.alpha = 0.f;
     }
+    self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -44,11 +46,44 @@
     [self.textView becomeFirstResponder];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.textView];
+}
+
+#pragma mark - Submit
 - (void)submitHeadImage:(UIBarButtonItem *)sender {
-    if ([self.delegate respondsToSelector:@selector(saveMotto:)]) {
-        [self.delegate saveMotto:self];
+    NSString *userId = self.user.userId;
+    __weak typeof(self) weakSelf = self;
+    NSString *mottoString = [self.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : userId, @"motto" : mottoString} andBlock:^(id data, NSError *error) {
+        if (data) {
+            //刷新数据
+            [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : userId} andBlock:^(id data, NSError *error) {
+                if (data) {
+                    [BMUser saveUserInfo:data];
+                }
+            }];
+            if (weakSelf.updateBlock) {
+                weakSelf.updateBlock(weakSelf.textView.text);
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else {
+            [NSObject showErrorMsg:@"修改昵称失败"];
+        }
+    }];
+}
+
+#pragma mark - UITextViewDelegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSString *textString = [textView.text stringByReplacingCharactersInRange:range withString:text];
+    
+    if (textString.length == 0 || [textString isEqualToString:self.mottoString]) {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }else {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
-    [self.navigationController popViewControllerAnimated:YES];
+    return YES;
 }
 
 - (void)textFiledEditChanged:(NSNotification *)notify {
@@ -67,12 +102,22 @@
     }
 }
 
+- (void)textViewDidChange:(UITextView *)textView {
+    if (textView.text == nil || [textView.text isEqualToString:@""] ) {
+        self.placeholder.alpha = 1.0;
+    } else {
+        self.placeholder.alpha = 0.f;
+    }
+}
+
+#pragma mark - 懒加载
 - (UITextView *)textView {
     if (!_textView) {
         _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kScreen_Height - 64)];
         _textView.font = [UIFont systemFontOfSize:17.f];
         _textView.backgroundColor = [UIColor clearColor];
         _textView.delegate = self;
+        _textView.text = self.mottoString;
     }
     return _textView;
 }
@@ -86,31 +131,9 @@
     return _placeholder;
 }
 
-- (void)textViewDidChange:(UITextView *)textView {
-    if (textView.text == nil || [textView.text isEqualToString:@""] ) {
-        self.placeholder.alpha = 1.0;
-    } else {
-        self.placeholder.alpha = 0.f;
-    }
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:self.textView];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

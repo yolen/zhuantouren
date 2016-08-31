@@ -10,11 +10,13 @@
 #import "Mine_infoCell.h"
 #import "HeadEditController.h"
 #import "MottoController.h"
+#import "ChangeUserInfoController.h"
+
 
 #define kMaxLength 10
 #define kMinLength 2
 
-@interface PersonInfoController ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate,MottoControllerDelegate> {
+@interface PersonInfoController ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate> {
     UIButton *_oldSelected;
 }
 
@@ -26,7 +28,6 @@
 @property (nonatomic, strong) UIView *mySexSelection;
 @property (nonatomic, strong) UIButton *male;
 @property (nonatomic, strong) UIButton *female;
-@property (strong, nonatomic) NSDictionary *dataDic;
 
 @end
 
@@ -43,27 +44,20 @@
     self.myTableView.dataSource = self;
     self.myTableView.delegate = self;
     self.myTableView.rowHeight = [Mine_infoCell cellHeight] * kMineCellHeightRadio;
+    self.myTableView.tableFooterView = [UIView new];
     [self.myTableView registerClass:[Mine_infoCell class] forCellReuseIdentifier:kCellIdentifier_Mine_infoCell];
     [self.view addSubview:self.self.myTableView];
     [self.myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    
-    self.dataDic = [BMUser getUserInfo];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:kNotification_RefreshUserInfo object:nil];
-}
-
-- (void)reloadData {
-    self.dataDic = [BMUser getUserInfo];
-    [self.myTableView reloadData];
+    self.user = [BMUser getUserModel];
 }
 
 - (void)compose:(UIBarButtonItem *)sender {
     
 }
 
-#pragma mark - UITableViewDataSource
-
+#pragma mark - TableView
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.titles.count;
 }
@@ -72,17 +66,20 @@
     Mine_infoCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_infoCell forIndexPath:indexPath];
     cell.titleLabel.text = self.titles[indexPath.row];
     if (indexPath.row == 0) {
-        NSString *imagePath = [BMUser getUserInfo][@"userHead"];
+        
+        NSString *imagePath = self.user.userHead;
         [cell.subImgView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil];
         [cell.subLabel setHidden:YES];
         [cell.subImgView setHidden:NO];
     } else {
         if (indexPath.row == 1) {
-            cell.subLabel.text = self.dataDic[@"userAlias"];
+            
+            cell.subLabel.text = self.user.userAlias;
         }else if(indexPath.row == 2) {
-            cell.subLabel.text = self.dataDic[@"userSexStr"];
+            cell.subLabel.text = self.user.userSexStr;
+            cell.accessoryType = UITableViewCellAccessoryNone;
         }else if (indexPath.row == 3) {
-            cell.subLabel.text = @"路见不平,拍砖相助!";
+            cell.subLabel.text = self.user.motto.length > 0 ? self.user.motto : @"路见不平,拍砖相助!";
         }
         [cell.subLabel setHidden:NO];
         [cell.subImgView setHidden:YES];
@@ -91,68 +88,42 @@
     return cell;
 }
 
-#pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    __weak typeof(self) weakSelf = self;
     switch (indexPath.row) {
-        case 0: {
-            //更改头像
+        case 0: { //更改头像
             HeadEditController *headEdit = [[HeadEditController alloc]init];
-            NSString *imagePath = self.dataDic[@"userHead"];
+            headEdit.updateBlock = ^(NSString *value){
+                weakSelf.user.userHead = value;
+                [weakSelf.myTableView reloadData];
+            };
+            NSString *imagePath = self.user.userHead;
             [headEdit.headImgView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil];
             [self.navigationController pushViewController:headEdit animated:YES];
         }
             break;
-        case 1: {
-            //更改昵称
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"昵称" message:@"请输入新的昵称" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                [[NSNotificationCenter defaultCenter] removeObserver:self name:@"UITextFieldTextDidChangeNotification" object:[alert.textFields firstObject]];
-            }];
-            UIAlertAction *actionSure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                UITextField *textField = alert.textFields.firstObject;
-                if (textField.text.length < kMinLength) {
-                    [MBProgressHUD showMessage:@"昵称长度不够" toView:self.navigationController.view complication:nil];
-                    return;
-                }
-                __weak typeof(self) weakSelf = self;
-                [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : self.dataDic[@"userId"], @"userAlias" : textField.text} andBlock:^(id data, NSError *error) {
-                    if (data) {
-                        //刷新数据
-                        NSDictionary *userInfo = [BMUser getUserInfo];
-                        NSString *userId = userInfo[@"userId"];
-                        [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : userId} andBlock:^(id data, NSError *error) {
-                            if (data) {
-                                [BMUser saveUserInfo:data];
-                                [weakSelf reloadData];
-                            }
-                        }];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
-                    }
-                }];
-            }];
-            [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-                textField.delegate = self;
-                textField.text = self.dataDic[@"userAlias"];
-            }];
-            [alert addAction:actionCancel];
-            [alert addAction:actionSure];
-            [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
-                                                        name:@"UITextFieldTextDidChangeNotification" object:[alert.textFields firstObject]];
-            [self presentViewController:alert animated:YES completion:nil];
+        case 1: { //更改昵称
+            ChangeUserInfoController *vc = [[ChangeUserInfoController alloc] init];
+            __weak typeof(self) weakSelf = self;
+            vc.updateBlock = ^(NSString *value){
+                weakSelf.user.userAlias = value;
+                [weakSelf.myTableView reloadData];
+            };
+            [self.navigationController pushViewController:vc animated:YES];
         }
             break;
-        case 2: {
-            //更改性别
-            [self presentMySexSelection];
+        case 2: { //更改性别
+//            [self presentMySexSelection];
         }
             break;
-        case 3: {
-            //更改座右铭
+        case 3: { //更改座右铭
             MottoController *motto = [[MottoController alloc]init];
-            motto.delegate = self;
-            Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
-            motto.textView.text = cell.subLabel.text;
+            motto.mottoString = self.user.motto.length > 0 ? self.user.motto : @"路见不平,拍砖相助!";
+            motto.updateBlock = ^(NSString *value){
+                weakSelf.user.motto = value;
+                [weakSelf.myTableView reloadData];
+            };
             [self.navigationController pushViewController:motto animated:YES];
         }
             break;
@@ -161,6 +132,7 @@
     }
 }
 
+#pragma mark - Custome View
 - (void)presentMySexSelection {
     Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     if ([cell.subLabel.text isEqualToString:@"男"]) {
@@ -228,19 +200,18 @@
 - (void)confirmSelection:(UIButton *)sender {
     NSString *sexString = _oldSelected.titleLabel.text;
     __weak typeof(self) weakSelf = self;
-    [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : self.dataDic[@"userId"], @"userSexStr" : sexString} andBlock:^(id data, NSError *error) {
+    [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : self.user.userId, @"userSexStr" : sexString} andBlock:^(id data, NSError *error) {
         if (data) {
-            [self.mySexSelection removeFromSuperview];
+            [weakSelf.mySexSelection removeFromSuperview];
+            weakSelf.user.userSexStr = sexString;
+            [weakSelf.myTableView reloadData];
             //刷新数据
-            NSDictionary *userInfo = [BMUser getUserInfo];
-            NSString *userId = userInfo[@"userId"];
+            NSString *userId = [BMUser getUserModel].userId;
             [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : userId} andBlock:^(id data, NSError *error) {
                 if (data) {
                     [BMUser saveUserInfo:data];
-                    [weakSelf reloadData];
                 }
             }];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
         }
     }];
 }
@@ -270,28 +241,6 @@
     } else {
         textField.text = toBeString;
     }
-
-}
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.01;
-}
-
-#pragma mark - UITableViewDelegate
-//不允许输入空格
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if ([string isEqualToString:@" "]) {
-        return NO;
-    }
-    return YES;
-}
-
-#pragma mark - MottoControllerDelegate
-
-- (void)saveMotto:(MottoController *)controller {
-    Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
-    cell.subLabel.text = controller.textView.text;
 }
 
 - (void)selectedSex:(UIButton *)sender {

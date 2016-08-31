@@ -10,13 +10,12 @@
 
 @interface BMUser : NSObject
 
-@property (strong, nonatomic) NSString *motto, *plat, *platId, *token, *userAlias, *userHead, *userId, *userName, *userPhone, *userSex, *userStatus;
+@property (strong, nonatomic) NSString *motto, *plat, *platId, *token, *userAlias, *userHead, *userId, *userName, *userPhone, *userSex, *userSexStr, *userStatus;
 
 #pragma mark - user
 + (void)saveUserInfo:(NSDictionary *)data;
-+ (NSDictionary *)getUserInfo;
++ (BMUser *)getUserModel;
 + (void)removeUserInfo;
 + (BOOL)isLogin;
-+ (void)changeUserInfoWithValue:(NSString *)value key:(NSString *)key;
 
 @end

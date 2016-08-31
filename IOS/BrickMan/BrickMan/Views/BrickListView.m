@@ -14,7 +14,6 @@
 
 @interface BrickListView()<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) BMContentList *contentList;
-@property (strong, nonatomic) NSMutableDictionary *contentListDic;
 @property (assign, nonatomic) NSInteger curIndex;
 @end
 
@@ -22,7 +21,6 @@
 
 - (instancetype)initWithFrame:(CGRect)frame andIndex:(NSInteger)index {
     if (self = [super initWithFrame:frame]) {
-        self.contentListDic = [NSMutableDictionary dictionaryWithCapacity:4];
         self.contentList = [BMContentList contentListlWithType:index];
         self.curIndex = index;
         
@@ -45,18 +43,21 @@
     return self;
 }
 
-#pragma mark - refresh
-//- (void)refreshFirst {
-//    if (self.contentList) {
-//        self.myTableView.showsInfiniteScrolling = self.contentList.canLoadMore;
-//    }else {
-//        [self saveContentList:self.contentList];
-//    }
-//    if (self.contentList.data.count <= 0) {
-//        [self refresh];
-//    }
-//}
+- (void)setContentListWithType:(NSInteger)type {
+    self.contentList = [BMContentList contentListlWithType:type];
+    [self refresh];
+}
 
+- (void)setSubScrollsToTop:(BOOL)scrollsToTop{
+    [[self subviews] enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[UIScrollView class]]) {
+            [(UIScrollView *)obj setScrollEnabled:scrollsToTop];
+            *stop = YES;
+        }
+    }];
+}
+
+#pragma mark - refresh
 - (void)refresh {
     if (self.contentList.isLoading) {
         return;
@@ -92,15 +93,6 @@
     }];
 }
 
-#pragma mark - Get And Set
-- (void)saveContentList:(BMContentList *)model {
-    [self.contentListDic setObject:model forKey:[NSNumber numberWithInteger:self.curIndex]];
-}
-
-- (BMContentList *)getContentList {
-    return [self.contentListDic objectForKey:[NSNumber numberWithInteger:self.curIndex]];
-}
-
 #pragma mark - tableView
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.contentList.data.count;
@@ -112,6 +104,10 @@
     if ((self.myTableView.isDragging || self.myTableView.isDecelerating) ) {
         
     }
+    __weak typeof(self) weakSelf = self;
+    cell.refreshCellBlock = ^(){
+        [weakSelf.myTableView reloadData];
+    };
     cell.shareBlock = ^(){
         [ShareView showShareView];
     };

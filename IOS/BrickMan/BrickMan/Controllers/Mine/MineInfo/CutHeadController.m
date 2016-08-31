@@ -64,16 +64,29 @@
     origin.y = (self.scrollView.contentOffset.y + self.scrollView.contentInset.top) * _rate;
     UIImage *newImage = [self image:image NewSize:CGSizeMake(_rate * self.cutView.width, _rate * self.cutView.width) newOrigin:CGPointMake(origin.x, origin.y)];
     
+    
+    __weak typeof(self) weakSelf = self;
     [[BrickManAPIManager shareInstance] uploadFileWithImages:@[newImage] doneBlock:^(NSString *imagePath, NSError *error) {
         if (imagePath) {
-            //更新缓存
-//            NSDictionary *userData = [BMUser getUserInfo];
-//            userData[@"userHead"] = [NSString stringWithFormat:@"%@/%@",kImageUrl,imagePath];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
-            HeadEditController *headEdit = self.navigationController.viewControllers[self.navigationController.viewControllers.count - 2];
-            headEdit.headImgView.image = newImage;
-            [self.navigationController popViewControllerAnimated:YES];
+            BMUser *user = [BMUser getUserModel];
+            [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : user.userId, @"userHead" : imagePath} andBlock:^(id data, NSError *error) {
+                if (data) {
+                    [NSObject showSuccessMsg:@"更换头像成功"];
+                    if (weakSelf.updateBlock) {
+                        weakSelf.updateBlock(imagePath);
+                    }
+                    //刷新数据
+                    [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
+                        if (data) {
+                            [BMUser saveUserInfo:data];
+                        }
+                    }];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
+                    HeadEditController *headEdit = self.navigationController.viewControllers[self.navigationController.viewControllers.count - 2];
+                    headEdit.headImgView.image = newImage;
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }];
         }
     } progerssBlock:nil];
 }

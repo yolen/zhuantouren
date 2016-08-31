@@ -34,13 +34,10 @@
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupUI];
-    [self getLocationAccess];
-}
-
-#pragma mark - UI
-- (void)setupUI {
+    
+    self.title = @"地点";
     [self.view addSubview:self.tableView];
+    [self getLocationAccess];
 }
 
 #pragma mark - UITableViewDataSource
@@ -57,10 +54,8 @@
         return cities.count;
     }
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell =
-    [tableView dequeueReusableCellWithIdentifier:@"CityCell" forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityCell" forIndexPath:indexPath];
     if (indexPath.section == 0) {
         if (self.currentLocation.length == 0) {
             cell.textLabel.text = @"正在获取您当前的位置,请稍后...";
@@ -68,7 +63,7 @@
             cell.textLabel.text = self.currentLocation;
         }
     } else if (indexPath.section == 1) {
-        cell.textLabel.text = @"hello word";
+        cell.textLabel.text = @"暂无";
     } else {
         NSArray *cities     = [self.cityLists[indexPath.section - 2] elements];
         BMCity *city        = cities[indexPath.row];
@@ -96,9 +91,11 @@
         return title;
     }
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 40;
 }
+
 - (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
     return [self.cityLists valueForKeyPath:@"title"];
 }

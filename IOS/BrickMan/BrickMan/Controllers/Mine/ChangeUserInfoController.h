@@ -1,15 +1,15 @@
 //
-//  MottoController.h
+//  ChangeUserInfoController.h
 //  BrickMan
 //
-//  Created by 段永瑞 on 16/7/24.
+//  Created by TZ on 16/8/26.
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
 #import "BaseViewController.h"
 
-@interface MottoController : BaseViewController
-@property (strong, nonatomic) NSString *mottoString;
+@interface ChangeUserInfoController : BaseViewController
+
 @property (copy, nonatomic) void(^updateBlock)(NSString *value);
 
 @end

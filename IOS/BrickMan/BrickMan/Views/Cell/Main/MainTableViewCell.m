@@ -138,8 +138,8 @@
     [super layoutSubviews];
     CGFloat curY = 61+20;
     
-    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:self.model.user.userHead] placeholderImage:[UIImage imageNamed:@"user_icon"]];
-    _nameLabel.text = self.model.user.userAlias;
+    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:self.model.user.userHead ? self.model.user.userHead : [BMUser getUserModel].userHead] placeholderImage:[UIImage imageNamed:@"user_icon"]];
+    _nameLabel.text = self.model.user.userAlias ? self.model.user.userAlias : [BMUser getUserModel].userAlias;
     _timeLabel.text = [NSString stringWithFormat:@"%@  %@",[self.model.date stringDisplay_HHmm],self.model.contentPlace];
     [_contentLabel setLongString:self.model.contentTitle withFitWidth:(kScreen_Width - 10)];
     curY += [self.model.contentTitle getHeightWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(kScreen_Width - 20, CGFLOAT_MAX)];
@@ -157,9 +157,9 @@
     CGFloat collectionViewHeight = 0;
     NSArray *attachmentArray = self.model.brickContentAttachmentList;
     if (attachmentArray.count == 1) {
-        collectionViewHeight = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray[0]].height;
+        collectionViewHeight = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray.firstObject].height;
     }else {
-        collectionViewHeight = [BrickPhotoCell cellHeithWithAttachment:attachmentArray[0]].height * ceilf((float)attachmentArray.count/3);
+        collectionViewHeight = [BrickPhotoCell cellHeithWithAttachment:attachmentArray.firstObject].height * ceilf((float)attachmentArray.count/3);
     }
 
     _myCollectionView.height = collectionViewHeight;
@@ -169,8 +169,11 @@
     
     curY += 3;
     [_commentBtn setY:curY];
+    [_commentBtn setTitle:(self.model.commentCount.integerValue > 0 ? [NSString stringWithFormat:@"评论 %@",self.model.commentCount] : @"评论") forState:UIControlStateNormal];
     [_flowerBtn setY:curY];
+    [_flowerBtn setTitle:(self.model.contentFlowors.integerValue > 0 ? [NSString stringWithFormat:@"鲜花 %@",self.model.contentFlowors] : @"鲜花") forState:UIControlStateNormal];
     [_shareBtn setY:curY];
+    [_shareBtn setTitle:(self.model.contentShares.integerValue > 0 ? [NSString stringWithFormat:@"分享 %@",self.model.contentShares] : @"分享") forState:UIControlStateNormal];
     curY += 30;
 
     [_bottomView setY:curY];
@@ -186,6 +189,11 @@
     if (attachmentArray.count == 1) { //单张图片
         BrickPhotoSingleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier_BrickPhotoSingleCell forIndexPath:indexPath];
         cell.attachmentModel = attachmentArray[indexPath.row];
+        cell.refreshCellBlock = ^(){
+            if (self.refreshCellBlock) {
+                self.refreshCellBlock();
+            }
+        };
         cell.photoImgView.tag = indexPath.row + 1000;
         return cell;
     }else { //多张图片
@@ -200,9 +208,9 @@
     NSArray *attachmentArray = self.model.brickContentAttachmentList;
     CGSize size;
     if (attachmentArray.count == 1) {
-        size = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray[0]];
+        size = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray.firstObject];
     }else {
-        size = [BrickPhotoCell cellHeithWithAttachment:attachmentArray[indexPath.row]];
+        size = [BrickPhotoCell cellHeithWithAttachment:attachmentArray.firstObject];
     }
     return size;
 }
@@ -211,7 +219,7 @@
     NSArray *attachmentArray = self.model.brickContentAttachmentList;
     UIEdgeInsets edgeInsets;
     if (attachmentArray.count == 1) {
-        CGSize size = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray[0]];
+        CGSize size = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray.firstObject];
         edgeInsets = UIEdgeInsetsMake(0, 0, 0, kBrickPhotoCellWidth_One - size.width);
     }else {
         edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
@@ -221,10 +229,10 @@
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    return 3.8;
+    return 4.0;
 }
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return 3.8;
+    return 4.0;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -264,47 +272,48 @@
     NSString *contentId = [attachmentModel.contentId stringValue];
     __weak typeof(self) weakSelf = self;
     
-    switch (tag) {
-        case 100:{ //举报
-            BOOL preReportSel = [self.model.contentReports boolValue];
-            [[BrickManAPIManager shareInstance] requestOperContentWithParams:@{@"contentId" : contentId, @"operType" : @"3"} andBlock:^(id data, NSError *error) {
-                if (data) {
-                    weakSelf.reportBtn.selected = !preReportSel;
-                }else {
-                    weakSelf.reportBtn.selected = preReportSel;
-                }
-                [self.reportBtn setImage:[UIImage imageNamed:(self.reportBtn.selected == YES ? @"report_sel" : @"report_nor")] forState:UIControlStateNormal];
-            }];
-        }
-            break;
-        case 101:{ //评论
-            if (self.commentBlock) {
-                self.commentBlock();
+    if (button.selected == NO) {
+        switch (tag) {
+            case 100:{ //举报
+                BOOL preReportSel = [self.model.contentReports boolValue];
+                [[BrickManAPIManager shareInstance] requestOperContentWithParams:@{@"contentId" : contentId, @"operType" : @"3", @"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
+                    if (data) {
+                        weakSelf.reportBtn.selected = !preReportSel;
+                    }else {
+                        weakSelf.reportBtn.selected = preReportSel;
+                    }
+                    [self.reportBtn setImage:[UIImage imageNamed:(self.reportBtn.selected == YES ? @"report_sel" : @"report_nor")] forState:UIControlStateNormal];
+                }];
             }
-        }
-            break;
-        case 102:{ //鲜花
-            BOOL preFlowerSel = [self.model.contentFlowors boolValue];
-            [[BrickManAPIManager shareInstance] requestOperContentWithParams:@{@"contentId" : contentId, @"operType" : @"1"} andBlock:^(id data, NSError *error) {
-                if (data) {
-                    weakSelf.flowerBtn.selected = !preFlowerSel;
-                }else {
-                    weakSelf.flowerBtn.selected = preFlowerSel;
+                break;
+            case 101:{ //评论
+                if (self.commentBlock) {
+                    self.commentBlock();
                 }
-                [weakSelf.flowerBtn setImage:[UIImage imageNamed:(self.flowerBtn.selected == YES ? @"flower_sel" : @"flower_nor")] forState:UIControlStateNormal];
-            }];
-        }
-            break;
-        case 103:{ //分享
-            if (self.shareBlock) {
-                self.shareBlock();
             }
+                break;
+            case 102:{ //鲜花
+                BOOL preFlowerSel = [self.model.contentFlowors boolValue];
+                [[BrickManAPIManager shareInstance] requestOperContentWithParams:@{@"contentId" : contentId, @"operType" : @"1", @"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
+                    if (data) {
+                        weakSelf.flowerBtn.selected = !preFlowerSel;
+                    }else {
+                        weakSelf.flowerBtn.selected = preFlowerSel;
+                    }
+                    [weakSelf.flowerBtn setImage:[UIImage imageNamed:(self.flowerBtn.selected == YES ? @"flower_sel" : @"flower_nor")] forState:UIControlStateNormal];
+                }];
+            }
+                break;
+            case 103:{ //分享
+                if (self.shareBlock) {
+                    self.shareBlock();
+                }
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        default:
-            break;
     }
-    
 }
 
 - (void)flowerAction:(id)sender {
@@ -327,9 +336,9 @@
     CGFloat collectionViewHeight = 0;
     NSArray *attachmentArray = contentModel.brickContentAttachmentList;
     if (attachmentArray.count == 1) {
-        collectionViewHeight = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray[0]].height;
+        collectionViewHeight = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray.firstObject].height;
     }else {
-        collectionViewHeight = [BrickPhotoCell cellHeithWithAttachment:attachmentArray[0]].height * ceilf((float)attachmentArray.count/3);
+        collectionViewHeight = [BrickPhotoCell cellHeithWithAttachment:attachmentArray.firstObject].height * ceilf((float)attachmentArray.count/3);
     }
     height += collectionViewHeight + 20;
     return height;

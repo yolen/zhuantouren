@@ -19,6 +19,7 @@
 		302D99FC1D3DF45C00F295A0 /* NSObject+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D99FB1D3DF45C00F295A0 /* NSObject+Common.m */; };
 		302D99FF1D3E058700F295A0 /* BrickManAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D99FE1D3E058700F295A0 /* BrickManAPIManager.m */; };
 		302D9A021D3E069800F295A0 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D9A011D3E069800F295A0 /* BaseNavigationController.m */; };
+		302E00D51D71FCB200F24147 /* CacheImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 302E00D41D71FCB200F24147 /* CacheImageSize.m */; };
 		303529C51D4862AC00CFDD77 /* CommentInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529C41D4862AC00CFDD77 /* CommentInputView.m */; };
 		303529C81D4862BD00CFDD77 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529C71D4862BD00CFDD77 /* ShareView.m */; };
 		303529CF1D48766200CFDD77 /* UIPlaceHolderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 303529CE1D48766200CFDD77 /* UIPlaceHolderTextView.m */; };
@@ -52,7 +53,6 @@
 		30C5BB141D40837E001DF9D2 /* XTSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB131D40837E001DF9D2 /* XTSegmentControl.m */; };
 		30C5BB1A1D4084A1001DF9D2 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB191D4084A1001DF9D2 /* UIColor+expanded.m */; };
 		30C5BB1D1D408A20001DF9D2 /* BrickListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB1C1D408A20001DF9D2 /* BrickListView.m */; };
-		30C5BB2C1D40A09B001DF9D2 /* UITapImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB2B1D40A09B001DF9D2 /* UITapImageView.m */; };
 		30C5BB3A1D40B468001DF9D2 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D391D3CD09B00ABE8E6 /* BaseViewController.m */; };
 		30C5BB441D411D8A001DF9D2 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB431D411D8A001DF9D2 /* CommentCell.m */; };
 		30C5BB4E1D4209F8001DF9D2 /* DetailBrickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB4D1D4209F8001DF9D2 /* DetailBrickViewController.m */; };
@@ -60,6 +60,7 @@
 		30C5BB6C1D425699001DF9D2 /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB6A1D425699001DF9D2 /* MainTableViewCell.m */; };
 		30C5BB6D1D430C80001DF9D2 /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB6A1D425699001DF9D2 /* MainTableViewCell.m */; };
 		30CC1F5F1D6FE22400A0DB80 /* BrickPhotoSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CC1F5E1D6FE22400A0DB80 /* BrickPhotoSingleCell.m */; };
+		30CC1F621D702C8600A0DB80 /* ChangeUserInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CC1F611D702C8600A0DB80 /* ChangeUserInfoController.m */; };
 		30CE65E71D6ED4A0004E5BAB /* BMAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65DE1D6ED4A0004E5BAB /* BMAttachment.m */; };
 		30CE65E81D6ED4A0004E5BAB /* BMContentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65E01D6ED4A0004E5BAB /* BMContentList.m */; };
 		30CE65E91D6ED4A0004E5BAB /* BMContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65E21D6ED4A0004E5BAB /* BMContent.m */; };
@@ -68,7 +69,6 @@
 		30CE65F11D6ED5A1004E5BAB /* BMCommentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65F01D6ED5A1004E5BAB /* BMCommentList.m */; };
 		30CE65F41D6ED5BB004E5BAB /* BMComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65F31D6ED5BB004E5BAB /* BMComment.m */; };
 		30CE65F71D6F13A9004E5BAB /* BMLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65F61D6F13A9004E5BAB /* BMLocationViewController.m */; };
-		30DB821A1D6EC72A00162748 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DB82191D6EC72A00162748 /* UIView+Common.m */; };
 		30EE73A81D6DFF9C00E79968 /* UISearchBar+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30EE73A71D6DFF9C00E79968 /* UISearchBar+Common.m */; };
 		30F91D641D3DCC1F007D9BDB /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F91D631D3DCC1F007D9BDB /* UIViewExt.m */; };
 		30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */; };
@@ -159,6 +159,9 @@
 		302D99FE1D3E058700F295A0 /* BrickManAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickManAPIManager.m; sourceTree = "<group>"; };
 		302D9A001D3E069800F295A0 /* BaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationController.h; sourceTree = "<group>"; };
 		302D9A011D3E069800F295A0 /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
+		302E00D31D71FCB200F24147 /* CacheImageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheImageSize.h; sourceTree = "<group>"; };
+		302E00D41D71FCB200F24147 /* CacheImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheImageSize.m; sourceTree = "<group>"; };
+		302E00D61D7202EB00F24147 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		303529C31D4862AC00CFDD77 /* CommentInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentInputView.h; sourceTree = "<group>"; };
 		303529C41D4862AC00CFDD77 /* CommentInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentInputView.m; sourceTree = "<group>"; };
 		303529C61D4862BD00CFDD77 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
@@ -222,8 +225,6 @@
 		30C5BB191D4084A1001DF9D2 /* UIColor+expanded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+expanded.m"; sourceTree = "<group>"; };
 		30C5BB1B1D408A20001DF9D2 /* BrickListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickListView.h; sourceTree = "<group>"; };
 		30C5BB1C1D408A20001DF9D2 /* BrickListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickListView.m; sourceTree = "<group>"; };
-		30C5BB2A1D40A09B001DF9D2 /* UITapImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITapImageView.h; sourceTree = "<group>"; };
-		30C5BB2B1D40A09B001DF9D2 /* UITapImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITapImageView.m; sourceTree = "<group>"; };
 		30C5BB421D411D8A001DF9D2 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		30C5BB431D411D8A001DF9D2 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		30C5BB4C1D4209F8001DF9D2 /* DetailBrickViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailBrickViewController.h; sourceTree = "<group>"; };
@@ -234,6 +235,8 @@
 		30C5BB6B1D425699001DF9D2 /* MainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewCell.h; sourceTree = "<group>"; };
 		30CC1F5D1D6FE22400A0DB80 /* BrickPhotoSingleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickPhotoSingleCell.h; sourceTree = "<group>"; };
 		30CC1F5E1D6FE22400A0DB80 /* BrickPhotoSingleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickPhotoSingleCell.m; sourceTree = "<group>"; };
+		30CC1F601D702C8600A0DB80 /* ChangeUserInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeUserInfoController.h; sourceTree = "<group>"; };
+		30CC1F611D702C8600A0DB80 /* ChangeUserInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeUserInfoController.m; sourceTree = "<group>"; };
 		30CE65DD1D6ED4A0004E5BAB /* BMAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAttachment.h; sourceTree = "<group>"; };
 		30CE65DE1D6ED4A0004E5BAB /* BMAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAttachment.m; sourceTree = "<group>"; };
 		30CE65DF1D6ED4A0004E5BAB /* BMContentList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMContentList.h; sourceTree = "<group>"; };
@@ -250,8 +253,6 @@
 		30CE65F31D6ED5BB004E5BAB /* BMComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMComment.m; sourceTree = "<group>"; };
 		30CE65F51D6F13A9004E5BAB /* BMLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMLocationViewController.h; sourceTree = "<group>"; };
 		30CE65F61D6F13A9004E5BAB /* BMLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMLocationViewController.m; sourceTree = "<group>"; };
-		30DB82181D6EC72A00162748 /* UIView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Common.h"; sourceTree = "<group>"; };
-		30DB82191D6EC72A00162748 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
 		30EE73A61D6DFF9C00E79968 /* UISearchBar+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+Common.h"; sourceTree = "<group>"; };
 		30EE73A71D6DFF9C00E79968 /* UISearchBar+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+Common.m"; sourceTree = "<group>"; };
 		30F91D621D3DCC1F007D9BDB /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
@@ -645,10 +646,10 @@
 		30C5BB291D40A09B001DF9D2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				30C5BB2A1D40A09B001DF9D2 /* UITapImageView.h */,
-				30C5BB2B1D40A09B001DF9D2 /* UITapImageView.m */,
 				303529CD1D48766200CFDD77 /* UIPlaceHolderTextView.h */,
 				303529CE1D48766200CFDD77 /* UIPlaceHolderTextView.m */,
+				302E00D31D71FCB200F24147 /* CacheImageSize.h */,
+				302E00D41D71FCB200F24147 /* CacheImageSize.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -697,8 +698,6 @@
 				306343C31D6C562E007241CA /* NSObject+Log.m */,
 				30F91D621D3DCC1F007D9BDB /* UIViewExt.h */,
 				30F91D631D3DCC1F007D9BDB /* UIViewExt.m */,
-				30DB82181D6EC72A00162748 /* UIView+Common.h */,
-				30DB82191D6EC72A00162748 /* UIView+Common.m */,
 				30F91D741D3DE8F3007D9BDB /* UIImage+Common.h */,
 				30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */,
 				302D99FA1D3DF45C00F295A0 /* NSObject+Common.h */,
@@ -738,6 +737,8 @@
 				5A52DE331D41F1D800D28DB2 /* MineInfo */,
 				5A52DE1D1D41D9DB00D28DB2 /* PersonInfoController.h */,
 				5A52DE1E1D41D9DB00D28DB2 /* PersonInfoController.m */,
+				30CC1F601D702C8600A0DB80 /* ChangeUserInfoController.h */,
+				30CC1F611D702C8600A0DB80 /* ChangeUserInfoController.m */,
 				5A52DE271D41EF1000D28DB2 /* GalleryController.h */,
 				5A52DE281D41EF1000D28DB2 /* GalleryController.m */,
 				5A52DE2A1D41EF4C00D28DB2 /* BrickController.h */,
@@ -1069,7 +1070,6 @@
 				30466C891D61761E006BAEDE /* IntroduceViewController.m in Sources */,
 				30C5BB541D4210A8001DF9D2 /* BrickPhotoCell.m in Sources */,
 				5A686DEE1D445DFC00455FB2 /* UITextField+Common.m in Sources */,
-				30C5BB2C1D40A09B001DF9D2 /* UITapImageView.m in Sources */,
 				79FBFBE71D41FCB2001C43C2 /* ComposePictureViewFlowLayout.m in Sources */,
 				3047635F1D69D66B006DB5F0 /* MSSBrowseActionSheet.m in Sources */,
 				30CE65E91D6ED4A0004E5BAB /* BMContent.m in Sources */,
@@ -1080,10 +1080,12 @@
 				303529C81D4862BD00CFDD77 /* ShareView.m in Sources */,
 				30CE65F11D6ED5A1004E5BAB /* BMCommentList.m in Sources */,
 				30CC1F5F1D6FE22400A0DB80 /* BrickPhotoSingleCell.m in Sources */,
+				30CC1F621D702C8600A0DB80 /* ChangeUserInfoController.m in Sources */,
 				306343C41D6C562E007241CA /* NSObject+Log.m in Sources */,
 				5A686DF11D44629800455FB2 /* MottoController.m in Sources */,
 				30353BB31D6557BE00A7D554 /* NSDate+Helper.m in Sources */,
 				1BFD4D321D3CD02500ABE8E6 /* RootTabBarController.m in Sources */,
+				302E00D51D71FCB200F24147 /* CacheImageSize.m in Sources */,
 				303529C51D4862AC00CFDD77 /* CommentInputView.m in Sources */,
 				79F39E941D598B0300FEAB40 /* BMLocationCell.m in Sources */,
 				5A52DE221D41DF7A00D28DB2 /* Mine_infoCell.m in Sources */,
@@ -1099,7 +1101,6 @@
 				30CE65F41D6ED5BB004E5BAB /* BMComment.m in Sources */,
 				30C5BB441D411D8A001DF9D2 /* CommentCell.m in Sources */,
 				30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */,
-				30DB821A1D6EC72A00162748 /* UIView+Common.m in Sources */,
 				5A52DE2F1D41EF5E00D28DB2 /* FlowerController.m in Sources */,
 				304763621D69D66B006DB5F0 /* MSSBrowseCollectionViewCell.m in Sources */,
 				30C5BADB1D406008001DF9D2 /* Mine_headerCell.m in Sources */,
@@ -1159,6 +1160,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1BFD4D051D3CCC3100ABE8E6 /* Base */,
+				302E00D61D7202EB00F24147 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

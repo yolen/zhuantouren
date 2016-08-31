@@ -13,7 +13,8 @@ static NSString * const kCellIdentifier_Mine_BrickCell = @"Mine_BrickCell";
 
 @interface Mine_BrickCell : UITableViewCell
 
-@property (nonatomic, strong) Mine_BrickModel *model;
+@property (nonatomic, strong) UILabel *rankingLbl, *nicknameLbl, *gradeLbl, *numberLbl;
+@property (nonatomic, strong) UIImageView *headImgView;
 
 + (CGFloat)cellHeight;
 

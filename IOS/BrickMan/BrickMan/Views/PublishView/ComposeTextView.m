@@ -6,6 +6,7 @@
 //  Copyright © 2016 BrickMan. All rights reserved.
 //
 
+#define COMPOSE_TEXT_FONT_SIZE [UIFont systemFontOfSize:14]
 #import "ComposeTextView.h"
 
 @interface ComposeTextView () <UITextViewDelegate>

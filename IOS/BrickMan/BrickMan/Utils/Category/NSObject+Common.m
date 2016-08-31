@@ -19,6 +19,32 @@
     return YES;
 }
 
++ (void)showSuccessMsg:(NSString *)success {
+    MBProgressHUD *hud = [self createCustomeHud];
+    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"alert_success_icon"]];
+    hud.labelText = success;
+    [hud hide:YES afterDelay:1];
+}
+
++ (void)showErrorMsg:(NSString *)error {
+    MBProgressHUD *hud = [self createCustomeHud];
+    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"alert_error_icon"]];
+    hud.labelText = error;
+    [hud hide:YES afterDelay:1];
+}
+
++ (MBProgressHUD *)createCustomeHud {
+    UIWindow *window = [[UIApplication sharedApplication].windows lastObject];
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithWindow:window];
+    hud.detailsLabelFont = [UIFont boldSystemFontOfSize:16];
+    hud.mode = MBProgressHUDModeCustomView;
+    [window addSubview:hud];
+    [hud show:YES];
+    
+    return hud;
+}
+
+
 - (NSString *)tipFromError:(NSError *)error{
     if (error && error.userInfo) {
         NSMutableString *tipStr = [[NSMutableString alloc] init];
@@ -55,6 +81,7 @@
     if (resultCode.intValue == 101) { //正常返回
         
     }else if (resultCode.integerValue == 102 || resultCode.integerValue == 104) { //102:发生业务逻辑错误时返回 104:发生校验身份错误或者系统内部错误时返回
+        
         error = [NSError errorWithDomain:kBaseUrl code:resultCode.intValue userInfo:responseJSON];
         if (autoShowError) {
             [NSObject showError:error];
@@ -75,7 +102,7 @@
 
 #pragma mark - 缓存
 + (void)saveResponseData:(NSDictionary *)data toPath:(NSString *)requestPath {
-    if ([self createDirInCache:kResponseCache_path]) {
+    if ([self createDirInCache:kResponseCache_path] && ![data isKindOfClass:[NSNull class]]) {
         NSString *abslutePath = [NSString stringWithFormat:@"%@/%@.plist", [self pathInCacheDirectory:kResponseCache_path], [requestPath md5Str]];
         [data writeToFile:abslutePath atomically:YES];
     }

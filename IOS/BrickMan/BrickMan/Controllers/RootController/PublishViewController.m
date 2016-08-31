@@ -10,18 +10,17 @@
 #import "ComposeViewController.h"
 #import "ComposeViewController.h"
 #import "PublishViewController.h"
-#import "UITapImageView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "ComposeViewController.h"
 #import <TZImagePickerController/TZImagePickerController.h>
 
+static float progress = 0.0f;
 @interface PublishViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate,TZImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @property (nonatomic, strong) UIImage *image;
-@property (strong, nonatomic) ComposeViewController *composeViewController;
 @end
 
 @implementation PublishViewController
@@ -29,16 +28,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _imagePicker          = [[UIImagePickerController alloc] init];
+    _imagePicker = [[UIImagePickerController alloc] init];
     _imagePicker.delegate = self;
 
     [self customView];
-    self.composeViewController = [[ComposeViewController alloc] init];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)customView {
     UIImageView *bgImgView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    bgImgView.image        = [UIImage imageNamed:@"publishView_bg"];
+    bgImgView.image = [UIImage imageNamed:@"publishView_bg"];
     [self.view addSubview:bgImgView];
 
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -61,57 +65,41 @@
     [self.view addSubview:bgView];
 
     //拍照
-    __weak typeof(self) weakSelf  = self;
-    UITapImageView *cameraImgView = [[UITapImageView alloc] init];
-    cameraImgView.image           = [UIImage imageNamed:@"circle"];
-    [cameraImgView addTapBlock:^(id obj) {
-        [weakSelf cameraAction];
-    }];
+    UIImageView *cameraImgView = [[UIImageView alloc] init];
+    cameraImgView.image = [UIImage imageNamed:@"circle"];
+    cameraImgView.userInteractionEnabled = YES;
     [self.view addSubview:cameraImgView];
-    UILabel *cameraLabel      = [[UILabel alloc] initWithFrame:CGRectMake (0, 20, 60, 20)];
-    cameraLabel.font          = [UIFont systemFontOfSize:14];
+    UITapGestureRecognizer *cameraTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cameraAction)];
+    [cameraImgView addGestureRecognizer:cameraTap];
+    UILabel *cameraLabel = [[UILabel alloc] initWithFrame:CGRectMake (0, 20*SCALE, 60*SCALE, 20)];
+    cameraLabel.font = [UIFont systemFontOfSize:14];
     cameraLabel.textAlignment = NSTextAlignmentCenter;
-    cameraLabel.text          = @"拍照";
+    cameraLabel.text = @"拍照";
     [cameraImgView addSubview:cameraLabel];
 
     //相册
-    UITapImageView *photoImgView = [[UITapImageView alloc] init];
-    photoImgView.image           = [UIImage imageNamed:@"circle"];
-    [photoImgView addTapBlock:^(id obj) {
-        [weakSelf photoAction];
-    }];
+    UIImageView *photoImgView = [[UIImageView alloc] init];
+    photoImgView.image = [UIImage imageNamed:@"circle"];
+    photoImgView.userInteractionEnabled = YES;
     [self.view addSubview:photoImgView];
-    UILabel *photoLabel      = [[UILabel alloc] initWithFrame:CGRectMake (0, 20, 60, 20)];
-    photoLabel.font          = [UIFont systemFontOfSize:14];
+    UITapGestureRecognizer *photoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoAction)];
+    [photoImgView addGestureRecognizer:photoTap];
+    UILabel *photoLabel = [[UILabel alloc] initWithFrame:CGRectMake (0, 20*SCALE, 60*SCALE, 20)];
+    photoLabel.font = [UIFont systemFontOfSize:14];
     photoLabel.textAlignment = NSTextAlignmentCenter;
-    photoLabel.text          = @"相册";
+    photoLabel.text = @"相册";
     [photoImgView addSubview:photoLabel];
 
     [cameraImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo (CGSizeMake (60, 60));
+        make.size.mas_equalTo (CGSizeMake (60*SCALE, 60*SCALE));
         make.right.equalTo (self.view.mas_centerX).offset (-50);
         make.top.equalTo (bgView.mas_bottom).offset (50);
     }];
     [photoImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo (CGSizeMake (60, 60));
+        make.size.mas_equalTo (CGSizeMake (60*SCALE, 60*SCALE));
         make.left.equalTo (self.view.mas_centerX).offset (50);
         make.top.equalTo (bgView.mas_bottom).offset (50);
     }];
-}
-
-/**
- *  modal 出发布界面
- */
-- (void)composePhotosOrVideos {
-    UINavigationController *navigationController =
-    [[UINavigationController alloc] initWithRootViewController:self.composeViewController];
-    [self presentViewController:navigationController animated:YES completion:nil];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 #pragma mark - Btn Action
@@ -119,131 +107,51 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
-/**
- *  点击拍照,进入相机拍照或者录相
- */
 - (void)cameraAction {
     self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    self.imagePicker.mediaTypes = [[NSArray alloc]
-    initWithObjects:(NSString *)kUTTypeMovie, (NSString *)kUTTypeImage, (NSString *)kUTTypeGIF, nil];
-    self.imagePicker.videoQuality = UIImagePickerControllerQualityTypeMedium;
+//    self.imagePicker.mediaTypes = [[NSArray alloc]
+//    initWithObjects:(NSString *)kUTTypeMovie, (NSString *)kUTTypeImage, (NSString *)kUTTypeGIF, nil];
     [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
-/**
- *  点击相册,进入相册选择照片
- */
+
 - (void)photoAction {
-    /*
     TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
     imagePickerVc.allowTakePicture = NO; // 隐藏拍照按钮
-    imagePickerVc.oKButtonTitleColorDisabled = [UIColor lightGrayColor];
     imagePickerVc.allowPickingVideo = NO;
+    imagePickerVc.oKButtonTitleColorDisabled = [UIColor lightGrayColor];
     [self presentViewController:imagePickerVc animated:YES completion:nil];
-     */
-    ComposeViewController *vc = [[ComposeViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - TZImagePickerControllerDelegate
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto infos:(NSArray<NSDictionary *> *)infos {
-    __weak typeof(self) weakSelf = self;
-    [[BrickManAPIManager shareInstance] uploadFileWithImages:photos doneBlock:^(NSString *imagePath, NSError *error) {
-        if (imagePath) {
-            weakSelf.composeViewController.imagePath = imagePath;
-            weakSelf.composeViewController.images = photos;
-            
-            [self dismissViewControllerAnimated:YES completion:nil];
-            [self composePhotosOrVideos];
-        }
-    } progerssBlock:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    ComposeViewController *composeVC = [[ComposeViewController alloc] init];
+    composeVC.images = photos;
+    UINavigationController *composeNav = [[UINavigationController alloc] initWithRootViewController:composeVC];
+    [self presentViewController:composeNav animated:YES completion:nil];
 }
 
 
 #pragma mark - UIImagePickerControllerDelegate
-/**
- *  imagePickerController 实例在完成录制或者拍照完成后调用,保存视频或者照片
- *
- *  @param picker imagePickerController实例
- *  @param info   录制信息
- */
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
-    // 获取媒体文件类型
-    NSString *mediaType = info[@"UIImagePickerControllerMediaType"];
-    // 为 image 时,保存照片
-    if (CFStringCompare ((__bridge_retained CFStringRef)mediaType, kUTTypeImage, 0) == kCFCompareEqualTo) {
-        UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
-        self.image     = image;
-        if (picker.sourceType != UIImagePickerControllerSourceTypePhotoLibrary) {
-            UIImageWriteToSavedPhotosAlbum (image, self,
-                                            @selector (image:didFinishSavingWithError:contextInfo:), nil);
-        }
-    } else if (CFStringCompare ((__bridge_retained CFStringRef)mediaType, kUTTypeMovie, 0) ==
-               kCFCompareEqualTo) { // 为 video 时,保存视频
-        NSString *videoPath = (NSString *)[info[@"UIImagePickerControllerMediaURL"] path];
-        if (picker.sourceType != UIImagePickerControllerSourceTypePhotoLibrary) {
-            if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum (videoPath)) {
-                UISaveVideoAtPathToSavedPhotosAlbum (
-                videoPath, self, @selector (video:didFinishSavingWithError:contextInfo:), nil);
-            }
-        }
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    //保存原图片到相册中
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera && originalImage) {
+        UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, NULL);
     }
-//    [[BrickManAPIManager shareInstance] uploadFileWithImage:self.image doneBlock:^(NSArray *imgPathArray, NSError *error) {
-//        if (imgPathArray.count > 0) {
-//            [ComposeViewController sharedInstance].imagePathArray = imgPathArray;
-//        }
-//    } progerssBlock:nil];
-   
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self composePhotosOrVideos];
+    
+    ComposeViewController *composeVC = [[ComposeViewController alloc] init];
+    NSArray *array = [NSArray arrayWithObject:originalImage];
+    composeVC.images = array;
+    UINavigationController *composeNav = [[UINavigationController alloc] initWithRootViewController:composeVC];
+    [self presentViewController:composeNav animated:YES completion:nil];
 }
 
-/**
- *  当获取为 image 时,保存后回调
- *
- *  @param image       图片
- *  @param error       错误信息
- *  @param contextInfo
- */
-- (void)image:(UIImage *)image
-didFinishSavingWithError:(NSError *)error
-             contextInfo:(void *)contextInfo {
-    if (error) {
-        kTipAlert(@"照片保存失败");
-    }
-}
-
-/**
- *  当获取为 video 时,保存后回调
- *
- *  @param videoPath   视频
- *  @param error       错误信息
- *  @param contextInfo
- */
-- (void)video:(NSString *)videoPath
-didFinishSavingWithError:(NSError *)error
-             contextInfo:(void *)contextInfo {
-    if (error) {
-        kTipAlert(@"照片保存失败");
-    }
-}
-
-
-#pragma mark - 内存管理
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-#pragma mark - lazy loading
-//- (UIImagePickerController *)imagePicker {
-//    if (_imagePicker == nil) {
-//        _imagePicker          = [[UIImagePickerController alloc] init];
-//        _imagePicker.delegate = self;
-//    }
-//    return _imagePicker;
-//}
 
 
 @end
