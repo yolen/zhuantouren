@@ -6,10 +6,6 @@
 /build
 /captures
 /social_sdk_library_project/build/
-app/libs/
-app/src/main/java/com/brickman/app/common/data/
-app/src/main/java/com/brickman/app/common/umeng/auth/
-app/src/main/java/com/brickman/app/module/
 social_sdk_library_project/build/generated/
 social_sdk_library_project/build/intermediates/bundles/release/aapt/
 social_sdk_library_project/build/intermediates/bundles/release/aidl/
