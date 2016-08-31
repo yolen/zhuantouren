@@ -54,6 +54,7 @@
 }
 
 - (void)reloadData {
+    self.dataDic = [BMUser getUserInfo];
     [self.myTableView reloadData];
 }
 
@@ -111,15 +112,22 @@
             UIAlertAction *actionSure = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 UITextField *textField = alert.textFields.firstObject;
                 if (textField.text.length < kMinLength) {
-                    
                     [MBProgressHUD showMessage:@"昵称长度不够" toView:self.navigationController.view complication:nil];
                     return;
                 }
-                UITextField *tf = [alert.textFields firstObject];
-                [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : self.dataDic[@"userId"], @"userAlias" : @"TZ123"} andBlock:^(id data, NSError *error) {
+                __weak typeof(self) weakSelf = self;
+                [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : self.dataDic[@"userId"], @"userAlias" : textField.text} andBlock:^(id data, NSError *error) {
                     if (data) {
-                        Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-                        cell.subLabel.text = tf.text;
+                        //刷新数据
+                        NSDictionary *userInfo = [BMUser getUserInfo];
+                        NSString *userId = userInfo[@"userId"];
+                        [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : userId} andBlock:^(id data, NSError *error) {
+                            if (data) {
+                                [BMUser saveUserInfo:data];
+                                [weakSelf reloadData];
+                            }
+                        }];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
                     }
                 }];
             }];
@@ -218,9 +226,23 @@
 }
 
 - (void)confirmSelection:(UIButton *)sender {
-    Mine_infoCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-    cell.subLabel.text = _oldSelected.titleLabel.text;
-    [self.mySexSelection removeFromSuperview];
+    NSString *sexString = _oldSelected.titleLabel.text;
+    __weak typeof(self) weakSelf = self;
+    [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : self.dataDic[@"userId"], @"userSexStr" : sexString} andBlock:^(id data, NSError *error) {
+        if (data) {
+            [self.mySexSelection removeFromSuperview];
+            //刷新数据
+            NSDictionary *userInfo = [BMUser getUserInfo];
+            NSString *userId = userInfo[@"userId"];
+            [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : userId} andBlock:^(id data, NSError *error) {
+                if (data) {
+                    [BMUser saveUserInfo:data];
+                    [weakSelf reloadData];
+                }
+            }];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
+        }
+    }];
 }
 
 //控制最长输入长度,不允许输入emoji

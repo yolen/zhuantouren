@@ -8,8 +8,10 @@
 
 #define kCellIdentifier_CommentCell @"CommentCell"
 #import <UIKit/UIKit.h>
+#import "BMComment.h"
 
 @interface CommentCell : UITableViewCell
+@property (strong, nonatomic) BMComment *comment;
 
-+ (CGFloat)cellHeight;
++ (CGFloat)cellHeightWithModel:(BMComment *)comment;
 @end

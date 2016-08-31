@@ -123,33 +123,26 @@
  *  点击拍照,进入相机拍照或者录相
  */
 - (void)cameraAction {
-    // 如果没有登录,显示登录界面
-    if (!self.isLogin) {
-        BMLoginViewController *loginViewController = [[BMLoginViewController alloc] init];
-        [self.navigationController pushViewController:loginViewController animated:YES];
-    } else {
-        // 否则显示图片选择页面
-        self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        self.imagePicker.mediaTypes = [[NSArray alloc]
-        initWithObjects:(NSString *)kUTTypeMovie, (NSString *)kUTTypeImage, (NSString *)kUTTypeGIF, nil];
-        self.imagePicker.videoQuality = UIImagePickerControllerQualityTypeMedium;
-        [self presentViewController:self.imagePicker animated:YES completion:nil];
-    }
+    self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.imagePicker.mediaTypes = [[NSArray alloc]
+    initWithObjects:(NSString *)kUTTypeMovie, (NSString *)kUTTypeImage, (NSString *)kUTTypeGIF, nil];
+    self.imagePicker.videoQuality = UIImagePickerControllerQualityTypeMedium;
+    [self presentViewController:self.imagePicker animated:YES completion:nil];
 }
 /**
  *  点击相册,进入相册选择照片
  */
 - (void)photoAction {
-    if (!self.isLogin) {
-        BMLoginViewController *loginViewController = [[BMLoginViewController alloc] init];
-        [self.navigationController pushViewController:loginViewController animated:YES];
-    } else {
-        TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
-        imagePickerVc.allowTakePicture = NO; // 隐藏拍照按钮
-        imagePickerVc.oKButtonTitleColorDisabled = [UIColor lightGrayColor];
-        imagePickerVc.allowPickingVideo = NO;
-        [self presentViewController:imagePickerVc animated:YES completion:nil];
-    }
+    /*
+    TZImagePickerController *imagePickerVc = [[TZImagePickerController alloc] initWithMaxImagesCount:9 delegate:self];
+    imagePickerVc.allowTakePicture = NO; // 隐藏拍照按钮
+    imagePickerVc.oKButtonTitleColorDisabled = [UIColor lightGrayColor];
+    imagePickerVc.allowPickingVideo = NO;
+    [self presentViewController:imagePickerVc animated:YES completion:nil];
+     */
+    ComposeViewController *vc = [[ComposeViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - TZImagePickerControllerDelegate
@@ -217,9 +210,7 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
 didFinishSavingWithError:(NSError *)error
              contextInfo:(void *)contextInfo {
     if (error) {
-        UIAlertController *alert = [UIAlertController errorAlertWithMessage:@"照片保存失败"];
-        [self presentViewController:alert animated:YES completion:nil];
-        DebugLog (@"error: %@", error);
+        kTipAlert(@"照片保存失败");
     }
 }
 
@@ -234,9 +225,7 @@ didFinishSavingWithError:(NSError *)error
 didFinishSavingWithError:(NSError *)error
              contextInfo:(void *)contextInfo {
     if (error) {
-        UIAlertController *alert = [UIAlertController errorAlertWithMessage:@"照片保存失败"];
-        [self presentViewController:alert animated:YES completion:nil];
-        DebugLog (@"error: %@", error);
+        kTipAlert(@"照片保存失败");
     }
 }
 

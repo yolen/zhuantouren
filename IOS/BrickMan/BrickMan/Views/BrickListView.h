@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BMContentModel.h"
+#import "BMContent.h"
 
 @interface BrickListView : UIView
 @property (copy, nonatomic) void(^scrollBlock)(CGFloat offset);
-@property (copy, nonatomic) void(^goToDetailBlock)(BMContentModel *model);
+@property (copy, nonatomic) void(^goToDetailBlock)(BMContent *model);
+@property (strong, nonatomic) UITableView *myTableView;
 
 - (instancetype)initWithFrame:(CGRect)frame andIndex:(NSInteger)index;
-- (void)refreshFirst;
+//- (void)refreshFirst;
+- (void)refresh;
+
 @end

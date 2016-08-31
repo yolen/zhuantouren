@@ -22,4 +22,7 @@
 + (void)saveResponseData:(NSDictionary *)data toPath:(NSString *)requestPath;
 + (id)loadResponseWithPath:(NSString *)requestPath;
 
++ (NSString* )pathInCacheDirectory:(NSString *)fileName;
++ (BOOL) createDirInCache:(NSString *)dirName;
+
 @end

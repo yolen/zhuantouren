@@ -28,7 +28,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
 
 - (instancetype)initWithBaseURL:(NSURL *)url {
     if (self = [super initWithBaseURL:url]) {
-//        self.responseSerializer = [AFJSONResponseSerializer serializer];
+        //        self.responseSerializer = [AFJSONResponseSerializer serializer];
         self.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json",@"text/html",@"text/javascript", nil];
     }
     return self;
@@ -69,22 +69,26 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     //发起请求
     switch (method) {
         case Get:{
+            NSMutableString *localPath = [path mutableCopy];
+            if (params) {
+                [localPath appendString:params.description];
+            }
             [self GET:path parameters:dic progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", path, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
-                    responseObject = [NSObject loadResponseWithPath:path];
+                    responseObject = [NSObject loadResponseWithPath:localPath];
                     block(responseObject,error);
                 }else{
                     id result = [responseObject valueForKey:@"body"];
-                    [NSObject saveResponseData:result toPath:path];
+                    [NSObject saveResponseData:result toPath:localPath];
                     block(result, nil);
                 }
-
+                
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", path, error);
                 !autoShowError || [NSObject showError:error];
-                NSDictionary *responseObject = [NSObject loadResponseWithPath:path];
+                NSDictionary *responseObject = [NSObject loadResponseWithPath:localPath];
                 block(responseObject, error);
             }];
             break;}
@@ -97,7 +101,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
                 }else{
                     block(responseObject, nil);
                 }
-
+                
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", path, error);
                 !autoShowError || [NSObject showError:error];
@@ -126,8 +130,8 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
 
 - (void)uploadImages:(NSArray *)images WithPath:(NSString *)path
         successBlock:(void (^)(NSURLSessionDataTask *task, id responseObject))success
-       failureBlock:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
-      progerssBlock:(void (^)(CGFloat progressValue))progress {
+        failureBlock:(void (^)(NSURLSessionDataTask *task, NSError *error))failure
+       progerssBlock:(void (^)(CGFloat progressValue))progress {
     //对params做处理
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     int rand = arc4random();
@@ -172,7 +176,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
         if (failure) {
             failure(task, error);
         }
-
+        
     }];
 }
 
@@ -207,14 +211,12 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     
     NSString * appendingString = @"";
     for (NSString * value in sortlValues) {
-        NSString *string = [NSString stringWithFormat:@"%@,",value];
+        NSString *string = [NSString stringWithFormat:@"%@",value];
         appendingString = [appendingString stringByAppendingString:string];
     }
-    //去除最后一个','
-    appendingString = [appendingString substringToIndex:appendingString.length-1];
     appendingString = [appendingString md5Str];
     appendingString = [appendingString lowercaseString];
-    appendingString = [appendingString stringByAppendingString:[NSString stringWithFormat:@"%@",key]];
+    appendingString = [appendingString stringByAppendingString:[NSString stringWithFormat:@".%@",key]];
     appendingString  = [appendingString md5Str];
     NSString *cVal = [appendingString lowercaseString];
     

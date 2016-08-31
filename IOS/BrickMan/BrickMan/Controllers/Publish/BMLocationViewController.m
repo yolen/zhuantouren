@@ -79,16 +79,12 @@
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    // 重新定位
-    if (indexPath == [NSIndexPath indexPathForRow:0 inSection:0]) {
-        self.currentLocation = @"正在定位,请稍后...";
-        [self.locationManager startUpdatingLocation];
-    }else {
-        [self.navigationController popViewControllerAnimated:YES];
-        NSString *location = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
+    NSString *location = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
+    if (self.locationFinish) {
         self.locationFinish(location);
     }
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
@@ -111,9 +107,7 @@
 - (void)getLocationAccess {
     // 获取定位权限
     if (![CLLocationManager locationServicesEnabled]) {
-        UIAlertController *alert = [UIAlertController
-        errorAlertWithMessage:@"您尚未打开定位服务,请到设置中打开定位服务"];
-        [self presentViewController:alert animated:YES completion:nil];
+        kTipAlert(@"您尚未打开定位服务,请到设置中打开定位服务");
         return;
     }
 
@@ -129,16 +123,16 @@
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *location = locations.lastObject;
-    NSLog (@"%@", location);
-    [self.geocoder
-    reverseGeocodeLocation:location
-         completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
+    [self.geocoder reverseGeocodeLocation:location
+                        completionHandler:^(NSArray<CLPlacemark *> *_Nullable placemarks, NSError *_Nullable error) {
              CLPlacemark *lastMark = placemarks.lastObject;
              // 拼接位置信息
              NSString *currentLocation =
              [NSString stringWithFormat:@"%@", lastMark.addressDictionary[@"City"]];
              self.currentLocation = currentLocation;
-             self.locationFinish(currentLocation);
+             if (self.locationFinish) {
+                 self.locationFinish(currentLocation);
+             }
          }];
     [self.locationManager stopUpdatingLocation];
 }
@@ -146,9 +140,7 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     switch (error.code) {
     case kCLErrorNetwork: {
-        UIAlertController *alert =
-        [UIAlertController errorAlertWithMessage:@"网络错误,请检查您的网络连接"];
-        [self presentViewController:alert animated:YES completion:nil];
+        kTipAlert(@"网络错误,请检查您的网络连接");
     } break;
     default:
         break;
@@ -185,6 +177,9 @@
         self.tableView.frame  = origin;
         _tableView.dataSource = self;
         _tableView.delegate   = self;
+        self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+        self.tableView.sectionIndexTrackingBackgroundColor = [UIColor clearColor];
+        self.tableView.sectionIndexColor = [UIColor colorWithHexString:@"0x666666"];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CityCell"];
     }
     return _tableView;

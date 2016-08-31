@@ -6,7 +6,6 @@
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
-#define kContentString @"人生应该如蜡烛一样,从顶燃到底,一直都是光明的.身边总有那么些好人好事,让生活更美好"
 #import "CommentCell.h"
 
 @interface CommentCell()
@@ -50,16 +49,15 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    _iconImageView.image = [UIImage imageNamed:@"user_icon"];
-    _nameLabel.text = @"砖头人";
-    _timeLabel.text = @"2016-06-06 12:12";
-    [_commentLabel setLongString:kContentString withFitWidth:(kScreen_Width - 70)];
+    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:self.comment.user.userHead] placeholderImage:[UIImage imageNamed:@"user_icon"]];
+    _nameLabel.text = self.comment.user.userAlias;
+    _timeLabel.text = [self.comment.date stringDisplay_HHmm];
+    [_commentLabel setLongString:self.comment.commentContent withFitWidth:(kScreen_Width - 70)];
 }
 
-+ (CGFloat)cellHeight {
++ (CGFloat)cellHeightWithModel:(BMComment *)comment {
     CGFloat height = 60;
-    NSString *contentStr = kContentString;
-    height += [contentStr getHeightWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(kScreen_Width - 10, CGFLOAT_MAX)] + 10;
+    height += [comment.commentContent getHeightWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(kScreen_Width - 10, CGFLOAT_MAX)] + 10;
     return height;
 }
 

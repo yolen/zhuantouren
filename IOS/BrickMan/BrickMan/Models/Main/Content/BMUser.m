@@ -37,5 +37,4 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserInfo];
 }
 
-
 @end

@@ -7,10 +7,11 @@
 //
 
 #import "BaseViewController.h"
-#import "BMContentModel.h"
+#import "BMContent.h"
 
 @interface DetailBrickViewController : BaseViewController
 
-@property (strong, nonatomic) BMContentModel *model;
+@property (strong, nonatomic) BMContent *model;
 
 @end
+

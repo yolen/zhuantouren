@@ -77,7 +77,6 @@
 + (void)saveResponseData:(NSDictionary *)data toPath:(NSString *)requestPath {
     if ([self createDirInCache:kResponseCache_path]) {
         NSString *abslutePath = [NSString stringWithFormat:@"%@/%@.plist", [self pathInCacheDirectory:kResponseCache_path], [requestPath md5Str]];
-        //<null>处理
         [data writeToFile:abslutePath atomically:YES];
     }
 }
@@ -87,15 +86,13 @@
     return [NSMutableDictionary dictionaryWithContentsOfFile:abslutePath];
 }
 
-+ (NSString* )pathInCacheDirectory:(NSString *)fileName
-{
++ (NSString* )pathInCacheDirectory:(NSString *)fileName {
     NSArray *cachePaths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *cachePath = [cachePaths objectAtIndex:0];
     return [cachePath stringByAppendingPathComponent:fileName];
 }
 
-+ (BOOL) createDirInCache:(NSString *)dirName
-{
++ (BOOL) createDirInCache:(NSString *)dirName {
     NSString *dirPath = [self pathInCacheDirectory:dirName];
     BOOL isDir = NO;
     NSFileManager *fileManager = [NSFileManager defaultManager];

@@ -1,5 +1,5 @@
 //
-//  BMContentModel.h
+//  BMContent.h
 //  BrickMan
 //
 //  Created by TZ on 16/8/18.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BMUser.h"
 
-@interface BMContentModel : NSObject
+@interface BMContent : NSObject
 
 @property (strong, nonatomic) NSNumber *contentBricks, *contentFlowors, *contentReports, *contentShares, *id, *createdTime;
 @property (strong, nonatomic) NSString *contentStatus, *contentTitle, *userId, *contentPlace;

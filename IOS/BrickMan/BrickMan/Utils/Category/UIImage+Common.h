@@ -10,5 +10,6 @@
 
 @interface UIImage (Common)
 +(UIImage *)imageWithColor:(UIColor *)aColor;
++(UIImage *)imageWithColor:(UIColor *)aColor withFrame:(CGRect)aFrame;
 
 @end

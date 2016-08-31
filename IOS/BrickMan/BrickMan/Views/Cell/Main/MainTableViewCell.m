@@ -8,7 +8,8 @@
 
 #import "MainTableViewCell.h"
 #import "BrickPhotoCell.h"
-#import "BMAttachmentModel.h"
+#import "BrickPhotoSingleCell.h"
+#import "BMAttachment.h"
 #import "MSSBrowseModel.h"
 #import "MSSBrowseNetworkViewController.h"
 
@@ -61,7 +62,7 @@
         if (!_contentLabel) {
             _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(kPaddingLeft, _separatorLine.bottom + 10, kScreen_Width - 20, 1)];
             _contentLabel.numberOfLines = 0;
-            _contentLabel.font = [UIFont systemFontOfSize:12];
+            _contentLabel.font = [UIFont systemFontOfSize:14];
             [self.contentView addSubview:_contentLabel];
         }
         if (!_myCollectionView) {
@@ -70,18 +71,14 @@
             _myCollectionView.delegate = self;
             _myCollectionView.dataSource = self;
             _myCollectionView.scrollEnabled = NO;
-            _myCollectionView.backgroundColor = kViewBGColor;
+            _myCollectionView.backgroundColor = [UIColor clearColor];
             [_myCollectionView registerClass:[BrickPhotoCell class] forCellWithReuseIdentifier:kCellIdentifier_BrickPhotoCell];
+            [_myCollectionView registerClass:[BrickPhotoSingleCell class] forCellWithReuseIdentifier:kCellIdentifier_BrickPhotoSingleCell];
             [self.contentView addSubview:_myCollectionView];
-        }
-        if (!_separatorLine2) {
-            _separatorLine2 = [[UIView alloc] initWithFrame:CGRectMake(kPaddingLeft, _contentLabel.bottom + 5, kScreen_Width - 20, 0.5)];
-            _separatorLine2.backgroundColor = kLineColor;
-            [self.contentView addSubview:_separatorLine2];
         }
         if (!_commentBtn) {
             _commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            _commentBtn.frame = CGRectMake(10, _separatorLine2.bottom + 3, 60, 30);
+            _commentBtn.frame = CGRectMake(10, _myCollectionView.bottom + 3, 60, 30);
             _commentBtn.tag = 101;
             _commentBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             _commentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
@@ -145,12 +142,11 @@
     _nameLabel.text = self.model.user.userAlias;
     _timeLabel.text = [NSString stringWithFormat:@"%@  %@",[self.model.date stringDisplay_HHmm],self.model.contentPlace];
     [_contentLabel setLongString:self.model.contentTitle withFitWidth:(kScreen_Width - 10)];
-    curY += [self.model.contentTitle getHeightWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(kScreen_Width - 20, CGFLOAT_MAX)];
+    curY += [self.model.contentTitle getHeightWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(kScreen_Width - 20, CGFLOAT_MAX)];
     [_separatorLine2 setY:curY];
     [self.myCollectionView reloadData];
     
     if (self.model.brickContentAttachmentList.count > 0) {
-        
         self.myCollectionView.hidden = NO;
     }else {
         if (self.myCollectionView) {
@@ -159,26 +155,13 @@
     }
     //collection height
     CGFloat collectionViewHeight = 0;
-    NSInteger attachmentCount = self.model.brickContentAttachmentList.count;
-    if (attachmentCount == 1) {
-        collectionViewHeight = kBrickPhotoCellHeight_One;
-    }else if (attachmentCount == 2) {
-        collectionViewHeight = kBrickPhotoCellHeight_Two;
-    }else if (attachmentCount == 3) {
-        collectionViewHeight = kBrickPhotoCellHeight_One + kBrickPhotoCellHeight_Two;
-    }else if (attachmentCount == 4) {
-        collectionViewHeight = kBrickPhotoCellHeight_One + kBrickPhotoCellWidth_Three;
-    }else if (attachmentCount == 5) {
-        collectionViewHeight = kBrickPhotoCellHeight_Two + kBrickPhotoCellWidth_Three;
-    }else if (attachmentCount == 6) {
-        collectionViewHeight =  kBrickPhotoCellWidth_Three * 2;
-    }else if (attachmentCount == 7) {
-        collectionViewHeight = kBrickPhotoCellHeight_One + kBrickPhotoCellWidth_Three * 2;
-    }else if (attachmentCount == 8) {
-        collectionViewHeight = kBrickPhotoCellHeight_Two + kBrickPhotoCellWidth_Three * 2;
-    }else if (attachmentCount == 9) {
-        collectionViewHeight = kBrickPhotoCellWidth_Three * 3;
+    NSArray *attachmentArray = self.model.brickContentAttachmentList;
+    if (attachmentArray.count == 1) {
+        collectionViewHeight = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray[0]].height;
+    }else {
+        collectionViewHeight = [BrickPhotoCell cellHeithWithAttachment:attachmentArray[0]].height * ceilf((float)attachmentArray.count/3);
     }
+
     _myCollectionView.height = collectionViewHeight;
     [_myCollectionView reloadData];
     [_myCollectionView setY:curY];
@@ -199,56 +182,42 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    BrickPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier_BrickPhotoCell forIndexPath:indexPath];
-    cell.attachmentModel = self.model.brickContentAttachmentList[indexPath.row];
-    cell.photoImgView.tag = indexPath.row + 100;
-    return cell;
+    NSArray *attachmentArray = self.model.brickContentAttachmentList;
+    if (attachmentArray.count == 1) { //单张图片
+        BrickPhotoSingleCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier_BrickPhotoSingleCell forIndexPath:indexPath];
+        cell.attachmentModel = attachmentArray[indexPath.row];
+        cell.photoImgView.tag = indexPath.row + 1000;
+        return cell;
+    }else { //多张图片
+        BrickPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kCellIdentifier_BrickPhotoCell forIndexPath:indexPath];
+        cell.attachmentModel = attachmentArray[indexPath.row];
+        cell.photoImgView.tag = indexPath.row + 100;
+        return cell;
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSArray *attachmentArray = self.model.brickContentAttachmentList;
     CGSize size;
-    NSInteger attachmentCount = self.model.brickContentAttachmentList.count;
-    if (attachmentCount == 1) {
-        size = CGSizeMake(kBrickPhotoCellWidth_One, kBrickPhotoCellHeight_One);
-    }else if (attachmentCount == 2) {
-        size = CGSizeMake(kBrickPhotoCellWidth_Two, kBrickPhotoCellHeight_Two);
-    }else if (attachmentCount == 3) {
-        if (indexPath.row == 0) {
-            size = CGSizeMake(kBrickPhotoCellWidth_One, kBrickPhotoCellHeight_One);
-        }else {
-            size = CGSizeMake(kBrickPhotoCellWidth_Two, kBrickPhotoCellWidth_Two);
-        }
-    }else if (attachmentCount == 4) {
-        if (indexPath.row == 0) {
-            size = CGSizeMake(kBrickPhotoCellWidth_One, kBrickPhotoCellHeight_One);
-        }else {
-            size = CGSizeMake(kBrickPhotoCellWidth_Three, kBrickPhotoCellWidth_Three);
-        }
-    }else if (attachmentCount == 5) {
-        if (indexPath.row == 0 || indexPath.row == 1) {
-            size = CGSizeMake(kBrickPhotoCellWidth_Two, kBrickPhotoCellHeight_Two);
-        }else {
-            size = CGSizeMake(kBrickPhotoCellWidth_Three, kBrickPhotoCellWidth_Three);
-        }
-    }else if (attachmentCount == 6) {
-        size = CGSizeMake(kBrickPhotoCellWidth_Three, kBrickPhotoCellWidth_Three);
-    }else if (attachmentCount == 7) {
-        if (indexPath.row == 0) {
-            size = CGSizeMake(kBrickPhotoCellWidth_One, kBrickPhotoCellHeight_One);
-        }else {
-            size = CGSizeMake(kBrickPhotoCellWidth_Three, kBrickPhotoCellWidth_Three);
-        }
-    }else if (attachmentCount == 8) {
-        if (indexPath.row == 0 || indexPath.row == 1) {
-            size = CGSizeMake(kBrickPhotoCellWidth_Two, kBrickPhotoCellHeight_Two);
-        }else {
-            size = CGSizeMake(kBrickPhotoCellWidth_Three, kBrickPhotoCellWidth_Three);
-        }
+    if (attachmentArray.count == 1) {
+        size = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray[0]];
     }else {
-        size = CGSizeMake(kBrickPhotoCellWidth_Three, kBrickPhotoCellWidth_Three);
+        size = [BrickPhotoCell cellHeithWithAttachment:attachmentArray[indexPath.row]];
     }
-    
     return size;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    NSArray *attachmentArray = self.model.brickContentAttachmentList;
+    UIEdgeInsets edgeInsets;
+    if (attachmentArray.count == 1) {
+        CGSize size = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray[0]];
+        edgeInsets = UIEdgeInsetsMake(0, 0, 0, kBrickPhotoCellWidth_One - size.width);
+    }else {
+        edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    }
+    return edgeInsets;
+    
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
@@ -263,10 +232,16 @@
         [self.inputView p_dismiss];
     }
     NSMutableArray *browseItemArray = [[NSMutableArray alloc]init];
-    for (int i = 0; i < self.model.brickContentAttachmentList.count; i++) {
-        BMAttachmentModel *attachment = self.model.brickContentAttachmentList[i];
+    NSArray *attachmentArray = self.model.brickContentAttachmentList;
+    for (int i = 0; i < attachmentArray.count; i++) {
+        BMAttachment *attachment = self.model.brickContentAttachmentList[i];
         NSString *imageStr = [NSString stringWithFormat:@"%@/%@",kImageUrl,attachment.attachmentPath];
-        UIImageView *imageView = [collectionView viewWithTag:i + 100];
+        UIImageView *imageView;
+        if (attachmentArray.count == 1) {
+            imageView = [collectionView viewWithTag:i + 1000];
+        }else {
+            imageView = [collectionView viewWithTag:i + 100];
+        }
         MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
         browseItem.bigImageUrl = imageStr;
         browseItem.smallImageView = imageView;
@@ -285,7 +260,7 @@
 #pragma mark - Btn Action
 - (void)operationAction:(UIButton *)button {
     NSInteger tag = button.tag;
-    BMAttachmentModel *attachmentModel = self.model.brickContentAttachmentList[0];
+    BMAttachment *attachmentModel = self.model.brickContentAttachmentList[0];
     NSString *contentId = [attachmentModel.contentId stringValue];
     __weak typeof(self) weakSelf = self;
     
@@ -343,31 +318,18 @@
 }
 
 #pragma mark - cellHeight
-+ (CGFloat)cellHeightWithModel:(BMContentModel *)contentModel {
++ (CGFloat)cellHeightWithModel:(BMContent *)contentModel {
     
     CGFloat height = 60;
-    height += [contentModel.contentTitle getHeightWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(kScreen_Width - 10, 200)] + 20;
+    height += [contentModel.contentTitle getHeightWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(kScreen_Width - 10, 200)] + 20;
     height += 30 + 3;
+    
     CGFloat collectionViewHeight = 0;
-    NSInteger attachmentCount = contentModel.brickContentAttachmentList.count;
-    if (attachmentCount == 1) {
-        collectionViewHeight = kBrickPhotoCellHeight_One;
-    }else if (attachmentCount == 2) {
-        collectionViewHeight = kBrickPhotoCellHeight_Two;
-    }else if (attachmentCount == 3) {
-        collectionViewHeight = kBrickPhotoCellHeight_One + kBrickPhotoCellHeight_Two;
-    }else if (attachmentCount == 4) {
-        collectionViewHeight = kBrickPhotoCellHeight_One + kBrickPhotoCellWidth_Three;
-    }else if (attachmentCount == 5) {
-        collectionViewHeight = kBrickPhotoCellHeight_Two + kBrickPhotoCellWidth_Three;
-    }else if (attachmentCount == 6) {
-        collectionViewHeight = kBrickPhotoCellWidth_Three * 2;
-    }else if (attachmentCount == 7) {
-        collectionViewHeight = kBrickPhotoCellHeight_One + kBrickPhotoCellWidth_Three * 2;
-    }else if (attachmentCount == 8) {
-        collectionViewHeight = kBrickPhotoCellHeight_Two + kBrickPhotoCellWidth_Three * 2;
-    }else if(attachmentCount == 9) {
-        collectionViewHeight = kBrickPhotoCellWidth_Three * 3;
+    NSArray *attachmentArray = contentModel.brickContentAttachmentList;
+    if (attachmentArray.count == 1) {
+        collectionViewHeight = [BrickPhotoSingleCell cellHeithWithAttachment:attachmentArray[0]].height;
+    }else {
+        collectionViewHeight = [BrickPhotoCell cellHeithWithAttachment:attachmentArray[0]].height * ceilf((float)attachmentArray.count/3);
     }
     height += collectionViewHeight + 20;
     return height;

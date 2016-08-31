@@ -8,7 +8,7 @@
 
 #define kCellIdentifier_MainTableViewCell @"MainTableViewCell"
 #import <UIKit/UIKit.h>
-#import "BMContentModel.h"
+#import "BMContent.h"
 #import "CommentInputView.h"
 
 @interface MainTableViewCell : UITableViewCell
@@ -17,9 +17,8 @@
 @property (nonatomic, assign) BOOL isGallery;
 @property (strong, nonatomic) void(^commentBlock)();
 @property (copy, nonatomic) void(^shareBlock)();
-@property (strong, nonatomic) BMContentModel *model;
+@property (strong, nonatomic) BMContent *model;
 @property (strong, nonatomic) CommentInputView *inputView;
 
-//- (void)setData:(NSDictionary *)dataDic;
-+ (CGFloat)cellHeightWithModel:(BMContentModel *)contentModel;
++ (CGFloat)cellHeightWithModel:(BMContent *)contentModel;
 @end

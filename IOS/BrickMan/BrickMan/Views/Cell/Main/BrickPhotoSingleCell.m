@@ -1,19 +1,25 @@
 //
-//  BrickPhotoCell.m
+//  BrickPhotoSingleCell.m
 //  BrickMan
 //
-//  Created by TZ on 16/7/22.
+//  Created by TZ on 16/8/26.
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
-#define kCellWidth (kScreen_Width - 28.0)/3.0
-#import "BrickPhotoCell.h"
+#define kSingleCellWith (kScreen_Width * 0.6)
+#import "BrickPhotoSingleCell.h"
 
-@implementation BrickPhotoCell
+@implementation BrickPhotoSingleCell
 
 - (void)setAttachmentModel:(BMAttachment *)attachmentModel {
+    _attachmentModel = attachmentModel;
+    
+    if (!_attachmentModel) {
+        return;
+    }
+    
     if (!_photoImgView) {
-        _photoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kBrickPhotoCellWidth_Three, kBrickPhotoCellWidth_Three)];
+        _photoImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kSingleCellWith, kSingleCellWith)];
         _photoImgView.contentMode = UIViewContentModeScaleAspectFill;
         _photoImgView.clipsToBounds = YES;
         [self.contentView addSubview:_photoImgView];
@@ -24,9 +30,9 @@
 }
 
 + (CGSize)cellHeithWithAttachment:(BMAttachment *)attachment {
-    CGSize size = CGSizeMake(kBrickPhotoCellWidth_Three, kBrickPhotoCellWidth_Three);
+    CGSize size;
+    size = CGSizeMake(kSingleCellWith, kSingleCellWith);
     return size;
 }
-
 
 @end
