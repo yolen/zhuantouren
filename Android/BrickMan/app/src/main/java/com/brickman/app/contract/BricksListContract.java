@@ -13,16 +13,17 @@ import java.util.List;
  */
 public interface BricksListContract {
     interface Model extends BaseModel {
-        void loadBricksList(int pageNO, HttpListener httpListener);
+        void loadBricksList(HttpListener httpListener);
     }
 
     interface View extends BaseView {
-        void loadSuccess(List<BricksBean> brickList, int pageSize, boolean hasMore);
+        void loadSuccess(List<BricksBean> brickList);
         void showMsg(String msg);
+        void loadFailed();
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {
-        public abstract void loadBricksList(int pageNO);
+        public abstract void loadBricksList();
         @Override
         public void onStart() {}
     }

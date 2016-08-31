@@ -4,6 +4,9 @@ package com.brickman.app.common.base;
  * Created by mayu on 16/7/18,下午3:20.
  */
 public interface Api {
+
+    public static final String FIRST_OPEN = "first_open";
+
     String KEY = "53b4be63fac688e0";
     String BASE_URL = "http://115.28.211.119:1080";
     String IMG_URL = "http://115.28.211.119:2080/";
@@ -18,9 +21,9 @@ public interface Api {
     // 列表详情接口
     String GET_CONTENT_DETAIL = BASE_URL + "/content/detail_content.json";
     // 鲜花列表
-    String GET_FLOWERLIST = BASE_URL + "/DEMO_FlOWER_LIST.json";
+    String GET_FLOWERLIST = BASE_URL + "/user/top_users.json";
     // 砖头列表
-    String GET_BRICKSLIST = BASE_URL + "/DEMO_BRICKS_LIST.json";
+    String GET_BRICKSLIST = BASE_URL + "/user/top_users.json";
     // 评论列表接口
     String GET_DETAIL_LIST = BASE_URL + "/comment/list_comments.json";
 

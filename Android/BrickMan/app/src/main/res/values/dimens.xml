@@ -2,7 +2,7 @@
 <resources>
     <!-- ************************   dp  ************************ -->
     <dimen name="dp_00">0dp</dimen>
-    <dimen name="dp_005">0.5dp</dimen>
+    <dimen name="dp_005">1px</dimen>
     <dimen name="dp_01">1dp</dimen>
     <dimen name="dp_02">2dp</dimen>
     <dimen name="dp_03">3dp</dimen>
@@ -76,6 +76,7 @@
     <dimen name="dp_240">240dp</dimen>
     <dimen name="dp_280">280dp</dimen>
     <dimen name="dp_320">320dp</dimen>
+    <dimen name="dp_500">500dp</dimen>
 
     <!-- ************************   sp  ************************ -->
 

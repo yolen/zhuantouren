@@ -34,6 +34,8 @@ public class MApplication extends Application {
         //配置程序异常退出处理
 //        Thread.setDefaultUncaughtExceptionHandler(new LocalFileHandler(this));
         Logger.init("BRICK_MAN");
+        com.yolanda.nohttp.Logger.setTag("NoHttpSample");
+        com.yolanda.nohttp.Logger.setDebug(true);// 开始NoHttp的调试模式, 这样就能看到请求过程和日志
         mDataKeeper = new DataKeeper(this, "BRICK_MAN");
         mUser = (UserBean) mDataKeeper.get("user_info");
         NoHttp.initialize(this);

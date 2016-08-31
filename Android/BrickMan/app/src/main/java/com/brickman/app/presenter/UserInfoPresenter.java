@@ -4,6 +4,7 @@ import com.brickman.app.common.http.HttpListener;
 import com.brickman.app.common.http.HttpUtil;
 import com.brickman.app.contract.UserInfoContract;
 import com.yolanda.nohttp.OnUploadListener;
+import com.yolanda.nohttp.rest.Response;
 
 import org.json.JSONObject;
 
@@ -54,7 +55,8 @@ public class UserInfoPresenter extends UserInfoContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
                 mView.cancelProgressDialog();
             }
         });
@@ -81,7 +83,8 @@ public class UserInfoPresenter extends UserInfoContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
                 mView.dismissLoading();
             }
         });
@@ -103,7 +106,8 @@ public class UserInfoPresenter extends UserInfoContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
                 mView.dismissLoading();
             }
         });
@@ -125,7 +129,8 @@ public class UserInfoPresenter extends UserInfoContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
                 mView.dismissLoading();
             }
         });
@@ -147,7 +152,8 @@ public class UserInfoPresenter extends UserInfoContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
                 mView.dismissLoading();
             }
         });

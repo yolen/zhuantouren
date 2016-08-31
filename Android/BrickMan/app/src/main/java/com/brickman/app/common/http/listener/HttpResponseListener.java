@@ -53,17 +53,23 @@ public class HttpResponseListener<T> implements OnResponseListener<T> {
             } else {// 但是其它400+的响应码服务器一般会有流输出。
                 LogUtil.debug("请求失败:", response.toString());
             }
-            callback.onFailed(what, response.url(), response.getTag(), response.getException(), responseCode, response.getNetworkMillis());
+            callback.onFailed(what, response);
         }
     }
 
     /**
      * 失败回调.
      */
+//    @Override
+//    public void onFailed(int what, String url, Object tag, Exception exception,
+//                         int responseCode, long networkMillis) {
+//        if (callback != null)
+//            callback.onFailed(what, url, tag, exception, responseCode, networkMillis);
+//    }
+
     @Override
-    public void onFailed(int what, String url, Object tag, Exception exception,
-                         int responseCode, long networkMillis) {
+    public void onFailed(int what, Response<T> response) {
         if (callback != null)
-            callback.onFailed(what, url, tag, exception, responseCode, networkMillis);
+            callback.onFailed(what, response);
     }
 }

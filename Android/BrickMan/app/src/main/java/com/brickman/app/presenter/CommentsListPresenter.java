@@ -6,6 +6,7 @@ import com.brickman.app.contract.CommentsListContract;
 import com.brickman.app.model.Bean.CommentBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.yolanda.nohttp.rest.Response;
 
 import org.json.JSONObject;
 
@@ -20,9 +21,10 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
         mModel.loadCommentsList(pageNO, contentId, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(HttpUtil.isSuccess(response)){
-                    if(response.optJSONObject("body") != null){
-                        List<CommentBean> commentList = new Gson().fromJson(response.optJSONObject("body").optJSONArray("data").toString(), new TypeToken<List<CommentBean>>(){}.getType());
+                if (HttpUtil.isSuccess(response)) {
+                    if (response.optJSONObject("body") != null) {
+                        List<CommentBean> commentList = new Gson().fromJson(response.optJSONObject("body").optJSONArray("data").toString(), new TypeToken<List<CommentBean>>() {
+                        }.getType());
                         int pageNo = response.optJSONObject("body").optJSONObject("page").optInt("pageNo");
                         int totalRecords = response.optJSONObject("body").optJSONObject("page").optInt("totalRecords");
                         boolean hasMore = totalRecords > pageNo * 10;
@@ -35,8 +37,8 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-                mView.showMsg(HttpUtil.makeErrorMessage(exception));
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
                 mView.dismissLoading();
             }
         });
@@ -47,7 +49,7 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
         mModel.flower(id, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(HttpUtil.isSuccess(response)){
+                if (HttpUtil.isSuccess(response)) {
                     mView.flowerSuccess();
                 } else {
                     mView.showMsg(response.optString("body"));
@@ -55,8 +57,8 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-                mView.showMsg(HttpUtil.makeErrorMessage(exception));
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
             }
         });
     }
@@ -66,7 +68,7 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
         mModel.brick(id, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(HttpUtil.isSuccess(response)){
+                if (HttpUtil.isSuccess(response)) {
                     mView.brickSuccess();
                 } else {
                     mView.showMsg(response.optString("body"));
@@ -74,8 +76,8 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-                mView.showMsg(HttpUtil.makeErrorMessage(exception));
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
             }
         });
     }
@@ -85,7 +87,7 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
         mModel.report(id, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(HttpUtil.isSuccess(response)){
+                if (HttpUtil.isSuccess(response)) {
                     mView.reportSuccess();
                 } else {
                     mView.showMsg(response.optString("body"));
@@ -93,8 +95,8 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-                mView.showMsg(HttpUtil.makeErrorMessage(exception));
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
             }
         });
     }
@@ -105,7 +107,7 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
         mModel.comment(id, text, date, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if(HttpUtil.isSuccess(response)){
+                if (HttpUtil.isSuccess(response)) {
                     mView.commentSuccess();
                 } else {
                     mView.showMsg(response.optString("body"));
@@ -114,9 +116,8 @@ public class CommentsListPresenter extends CommentsListContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-                mView.showMsg(HttpUtil.makeErrorMessage(exception));
-                mView.dismissLoading();
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
             }
         });
     }

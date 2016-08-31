@@ -23,6 +23,7 @@ import com.brickman.app.module.widget.view.SwipeBackLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @author mayu
@@ -36,6 +37,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     private ImageView ivShadow;
     protected boolean isInitMVP = true;
     protected int statusBar_color;
+    Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,8 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         int layoutId = getLayoutId();
         if(layoutId == R.layout.activity_spalish
                 || layoutId == R.layout.activity_login
-                || layoutId == R.layout.activity_image_switcher){
+                || layoutId == R.layout.activity_image_switcher
+                || layoutId == R.layout.activity_guide){
             setTheme(R.style.Transparent);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 Window window = getWindow();
@@ -67,7 +70,8 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
             }
         }
         setContentView(layoutId);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
+
         mApp = MApplication.getInstance();
         mLoadingDialog = new LoadingDialog(this);
         if(isInitMVP){
@@ -82,7 +86,8 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         if (layoutResID == R.layout.activity_main
                 || layoutResID == R.layout.activity_login
                 || layoutResID == R.layout.activity_spalish
-                || layoutResID == R.layout.activity_image_switcher) {
+                || layoutResID == R.layout.activity_image_switcher
+                || layoutResID == R.layout.activity_guide) {
             super.setContentView(layoutResID);
         } else {
             super.setContentView(getContainer());
@@ -115,6 +120,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unbinder.unbind();
     }
 
     //添加fragment

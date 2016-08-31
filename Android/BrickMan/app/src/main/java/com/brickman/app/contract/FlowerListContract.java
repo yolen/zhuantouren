@@ -13,16 +13,17 @@ import java.util.List;
  */
 public interface FlowerListContract {
     interface Model extends BaseModel {
-        void loadFlowerList(int pageNO, HttpListener httpListener);
+        void loadFlowerList(HttpListener httpListener);
     }
 
     interface View extends BaseView {
-        void loadSuccess(List<FlowerBean> brickList, int pageSize, boolean hasMore);
+        void loadSuccess(List<FlowerBean> brickList);
         void showMsg(String msg);
+        void loadFailed();
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {
-        public abstract void loadFlowerList(int pageNO);
+        public abstract void loadFlowerList();
         @Override
         public void onStart() {}
     }

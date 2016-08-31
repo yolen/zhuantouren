@@ -3,6 +3,7 @@ package com.brickman.app.presenter;
 import com.brickman.app.common.http.HttpListener;
 import com.brickman.app.common.http.HttpUtil;
 import com.brickman.app.contract.LoginContract;
+import com.yolanda.nohttp.rest.Response;
 
 import org.json.JSONObject;
 
@@ -25,9 +26,9 @@ public class LoginPresenter extends LoginContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
                 mView.dismissLoading();
-                mView.showMsg(HttpUtil.makeErrorMessage(exception));
             }
         });
     }

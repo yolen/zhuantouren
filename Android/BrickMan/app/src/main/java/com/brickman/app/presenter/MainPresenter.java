@@ -7,6 +7,7 @@ import com.brickman.app.model.Bean.BannerBean;
 import com.brickman.app.model.Bean.BrickBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.yolanda.nohttp.rest.Response;
 
 import org.json.JSONObject;
 
@@ -32,8 +33,8 @@ public class MainPresenter extends MainContract.Presenter {
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-                mView.showMsg(HttpUtil.makeErrorMessage(exception));
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
             }
         });
     }
@@ -57,15 +58,17 @@ public class MainPresenter extends MainContract.Presenter {
                     }
 
                 } else {
+                    mView.loadFailed(fragmentId);
                     mView.showMsg(response.optString("body"));
                 }
                 mView.dismissLoading();
             }
 
             @Override
-            public void onFailed(int what, String url, Object tag, Exception exception, int responseCode, long networkMillis) {
-                mView.showMsg(HttpUtil.makeErrorMessage(exception));
+            public void onFailed(int what, Response<JSONObject> response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
                 mView.dismissLoading();
+                mView.loadFailed(fragmentId);
             }
         });
     }

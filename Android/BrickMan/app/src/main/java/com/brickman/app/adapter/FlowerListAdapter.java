@@ -23,10 +23,10 @@ public class FlowerListAdapter extends BaseQuickAdapter<FlowerBean> {
 
     @Override
     protected void convert(BaseViewHolder helper, FlowerBean item) {
-        Glide.with(mCtx).load(item.avator).centerCrop().crossFade().into((CircleImageView)helper.getView(R.id.avator));
-        helper.setText(R.id.place, item.place);
-        helper.setText(R.id.nickName, item.nickName);
-        helper.setText(R.id.level, item.level);
-        helper.setText(R.id.flowerNum, item.flowerNum);
+        Glide.with(mCtx).load(item.userHead).centerCrop().crossFade().into((CircleImageView)helper.getView(R.id.avator));
+        helper.setText(R.id.place, helper.getAdapterPosition()+"");
+        helper.setText(R.id.nickName, item.userAlias);
+        helper.setText(R.id.level, "鲜花");
+        helper.setText(R.id.flowerNum, item.count+"");
     }
 }

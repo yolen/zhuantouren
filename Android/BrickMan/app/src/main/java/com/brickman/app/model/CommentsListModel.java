@@ -15,7 +15,7 @@ public class CommentsListModel implements CommentsListContract.Model {
     @Override
     public void loadCommentsList(int pageNo, int contentId, HttpListener httpListener) {
         RequestParam param = ParamBuilder.buildParam("pageSize", "10")
-                .append("pageNo", pageNo+"")
+                .append("pageNo", pageNo + "")
                 .append("orderType", "0")
                 .append("contentId", contentId + "");
         RequestHelper.sendGETRequest(true, Api.GET_DETAIL_LIST, param, httpListener);
@@ -32,20 +32,23 @@ public class CommentsListModel implements CommentsListContract.Model {
     @Override
     public void flower(String id, HttpListener httpListener) {
         RequestParam param = ParamBuilder.buildParam("contentId", id)
-                .append("operType", "1");
+                .append("userId", MApplication.getInstance().mUser.userId)
+                .append("operType", "2");
         RequestHelper.sendPOSTRequest(false, Api.POST_DETAIL_DO, param, httpListener);
     }
 
     @Override
     public void brick(String id, HttpListener httpListener) {
         RequestParam param = ParamBuilder.buildParam("contentId", id)
-                .append("operType", "2");
+                .append("userId", MApplication.getInstance().mUser.userId)
+                .append("operType", "1");
         RequestHelper.sendPOSTRequest(false, Api.POST_DETAIL_DO, param, httpListener);
     }
 
     @Override
     public void report(String id, HttpListener httpListener) {
         RequestParam param = ParamBuilder.buildParam("contentId", id)
+                .append("userId", MApplication.getInstance().mUser.userId)
                 .append("operType", "3");
         RequestHelper.sendPOSTRequest(false, Api.POST_DETAIL_DO, param, httpListener);
     }

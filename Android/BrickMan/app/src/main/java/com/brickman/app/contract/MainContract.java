@@ -23,6 +23,7 @@ public interface MainContract {
     interface View extends BaseView {
         void loadBannerSuccess(BannerBean bannerBean);
         void loadSuccess(int fragmentId, List<BrickBean> brickList, int pageSize, boolean hasMore);
+        void loadFailed(int fragmentId);
         void showMsg(String msg);
     }
 

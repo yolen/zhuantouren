@@ -12,8 +12,8 @@ import com.brickman.app.contract.BricksListContract;
  */
 public class BricksListModel implements BricksListContract.Model {
     @Override
-    public void loadBricksList(int pageNO, HttpListener httpListener) {
-        RequestParam param = ParamBuilder.buildParam("pageSize", "10").append("pageNO", pageNO+"");
-        RequestHelper.sendPOSTRequest(true, Api.GET_BRICKSLIST, param, httpListener);
+    public void loadBricksList(HttpListener httpListener) {
+        RequestParam param = ParamBuilder.buildParam("type", "1").append("limit", "10");
+        RequestHelper.sendGETRequest(true, Api.GET_BRICKSLIST, param, httpListener);
     }
 }

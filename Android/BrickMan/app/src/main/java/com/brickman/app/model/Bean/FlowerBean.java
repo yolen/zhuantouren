@@ -5,19 +5,14 @@ package com.brickman.app.model.Bean;
  */
 public class FlowerBean {
 
+
     /**
-     * userId : a
-     * nickName : 砖头人1
-     * place : 1
-     * avator : http://img.zcool.cn/community/031d424578e22910000018c1ba8bdb6.jpg@500w_376h_1c_1e_1l_2o
-     * level : 鲜花
-     * flowerNum : 3894
+     * count : 4
+     * userAlias : 26摄氏度
+     * userHead : http://qzapp.qlogo.cn/qzapp/1105593438/C1A39E141323F11A746B57313129D6B9/100
      */
 
-    public String userId;
-    public String nickName;
-    public String place;
-    public String avator;
-    public String level;
-    public String flowerNum;
+    public int count;
+    public String userAlias;
+    public String userHead;
 }
