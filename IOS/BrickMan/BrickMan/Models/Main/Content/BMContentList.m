@@ -45,7 +45,7 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:3];
     [params setObject:[NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:page]] forKey:@"pageNo"];
     [params setObject:kDefaultPageSize forKey:@"pageSize"];
-    [params setObject:[[BMUser getUserInfo] objectForKey:@"userId"] forKey:@"userId"];
+    [params setObject:[BMUser getUserModel].userId forKey:@"userId"];
     return params;
 }
 

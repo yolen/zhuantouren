@@ -7,6 +7,8 @@
 //
 
 #import "BrickManNetClient.h"
+#import "BrickManAPIManager.h"
+
 NSString *const key = @"53b4be63fac688e0";
 
 static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数指针）
@@ -65,7 +67,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     NSString *cVal = [self getMD5StringWithParams:dic];
     [dic setObject:cVal forKey:@"cVal"];
     DebugLog(@"request:%@ \nparams:%@", path, dic);
-    
+    DebugLog(@"%@",self.requestSerializer.HTTPRequestHeaders);
     //发起请求
     switch (method) {
         case Get:{
@@ -99,6 +101,17 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
                 if (error) {
                     block(nil, error);
                 }else{
+                    if (responseObject == nil) {
+                        NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
+                        if (response.statusCode == 200) {
+                            //token超时,重新请求token
+                            [[BrickManAPIManager shareInstance] requestTokenWithParams:@{@"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
+                                if (data) {
+                                    [self setToken:data];
+                                }
+                            }];
+                        }
+                    }
                     block(responseObject, nil);
                 }
                 
@@ -146,7 +159,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     
     NSString *cVal = [self getMD5StringWithParams:dic];
     [dic setObject:cVal forKey:@"cVal"];
-    [dic setObject:[[BMUser getUserInfo] objectForKey:@"userId"] forKey:@"userId"];
+    [dic setObject:[BMUser getUserModel].userId forKey:@"userId"];
     
     [self POST:path parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         for (UIImage *image in images) {
@@ -162,7 +175,7 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
             [formData appendPartWithFileData:data name:@"image" fileName:fileName mimeType:@"image/jpeg"];
         }
     } progress:^(NSProgress *uploadProgress) {
-        DebugLog(@"%@",progress);
+//        progress(uploadProgress.fractionCompleted);
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         DebugLog(@"Success: %@\n%@", task, responseObject);
         id error = [self handleResponse:responseObject autoShowError:YES];

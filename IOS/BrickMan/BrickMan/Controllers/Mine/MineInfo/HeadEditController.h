@@ -11,5 +11,6 @@
 @interface HeadEditController : BaseViewController
 
 @property (nonatomic, strong) UIImageView *headImgView;
+@property (copy, nonatomic) void(^updateBlock)(NSString *value);
 
 @end

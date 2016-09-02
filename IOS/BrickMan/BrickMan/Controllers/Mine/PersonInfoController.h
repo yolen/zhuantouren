@@ -10,4 +10,6 @@
 
 @interface PersonInfoController : BaseViewController
 
+@property (strong, nonatomic) BMUser *user;
+
 @end

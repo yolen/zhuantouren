@@ -7,6 +7,7 @@
 //
 
 #import "BMUser.h"
+#import <YYModel/YYModel.h>
 
 #define kUserInfo @"UserInfo"
 
@@ -15,17 +16,12 @@
 #pragma mark - user
 + (void)saveUserInfo:(NSDictionary *)data {
     NSMutableDictionary *dataDic = [NSMutableDictionary dictionaryWithDictionary:data];
-    NSArray *keys = [data allKeys];
-    for (NSString *key in keys) {
-        if ([data[key] isKindOfClass:[NSNull class]]) {
-            [dataDic removeObjectForKey:key];
-        }
-    }
     [[NSUserDefaults standardUserDefaults] setObject:dataDic forKey:kUserInfo];
 }
 
-+ (NSDictionary *)getUserInfo {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:kUserInfo];
++ (BMUser *)getUserModel {
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:kUserInfo];
+    return [BMUser yy_modelWithDictionary:userInfo];
 }
 
 + (BOOL)isLogin {

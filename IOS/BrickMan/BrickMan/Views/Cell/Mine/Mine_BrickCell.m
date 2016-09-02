@@ -10,16 +10,6 @@
 
 @interface Mine_BrickCell ()
 
-@property (nonatomic, strong) UILabel *rankingLbl;
-
-@property (nonatomic, strong) UIImageView *headImgView;
-
-@property (nonatomic, strong) UILabel *nicknameLbl;
-
-@property (nonatomic, strong) UILabel *gradeLbl;
-
-@property (nonatomic, strong) UILabel *numberLbl;
-
 @end
 
 @implementation Mine_BrickCell
@@ -84,34 +74,8 @@
     return self;
 }
 
-- (void)setModel:(Mine_BrickModel *)model {
-    if (model) {
-        _model = model;
-        self.rankingLbl.text = _model.ranking;
-        self.headImgView.image = [UIImage imageNamed:@"about_icon"];
-        self.nicknameLbl.text = _model.nickname;
-        self.gradeLbl.text = _model.grade;
-        if ([NSString isNULLString:_model.numberOfFlower]) {
-            self.numberLbl.text = _model.numberOfBrick;
-            return;
-        }
-        self.numberLbl.text = _model.numberOfFlower;
-    }
-}
-
 + (CGFloat)cellHeight {
     return 67.f * kMineCellHeightRadio;
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

@@ -14,8 +14,9 @@
 #import "BrickController.h"
 #import "FlowerController.h"
 #import "AboutController.h"
+#import "RootTabBarController.h"
 
-@interface MineViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate>
 @property (strong, nonatomic) UITableView *myTableView;
 @end
 
@@ -46,7 +47,7 @@
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 100)];
     
     UIButton *quitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    quitBtn.frame = CGRectMake(10, 30, kScreen_Width - 20, 35);
+    quitBtn.frame = CGRectMake(10, 30, kScreen_Width - 20, 35*SCALE);
     quitBtn.layer.cornerRadius = 3.0;
     quitBtn.layer.masksToBounds = YES;
     quitBtn.backgroundColor = kNavigationBarColor;
@@ -70,8 +71,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         Mine_headerCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_headerCell forIndexPath:indexPath];
-        NSDictionary *userData = [BMUser getUserInfo];
-        [cell setUserIcon:userData[@"userHead"] nameTitle:userData[@"userAlias"] subTitle:@"路见不平,拍砖相助!"];
+        BMUser *user = [BMUser getUserModel];
+        [cell setUserIcon:user.userHead nameTitle:user.userAlias subTitle:user.motto.length > 0 ? user.motto : @"路见不平,拍砖相助!"];
         return cell;
     }else {
         Mine_titleCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_titleCell forIndexPath:indexPath];
@@ -154,7 +155,22 @@
 
 #pragma mark - Btn Action
 - (void)doQuitAction {
-    
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"是否退出登录" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出登录" otherButtonTitles:nil, nil];
+    [sheet showInView:self.view];
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [BMUser removeUserInfo];
+        RootTabBarController *tabBarVC = [RootTabBarController sharedInstance];
+        for (int i = 0; i < 3; i++) {
+            if (i == 0) {
+                tabBarVC.selectedIndex = 0;
+            }
+        }
+        [NSObject showSuccessMsg:@"退出登录成功"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

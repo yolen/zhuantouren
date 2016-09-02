@@ -152,10 +152,14 @@
 - (void)tencentDidLogin {
     [[BrickManAPIManager shareInstance] requestAuthLoginWithParams:@{@"thirdAuth" : @"qq", @"accessToken" : self.tencentOAuth.accessToken, @"openId" : self.tencentOAuth.openId} andBlock:^(id data, NSError *error) {
         if (data) {
+            [NSObject showSuccessMsg:@"登录成功"];
+            
             //缓存用户信息
             [BMUser saveUserInfo:data];
             [[BrickManNetClient sharedJsonClient] setToken:data[@"token"]];
             [self dismissViewControllerAnimated:YES completion:nil];
+        }else {
+            [NSObject showErrorMsg:@"登录失败"];
         }
     }];
 }

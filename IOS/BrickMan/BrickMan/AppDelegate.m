@@ -13,6 +13,7 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "BrickManNetClient.h"
 #import <JPFPSStatus/JPFPSStatus.h>
+#import "CacheImageSize.h"
 
 static void customHandler() {
     UINavigationBar *navigationBar = [UINavigationBar appearance];
@@ -26,16 +27,13 @@ static void customHandler() {
     [navigationBar setTitleTextAttributes:textAttributes];
     [navigationBar setTintColor:[UIColor whiteColor]];
 }
-
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
 
-
-- (BOOL)application:(UIApplication *)application
-didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 
@@ -47,12 +45,12 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         IntroduceViewController *introduceVC = [[IntroduceViewController alloc] init];
         self.window.rootViewController = introduceVC;
     }else {
-        RootTabBarController *rootVC   = [RootTabBarController sharedInstance];
+        RootTabBarController *rootVC = [RootTabBarController sharedInstance];
         self.window.rootViewController = rootVC;
     }
     
     if ([BMUser isLogin]) {
-        [[BrickManNetClient sharedJsonClient] setToken:[[BMUser getUserInfo] objectForKey:@"token"]];
+        [[BrickManNetClient sharedJsonClient] setToken:[BMUser getUserModel].token];
     }
 
 #if defined(DEBUG)||defined(_DEBUG)
@@ -68,6 +66,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame
     // rates. Games should use this method to pause the game.
+    [[CacheImageSize shareManager] save];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

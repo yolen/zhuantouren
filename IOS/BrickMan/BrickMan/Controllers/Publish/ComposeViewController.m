@@ -14,15 +14,13 @@
 #import "BMLocationCell.h"
 
 @interface ComposeViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, ComposePictureCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-
-@property (nonatomic, strong) UIButton *returnHomeButton;
-@property (nonatomic, strong) UIButton *composeButton;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) ComposeTextView *textView;
 //@property (nonatomic, strong) UISwitch *goodThingSwitch; //好人好事开关
 @property (nonatomic, strong) UICollectionView *pictureView;
-@property (nonatomic, strong) NSArray<UIImage *> *pictures;
+@property (nonatomic, strong) NSMutableArray<UIImage *> *pictures;
 @property (nonatomic, assign) NSUInteger selectedIndex;
+@property (strong, nonatomic) NSString *locationString;
 
 @end
 
@@ -31,36 +29,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.images = [NSMutableArray array];
     [self setupNavigationBar];
     [self setupTableView];
 }
 
-- (void)viewWillLayoutSubviews {
-    self.tableView.frame = self.view.bounds;
+#pragma mark - UI
+- (void)setupNavigationBar {
+    self.title = @"发布";
+    
+    UIButton *returnHomeButton = [[UIButton alloc] init];
+    [returnHomeButton addTarget:self action:@selector (returnHomeButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [returnHomeButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    UIBarButtonItem *returnItem = [[UIBarButtonItem alloc] initWithCustomView:returnHomeButton];
+    self.navigationItem.leftBarButtonItem = returnItem;
+    [returnHomeButton sizeToFit];
+
+    UIButton *composeButton = [[UIButton alloc] init];
+    [composeButton addTarget:self action:@selector (composeButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [composeButton setBackgroundImage:[UIImage imageNamed:@"compose"]
+                                  forState:UIControlStateNormal];
+    UIBarButtonItem *composeItem = [[UIBarButtonItem alloc] initWithCustomView:composeButton];
+    self.navigationItem.rightBarButtonItem = composeItem;
+    [composeButton sizeToFit];
 }
 
-#pragma mark - UI
 - (void)setupTableView {
     [self.view addSubview:self.tableView];
     self.textView = [[ComposeTextView alloc] initWithFrame:CGRectMake (0, 0, kScreen_Width, 150)];
     self.tableView.tableHeaderView = self.textView;
     self.tableView.tableFooterView = self.pictureView;
-}
-
-- (void)setupNavigationBar {
-    [self.returnHomeButton setImage:[UIImage imageNamed:@"back"]
-                           forState:UIControlStateNormal];
-    UIBarButtonItem *returnItem = [[UIBarButtonItem alloc] initWithCustomView:self.returnHomeButton];
-    self.navigationItem.leftBarButtonItem = returnItem;
-    [self.returnHomeButton sizeToFit];
-
-    [self.composeButton setBackgroundImage:[UIImage imageNamed:@"compose"]
-                                  forState:UIControlStateNormal];
-    UIBarButtonItem *composeItem = [[UIBarButtonItem alloc] initWithCustomView:self.composeButton];
-    self.navigationItem.rightBarButtonItem = composeItem;
-    [self.composeButton sizeToFit];
-
-    self.title = @"发布";
 }
 
 #pragma mark - UITableViewDataSource
@@ -73,29 +71,23 @@
 
     BMLocationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableCell"];
     
-    cell.textLabel.font      = PUBLISH_TEXT_FONT_SIZE;
+    cell.textLabel.font = [UIFont systemFontOfSize:14];
     cell.textLabel.textColor = [UIColor grayColor];
-
-    // 设置 Cell...
-    //    if (indexPath.row == 0) {
     cell.textLabel.text = @"地点";
     cell.detailTextLabel.text = @"";
-    cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
-    //    } else {
-    //        cell.textLabel.text = @"好人好事";
-    //        cell.accessoryView  = self.goodThingSwitch;
-    //    }
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    __weak typeof(self) weakSelf = self;
     BMLocationViewController *locationController = [[BMLocationViewController alloc] init];
-    locationController.title = @"地点";
     locationController.locationFinish = ^(NSString *location){
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.detailTextLabel.text = location;
+        weakSelf.locationString = location;
     };
     [self.navigationController pushViewController:locationController animated:YES];
 }
@@ -111,7 +103,7 @@
 #pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section {
-    return self.pictures.count < MAX_SELECTE_PICTURE_NUM ? self.pictures.count + 1 : MAX_SELECTE_PICTURE_NUM;
+    return self.pictures.count < 9 ? self.pictures.count + 1 : 9;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -146,9 +138,8 @@
 
 
 #pragma mark - UIImagePickerControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
-    UIImage *image            = info[UIImagePickerControllerOriginalImage];
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
     NSMutableArray *picturesM = [NSMutableArray arrayWithArray:self.pictures];
     if (self.selectedIndex == self.pictures.count) {
         [picturesM addObject:image];
@@ -167,52 +158,35 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
 }
 
 - (void)composeButtonAction {
-    NSDictionary *dataDic = [BMUser getUserInfo];
-    NSDictionary *params = @{@"userId" : dataDic[@"userId"],
-                             @"imgPaths" : self.imagePath,
-                             @"contentTitle" : self.textView.text,
-                             @"contentPlace" : @"上海"};
-    [[BrickManAPIManager shareInstance] requestAddContentWithParams:params andBlock:^(id data, NSError *error) {
-        if (data) {
-            [self dismissViewControllerAnimated:YES completion:nil];
+    __weak typeof(self) weakSelf = self;
+    [[BrickManAPIManager shareInstance] uploadFileWithImages:self.images doneBlock:^(NSString *imagePath, NSError *error) {
+        if (imagePath) {
+            NSDictionary *params = @{@"userId" : [BMUser getUserModel].userId,
+                                     @"imgPaths" : imagePath,
+                                     @"contentTitle" : self.textView.text,
+                                     @"contentPlace" : self.locationString};
+            [[BrickManAPIManager shareInstance] requestAddContentWithParams:params andBlock:^(id data, NSError *error) {
+                if (data) {
+                    [NSObject showSuccessMsg:@"发布成功"];
+                    [weakSelf.view endEditing:YES];
+                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                }else {
+                    [NSObject showErrorMsg:@"发布失败"];
+                }
+            }];
+        }else {
+            [NSObject showError:error];
         }
+    } progerssBlock:^(CGFloat progressValue) {
+        
     }];
+    
 }
-
-#pragma mark - Getter && Setter
-- (void)setImages:(NSArray *)images {
-    _images = images;
-    NSMutableArray *picturesM = [NSMutableArray arrayWithArray:self.pictures];
-    [picturesM addObjectsFromArray:images];
-    self.pictures = picturesM.copy;
-    [self.pictureView reloadData];
-}
-
 
 #pragma mark - lazy loading
-- (UIButton *)returnHomeButton {
-    if (_returnHomeButton == nil) {
-        _returnHomeButton = [[UIButton alloc] init];
-        [_returnHomeButton addTarget:self
-                              action:@selector (returnHomeButtonAction)
-                    forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _returnHomeButton;
-}
-
-- (UIButton *)composeButton {
-    if (_composeButton == nil) {
-        _composeButton = [[UIButton alloc] init];
-        [_composeButton addTarget:self
-                           action:@selector (composeButtonAction)
-                 forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _composeButton;
-}
-
 - (UITableView *)tableView {
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate   = self;
         [_tableView registerClass:[BMLocationCell class] forCellReuseIdentifier:@"TableCell"];
@@ -244,11 +218,17 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *, id> *)info {
     return _pictureView;
 }
 
-- (NSArray<UIImage *> *)pictures {
-    if (_pictures == nil) {
-        _pictures = [[NSArray alloc] init];
+- (void)setImages:(NSArray *)images {
+    _images = images;
+    if (!self.pictures) {
+        self.pictures = [NSMutableArray array];
     }
-    return _pictures;
+    [self.pictures addObjectsFromArray:images];
+    [self.pictureView reloadData];
+}
+
+- (void)dealloc {
+    [self.pictures removeAllObjects];
 }
 
 @end

@@ -33,7 +33,6 @@
     changeBtn.layer.cornerRadius = 5.f;
     [changeBtn addTarget:self action:@selector(changeHead:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:changeBtn];
-    // Do any additional setup after loading the view.
 }
 
 - (void)saveHead:(UIBarButtonItem *)sender {
@@ -71,9 +70,15 @@
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera && originalImage) {
         UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, NULL);
     }
+    __weak typeof(self) weakSelf = self;
     [picker dismissViewControllerAnimated:YES completion:^{
         CutHeadController *cutHead = [[CutHeadController alloc]init];
         cutHead.image = originalImage;
+        cutHead.updateBlock = ^(NSString *value)    {
+            if (weakSelf.updateBlock) {
+                weakSelf.updateBlock(value);
+            }
+        };
         [self.navigationController pushViewController:cutHead animated:YES];
     }];
 }

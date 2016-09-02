@@ -17,6 +17,8 @@
 @property (nonatomic, assign) BOOL isGallery;
 @property (strong, nonatomic) void(^commentBlock)();
 @property (copy, nonatomic) void(^shareBlock)();
+@property (copy, nonatomic) void(^refreshCellBlock)();
+
 @property (strong, nonatomic) BMContent *model;
 @property (strong, nonatomic) CommentInputView *inputView;
 

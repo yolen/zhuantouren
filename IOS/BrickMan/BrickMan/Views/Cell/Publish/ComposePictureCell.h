@@ -22,10 +22,6 @@
 @interface ComposePictureCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImage *image;
-
-/**
- *  代理
- */
 @property (nonatomic, weak) id<ComposePictureCellDelegate> composePictureCellDelegate;
 
 @end

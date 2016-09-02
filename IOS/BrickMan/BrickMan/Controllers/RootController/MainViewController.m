@@ -73,13 +73,9 @@
 }
 
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view {
-    BMContentList *contentList = [self.contentListDic objectForKey:[NSNumber numberWithInteger:index]];
-    if (!contentList) {
-        
-    }
     BrickListView *listView = (BrickListView *)view;
     if (listView) {
-        
+        [listView setContentListWithType:index];
     }else {
         listView = [[BrickListView alloc] initWithFrame:carousel.bounds andIndex:index];
     }
@@ -121,11 +117,11 @@
     }
     if (_oldSelectedIndex != carousel.currentItemIndex) {
         _oldSelectedIndex = carousel.currentItemIndex;
-        BrickListView *listView = (BrickListView *)carousel.currentItemView;
-        [listView refresh];
+//        BrickListView *listView = (BrickListView *)carousel.currentItemView;
+//        [listView refresh];
     }
     
-    [carousel.visibleItemViews enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
+    [carousel.visibleItemViews enumerateObjectsUsingBlock:^(BrickListView *obj, NSUInteger idx, BOOL *stop) {
         [obj setSubScrollsToTop:(obj == carousel.currentItemView)];
     }];
 }
