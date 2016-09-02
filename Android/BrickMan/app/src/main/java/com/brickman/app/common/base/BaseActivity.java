@@ -20,6 +20,7 @@ import com.brickman.app.R;
 import com.brickman.app.common.utils.TUtil;
 import com.brickman.app.module.dialog.LoadingDialog;
 import com.brickman.app.module.widget.view.SwipeBackLayout;
+import com.brickman.app.module.widget.view.ToastManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import butterknife.ButterKnife;
@@ -147,7 +148,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
      * @param message
      */
     public void showToast(String message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        ToastManager.showWithTxt(this, message);
     }
 
     /**
@@ -155,7 +156,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
      * @param message
      */
     public void showToast(int message){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        ToastManager.showWithTxt(this, message);
     }
 
     /**

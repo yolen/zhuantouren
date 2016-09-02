@@ -20,21 +20,26 @@ import java.util.List;
 public class MainPresenter extends MainContract.Presenter {
 
     @Override
-    public void loadBanner() {
-        mModel.loadBanner(new HttpListener<JSONObject>() {
+    public void loadAD(final int type, int pageNo) {
+        mModel.loadAD(type, pageNo, new HttpListener<JSONObject>() {
             @Override
             public void onSucceed(JSONObject response) {
-                if (response.optBoolean("success")) {
-                    BannerBean bannerBean = new Gson().fromJson(response.toString(), BannerBean.class);
-                    mView.loadBannerSuccess(bannerBean);
+                if (HttpUtil.isSuccess(response)) {
+                    List<BannerBean> bannerList = new Gson().fromJson(response.optJSONObject("body").optJSONArray("data").toString(), new TypeToken<List<BannerBean>>(){}.getType());
+                    int pageNo = response.optJSONObject("body").optJSONObject("page").optInt("pageNo");
+                    int totalRecords = response.optJSONObject("body").optJSONObject("page").optInt("totalRecords");
+                    boolean hasMore = totalRecords > pageNo * 10;
+                    mView.loadADSuccess(type, bannerList, hasMore);
                 } else {
-                    mView.showMsg(response.optString("message"));
+                    mView.showMsg(response.optString("body"));
+                    mView.loadFailed(-1);
                 }
             }
 
             @Override
             public void onFailed(int what, Response<JSONObject> response) {
                 mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
+                mView.loadFailed(-1);
             }
         });
     }

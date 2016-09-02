@@ -10,7 +10,8 @@
         android:layout_height="@dimen/dp_80"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_25"
-        android:src="@mipmap/bm_flower5" />
+        android:src="@mipmap/bm_flower5"
+        android:visibility="gone"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,12 +21,12 @@
         android:layout_marginTop="@dimen/dp_05"
         android:text="239"
         android:textColor="?attr/text_color"
-        android:textSize="@dimen/sp_24" />
+        android:textSize="@dimen/sp_24"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_40"
-        android:layout_marginBottom="@dimen/dp_04"
         android:orientation="horizontal"
         android:weightSum="9">
 

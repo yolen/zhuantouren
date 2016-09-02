@@ -37,7 +37,7 @@ public class RequestHelper {
     }
 
     public static void sendGETRequest(boolean isCache, final String url, RequestParam params, final HttpListener listener) {
-        LogUtil.info(url);
+//        LogUtil.info(url);
         if (url.contains("DEMO")) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -59,7 +59,7 @@ public class RequestHelper {
                 for (String key : paramMap.keySet()) {
                     request.add(key, paramMap.get(key));
                 }
-                LogUtil.info(params.toString());
+//                LogUtil.info(params.toString());
             }
             request.setCancelSign(url);
             mHttpUtil.add(0, request, listener, true);
@@ -67,7 +67,7 @@ public class RequestHelper {
     }
 
     public static void sendPOSTRequest(boolean isCache, final String url, RequestParam params, final HttpListener listener) {
-        LogUtil.info(url);
+//        LogUtil.info(url);
         if (url.contains("DEMO")) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -80,7 +80,7 @@ public class RequestHelper {
             Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
             request.setHeader("platform", "Android");
             if (MApplication.mAppContext.mUser != null) {
-                LogUtil.info("token = " + MApplication.mAppContext.mUser.token);
+//                LogUtil.info("token = " + MApplication.mAppContext.mUser.token);
                 request.setHeader("token", MApplication.getInstance().mUser.token);
             }
             request.setCacheMode(isCache ? REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
@@ -90,7 +90,7 @@ public class RequestHelper {
                 for (String key : paramMap.keySet()) {
                     request.add(key, paramMap.get(key));
                 }
-                LogUtil.info(params.toString());
+//                LogUtil.info(params.toString());
             }
             request.setCancelSign(url);
             mHttpUtil.add(0, request, listener, true);

@@ -111,9 +111,11 @@ public class HttpUtil {
     }
 
     public static boolean isSuccess(JSONObject jsonObject){
-        if(jsonObject.optInt("code") == 101)
+        if(jsonObject.optInt("code") == 101){
             return true;
-        else
+        } else if(jsonObject.optInt("code") == 103){
+            return false;
+        } else
             return false;
     }
 }

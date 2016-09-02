@@ -16,19 +16,19 @@ import java.util.List;
  */
 public interface MainContract {
     interface Model extends BaseModel {
-        void loadBanner(HttpListener<JSONObject> httpListener);
+        void loadAD(int type, int pageNo, HttpListener<JSONObject> httpListener);
         void loadBrickList(int type, int pageNO, HttpListener httpListener);
     }
 
     interface View extends BaseView {
-        void loadBannerSuccess(BannerBean bannerBean);
+        void loadADSuccess(int type, List<BannerBean> bannerList, boolean hasMor);
         void loadSuccess(int fragmentId, List<BrickBean> brickList, int pageSize, boolean hasMore);
         void loadFailed(int fragmentId);
         void showMsg(String msg);
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {
-        public abstract void loadBanner();
+        public abstract void loadAD(int type, int pageNo);
         public abstract void loadBrickList(int fragmentId, int pageNO);
         @Override
         public void onStart() {}

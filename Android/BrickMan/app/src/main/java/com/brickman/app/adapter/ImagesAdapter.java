@@ -38,6 +38,7 @@ public class ImagesAdapter {
         if (mImgList != null) {
             mRootView.removeAllViews();
             if (mImgList.size() > 0) {
+                mRootView.setVisibility(View.VISIBLE);
                 if (mImgList.size() % 3 == 0) {
                     int n = mImgList.size() / 3;
                     for (int i = 0; i < n; i++) {
@@ -81,7 +82,11 @@ public class ImagesAdapter {
                         mRootView.addView(layout);
                     }
                 }
+            } else {
+                mRootView.setVisibility(View.GONE);
             }
+        } else {
+            mRootView.setVisibility(View.GONE);
         }
     }
 

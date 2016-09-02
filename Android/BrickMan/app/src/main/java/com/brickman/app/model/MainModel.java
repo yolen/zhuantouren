@@ -15,13 +15,21 @@ import org.json.JSONObject;
 public class MainModel implements MainContract.Model {
 
     @Override
-    public void loadBanner(HttpListener<JSONObject> httpListener) {
-        RequestHelper.sendGETRequest(true, Api.GET_BANNER, null, httpListener);
+    public void loadAD(int type, int pageNo, HttpListener<JSONObject> httpListener) {
+        RequestParam params = ParamBuilder.buildParam("advertisementType", type + "")
+                .append("pageNo", pageNo + "");
+        RequestHelper.sendGETRequest(true, Api.GET_BANNER, params, httpListener);
     }
 
     @Override
     public void loadBrickList(int type, int pageNO, HttpListener httpListener) {
-        RequestParam param = ParamBuilder.buildParam("pageSize", "10").append("pageNo", pageNO+"").append("orderType", type + "");
-        RequestHelper.sendGETRequest(true, Api.GET_BRICKLIST, param, httpListener);
+        RequestParam param;
+        if(type == 3){
+            param = ParamBuilder.buildParam("pageNo", pageNO+"");
+            RequestHelper.sendGETRequest(true, Api.GET_BRICKLIST_BY_COMMENT, param, httpListener);
+        } else {
+            param = ParamBuilder.buildParam("pageSize", "10").append("pageNo", pageNO+"").append("orderType", type + "");
+            RequestHelper.sendGETRequest(true, Api.GET_BRICKLIST, param, httpListener);
+        }
     }
 }

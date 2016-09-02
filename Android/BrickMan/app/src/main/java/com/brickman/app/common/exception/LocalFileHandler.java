@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import com.brickman.app.common.utils.FileUtil;
+import com.brickman.app.module.widget.view.ToastManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -39,7 +40,7 @@ public class LocalFileHandler extends BaseExceptionHandler {
         new Thread() {
             public void run() {
                 Looper.prepare();
-                Toast.makeText(context, "很抱歉，程序出现异常，正在从错误中恢复", Toast.LENGTH_LONG).show();
+                ToastManager.showWithTxt(context, "很抱歉，程序出现异常，正在从错误中恢复");
                 Looper.loop();
             }
         }.start();

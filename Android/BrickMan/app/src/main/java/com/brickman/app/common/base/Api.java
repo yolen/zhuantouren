@@ -5,19 +5,23 @@ package com.brickman.app.common.base;
  */
 public interface Api {
 
-    public static final String FIRST_OPEN = "first_open";
+    String FIRST_OPEN = "first_open";
 
     String KEY = "53b4be63fac688e0";
     String BASE_URL = "http://115.28.211.119:1080";
     String IMG_URL = "http://115.28.211.119:2080/";
 
     // ------------GET--------------
-
-    String GET_BANNER = BASE_URL + "/DEMO_BANNER.json";
+    // 首页轮播接口【1启动页广告 || 2首页banner广告 || 3 中间上部相机广告 || 4 中间下部公益广告】
+    String GET_BANNER = BASE_URL + "/advertisement/advertisement_list_by_type.json";
     // 登录接口
     String POST_LOGIN = BASE_URL + "/user/auth_login.json";
     // 列表接口
     String GET_BRICKLIST = BASE_URL + "/content/list_content.json";
+    // 列表接口【内容列表按评论数量排序】
+    String GET_BRICKLIST_BY_COMMENT = BASE_URL + "/content/content_list_by_comments_count.json";
+    // 用户发布列表
+    String GET_USER_BRICKLIST = BASE_URL + "/user/user_content_list.do";
     // 列表详情接口
     String GET_CONTENT_DETAIL = BASE_URL + "/content/detail_content.json";
     // 鲜花列表

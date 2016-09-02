@@ -1,48 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bm_brick_bg"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/white_bg"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/dp_80"
-        android:orientation="vertical">
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/ptr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:ptr_duration_to_close="300"
+        app:ptr_duration_to_close_header="2000"
+        app:ptr_keep_header_when_refresh="true"
+        app:ptr_pull_to_fresh="false"
+        app:ptr_ratio_of_header_height_to_refresh="1.2"
+        app:ptr_resistance="2.5">
 
-        <LinearLayout
-            android:layout_width="@dimen/dp_280"
-            android:layout_height="@dimen/dp_160"
-            android:background="@drawable/green_bg" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="@dimen/dp_200"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/dp_100">
-
-        <Button android:id="@+id/take_photo"
-            android:layout_width="@dimen/dp_70"
-            android:layout_height="@dimen/dp_70"
-            android:layout_alignParentLeft="true"
-            android:background="@mipmap/bm_btn_round_bg"
-            android:text="@string/btn_camera"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/sp_14" />
-
-
-        <Button android:id="@+id/open_galley"
-            android:layout_width="@dimen/dp_70"
-            android:layout_height="@dimen/dp_70"
-            android:layout_alignParentRight="true"
-            android:background="@mipmap/bm_btn_round_bg"
-            android:text="@string/btn_photo"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/sp_14" />
-    </RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
 </LinearLayout>

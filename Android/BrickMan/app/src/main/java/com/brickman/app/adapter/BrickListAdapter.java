@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import com.brickman.app.R;
 import com.brickman.app.common.utils.DateUtil;
 import com.brickman.app.model.Bean.BrickBean;
+import com.brickman.app.module.brick.PublishListActivity;
 import com.brickman.app.module.widget.view.CircleImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -28,11 +29,20 @@ public class BrickListAdapter extends BaseQuickAdapter<BrickBean> {
 
     @Override
     protected void convert(BaseViewHolder helper, BrickBean item) {
-        Glide.with(mCtx).load(item.users.userHead)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop().into((CircleImageView)helper.getView(R.id.avator));
-        helper.setText(R.id.name, TextUtils.isEmpty(item.users.userName) ? item.users.userAlias : item.users.userName);
-        helper.setText(R.id.dateAddress, DateUtil.getMillon(item.createdTime) + " " + item.contentPlace);
+        if(mCtx instanceof PublishListActivity){
+            Glide.with(mCtx).load(((PublishListActivity)mCtx).userHead)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .centerCrop().into((CircleImageView)helper.getView(R.id.avator));
+            helper.setText(R.id.name, ((PublishListActivity)mCtx).userName);
+
+        } else {
+            Glide.with(mCtx).load(item.users.userHead)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .centerCrop().into((CircleImageView)helper.getView(R.id.avator));
+            helper.setText(R.id.name, TextUtils.isEmpty(item.users.userName) ? item.users.userAlias : item.users.userName);
+        }
+        helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
+        helper.setText(R.id.address, item.contentPlace);
         helper.setImageResource(R.id.report, item.contentReports != 0 ? R.mipmap.bm_reporting_sel : R.mipmap.bm_reporting_nor);
         helper.setText(R.id.content, item.contentTitle);
         helper.setImageResource(R.id.iconComment, item.commentCount > 0 ? R.mipmap.bm_comment_sel : R.mipmap.bm_comment_nor);

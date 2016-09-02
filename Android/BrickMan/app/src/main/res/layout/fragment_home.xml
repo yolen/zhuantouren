@@ -10,12 +10,19 @@
         android:layout_height="wrap_content"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <com.brickman.app.module.widget.banner.BannerView
+        <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_120"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:qt_line_color="@color/white" />
+            app:default_image="@drawable/item_bg"
+            app:delay_time="4000px"
+            app:indicator_drawable_selected="@drawable/dot_focus"
+            app:indicator_drawable_unselected="@drawable/dot_normal"
+            app:indicator_height="6dp"
+            app:indicator_margin="5dp"
+            app:indicator_width="6dp"
+            app:is_auto_play="true"
+            app:layout_scrollFlags="scroll|enterAlways" />
 
         <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/slidingTab"

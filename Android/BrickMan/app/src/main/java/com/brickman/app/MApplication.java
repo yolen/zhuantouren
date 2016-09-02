@@ -90,4 +90,17 @@ public class MApplication extends Application {
         }
         return false;
     }
+
+    public static void setLocation(String city, String address){
+        mDataKeeper.put("city", city);
+        mDataKeeper.put("address", address);
+    }
+
+    public static String getCity(){
+        return mDataKeeper.get("city", "北京");
+    }
+
+    public static String getAddress(){
+        return mDataKeeper.get("address", "北京");
+    }
 }
