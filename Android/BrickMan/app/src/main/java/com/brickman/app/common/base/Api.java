@@ -8,7 +8,7 @@ public interface Api {
     String FIRST_OPEN = "first_open";
 
     String KEY = "53b4be63fac688e0";
-    String BASE_URL = "http://115.28.211.119:1080";
+    String BASE_URL = "http://115.28.211.119";
     String IMG_URL = "http://115.28.211.119:2080/";
 
     // ------------GET--------------
@@ -21,7 +21,7 @@ public interface Api {
     // 列表接口【内容列表按评论数量排序】
     String GET_BRICKLIST_BY_COMMENT = BASE_URL + "/content/content_list_by_comments_count.json";
     // 用户发布列表
-    String GET_USER_BRICKLIST = BASE_URL + "/user/user_content_list.do";
+    String GET_USER_BRICKLIST = BASE_URL + "/user/user_content_list.json";
     // 列表详情接口
     String GET_CONTENT_DETAIL = BASE_URL + "/content/detail_content.json";
     // 鲜花列表
@@ -45,13 +45,21 @@ public interface Api {
     String UPLOAD_AVATOR = BASE_URL + "/upload/upload_user_head.do";
     // 更改用户信息
     String UPDATE_USERINFO = BASE_URL + "/user/update_user_info.do";
+    // 分享回调
+    String SHARE_UPDATE_COUNT = BASE_URL + "/content/add_share_count.json";
+    // 分享页面
+    String SHARE_BRICKMAN_PAGE = BASE_URL + "/index.html?contentId=";
+
+    // 头条
+    String TOP_URL = "http://v.juhe.cn/toutiao/index";
 
 
     // -------------H5----------------
     String ABOUT_US = IMG_URL + "html/brickman.html";
-
     // 登录成功
     String ACTION_LOGIN = "com.brickman.app.action.login";
     // 用户信息变更
     String ACTION_USERINFO = "com.brickman.app.action.userinfo";
+    // 检查更新
+    String APP_UPDATE_SERVER_URL = BASE_URL + "/checkVersion.json";
 }

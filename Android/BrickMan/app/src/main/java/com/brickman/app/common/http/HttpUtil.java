@@ -29,10 +29,11 @@ public class HttpUtil {
     /**
      * 下载队列.
      */
-    private static DownloadQueue downloadQueue;
+    public DownloadQueue downloadQueue;
 
     private HttpUtil() {
         requestQueue = NoHttp.newRequestQueue();
+        downloadQueue = NoHttp.newDownloadQueue();
     }
 
     /**
@@ -42,15 +43,6 @@ public class HttpUtil {
         if (httpUtil == null)
             httpUtil = new HttpUtil();
         return httpUtil;
-    }
-
-    /**
-     * 下载队列.
-     */
-    public static DownloadQueue getDownloadInstance() {
-        if (downloadQueue == null)
-            downloadQueue = NoHttp.newDownloadQueue();
-        return downloadQueue;
     }
 
     /**
@@ -88,32 +80,33 @@ public class HttpUtil {
 
     /**
      * http访问异常信息
+     *
      * @param exception
      * @return
      */
-    public static String makeErrorMessage(Exception exception){
+    public static String makeErrorMessage(Exception exception) {
         if (exception instanceof NetworkError) {// 网络不好
             return "请检查网络。";
         } else if (exception instanceof TimeoutError) {// 请求超时
-            return"请求超时，网络不好或者服务器不稳定。";
+            return "请求超时，网络不好或者服务器不稳定。";
         } else if (exception instanceof UnKnownHostError) {// 找不到服务器
-            return"未发现指定服务器。";
+            return "未发现指定服务器。";
         } else if (exception instanceof URLError) {// URL是错的
-            return"URL错误。";
+            return "URL错误。";
         } else if (exception instanceof NotFoundCacheError) {
             // 这个异常只会在仅仅查找缓存时没有找到缓存时返回
-            return"没有发现缓存。";
+            return "没有发现缓存。";
         } else if (exception instanceof ProtocolException) {
-            return"系统不支持的请求方式。";
+            return "系统不支持的请求方式。";
         } else {
-            return"未知错误。";
+            return "未知错误。";
         }
     }
 
-    public static boolean isSuccess(JSONObject jsonObject){
-        if(jsonObject.optInt("code") == 101){
+    public static boolean isSuccess(JSONObject jsonObject) {
+        if (jsonObject.optInt("code") == 101) {
             return true;
-        } else if(jsonObject.optInt("code") == 103){
+        } else if (jsonObject.optInt("code") == 103) {
             return false;
         } else
             return false;

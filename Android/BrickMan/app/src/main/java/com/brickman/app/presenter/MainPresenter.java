@@ -25,11 +25,8 @@ public class MainPresenter extends MainContract.Presenter {
             @Override
             public void onSucceed(JSONObject response) {
                 if (HttpUtil.isSuccess(response)) {
-                    List<BannerBean> bannerList = new Gson().fromJson(response.optJSONObject("body").optJSONArray("data").toString(), new TypeToken<List<BannerBean>>(){}.getType());
-                    int pageNo = response.optJSONObject("body").optJSONObject("page").optInt("pageNo");
-                    int totalRecords = response.optJSONObject("body").optJSONObject("page").optInt("totalRecords");
-                    boolean hasMore = totalRecords > pageNo * 10;
-                    mView.loadADSuccess(type, bannerList, hasMore);
+                    List<BannerBean> bannerList = new Gson().fromJson(response.optJSONArray("body").toString(), new TypeToken<List<BannerBean>>(){}.getType());
+                    mView.loadADSuccess(type, bannerList, false);
                 } else {
                     mView.showMsg(response.optString("body"));
                     mView.loadFailed(-1);

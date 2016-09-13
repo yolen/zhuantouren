@@ -67,6 +67,7 @@ public class BrickBean implements Serializable {
         public String userPhone;
         public String userStatus;
         public String userSex;
+        public String userSexStr;
         public String motto;
         public String plat;
         public String platId;

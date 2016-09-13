@@ -16,8 +16,8 @@
 #   public *;
 #}
 
-
 -dontwarn
+-dontnote
 -optimizationpasses 5          # 指定代码的压缩级别
 -dontusemixedcaseclassnames   # 是否使用大小写混合
 -dontpreverify           # 混淆时是否做预校验
@@ -72,32 +72,36 @@
 
 ######################################################################
 
- -dontshrink
- -dontoptimize
- -dontwarn com.google.android.maps.**
- -dontwarn android.webkit.WebView
- -dontwarn com.umeng.**
- -dontwarn com.tencent.weibo.sdk.**
- -dontwarn com.facebook.**
-
 # -libraryjars libs/SocialSDK_QQZone_3.jar-------------------------------
 
   -dontshrink
   -dontoptimize
-  -dontwarn com.google.android.maps.**
   -dontwarn android.webkit.WebView
   -dontwarn com.umeng.**
-  -dontwarn com.tencent.weibo.sdk.**
-  -dontwarn com.facebook.**
+  -dontwarn com.tencent.**
+  -dontwarn com.yolanda.nohttp.**
+  -dontwarn butterknife.internal.**
+  -dontwarn com.wang.avi.**
+  -dontwarn com.google.gson.**
+  -dontwarn in.srain.cube.**
+  -dontwarn com.nineoldandroids.**
+  -dontwarn com.amap.api.**
+  -dontwarn com.orhanobut.logger.**
+  -dontwarn com.bumptech.glide.**
+  -dontwarn cn.finalteam.galleryfinal.**
+  -dontwarn com.squareup.picasso.**
+  -dontwarn sun.misc.Unsafe
+  -dontwarn top.zibin.luban.**
+
+
+
   -keep public class javax.**
   -keep public class android.webkit.**
   -dontwarn android.support.v4.**
-  -keep enum com.facebook.**
   -keepattributes Exceptions,InnerClasses,Signature
   -keepattributes *Annotation*
   -keepattributes SourceFile,LineNumberTable
 
-  -keep public interface com.facebook.**
   -keep public interface com.tencent.**
   -keep public interface com.umeng.socialize.**
   -keep public interface com.umeng.socialize.sensor.**
@@ -106,8 +110,8 @@
   -keep public class com.umeng.socialize.* {*;}
 
 
-  -keep class com.facebook.**
-  -keep class com.facebook.** { *; }
+#  -keep class com.facebook.**
+#  -keep class com.facebook.** { *; }
   -keep class com.umeng.scrshot.**
   -keep public class com.tencent.** {*;}
   -keep class com.umeng.socialize.sensor.**
@@ -116,14 +120,13 @@
   -keep class com.tencent.mm.sdk.modelmsg.WXMediaMessage {*;}
   -keep class com.tencent.mm.sdk.modelmsg.** implements com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject {*;}
 
-  -keep class im.yixin.sdk.api.YXMessage {*;}
-  -keep class im.yixin.sdk.api.** implements im.yixin.sdk.api.YXMessage$YXMessageData{*;}
+#  -keep class im.yixin.sdk.api.YXMessage {*;}
+#  -keep class im.yixin.sdk.api.** implements im.yixin.sdk.api.YXMessage$YXMessageData{*;}
 
-  -dontwarn twitter4j.**
-  -keep class twitter4j.** { *; }
+#  -dontwarn twitter4j.**
+#  -keep class twitter4j.** { *; }
 
   -keep class com.tencent.** {*;}
-  -dontwarn com.tencent.**
   -keep public class com.umeng.soexample.R$*{
       public static final int *;
   }
@@ -137,25 +140,27 @@
   -keep class com.tencent.open.PKDialog$*
   -keep class com.tencent.open.PKDialog$* {*;}
 
-  -keep class com.sina.** {*;}
-  -dontwarn com.sina.**
-  -keep class  com.alipay.share.sdk.** {
-     *;
-  }
+#  -keep class com.sina.** {*;}
+#  -dontwarn com.sina.**
+#  -keep class  com.alipay.share.sdk.** {
+#     *;
+#  }
   -keepnames class * implements android.os.Parcelable {
       public static final ** CREATOR;
   }
 
-  -keep class com.linkedin.** { *; }
-  -keepattributes Signature
+#  -keep class com.linkedin.** { *; }
+#  -keepattributes Signature
 
 # com.yolanda.nohttp:nohttp:1.0.5-------------------------------
--dontwarn com.yolanda.nohttp.**
 -keep class com.yolanda.nohttp.**{*;}
+
+# com.youth.banner:banner:+-------------------------------
+#-dontwarn com.youth.banner.**
+#-keep class com.youth.banner.**{*;}
 
 # com.jakewharton:butterknife:8.4.0-------------------------------
 -keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
 
 -keepclasseswithmembernames class * {
@@ -171,27 +176,28 @@
 -keep class com.wang.avi.indicators.** { *; }
 
 # com.google.code.gson:gson:2.2.4----------------------------
--dontwarn com.google.gson.**
--keep class com.google.gson.http.**{ *;}
-#gson
-#如果用用到Gson解析包的，直接添加下面这几行就能成功混淆，不然会报错。
+# removes such information by default, so configure it to keep all of it.
 -keepattributes Signature
 # Gson specific classes
 -keep class sun.misc.Unsafe { *; }
-# Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.stream.** { *; }
-# 如果使用了Gson之类的工具要使被它解析的JavaBean类即实体类不被混淆。
--keep class com.matrix.app.entity.json.** { *; }
--keep class com.matrix.appsdk.network.model.** { *; }
+# Application classes that will be serialized/deserialized over Gson
+-keep class com.google.gson.examples.android.model.** { *; }
+-keep class com.google.gson.** { *;}
+#这句非常重要，主要是滤掉 com.bgb.scan.model包下的所有.class文件不进行混淆编译
+-keep class com.brickman.app.model.** {*;}
+
 
 # com.nineoldandroids:library:2.4.0----------------------------
--dontwarn com.nineoldandroids.**
 -keep class com.nineoldandroids.** { *; }
 -keep interface com.nineoldandroids.** { *; }
 
 # com.orhanobut:logger:1.15----------------------------
--dontwarn com.orhanobut.logger.**
 -keep class com.orhanobut.logger.**{ *;}
+
+# top.zibin.luban:1.0.8----------------------------
+-keep class top.zibin.luban.**{ *;}
+-keep interface top.zibin.luban.** { *; }
 
 # com.github.bumptech.glide:glide:3.7.0----------------------------
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -203,7 +209,22 @@
 # in.srain.cube:ultra-ptr:1.0.11----------------------------
 -keep class in.srain.cube.** { *; }
 -keep interface in.srain.cube.** { *; }
--dontwarn in.srain.cube.**
+
+# io.reactivex:rxjava:1.1.6----------------------------
+-dontwarn sun.misc.**
+
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+   long producerIndex;
+   long consumerIndex;
+}
+
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
 
 # cn.finalteam:galleryfinal:1.4.8.7--------------------------
 -keep class cn.finalteam.galleryfinal.widget.*{*;}
@@ -215,6 +236,7 @@
 #-keep   class com.amap.api.mapcore.**{*;}
 #-keep   class com.amap.api.maps.**{*;}
 #-keep   class com.autonavi.amap.mapcore.*{*;}
+
 
 #定位
 -keep class com.amap.api.location.**{*;}

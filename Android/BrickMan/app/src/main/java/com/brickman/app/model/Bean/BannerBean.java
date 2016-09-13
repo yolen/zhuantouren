@@ -1,9 +1,11 @@
 package com.brickman.app.model.Bean;
 
+import java.io.Serializable;
+
 /**
  * 作者： 巴掌 on 16/6/9 17:24
  */
-public class BannerBean {
+public class BannerBean implements Serializable{
 
 
     /**

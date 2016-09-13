@@ -29,7 +29,7 @@
                 android:id="@+id/avator"
                 android:layout_width="@dimen/dp_40"
                 android:layout_height="@dimen/dp_40"
-                android:src="@mipmap/bm_avator" />
+                android:src="@mipmap/ic_launcher" />
 
             <TextView
                 android:id="@+id/name"
@@ -38,7 +38,6 @@
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_02"
                 android:layout_toRightOf="@id/avator"
-                android:text="@string/app_name"
                 android:textColor="?attr/text_color"
                 android:textSize="@dimen/sp_16" />
 
@@ -50,7 +49,6 @@
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_04"
                 android:layout_toRightOf="@id/avator"
-                android:text="2016-07-21  08:23"
                 android:textColor="@color/text_gray"
                 android:textSize="@dimen/sp_12" />
 
@@ -79,7 +77,6 @@
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10"
             android:paddingTop="@dimen/dp_10"
-            android:text="人生应该如蜡烛一样，从顶燃到底，一直都是光明的。身边总有那么些好人好事，让生活更美好！"
             android:textColor="?attr/text_color"
             android:textSize="@dimen/sp_14" />
 
@@ -114,7 +111,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_02"
                 android:padding="@dimen/dp_00"
-                android:text="苏州市工业园区"
                 android:textColor="@color/text_color_dark"
                 android:textSize="@dimen/sp_10" />
         </LinearLayout>

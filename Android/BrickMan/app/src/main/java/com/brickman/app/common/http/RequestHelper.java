@@ -12,6 +12,8 @@ import com.yolanda.nohttp.InputStreamBinary;
 import com.yolanda.nohttp.NoHttp;
 import com.yolanda.nohttp.OnUploadListener;
 import com.yolanda.nohttp.RequestMethod;
+import com.yolanda.nohttp.download.DownloadListener;
+import com.yolanda.nohttp.download.DownloadRequest;
 import com.yolanda.nohttp.rest.CacheMode;
 import com.yolanda.nohttp.rest.Request;
 
@@ -37,7 +39,6 @@ public class RequestHelper {
     }
 
     public static void sendGETRequest(boolean isCache, final String url, RequestParam params, final HttpListener listener) {
-//        LogUtil.info(url);
         if (url.contains("DEMO")) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -59,7 +60,6 @@ public class RequestHelper {
                 for (String key : paramMap.keySet()) {
                     request.add(key, paramMap.get(key));
                 }
-//                LogUtil.info(params.toString());
             }
             request.setCancelSign(url);
             mHttpUtil.add(0, request, listener, true);
@@ -67,7 +67,6 @@ public class RequestHelper {
     }
 
     public static void sendPOSTRequest(boolean isCache, final String url, RequestParam params, final HttpListener listener) {
-//        LogUtil.info(url);
         if (url.contains("DEMO")) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -80,7 +79,6 @@ public class RequestHelper {
             Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
             request.setHeader("platform", "Android");
             if (MApplication.mAppContext.mUser != null) {
-//                LogUtil.info("token = " + MApplication.mAppContext.mUser.token);
                 request.setHeader("token", MApplication.getInstance().mUser.token);
             }
             request.setCacheMode(isCache ? REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
@@ -90,30 +88,10 @@ public class RequestHelper {
                 for (String key : paramMap.keySet()) {
                     request.add(key, paramMap.get(key));
                 }
-//                LogUtil.info(params.toString());
             }
             request.setCancelSign(url);
             mHttpUtil.add(0, request, listener, true);
         }
-    }
-
-    public static void sendPUTRequest(String url, RequestParam params, final HttpListener listener) {
-        LogUtil.info(url);
-        Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.PUT);
-        request.setHeader("platform", "Android");
-        if (MApplication.getInstance().mUser != null) {
-            request.setHeader("token", MApplication.getInstance().mUser.token);
-        }
-        if (params != null) {
-            params.append("cVal", params.encrypt());
-            HashMap<String, String> paramMap = params.toHashMap();
-            for (String key : paramMap.keySet()) {
-                request.add(key, paramMap.get(key));
-            }
-            LogUtil.info(params.toString());
-        }
-        request.setCancelSign(url);
-        mHttpUtil.add(0, request, listener, true);
     }
 
     public static void uploadFile(String url, RequestParam params, List<String> fileList, OnUploadListener onUploadListener, HttpListener<JSONObject> httpListener) {
@@ -152,5 +130,16 @@ public class RequestHelper {
         request.add("files", binaries);
         request.setCancelSign(url);
         mHttpUtil.add(0, request, httpListener, true);
+    }
+
+    /**
+     * 下载文件
+     * @param url
+     */
+    public static void downloadFile(String url, DownloadListener downloadListener) {
+        LogUtil.info("downloadUrl = "+url);
+        DownloadRequest downloadRequest = NoHttp.createDownloadRequest(url, RequestMethod.GET, MApplication.SAVE_PIC_PATH, url.substring(url.lastIndexOf("/") + 1), true, true);
+        mHttpUtil.downloadQueue.add(0, downloadRequest, downloadListener);
+        downloadRequest.start();
     }
 }
