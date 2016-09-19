@@ -122,7 +122,8 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
-        android:weightSum="4">
+        android:weightSum="4"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="0dp"
