@@ -6,7 +6,7 @@
 
 
     <color name="red">#EBFF064C</color>
-    <color name="window_background">#FFF5F5F5</color>
+    <color name="window_background">@color/bg_gray</color>
     <color name="text_color_deep">#333333</color>
     <color name="text_color_dark">#555555</color>
     <color name="text_color_white">#ffffff</color>
@@ -23,6 +23,7 @@
     <color name="black">#000000</color>
     <color name="click_bg">#33E2E2E2</color>
     <color name="light_gray">#F1F2F4</color>
+    <color name="bg_gray">#F9F9F9</color>
     <color name="transparent">#00000000</color>
     <color name="green">#8BC385</color>
     <color name="light_green">#e4fcf9</color>
