@@ -8,8 +8,8 @@ public interface Api {
     String FIRST_OPEN = "first_open";
 
     String KEY = "53b4be63fac688e0";
-    String BASE_URL = "http://115.28.211.119";
-    String IMG_URL = "http://115.28.211.119:2080/";
+    String BASE_URL = "http://123.57.63.161";
+    String IMG_URL = "http://123.57.63.161:2080/";
 
     // ------------GET--------------
     // 首页轮播接口【1启动页广告 || 2首页banner广告 || 3 中间上部相机广告 || 4 中间下部公益广告】
