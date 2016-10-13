@@ -45,7 +45,7 @@ public class MApplication extends Application {
         mDataKeeper = new DataKeeper(this, "BRICK_MAN");
         mUser = (UserBean) mDataKeeper.get("user_info");
         NoHttp.initialize(this);
-
+        NoHttp.setEnableCache(true);
         //设置主题
         ThemeConfig theme = new ThemeConfig.Builder()
                 .setCheckNornalColor(getResources().getColor(R.color.light_gray))

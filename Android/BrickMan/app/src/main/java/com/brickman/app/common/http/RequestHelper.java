@@ -26,8 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static com.yolanda.nohttp.rest.CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE;
-
 /**
  * Created by mayu on 16/6/21,上午11:27.
  */
@@ -49,11 +47,12 @@ public class RequestHelper {
             }, 800);
         } else {
             Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.GET);
+            request.setCacheKey(url + params.toString());
+            request.setCacheMode(isCache ? CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
             request.setHeader("platform", "Android");
             if (MApplication.getInstance().mUser != null) {
                 request.setHeader("token", MApplication.getInstance().mUser.token);
             }
-            request.setCacheMode(isCache ? CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
             if (params != null) {
                 params.append("cVal", params.encrypt());
                 HashMap<String, String> paramMap = params.toHashMap();
@@ -77,11 +76,12 @@ public class RequestHelper {
             }, 800);
         } else {
             Request<JSONObject> request = NoHttp.createJsonObjectRequest(url, RequestMethod.POST);
+            request.setCacheKey(url + params.toString());
+            request.setCacheMode(isCache ? CacheMode.REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
             request.setHeader("platform", "Android");
             if (MApplication.mAppContext.mUser != null) {
                 request.setHeader("token", MApplication.getInstance().mUser.token);
             }
-            request.setCacheMode(isCache ? REQUEST_NETWORK_FAILED_READ_CACHE : CacheMode.ONLY_REQUEST_NETWORK);
             if (params != null) {
                 params.append("cVal", params.encrypt());
                 HashMap<String, String> paramMap = params.toHashMap();

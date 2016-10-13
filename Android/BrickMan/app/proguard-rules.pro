@@ -170,9 +170,10 @@
 # com.yolanda.nohttp:nohttp:1.0.5-------------------------------
 -keep class com.yolanda.nohttp.**{*;}
 
-# com.youth.banner:banner:+-------------------------------
-#-dontwarn com.youth.banner.**
-#-keep class com.youth.banner.**{*;}
+# banner 的混淆代码
+-keep class com.youth.banner.** {
+    *;
+ }
 
 # com.jakewharton:butterknife:8.4.0-------------------------------
 -keep class butterknife.** { *; }

@@ -122,7 +122,7 @@ public class ImagesAdapter {
         }
         lp.setMargins(margin, margin, margin, margin);
         imageView.setLayoutParams(lp);
-        Glide.with(mCtx).load(Api.IMG_URL + mImgList.get(pos).attachmentPath)
+        Glide.with(mCtx).load(Api.IMG_COMPRESS_URL + mImgList.get(pos).attachmentPath)
                 .diskCacheStrategy(DiskCacheStrategy.ALL).crossFade().into(imageView);
 
         if (mClickble) {

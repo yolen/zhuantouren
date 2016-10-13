@@ -14,6 +14,6 @@ public class BricksListModel implements BricksListContract.Model {
     @Override
     public void loadBricksList(HttpListener httpListener) {
         RequestParam param = ParamBuilder.buildParam("type", "1").append("limit", "10");
-        RequestHelper.sendGETRequest(true, Api.GET_BRICKSLIST, param, httpListener);
+        RequestHelper.sendPOSTRequest(true, Api.GET_BRICKSLIST, param, httpListener);
     }
 }

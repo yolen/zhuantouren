@@ -14,6 +14,6 @@ public class FlowerListModel implements FlowerListContract.Model {
     @Override
     public void loadFlowerList(HttpListener httpListener) {
         RequestParam param = ParamBuilder.buildParam("type", "2").append("limit", "10");
-        RequestHelper.sendGETRequest(true, Api.GET_FLOWERLIST, param, httpListener);
+        RequestHelper.sendPOSTRequest(true, Api.GET_FLOWERLIST, param, httpListener);
     }
 }
