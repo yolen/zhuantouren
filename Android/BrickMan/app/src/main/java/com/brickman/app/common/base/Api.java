@@ -9,8 +9,8 @@ public interface Api {
 
     String KEY = "53b4be63fac688e0";
     // 测试
-//    String BASE_URL = "http://123.57.63.161";
-    String BASE_URL = "http://115.28.16.51";
+    String BASE_URL = "http://123.57.63.161";
+//    String BASE_URL = "http://115.28.16.51";
     String IMG_URL = BASE_URL + ":2080/";
     String IMG_COMPRESS_URL = IMG_URL + "compress/";
 
