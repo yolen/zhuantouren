@@ -29,8 +29,4 @@ social_sdk_library_project/build/intermediates/shaders/
 social_sdk_library_project/build/intermediates/transforms/
 social_sdk_library_project/build/tmp/
 /README.md
-app/libs/
-app/src/main/java/com/brickman/app/common/data/
-app/src/main/java/com/brickman/app/common/lbs/
-app/src/main/java/com/brickman/app/common/umeng/auth/
 projectFilesBackup/
