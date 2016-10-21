@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="false"
+    tools:ignore="HardcodedText">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
+            android:scaleType="fitStart"
+            android:src="@mipmap/bm_launcher_01" />
+
+        <com.brickman.app.module.widget.view.CircleImageView
+            android:id="@+id/t1"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_70"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_60"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/t2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/t1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_160"
+            android:text="左手鲜花,右手砖头的一群人"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="normal"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/t3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/t2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_05"
+            android:text="只评价事儿,不评价人儿"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="normal"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp_30"
+        android:layout_marginLeft="@dimen/dp_80"
+        android:layout_marginRight="@dimen/dp_80">
+
+        <TextView
+            android:id="@+id/loginWX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:drawablePadding="@dimen/dp_06"
+            android:drawableTop="@mipmap/share_weixin_icon"
+            android:text="微信登录"
+            android:textAlignment="center"
+            android:textColor="?attr/text_color"
+            android:textSize="@dimen/sp_16"
+            android:visibility="gone"
+            tools:ignore="RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/loginQQ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="@dimen/dp_06"
+            android:drawableTop="@mipmap/share_qq_friends_icon"
+            android:text="QQ登录"
+            android:textAlignment="center"
+            android:textColor="?attr/text_color"
+            android:textSize="@dimen/sp_16"
+            tools:ignore="RtlHardcoded" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/skip"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_above="@id/rl"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dp_120"
+        android:background="@drawable/btn_white"
+        android:gravity="center"
+        android:paddingLeft="@dimen/dp_25"
+        android:paddingRight="@dimen/dp_25"
+        android:text="先随便看看"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/sp_16"
+        tools:ignore="HardcodedText,RtlHardcoded" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/rl"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_005"
+            android:layout_weight="1"
+            android:background="@color/line" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:gravity="center"
+            android:text="社交账号登录"
+            android:textColor="@color/text_color_deep"
+            android:textSize="@dimen/sp_16"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_005"
+            android:layout_weight="1"
+            android:background="@color/line" />
+    </LinearLayout>
+
+</RelativeLayout>

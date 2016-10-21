@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_180"
+        android:layout_margin="@dimen/dp_10"
+        app:delay_time="4000"
+        app:indicator_drawable_selected="@drawable/dot_focus"
+        app:indicator_drawable_unselected="@drawable/dot_normal"
+        app:indicator_height="6dp"
+        app:indicator_margin="5dp"
+        app:indicator_width="6dp"
+        app:is_auto_play="true" />
+</LinearLayout>

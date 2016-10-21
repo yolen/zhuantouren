@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="我的位置"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/sp_18" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_02"
+        android:background="@color/colorAccent" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_20"
+        app:errorEnabled="false"
+        app:errorTextAppearance="@style/txt_lab_msg">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingBottom="@dimen/dp_02"
+            android:paddingTop="@dimen/dp_10"
+            android:gravity="center|bottom"
+            android:hint="编辑位置"
+            android:inputType="text"
+            android:maxLength="40"
+            android:textColor="@color/blue"
+            android:textColorHighlight="@color/text_light_gray"
+            android:textColorHint="@color/text_light_gray"
+            android:textSize="@dimen/sp_13" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_005"
+            android:background="@color/colorAccent" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_005"
+        android:background="@color/line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_48"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1"
+            android:background="@drawable/item_bg"
+            android:text="@string/cancel"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/sp_16" />
+
+        <View
+            android:layout_width="@dimen/dp_005"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@color/line" />
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_48"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1"
+            android:background="@drawable/item_bg"
+            android:text="@string/confirm"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/sp_16" />
+    </LinearLayout>
+</LinearLayout>

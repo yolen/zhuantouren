@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp_10"
+    android:layout_marginRight="@dimen/dp_10"
+    android:background="@drawable/item_bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/light_gray"
+        android:gravity="center"
+        android:text="公益，一起关注社会，关注自然"
+        android:textColor="?attr/text_color"
+        android:textSize="@dimen/sp_16"
+        android:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_180"
+        android:layout_below="@id/title"
+        android:background="@color/light_gray"
+        android:scaleType="centerCrop" />
+</RelativeLayout>
