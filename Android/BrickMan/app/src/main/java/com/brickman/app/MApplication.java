@@ -24,7 +24,7 @@ import cn.finalteam.galleryfinal.ThemeConfig;
  * Created by mayu on 16/7/14,上午9:56.
  */
 public class MApplication extends Application {
-
+    /**test aaaaaaaaaaaaaaaaaaaaaa*/
     /** 首先默认个文件保存路径 */
     public static final String SAVE_PATH= Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED) ? Environment.getExternalStorageDirectory().getAbsolutePath() : "/mnt/sdcard";//保存到SD卡
     public static final String SAVE_PIC_PATH = SAVE_PATH+ "/brickman/savePic";//保存的确切位置
