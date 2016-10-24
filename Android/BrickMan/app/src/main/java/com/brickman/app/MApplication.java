@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.brickman.app.common.data.DataKeeper;
+import com.brickman.app.common.data.cipher.Base64Cipher;
 import com.brickman.app.common.glide.GlideImageLoader;
 import com.brickman.app.common.glide.GlidePauseOnScrollListener;
 import com.brickman.app.model.Bean.UserBean;
@@ -24,7 +25,7 @@ import cn.finalteam.galleryfinal.ThemeConfig;
  * Created by mayu on 16/7/14,上午9:56.
  */
 public class MApplication extends Application {
-    /**泡菜 哈哈哈*/
+    
     /** 首先默认个文件保存路径 */
     public static final String SAVE_PATH= Environment.getExternalStorageState().equalsIgnoreCase(Environment.MEDIA_MOUNTED) ? Environment.getExternalStorageDirectory().getAbsolutePath() : "/mnt/sdcard";//保存到SD卡
     public static final String SAVE_PIC_PATH = SAVE_PATH+ "/brickman/savePic";//保存的确切位置
