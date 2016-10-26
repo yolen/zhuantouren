@@ -3,6 +3,7 @@ package com.brickman.app.module.widget.view;
 import android.content.Context;
 import android.graphics.Matrix;
 import android.graphics.PointF;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -49,7 +50,7 @@ public class TouchImageView extends ImageView {
         super(context, attrs);
         sharedConstructing(context);
     }
-    
+
     private void sharedConstructing(Context context) {
         super.setClickable(true);
         this.context = context;
@@ -71,8 +72,12 @@ public class TouchImageView extends ImageView {
                     	last.set(curr);
                         start.set(last);
                         mode = DRAG;
+                        if (getMatrixRectF(matrix).width() > getWidth() || getMatrixRectF(matrix).height() > getHeight())
+                        {
+                            getParent().requestDisallowInterceptTouchEvent(true);
+                        }
                         break;
-                        
+
                     case MotionEvent.ACTION_MOVE:
                         if (mode == DRAG) {
                             float deltaX = curr.x - last.x;
@@ -82,7 +87,24 @@ public class TouchImageView extends ImageView {
                             matrix.postTranslate(fixTransX, fixTransY);
                             fixTrans();
                             last.set(curr.x, curr.y);
-                        }
+                            /**
+                             *  start add by zhangshiyu
+                              */
+                            RectF matrixRectF = getMatrixRectF(matrix);
+                            if (getDrawable() != null) {
+                                if (Math.rint(matrixRectF.right) == Math.rint(getWidth()) && deltaX < 0)
+                                {
+                                    getParent().requestDisallowInterceptTouchEvent(false);
+                                }
+                                if (Math.rint(matrixRectF.right) == Math.rint(matrixRectF.width()) && deltaX > 0)
+                                {
+                                    getParent().requestDisallowInterceptTouchEvent(false);
+                                }
+                            }
+                            }
+                        /**
+                         * end
+                         */
                         break;
 
                     case MotionEvent.ACTION_UP:
@@ -97,13 +119,31 @@ public class TouchImageView extends ImageView {
                         mode = NONE;
                         break;
                 }
-                
+
                 setImageMatrix(matrix);
                 invalidate();
                 return true; // indicate event was handled
             }
 
         });
+    }
+    /**
+     *
+     *   add by zhangshiyu
+     * 根据当前图片的Matrix获得图片的范围
+     *
+     * @return
+     */
+    private RectF getMatrixRectF( Matrix matrix )
+    {
+        RectF rect = new RectF();
+        Drawable d = getDrawable();
+        if (null != d)
+        {
+            rect.set(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+            matrix.mapRect(rect);
+        }
+        return rect;
     }
 
     public void setMaxZoom(float x) {
@@ -144,7 +184,7 @@ public class TouchImageView extends ImageView {
         matrix.getValues(m);
         float transX = m[Matrix.MTRANS_X];
         float transY = m[Matrix.MTRANS_Y];
-        
+
         float fixTransX = getFixTrans(transX, viewWidth, origWidth * saveScale);
         float fixTransY = getFixTrans(transY, viewHeight, origHeight * saveScale);
 
@@ -169,7 +209,7 @@ public class TouchImageView extends ImageView {
             return -trans + maxTrans;
         return 0;
     }
-    
+
     float getFixDragTrans(float delta, float viewSize, float contentSize) {
         if (contentSize <= viewSize) {
             return 0;
@@ -182,7 +222,7 @@ public class TouchImageView extends ImageView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
         viewHeight = MeasureSpec.getSize(heightMeasureSpec);
-        
+
         //
         // Rescales image on rotation
         //
@@ -201,7 +241,7 @@ public class TouchImageView extends ImageView {
                 return;
             int bmWidth = drawable.getIntrinsicWidth();
             int bmHeight = drawable.getIntrinsicHeight();
-            
+
             Log.d("bmSize", "bmWidth: " + bmWidth + " bmHeight : " + bmHeight);
 
             float scaleX = (float) viewWidth / (float) bmWidth;
