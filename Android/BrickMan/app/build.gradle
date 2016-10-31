@@ -36,6 +36,16 @@ android {
             proguardFile '/Users/mayu/Documents/ProjectFiles/BrickMan/zhuantouren/Android/BrickMan/app/proguard-rules.pro'
             shrinkResources true
         }
+        android.applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def outputFile = output.outputFile
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    //这里修改apk文件名
+                    def fileName = "brick_man_${defaultConfig.versionName}.apk"
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+        }
     }
     productFlavors {
     }
