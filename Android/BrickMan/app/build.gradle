@@ -2,16 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-//    signingConfigs {
-//        config {
-//            keyAlias 'brickman'
-//            keyPassword 'brickman'
-//            storeFile file('/Users/mayu/Documents/ProjectFiles/BrickMan/zhuantouren/Android/BrickMan/keystore.jks')
-//            storePassword 'brickman'
-//        }
-//    }
-    compileSdkVersion 24
-    buildToolsVersion '24'
+    signingConfigs {
+        config {
+            keyAlias 'brickman'
+            keyPassword 'brickman'
+            storeFile file('../keystore.jks')
+            storePassword 'brickman'
+        }
+    }
+    compileSdkVersion 23
+    buildToolsVersion '23.0.1'
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         applicationId "com.brickman.app"
@@ -19,21 +19,21 @@ android {
         targetSdkVersion 23
         versionCode 4
         versionName '1.0.3'
-//        signingConfig signingConfigs.config
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
-            proguardFile '/Users/mayu/Documents/ProjectFiles/BrickMan/zhuantouren/Android/BrickMan/app/proguard-rules.pro'
+            proguardFile '../proguard-rules.pro'
             shrinkResources true
         }
         debug {
-//            signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
             minifyEnabled true
             zipAlignEnabled true
-            proguardFile '/Users/mayu/Documents/ProjectFiles/BrickMan/zhuantouren/Android/BrickMan/app/proguard-rules.pro'
+            proguardFile '../proguard-rules.pro'
             shrinkResources true
         }
         android.applicationVariants.all { variant ->

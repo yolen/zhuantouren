@@ -34,6 +34,7 @@ public class MApplication extends Application {
     public static DataKeeper mDataKeeper;
     public UserBean mUser;
     public boolean isNight = false;
+
     @Override
     public void onCreate() {
         super.onCreate();
