@@ -124,8 +124,8 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
-        android:weightSum="3"
-        android:visibility="gone">
+        android:weightSum="4"
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -195,7 +195,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <ImageView
                 android:id="@+id/iconBrick"
