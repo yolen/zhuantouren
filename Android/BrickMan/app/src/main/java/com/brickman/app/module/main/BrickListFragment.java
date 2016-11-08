@@ -89,6 +89,7 @@ public class BrickListFragment extends BaseFragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.list);
         mAdapter = new BrickListAdapter(mActivity, R.layout.item_brick_list, mData);
+
         View loadingView = mActivity.getLayoutInflater().inflate(R.layout.loading_more_view, (ViewGroup) mRecyclerView.getParent(), false);
         mAdapter.setLoadingView(loadingView);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);

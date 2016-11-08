@@ -57,10 +57,11 @@
                     android:visibility="gone">
 
                     <ImageView
+                        android:id="@+id/message"
                         android:layout_width="@dimen/dp_28"
                         android:layout_height="@dimen/dp_22"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/bm_send" />
+                        android:src="@mipmap/bm_message" />
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>

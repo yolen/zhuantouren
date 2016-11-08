@@ -51,7 +51,8 @@
             android:layout_height="@dimen/dp_20"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/bm_reporting_sel" />
+            android:visibility="visible"
+            android:src="@mipmap/man" />
     </RelativeLayout>
 
     <View
@@ -117,12 +118,13 @@
         android:background="@color/line" />
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_32"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/dp_10"
         android:paddingRight="@dimen/dp_10"
-        android:weightSum="4"
+        android:weightSum="3"
         android:visibility="gone">
 
         <LinearLayout
@@ -192,7 +194,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/iconBrick"

@@ -47,7 +47,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         if(layoutId == R.layout.activity_spalish
                 || layoutId == R.layout.activity_login
                 || layoutId == R.layout.activity_image_switcher
-                || layoutId == R.layout.activity_guide){
+                || layoutId == R.layout.activity_guide||layoutId==R.layout.activity_publish_list){
             setTheme(R.style.Transparent);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 Window window = getWindow();
@@ -60,7 +60,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
                 tintManager.setStatusBarTintEnabled(true);
                 tintManager.setStatusBarTintResource(R.color.transparent);//通知栏所需颜色
             }
-        } else {
+        } else  {
             setTheme(((MApplication)getApplication()).isNight ? R.style.AppThemeNight : R.style.AppThemeDay);
             // 设置状态栏颜色
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {

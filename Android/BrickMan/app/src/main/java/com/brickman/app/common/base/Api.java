@@ -9,9 +9,13 @@ public interface Api {
 
     String KEY = "53b4be63fac688e0";
     // 测试
-    String BASE_URL = "http://123.57.63.161";
+//    String BASE_URL = "http://123.57.63.161";
+    String BASE_URL="http://dev.brickman.cn";
+    /**
+     * 生产
+     */
 //    String BASE_URL = "http://115.28.16.51";
-    String IMG_URL = BASE_URL + ":2080/";
+    String IMG_URL = "http://dev.img.brickman.cn/" ;//+ ":2080/";
     String IMG_COMPRESS_URL = IMG_URL + "compress/";
 
     // ------------GET--------------
@@ -58,7 +62,10 @@ public interface Api {
 
 
     // -------------H5----------------
+    //关于我们
     String ABOUT_US = IMG_URL + "html/brickman.html";
+    //反馈我们
+    String  FEEDBACK_US="";
     // 登录成功
     String ACTION_LOGIN = "com.brickman.app.action.login";
     // 用户信息变更

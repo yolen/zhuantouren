@@ -1,9 +1,11 @@
 package com.brickman.app.common.utils;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.provider.Settings;
@@ -268,5 +270,19 @@ public class PhoneUtils {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 获取状态栏的高度
+     * @param activity
+     * @return
+     */
+    public static int getStatusbarHeight(Activity activity){
+        int result = 0;
+        int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = activity.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
     }
 }

@@ -154,7 +154,7 @@ public class UserFragment extends BaseFragment {
         mActivity.unregisterReceiver(mReceiver);
     }
 
-    @OnClick({R.id.userInfo, R.id.mybricks, R.id.mybrick, R.id.myflower, R.id.about, R.id.logout})
+    @OnClick({R.id.userInfo, R.id.mybricks, R.id.mybrick, R.id.myflower, R.id.feedback,R.id.about, R.id.logout})
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -220,6 +220,12 @@ public class UserFragment extends BaseFragment {
                     intent = new Intent(mActivity, LoginActivity.class);
                     mActivity.startActivityWithAnim(intent);
                 }
+                break;
+            case R.id.feedback:
+                intent = new Intent(mActivity, WebActivity.class);
+                intent.putExtra("title", "反馈我们");
+                intent.putExtra("url", Api.FEEDBACK_US);
+                mActivity.startActivityWithAnim(intent);
                 break;
         }
     }

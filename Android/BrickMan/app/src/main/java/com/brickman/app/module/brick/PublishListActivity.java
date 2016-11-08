@@ -6,18 +6,24 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.brickman.app.MApplication;
 import com.brickman.app.R;
 import com.brickman.app.adapter.BrickListAdapter;
 import com.brickman.app.common.base.BaseActivity;
+import com.brickman.app.common.utils.PhoneUtils;
 import com.brickman.app.contract.PublishListContract;
 import com.brickman.app.model.Bean.BrickBean;
 import com.brickman.app.model.PublishListModel;
+import com.brickman.app.module.widget.view.CircleImageView;
 import com.brickman.app.presenter.PublishListPresenter;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
@@ -45,6 +51,14 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
     RecyclerView mRecyclerView;
     @BindView(R.id.ptr)
     PtrClassicFrameLayout mPtr;
+    @BindView(R.id.paddingheight)
+    View padingtop;
+    @BindView(R.id.avator)
+    CircleImageView avator;
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.desc)
+    TextView desc;
 
     private BrickListAdapter mAdapter;
     private List<BrickBean> mData = new ArrayList<BrickBean>();
@@ -135,6 +149,8 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
         });
         mPtr.setLastUpdateTimeRelateObject(this);
         mPresenter.loadBrickList(userId, mPageNo);
+        setPaddingheight();
+        initData();
     }
 
     @Override
@@ -157,5 +173,35 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
     @Override
     public void showMsg(String msg) {
         showToast(msg);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    /*
+        设置填充状态栏高度
+         */
+    private void setPaddingheight(){
+//        padingtop.setMinimumHeight(PhoneUtils.getStatusbarHeight(this));
+        ViewGroup.LayoutParams layoutParams = padingtop.getLayoutParams();
+        layoutParams.height=PhoneUtils.getStatusbarHeight(this);
+        padingtop.setLayoutParams(layoutParams);
+
+    }
+    private void initData() {
+        if (MApplication.mAppContext.mUser != null) {
+            Glide.with(this).load(MApplication.mAppContext.mUser.userHead)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).into(avator);
+            name.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.userName) ? MApplication.mAppContext.mUser.userAlias : MApplication.mAppContext.mUser.userName);
+            desc.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.motto) ? "他的格言就是没有格言!!!" : MApplication.mAppContext.mUser.motto);
+        } else {
+            Glide.with(this).load(R.mipmap.ic_launcher).into(avator);
+            name.setText("未登录");
+            desc.setText("路见不平,拔刀相助");
+        }
+//        logout.setText(MApplication.mAppContext.mUser != null ? "退出登录" : "点击登录");
     }
 }

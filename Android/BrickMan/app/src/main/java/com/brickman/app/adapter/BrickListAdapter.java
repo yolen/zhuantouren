@@ -1,9 +1,11 @@
 package com.brickman.app.adapter;
 
+import android.app.Application;
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.LinearLayout;
 
+import com.brickman.app.MApplication;
 import com.brickman.app.R;
 import com.brickman.app.common.utils.DateUtil;
 import com.brickman.app.model.Bean.BrickBean;
@@ -43,7 +45,7 @@ public class BrickListAdapter extends BaseQuickAdapter<BrickBean> {
         }
         helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
         helper.setText(R.id.address, item.contentPlace);
-        helper.setImageResource(R.id.report, item.contentReports != 0 ? R.mipmap.bm_reporting_sel : R.mipmap.bm_reporting_nor);
+        helper.setImageResource(R.id.report, MApplication.mAppContext.mUser.userSex=="男"? R.mipmap.man : R.mipmap.woman);
         helper.setText(R.id.content, item.contentTitle);
         helper.setImageResource(R.id.iconComment, item.commentCount > 0 ? R.mipmap.bm_comment_sel : R.mipmap.bm_comment_nor);
         helper.setText(R.id.commentNum, item.commentCount + "");
@@ -56,6 +58,7 @@ public class BrickListAdapter extends BaseQuickAdapter<BrickBean> {
 
         helper.setImageResource(R.id.iconShare, item.contentShares > 0 ? R.mipmap.bm_share_sel : R.mipmap.bm_share_nor);
         helper.setText(R.id.shareNum, item.contentShares + "");
+//        helper.setVisible(R.id.layout_meature,false);
         LinearLayout linearLayout = (LinearLayout) helper.getView(R.id.imageList);
         linearLayout.setTag(helper.getLayoutPosition());
         mImagesAdapter = new ImagesAdapter(mCtx, linearLayout, false, item.brickContentAttachmentList);
