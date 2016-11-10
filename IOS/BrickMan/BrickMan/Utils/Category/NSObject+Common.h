@@ -13,12 +13,10 @@
 
 #pragma mark - error 
 + (BOOL)showError:(NSError *)error;
++ (void)showHudTipStr:(NSString *)tipStr;
 + (void)showSuccessMsg:(NSString *)success;
 + (void)showErrorMsg:(NSString *)error;
 - (id)handleResponse:(id)responseJSON autoShowError:(BOOL)autoShowError;
-
-- (id)initWithDictionary:(NSDictionary *)dictionary;
-+ (instancetype)modelWithDictionary:(NSDictionary *)dictionary;
 
 #pragma mark - 缓存
 + (void)saveResponseData:(NSDictionary *)data toPath:(NSString *)requestPath;

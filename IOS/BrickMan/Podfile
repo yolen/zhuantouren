@@ -8,7 +8,6 @@ target 'BrickMan' do
     pod 'YYModel'
     pod 'SDWebImage'
     pod 'TZImagePickerController'
-    pod 'JPFPSStatus', '~> 0.1'
     pod 'MJRefresh'
-    pod 'SVProgressHUD'
+    pod 'SDCycleScrollView'
 end

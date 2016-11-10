@@ -14,39 +14,37 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - JPFPSStatus (0.1)
   - Masonry (0.6.3)
   - MBProgressHUD (0.9.1)
   - MJRefresh (3.1.12)
-  - SDWebImage (3.7.3):
-    - SDWebImage/Core (= 3.7.3)
-  - SDWebImage/Core (3.7.3)
-  - SVProgressHUD (2.0.3)
+  - SDCycleScrollView (1.65):
+    - SDWebImage (~> 3.7)
+  - SDWebImage (3.8.1):
+    - SDWebImage/Core (= 3.8.1)
+  - SDWebImage/Core (3.8.1)
   - TZImagePickerController (1.5.0)
   - YYModel (0.9.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
-  - JPFPSStatus (~> 0.1)
   - Masonry (~> 0.6.3)
   - MBProgressHUD (~> 0.9.1)
   - MJRefresh
+  - SDCycleScrollView
   - SDWebImage
-  - SVProgressHUD
   - TZImagePickerController
   - YYModel
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  JPFPSStatus: 4467a17488382e4c1700bd9d18c92ae581fd6305
   Masonry: ff105a956abcd19a618b2028b121cb638d7a8e2f
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
-  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
-  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
+  SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   TZImagePickerController: d09eef6042852a9dd19224ae4e874f7430852a51
   YYModel: e6725042af0ebd67804f7a2246db1f264b333fc1
 
-PODFILE CHECKSUM: a726711dbb35496781de2376e4e2b2cd1fc39fb1
+PODFILE CHECKSUM: cd1babc48048d095bcf90aeaf32c4b4912ed4a72
 
 COCOAPODS: 1.0.1

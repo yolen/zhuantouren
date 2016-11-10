@@ -20,6 +20,7 @@
 
 - (NSDictionary *)getContentListParams;
 - (NSDictionary *)getUserContentListParams;
+- (NSDictionary *)getContentListParamsWithComment;
 
 - (void)configWithData:(BMContentList *)model;
 

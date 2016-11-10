@@ -13,11 +13,16 @@
 
 @interface MainTableViewCell : UITableViewCell
 
+@property (assign, nonatomic) BOOL isGallery, isDetail;
 @property (strong, nonatomic) NSString *contentStr;
-@property (nonatomic, assign) BOOL isGallery;
+@property (strong, nonatomic) UIButton *reportBtn, *commentBtn, *shareBtn, *brickBtn;
+
 @property (strong, nonatomic) void(^commentBlock)();
-@property (copy, nonatomic) void(^shareBlock)();
+@property (copy, nonatomic) void(^shareBlock)(BMContent *content);
 @property (copy, nonatomic) void(^refreshCellBlock)();
+@property (copy, nonatomic) void(^pushDetailBlock)();
+@property (copy, nonatomic) void(^pushLoginBlock)();
+@property (copy, nonatomic) void(^reportBlock)();
 
 @property (strong, nonatomic) BMContent *model;
 @property (strong, nonatomic) CommentInputView *inputView;

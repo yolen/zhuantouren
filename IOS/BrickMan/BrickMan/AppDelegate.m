@@ -7,15 +7,26 @@
 //
 
 #import "AppDelegate.h"
-#import "BrickManAPIManager.h"
 #import "RootTabBarController.h"
 #import "IntroduceViewController.h"
-#import <TencentOpenAPI/TencentOAuth.h>
-#import "BrickManNetClient.h"
-#import <JPFPSStatus/JPFPSStatus.h>
+#import "BMStartView.h"
 #import "CacheImageSize.h"
+#import "BrickManNetClient.h"
+#import <TencentOpenAPI/TencentOAuth.h>
+#import "UMSocial.h"
+#import "UMSocialQQHandler.h"
+#import "UMSocialWechatHandler.h"
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 static void customHandler() {
+    //友盟分享初始化
+    [UMSocialData setAppKey:kUMSocialKey];
+    [UMSocialWechatHandler setWXAppId:kWXAppId appSecret:kWXAppSecret url:kUMRedirectURL];
+    [UMSocialQQHandler setQQWithAppId:kQQAppId appKey:kQQAppKey url:kUMRedirectURL];
+    [UMSocialConfig setFinishToastIsHidden:YES position:UMSocialiToastPositionCenter];
+    
+    [AMapServices sharedServices].apiKey = (NSString *)APIKey;
+    
     UINavigationBar *navigationBar = [UINavigationBar appearance];
     [navigationBar setBackgroundImage:[UIImage imageWithColor:kNavigationBarColor]
                         forBarMetrics:UIBarMetricsDefault];
@@ -26,6 +37,7 @@ static void customHandler() {
                                      };
     [navigationBar setTitleTextAttributes:textAttributes];
     [navigationBar setTintColor:[UIColor whiteColor]];
+    [[UITextField appearance] setTintColor:kNavigationBarColor];
 }
 @interface AppDelegate ()
 
@@ -38,7 +50,6 @@ static void customHandler() {
     self.window.backgroundColor = [UIColor whiteColor];
 
     customHandler();
-    
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"isShowIntroducePage"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isShowIntroducePage"];
         
@@ -52,11 +63,13 @@ static void customHandler() {
     if ([BMUser isLogin]) {
         [[BrickManNetClient sharedJsonClient] setToken:[BMUser getUserModel].token];
     }
-
-#if defined(DEBUG)||defined(_DEBUG)
-    [[JPFPSStatus sharedInstance] open];
-#endif
     [self.window makeKeyAndVisible];
+
+    BMStartView *startView = [BMStartView sharedInstance];
+    [startView startAnimationWithCompletionBlock:^{
+        DebugLog(@"Completion");
+    }];
+    
     return YES;
 }
 
@@ -92,16 +105,17 @@ static void customHandler() {
     // applicationDidEnterBackground:.
 }
 
-#pragma mark - QQ Login
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-    return [TencentOAuth HandleOpenURL:url];
+- (void)applicationDidReceiveMemoryWarning:(UIApplication*)application {
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+//    [[SDImageCache sharedImageCache] setValue:nil forKey:@"memCache"];
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    return [TencentOAuth HandleOpenURL:url];
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE) {
+        result = [TencentOAuth HandleOpenURL:url];
+    }
+    return result;
 }
 
 @end

@@ -13,8 +13,10 @@
 #import "BMAttachment.h"
 #import "BMCommentList.h"
 #import <MJRefresh/MJRefresh.h>
+#import "LoginViewController.h"
+#import "ShareView.h"
 
-@interface DetailBrickViewController()<UITableViewDelegate,UITableViewDataSource>
+@interface DetailBrickViewController()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property(strong, nonatomic) UITableView *myTableView;
 @property (strong, nonatomic) CommentInputView *inputView;
 @property (strong, nonatomic) BMCommentList *commentList;
@@ -25,6 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"详情";
     self.commentList = [[BMCommentList alloc] init];
     BMAttachment *attachment = self.model.brickContentAttachmentList[0];
     self.commentList.contentId = [attachment.contentId stringValue];
@@ -48,13 +51,22 @@
         [weakSelf.inputView.inputTextView resignFirstResponder];
         [weakSelf commentAction];
     };
+    self.inputView.updateInputViewHeight = ^(CGFloat heightToBottom){
+        [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionTransitionFlipFromBottom animations:^{
+            UIEdgeInsets contentInsets= UIEdgeInsetsMake(0.0, 0.0, heightToBottom, 0.0);;
+            
+            weakSelf.myTableView.contentInset = contentInsets;
+        } completion:nil];
+    };
     
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
     header.automaticallyChangeAlpha = YES;
     header.lastUpdatedTimeLabel.hidden = YES;
     self.myTableView.mj_header = header;
-    
-    self.myTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMore)];
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMore)];
+    [footer setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
+    [footer setTitle:@"暂无更多评论" forState:MJRefreshStateNoMoreData];
+    self.myTableView.mj_footer = footer;
     
     [self refresh];
 }
@@ -95,7 +107,7 @@
         [weakSelf.myTableView.mj_footer endRefreshing];
         if (data) {
             [weakSelf.commentList configWithData:data];
-            [weakSelf.myTableView reloadData];
+            [weakSelf.myTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
             
             BMCommentList *model = (BMCommentList *)data;
             if (!weakSelf.commentList.canLoadMore || model.data.count == 0) {
@@ -120,8 +132,26 @@
     if (indexPath.section == 0) {
         MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
         cell.model = self.model;
+        cell.isDetail = YES;
         cell.inputView = self.inputView;
-//        __weak typeof(self) weakSelf = self;
+        
+        __weak typeof(self) weakSelf = self;
+        cell.pushLoginBlock = ^(){
+            [self.inputView p_dismiss];
+            LoginViewController *loginVC = [[LoginViewController alloc] init];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+            [self presentViewController:nav animated:YES completion:nil];
+        };
+        cell.shareBlock = ^(BMContent *content){
+            ShareView *view = [ShareView showShareViewWithContent:content];
+            view.successShareBlock = ^(){
+                [weakSelf addShareCountAction];
+            };
+        };
+        cell.reportBlock = ^(){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"您确定要举报这位砖头人发布的事件吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            [alert show];
+        };
 //        cell.commentBlock = ^(){
 //            [weakSelf.inputView becomeFirstResponder];
 //            
@@ -152,11 +182,35 @@
     }
 }
 
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        MainTableViewCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        BMAttachment *attachmentModel = self.model.brickContentAttachmentList[0];
+        NSString *contentId = [attachmentModel.contentId stringValue];
+        [[BrickManAPIManager shareInstance] requestOperContentWithParams:@{@"contentId" : contentId, @"operType" : @"3", @"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
+            if (data) {
+                [NSObject showSuccessMsg:@"举报成功"];
+                [cell.reportBtn setImage:[UIImage imageNamed:@"report_sel"] forState:UIControlStateNormal];
+            }
+        }];
+    }
+}
+
 #pragma mark - Comment
 - (void)commentAction {
-    if (self.inputView.inputTextView.text.length == 0) {
+    if (![BMUser isLogin]) {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
+        [self presentViewController:nav animated:YES completion:nil];
         return;
     }
+    if (self.inputView.inputTextView.text.length == 0) {
+        kTipAlert(@"请输入评论内容");
+        return;
+    }
+    MainTableViewCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
     NSString *userId = [BMUser getUserModel].userId;
     BMAttachment *attachModel = self.model.brickContentAttachmentList[0];
     NSDictionary *info = @{@"userId" : userId,
@@ -167,8 +221,23 @@
         weakSelf.inputView.inputTextView.text = @"";
         if (data) {
             [weakSelf refresh];
+            [cell.commentBtn setTitle:[NSString stringWithFormat:@"评论 %ld",(long)(self.model.commentCount.integerValue + 1)] forState:UIControlStateNormal];
+            [cell.commentBtn setImage: [UIImage imageNamed:@"comment_sel"] forState:UIControlStateNormal];
         }else {
             [NSObject showErrorMsg:@"评论失败"];
+        }
+    }];
+}
+
+- (void)addShareCountAction {
+    MainTableViewCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    BMAttachment *attachmentModel = self.model.brickContentAttachmentList[0];
+    NSString *contentId = [attachmentModel.contentId stringValue];
+    [[BrickManAPIManager shareInstance] requestAddShareCountWithParams:@{@"contentId" : contentId} andBlock:^(id data, NSError *error) {
+        if (data) {
+            [cell.shareBtn setTitle:[NSString stringWithFormat:@"分享 %ld",(long)(self.model.contentShares.integerValue + 1)] forState:UIControlStateNormal];
+            [cell.shareBtn setImage:[UIImage imageNamed:@"share_sel"] forState:UIControlStateNormal];
         }
     }];
 }

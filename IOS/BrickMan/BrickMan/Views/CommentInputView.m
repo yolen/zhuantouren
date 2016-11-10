@@ -11,6 +11,7 @@
 @interface CommentInputView ()<UITextViewDelegate>
 @property (strong, nonatomic) NSString *placeHolder;
 @property (strong, nonatomic) UIButton *sendBtn;
+@property (assign, nonatomic) CGFloat oldTextViewHeight;
 
 @end
 
@@ -25,6 +26,7 @@
     if (self = [super initWithFrame:frame]) {
         // Initialization code
         self.backgroundColor = [UIColor colorWithHexString:@"0xf8f8f8"];
+        _oldTextViewHeight = 33;
         
         if (!_inputTextView) {
             _inputTextView = [[UIPlaceHolderTextView alloc] initWithFrame:CGRectMake(10, 10, kScreen_Width - 80, 30)];
@@ -49,6 +51,18 @@
         }
     }
     return self;
+}
+
+- (void)setFrame:(CGRect)frame {
+    CGFloat oldheightToBottom = kScreen_Height - CGRectGetMinY(self.frame);
+    CGFloat newheightToBottom = kScreen_Height - CGRectGetMinY(frame);
+    
+    [super setFrame:frame];
+    if (fabs(oldheightToBottom - newheightToBottom) > 0.1) {
+        if (self.updateInputViewHeight) {
+            self.updateInputViewHeight(newheightToBottom);
+        }
+    }
 }
 
 - (void)sendAction:(id)sender {
@@ -90,13 +104,36 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - keyboard 
+#pragma mark - UITextViewDelegate
+- (void)textViewDidChange:(UITextView *)textView {
+    CGFloat height = textView.contentSize.height;
+    if (height != _oldTextViewHeight) {
+        CGFloat maxHeight = 100;
+        height = MIN(maxHeight, height);
+        CGFloat diffHeight = height - _oldTextViewHeight;
+        
+        if (ABS(diffHeight) > 0.1) {
+            CGRect newFrame = self.frame;
+            newFrame.size.height += diffHeight;
+            newFrame.origin.y -= diffHeight;
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                [self setFrame:newFrame];
+                self.inputTextView.height = height;
+            }];
+            [self.inputTextView setContentOffset:CGPointZero animated:YES];
+            _oldTextViewHeight = textView.contentSize.height;
+        }
+    }
+}
+
+#pragma mark - keyboard
 - (void)keyboardChange:(NSNotification *)notification {
     if ([self.inputTextView isFirstResponder]) {
         NSDictionary* userInfo = [notification userInfo];
         CGRect keyboardEndFrame = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
         CGFloat keyboardY =  keyboardEndFrame.origin.y;
-        CGFloat selfOriginY = keyboardY - 50;
+        CGFloat selfOriginY = keyboardY - (_oldTextViewHeight == 33 ? 50 :_oldTextViewHeight + 17);
         
         if (selfOriginY == self.frame.origin.y) {
             return;

@@ -8,7 +8,7 @@
 
 #import "RootTabBarController.h"
 #import "MainViewController.h"
-#import "PublishViewController.h"
+#import "AdvertisementViewController.h"
 #import "MineViewController.h"
 #import "BaseNavigationController.h"
 #import "BMUser.h"
@@ -41,14 +41,15 @@
     UINavigationController *mainNav = [[BaseNavigationController alloc]initWithRootViewController:mainVC];
     mainVC.title = @"砖集";
     
-    UIViewController *publishVC = [[UIViewController alloc] init];
-    UINavigationController *publishNav = [[BaseNavigationController alloc]initWithRootViewController:publishVC];
+    AdvertisementViewController *adverVC = [[AdvertisementViewController alloc] init];
+    UINavigationController *adverNav = [[BaseNavigationController alloc]initWithRootViewController:adverVC];
+
     
     MineViewController *meVC = [[MineViewController alloc] init];
     UINavigationController *meNav = [[BaseNavigationController alloc]initWithRootViewController:meVC];
     meVC.title = @"我的";
     self.delegate = self;
-    self.viewControllers = @[mainNav,publishNav,meNav];
+    self.viewControllers = @[mainNav,adverNav,meNav];
     
     UIImage *bgImage = [UIImage imageNamed:@"tabBar_bg"];
     if (kDevice_Is_iPhone6) {
@@ -88,19 +89,12 @@
         if ([viewControllersArray objectAtIndex:i] == viewController) {
             shouldSelectIndex = i;
             
-            if (shouldSelectIndex > 0) {
+            if (shouldSelectIndex == 2) {
                 //selectedIndex是上一个选中的页面
                 UINavigationController* firstNavVC = (UINavigationController*)[viewControllersArray objectAtIndex:tabBarController.selectedIndex];
                 MainViewController* vc = (MainViewController*)[firstNavVC.viewControllers objectAtIndex:0];
                 if (![BMUser isLogin]) { //未登录
                     [vc pushLoginViewController];
-                    return NO;
-                }
-                
-                if (shouldSelectIndex == 1) {
-                    PublishViewController *publishVC = [[PublishViewController alloc] init];
-                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:publishVC];
-                    [vc.navigationController presentViewController:nav animated:YES completion:nil];
                     return NO;
                 }
             }

@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BMContent.h"
 
 @interface ShareView : UIView
+@property (strong, nonatomic) void(^successShareBlock)();
 
-+ (ShareView *)showShareView;
++ (ShareView *)showShareViewWithContent:(BMContent *)content;
 
 @end
 

@@ -8,6 +8,7 @@
 
 #import "NSObject+Common.h"
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "RootTabBarController.h"
 
 #define kResponseCache_path  @"ResponseCache"
 
@@ -15,7 +16,7 @@
 
 + (BOOL)showError:(NSError *)error{
     NSString *tipStr = [self tipFromError:error];
-    [self showHudTipStr:tipStr];
+    [NSObject showHudTipStr:tipStr];
     return YES;
 }
 
@@ -54,7 +55,8 @@
             if ([error.userInfo objectForKey:@"NSLocalizedDescription"]) {
                 tipStr = [error.userInfo objectForKey:@"NSLocalizedDescription"];
             }else{
-                [tipStr appendFormat:@"ErrorCode%ld", (long)error.code];
+//                [tipStr appendFormat:@"ErrorCode%ld", (long)error.code];
+                tipStr = [NSMutableString stringWithFormat:@"%@",@"服务器出问题啦,请稍后重试!"];
             }
         }
         return tipStr;
@@ -62,7 +64,7 @@
     return nil;
 }
 
-- (void)showHudTipStr:(NSString *)tipStr{
++ (void)showHudTipStr:(NSString *)tipStr{
     if (tipStr && tipStr.length > 0) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kKeyWindow animated:YES];
         hud.mode = MBProgressHUDModeText;
@@ -86,18 +88,18 @@
         if (autoShowError) {
             [NSObject showError:error];
         }
+    }else if (resultCode.integerValue == 103) { //token失效,重新登录
+        [NSObject showHudTipStr:@"请重新登录"];
+        [BMUser removeUserInfo];
+        
+        RootTabBarController *tabBarVC = [RootTabBarController sharedInstance];
+        for (int i = 0; i < 3; i++) {
+            if (i == 0) {
+                tabBarVC.selectedIndex = 0;
+            }
+        }
     }
     return error;
-}
-
-- (id)initWithDictionary:(NSDictionary *)dictionary {
-    return [[self class] modelWithDictionary:dictionary];
-}
-
-+ (instancetype)modelWithDictionary:(NSDictionary *)dictionary {
-    id obj = [[self alloc]init];
-    [obj setValuesForKeysWithDictionary:dictionary];
-    return obj;
 }
 
 #pragma mark - 缓存

@@ -19,7 +19,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = kViewBGColor;
-
+    
+    [UIApplication sharedApplication].statusBarHidden = NO;
     [self.navigationController.navigationBar setBackIndicatorImage:[UIImage imageNamed:@"back"]];
     [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"back"]];
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@""
@@ -28,6 +29,16 @@
                                                                 action:nil];
     [backItem setBackgroundVerticalPositionAdjustment:10 forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.backBarButtonItem = backItem;
+    
+    if (self.isEndEdit) {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditAction)];
+        tap.cancelsTouchesInView = YES;
+        [self.view addGestureRecognizer:tap];
+    }
+}
+
+- (void)endEditAction {
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning {

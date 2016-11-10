@@ -10,6 +10,7 @@
 #import "BrickManNetClient.h"
 #import "BMCommentList.h"
 #import "Mine_BrickModel.h"
+#import "YYModel.h"
 #define CustomErrorDomain @"com.zhuantouren.error"
 
 @implementation BrickManAPIManager
@@ -52,6 +53,39 @@
     }];
 }
 
+- (void)requestAdvertisementWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/advertisement/advertisement_list_by_type.json" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
+        if (data) {
+            block(data,nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
+
+- (void)requestAddShareCountWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block { //分享成功后+1
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/content/add_share_count.json" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
+        if (data) {
+            block(data,nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
+
+- (void)requestContentByCommentWithObj:(BMContentList *)contentList andBlock:(void(^)(id data, NSError *error))block { //内容列表按评论数量排序
+    contentList.isLoading = YES;
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/content/content_list_by_comments_count.json" withParams:[contentList getContentListParamsWithComment] withMethodType:Get andBlock:^(id data, NSError *error) {
+        contentList.isLoading = NO;
+        if (data) {
+            BMContentList *model = [BMContentList yy_modelWithJSON:data];
+            block(model, nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
+
 #pragma mark - 评论
 - (void)requestCommentListWithObj:(BMCommentList *)commentList andBlock:(void(^)(id data, NSError *error))block { //获取评论列表
     commentList.isLoading = YES;
@@ -88,6 +122,27 @@
     }];
 }
 
+- (void)requestLoginWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/login.json" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
+        if (data) {
+            NSDictionary *dic = data[@"body"];
+            block(dic,nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
+
+- (void)requestRegisterWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/regist.json" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
+        if (data) {
+            block(data,nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
+
 #pragma mark - 发布
 - (void)requestAddContentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block { //发布
     [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/content/add_content.do" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
@@ -101,9 +156,10 @@
 
 #pragma mark - 我的
 - (void)requestMyBrickFlowerWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block { //鲜花或砖头数前十名
-    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/top_users.json" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/top_users.json" withParams:params withMethodType:Post andBlock:^(id data, NSError *error) {
         if (data) {
-            NSArray *array = [NSArray yy_modelArrayWithClass:[Mine_BrickModel class] json:data];
+            id jsonData = data[@"body"];
+            NSArray *array = [NSArray yy_modelArrayWithClass:[Mine_BrickModel class] json:jsonData];
             block(array,nil);
         }else {
             block(nil,error);
@@ -113,7 +169,7 @@
 
 - (void)requestUserContentListWithObj:(BMContentList *)contentList andBlock:(void(^)(id data, NSError *error))block { //我的砖集
     contentList.isLoading = YES;
-    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/user_content_list.do" withParams:[contentList getUserContentListParams] withMethodType:Get andBlock:^(id data, NSError *error) {
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/user_content_list.json" withParams:[contentList getUserContentListParams] withMethodType:Get andBlock:^(id data, NSError *error) {
         contentList.isLoading = NO;
         if (data) {
             BMContentList *model = [BMContentList yy_modelWithJSON:data];

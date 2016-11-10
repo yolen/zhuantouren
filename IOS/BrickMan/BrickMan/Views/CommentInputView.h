@@ -11,6 +11,7 @@
 
 @interface CommentInputView : UIView
 @property (strong, nonatomic) UIPlaceHolderTextView *inputTextView;
+@property (copy, nonatomic) void(^updateInputViewHeight)(CGFloat heightToBottom);
 @property (copy, nonatomic) void(^sendCommentBlock)();
 
 + (CommentInputView *)getInputView;

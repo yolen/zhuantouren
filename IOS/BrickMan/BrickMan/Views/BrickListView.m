@@ -8,7 +8,6 @@
 
 #import "BrickListView.h"
 #import "MainTableViewCell.h"
-#import "ShareView.h"
 #import <MJRefresh/MJRefresh.h>
 #import "BMContentList.h"
 
@@ -27,6 +26,7 @@
         self.myTableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
         self.myTableView.dataSource = self;
         self.myTableView.delegate = self;
+        self.myTableView.backgroundColor = [UIColor clearColor];
         self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.myTableView registerClass:[MainTableViewCell class] forCellReuseIdentifier:kCellIdentifier_MainTableViewCell];
         [self addSubview:self.myTableView];
@@ -36,7 +36,10 @@
         header.lastUpdatedTimeLabel.hidden = YES;
         self.myTableView.mj_header = header;
         
-        self.myTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMore)];
+        
+        MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMore)];
+        [footer setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
+        self.myTableView.mj_footer = footer;
         
         [self sendRequest];
     }
@@ -76,21 +79,41 @@
 
 - (void)sendRequest {
     __weak typeof(self) weakSelf = self;
-    [[BrickManAPIManager shareInstance] requestContentListWithObj:self.contentList andBlock:^(id data, NSError *error) {
-        [weakSelf.myTableView.mj_header endRefreshing];
-        [weakSelf.myTableView.mj_footer endRefreshing];
-        if (data) {
-            [weakSelf.contentList configWithData:data];
-            [weakSelf.myTableView reloadData];
-            
-            BMContentList *model = (BMContentList *)data;
-            if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
+    
+    if (self.contentList.orderType.integerValue == 3) {
+        [[BrickManAPIManager shareInstance] requestContentByCommentWithObj:self.contentList andBlock:^(id data, NSError *error) {
+            [weakSelf.myTableView.mj_header endRefreshing];
+            [weakSelf.myTableView.mj_footer endRefreshing];
+            if (data) {
+                [weakSelf.contentList configWithData:data];
+                [weakSelf.myTableView reloadData];
+                
+                BMContentList *model = (BMContentList *)data;
+                if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
+                    [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
+                }
+            }else {
                 [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
             }
-        }else {
-            [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
-        }
-    }];
+
+        }];
+    }else {
+        [[BrickManAPIManager shareInstance] requestContentListWithObj:self.contentList andBlock:^(id data, NSError *error) {
+            [weakSelf.myTableView.mj_header endRefreshing];
+            [weakSelf.myTableView.mj_footer endRefreshing];
+            if (data) {
+                [weakSelf.contentList configWithData:data];
+                [weakSelf.myTableView reloadData];
+                
+                BMContentList *model = (BMContentList *)data;
+                if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
+                    [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
+                }
+            }else {
+                [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
+            }
+        }];
+    }
 }
 
 #pragma mark - tableView
@@ -100,7 +123,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
-    cell.model = self.contentList.data[indexPath.row];
+    BMContent *model = self.contentList.data[indexPath.row];
+    cell.model = model;
+    cell.isDetail = NO;
     if ((self.myTableView.isDragging || self.myTableView.isDecelerating) ) {
         
     }
@@ -108,8 +133,13 @@
     cell.refreshCellBlock = ^(){
         [weakSelf.myTableView reloadData];
     };
-    cell.shareBlock = ^(){
-        [ShareView showShareView];
+    cell.pushDetailBlock = ^(){
+        if (self.goToDetailBlock) {
+            self.goToDetailBlock(model);
+        }
+    };
+    cell.pushLoginBlock = ^(){
+        
     };
     return cell;
 }

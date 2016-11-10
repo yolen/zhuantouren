@@ -19,13 +19,11 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (!_iconImageView) {
-            _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 17 * kMineCellHeightRadio, 40 * kMineCellHeightRadio, 40 * kMineCellHeightRadio)];
-            _iconImageView.layer.cornerRadius = _iconImageView.width/2;
-            _iconImageView.layer.masksToBounds = YES;
+            _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
             [self.contentView addSubview:_iconImageView];
         }
         if (!_titleLabel) {
-            _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 25 * kMineCellHeightRadio, 100, 24 * kMineCellHeightRadio)];
+            _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 15, 100, 30)];
             _titleLabel.font = [UIFont systemFontOfSize:14];
             [self.contentView addSubview:_titleLabel];
         }
@@ -39,7 +37,7 @@
 }
 
 + (CGFloat)cellHeight {
-    return 74.f;
+    return 60.0;
 }
 
 @end

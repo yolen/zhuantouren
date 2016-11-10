@@ -20,6 +20,7 @@
     [super viewDidLoad];
     
     self.user = [BMUser getUserModel];
+    self.title = @"昵称";
     
     UITableView *myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     myTableView.dataSource = self;

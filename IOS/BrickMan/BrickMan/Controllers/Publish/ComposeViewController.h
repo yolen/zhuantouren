@@ -7,8 +7,9 @@
 //
 
 #import "BaseViewController.h"
+#import <MAMapKit/MAMapKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
 
 @interface ComposeViewController : BaseViewController
-@property (strong, nonatomic) NSArray *images;
 
 @end

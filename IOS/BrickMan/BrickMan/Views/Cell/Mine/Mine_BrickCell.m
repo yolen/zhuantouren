@@ -6,6 +6,7 @@
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
+#define MINE_TEXT_FONT_SIZE [UIFont systemFontOfSize:13]
 #import "Mine_BrickCell.h"
 
 @interface Mine_BrickCell ()

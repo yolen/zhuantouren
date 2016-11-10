@@ -8,6 +8,7 @@
 
 #import "MottoController.h"
 #import "PersonInfoController.h"
+#import "UITextField+Common.h"
 
 #define kMottoMaxLength 100
 
@@ -23,9 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"座右铭";
     self.user = [BMUser getUserModel];
     self.view.backgroundColor = [UIColor whiteColor];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(submitHeadImage:)];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(submitAction:)];
     self.navigationItem.rightBarButtonItem = rightItem;
     self.placeholder.frame = CGRectMake(5, 7, kScreen_Width, 20);
     
@@ -51,7 +53,12 @@
 }
 
 #pragma mark - Submit
-- (void)submitHeadImage:(UIBarButtonItem *)sender {
+- (void)submitAction:(UIBarButtonItem *)sender {
+    if (self.textView.text.length > 50) {
+        [NSObject showErrorMsg:@"座右铭过长"];
+        return;
+    }
+    
     NSString *userId = self.user.userId;
     __weak typeof(self) weakSelf = self;
     NSString *mottoString = [self.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

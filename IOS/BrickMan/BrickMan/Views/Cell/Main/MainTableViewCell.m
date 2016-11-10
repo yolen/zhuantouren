@@ -6,19 +6,23 @@
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
+#define kBrickPhotoCellWidth_One (kScreen_Width - 20.0)
 #import "MainTableViewCell.h"
 #import "BrickPhotoCell.h"
 #import "BrickPhotoSingleCell.h"
 #import "BMAttachment.h"
 #import "MSSBrowseModel.h"
+#import "UICustomCollectionView.h"
 #import "MSSBrowseNetworkViewController.h"
+#import "NSDate+Common.h"
+#import "UILabel+Common.h"
 
 @interface MainTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) UIImageView *iconImageView;
-@property (strong, nonatomic) UILabel *nameLabel, *timeLabel, *contentLabel;
+@property (strong, nonatomic) UILabel *nameLabel, *timeLabel, *contentLabel, *locationLabel;
 @property (strong, nonatomic) UIView *separatorLine, *separatorLine2, *bottomView;
-@property (strong, nonatomic) UIButton  *reportBtn,*commentBtn, *flowerBtn, *shareBtn;
-@property (strong, nonatomic) UICollectionView *myCollectionView;
+@property (strong, nonatomic) UIButton *flowerBtn;
+@property (strong, nonatomic) UICustomCollectionView *myCollectionView;
 @property (strong, nonatomic) NSDictionary *dic;
 @property (strong, nonatomic) NSArray *imageArray;
 @end
@@ -36,7 +40,7 @@
             [self.contentView addSubview:_iconImageView];
         }
         if (!_nameLabel) {
-            _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 15, 100, 20)];
+            _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 15, 150, 20)];
             _nameLabel.font = [UIFont systemFontOfSize:14];
             [self.contentView addSubview:_nameLabel];
         }
@@ -67,18 +71,26 @@
         }
         if (!_myCollectionView) {
             UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-            _myCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(kPaddingLeft, _contentLabel.bottom, kScreen_Width - 2*kPaddingLeft, 1) collectionViewLayout:layout];
+            _myCollectionView = [[UICustomCollectionView alloc] initWithFrame:CGRectMake(kPaddingLeft, _contentLabel.bottom, kScreen_Width - 2*kPaddingLeft, 1) collectionViewLayout:layout];
             _myCollectionView.delegate = self;
             _myCollectionView.dataSource = self;
             _myCollectionView.scrollEnabled = NO;
+            _myCollectionView.backgroundView = nil;
             _myCollectionView.backgroundColor = [UIColor clearColor];
             [_myCollectionView registerClass:[BrickPhotoCell class] forCellWithReuseIdentifier:kCellIdentifier_BrickPhotoCell];
             [_myCollectionView registerClass:[BrickPhotoSingleCell class] forCellWithReuseIdentifier:kCellIdentifier_BrickPhotoSingleCell];
             [self.contentView addSubview:_myCollectionView];
         }
+        
+        if (!_locationLabel) {
+            _locationLabel = [[UILabel alloc] initWithFrame:CGRectMake(kPaddingLeft, _myCollectionView.bottom + 3, kScreen_Width - 2*kPaddingLeft, 10)];
+            _locationLabel.textColor = [UIColor lightGrayColor];
+            _locationLabel.font = [UIFont systemFontOfSize:12];
+            [self.contentView addSubview:_locationLabel];
+        }
         if (!_commentBtn) {
             _commentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            _commentBtn.frame = CGRectMake(10, _myCollectionView.bottom + 3, 60, 30);
+            _commentBtn.frame = CGRectMake(15, _myCollectionView.bottom + 3, 75*SCALE, 30);
             _commentBtn.tag = 101;
             _commentBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             _commentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
@@ -92,7 +104,7 @@
         if (!_flowerBtn) {
             _flowerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             _flowerBtn.tag = 102;
-            _flowerBtn.frame = CGRectMake(kScreen_Width/2 - 20, _separatorLine2.bottom + 3, 60, 30);
+            _flowerBtn.frame = CGRectMake(_commentBtn.right, _separatorLine2.bottom + 3, 75*SCALE, 30);
             _flowerBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             _flowerBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
             [_flowerBtn setImage:[UIImage imageNamed:@"flower_nor"] forState:UIControlStateNormal];
@@ -102,10 +114,24 @@
             [_flowerBtn addTarget:self action:@selector(operationAction:) forControlEvents:UIControlEventTouchUpInside];
             [self.contentView addSubview:_flowerBtn];
         }
+        if (!_brickBtn) {
+            _brickBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            _brickBtn.tag = 104;
+            _brickBtn.frame = CGRectMake(_flowerBtn.right, _separatorLine2.bottom + 3, 75*SCALE, 30);
+            _brickBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+            _brickBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
+            [_brickBtn setImage:[UIImage imageNamed:@"brick_nor"] forState:UIControlStateNormal];
+            [_brickBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            _brickBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+            [_brickBtn setTitle:@"鲜花" forState:UIControlStateNormal];
+            [_brickBtn addTarget:self action:@selector(operationAction:) forControlEvents:UIControlEventTouchUpInside];
+            [self.contentView addSubview:_brickBtn];
+        }
+        
         if (!_shareBtn) {
             _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
             _shareBtn.tag = 103;
-            _shareBtn.frame = CGRectMake(kScreen_Width - 60, _separatorLine2.bottom + 3, 60, 30);
+            _shareBtn.frame = CGRectMake(kScreen_Width - 75*SCALE, _separatorLine2.bottom + 3, 75*SCALE, 30);
             _shareBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             _shareBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, -5);
             [_shareBtn setImage:[UIImage imageNamed:@"share_nor"] forState:UIControlStateNormal];
@@ -138,15 +164,15 @@
     [super layoutSubviews];
     CGFloat curY = 61+20;
     
-    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:self.model.user.userHead ? self.model.user.userHead : [BMUser getUserModel].userHead] placeholderImage:[UIImage imageNamed:@"user_icon"]];
+    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:self.model.user.userHead ? self.model.user.userHead : [BMUser getUserModel].userHead] placeholderImage:[UIImage imageNamed:@"icon"]];
     _nameLabel.text = self.model.user.userAlias ? self.model.user.userAlias : [BMUser getUserModel].userAlias;
-    _timeLabel.text = [NSString stringWithFormat:@"%@  %@",[self.model.date stringDisplay_HHmm],self.model.contentPlace];
+    _timeLabel.text = [self.model.date stringDisplay_HHmm];
     [_contentLabel setLongString:self.model.contentTitle withFitWidth:(kScreen_Width - 10)];
     curY += [self.model.contentTitle getHeightWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(kScreen_Width - 20, CGFLOAT_MAX)];
     [_separatorLine2 setY:curY];
-    [self.myCollectionView reloadData];
     
     if (self.model.brickContentAttachmentList.count > 0) {
+        [self.myCollectionView reloadData];
         self.myCollectionView.hidden = NO;
     }else {
         if (self.myCollectionView) {
@@ -167,13 +193,24 @@
     [_myCollectionView setY:curY];
     curY += collectionViewHeight;
     
+    [_locationLabel setY:curY+4];
+    _locationLabel.text = self.model.contentPlace;
+    curY += 16;
+    
+    [_reportBtn setImage:[UIImage imageNamed:(self.model.contentReports.integerValue > 0 ? @"report_sel" : @"report_nor")] forState:UIControlStateNormal];
     curY += 3;
     [_commentBtn setY:curY];
     [_commentBtn setTitle:(self.model.commentCount.integerValue > 0 ? [NSString stringWithFormat:@"评论 %@",self.model.commentCount] : @"评论") forState:UIControlStateNormal];
+    [_commentBtn setImage:[UIImage imageNamed:(self.model.commentCount.integerValue > 0 ? @"comment_sel" : @"commnet_nor")] forState:UIControlStateNormal];
     [_flowerBtn setY:curY];
     [_flowerBtn setTitle:(self.model.contentFlowors.integerValue > 0 ? [NSString stringWithFormat:@"鲜花 %@",self.model.contentFlowors] : @"鲜花") forState:UIControlStateNormal];
+    [_flowerBtn setImage:[UIImage imageNamed:(self.model.contentFlowors.integerValue > 0 ? @"flower_sel" : @"flower_nor")] forState:UIControlStateNormal];
     [_shareBtn setY:curY];
     [_shareBtn setTitle:(self.model.contentShares.integerValue > 0 ? [NSString stringWithFormat:@"分享 %@",self.model.contentShares] : @"分享") forState:UIControlStateNormal];
+    [_shareBtn setImage:[UIImage imageNamed:(self.model.contentShares.integerValue > 0 ? @"share_sel" : @"share_nor")] forState:UIControlStateNormal];
+    [_brickBtn setY:curY];
+    [_brickBtn setTitle:(self.model.contentBricks.integerValue > 0 ? [NSString stringWithFormat:@"拍砖 %@",self.model.contentBricks] : @"拍砖") forState:UIControlStateNormal];
+    [_brickBtn setImage:[UIImage imageNamed:(self.model.contentBricks.integerValue > 0 ? @"brick_sel" : @"brick_nor")] forState:UIControlStateNormal];
     curY += 30;
 
     [_bottomView setY:curY];
@@ -267,6 +304,18 @@
 
 #pragma mark - Btn Action
 - (void)operationAction:(UIButton *)button {
+    if (self.isDetail == NO) { //首页直接跳转详情页
+        if (self.pushDetailBlock) {
+            self.pushDetailBlock();;
+        }
+        return;
+    }
+    if (![BMUser isLogin]) {
+        if (self.pushLoginBlock) {
+            self.pushLoginBlock();
+        }
+        return;
+    }
     NSInteger tag = button.tag;
     BMAttachment *attachmentModel = self.model.brickContentAttachmentList[0];
     NSString *contentId = [attachmentModel.contentId stringValue];
@@ -275,15 +324,9 @@
     if (button.selected == NO) {
         switch (tag) {
             case 100:{ //举报
-                BOOL preReportSel = [self.model.contentReports boolValue];
-                [[BrickManAPIManager shareInstance] requestOperContentWithParams:@{@"contentId" : contentId, @"operType" : @"3", @"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
-                    if (data) {
-                        weakSelf.reportBtn.selected = !preReportSel;
-                    }else {
-                        weakSelf.reportBtn.selected = preReportSel;
-                    }
-                    [self.reportBtn setImage:[UIImage imageNamed:(self.reportBtn.selected == YES ? @"report_sel" : @"report_nor")] forState:UIControlStateNormal];
-                }];
+                if (self.reportBlock) {
+                    self.reportBlock();
+                }
             }
                 break;
             case 101:{ //评论
@@ -293,23 +336,30 @@
             }
                 break;
             case 102:{ //鲜花
-                BOOL preFlowerSel = [self.model.contentFlowors boolValue];
                 [[BrickManAPIManager shareInstance] requestOperContentWithParams:@{@"contentId" : contentId, @"operType" : @"1", @"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
                     if (data) {
-                        weakSelf.flowerBtn.selected = !preFlowerSel;
-                    }else {
-                        weakSelf.flowerBtn.selected = preFlowerSel;
+                        [NSObject showSuccessMsg:@"送花成功"];
+                        [weakSelf.flowerBtn setTitle:[NSString stringWithFormat:@"鲜花 %ld",(long)(weakSelf.model.contentFlowors.integerValue + 1)] forState:UIControlStateNormal];
+                        [weakSelf.flowerBtn setImage:[UIImage imageNamed:@"flower_sel"] forState:UIControlStateNormal];
                     }
-                    [weakSelf.flowerBtn setImage:[UIImage imageNamed:(self.flowerBtn.selected == YES ? @"flower_sel" : @"flower_nor")] forState:UIControlStateNormal];
                 }];
             }
                 break;
             case 103:{ //分享
                 if (self.shareBlock) {
-                    self.shareBlock();
+                    self.shareBlock(self.model);
                 }
             }
                 break;
+            case 104:{ //拍砖
+                [[BrickManAPIManager shareInstance] requestOperContentWithParams:@{@"contentId" : contentId, @"operType" : @"2", @"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
+                    if (data) {
+                        [NSObject showSuccessMsg:@"拍砖成功"];
+                        [weakSelf.brickBtn setTitle:[NSString stringWithFormat:@"拍砖 %ld",(long)(weakSelf.model.contentBricks.integerValue + 1)] forState:UIControlStateNormal];
+                        [weakSelf.brickBtn setImage:[UIImage imageNamed:@"flower_sel"] forState:UIControlStateNormal];
+                    }
+                }];
+            }
             default:
                 break;
         }
@@ -330,7 +380,7 @@
 + (CGFloat)cellHeightWithModel:(BMContent *)contentModel {
     
     CGFloat height = 60;
-    height += [contentModel.contentTitle getHeightWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(kScreen_Width - 10, 200)] + 20;
+    height += [contentModel.contentTitle getHeightWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(kScreen_Width - 20, CGFLOAT_MAX)] + 10;
     height += 30 + 3;
     
     CGFloat collectionViewHeight = 0;
@@ -340,7 +390,7 @@
     }else {
         collectionViewHeight = [BrickPhotoCell cellHeithWithAttachment:attachmentArray.firstObject].height * ceilf((float)attachmentArray.count/3);
     }
-    height += collectionViewHeight + 20;
+    height += collectionViewHeight + 20 + 16;
     return height;
 }
 

@@ -40,6 +40,14 @@
     return params;
 }
 
+- (NSDictionary *)getContentListParamsWithComment {
+    NSInteger page = self.willLoadMore ? self.page.pageNo.integerValue + 1 : 1;
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:2];
+    [params setObject:[NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:page]] forKey:@"pageNo"];
+    [params setObject:@"1" forKey:@"orderType"];
+    return params;
+}
+
 - (NSDictionary *)getUserContentListParams {
     NSInteger page = self.willLoadMore ? self.page.pageNo.integerValue + 1 : 1;
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:3];
