@@ -68,9 +68,11 @@
     if (image == nil) {
         [self.addPictureButton setBackgroundImage:[UIImage imageNamed:@"add_pic"] forState:UIControlStateNormal];
         self.deleteButton.hidden = YES;
+        self.addPictureButton.userInteractionEnabled = YES;
     } else {
         [self.addPictureButton setBackgroundImage:image forState:UIControlStateNormal];
         self.deleteButton.hidden = NO;
+        self.addPictureButton.userInteractionEnabled = NO;
     }
 }
 

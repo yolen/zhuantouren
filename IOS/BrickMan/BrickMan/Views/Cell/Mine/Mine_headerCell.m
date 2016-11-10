@@ -19,18 +19,18 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (!_iconImageView) {
-            _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 18 * kMineCellHeightRadio, 60 * kMineCellHeightRadio, 60 * kMineCellHeightRadio)];
+            _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 60, 60)];
             _iconImageView.layer.cornerRadius = _iconImageView.width/2;
             _iconImageView.layer.masksToBounds = YES;
             [self.contentView addSubview:_iconImageView];
         }
         if (!_nameLabel) {
-            _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 26 * kMineCellHeightRadio, 100, 24 * kMineCellHeightRadio)];
+            _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 20, 100, 20)];
             _nameLabel.font = [UIFont systemFontOfSize:16];
             [self.contentView addSubview:_nameLabel];
         }
         if (!_subTitle) {
-            _subTitle = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.left, _nameLabel.bottom, 150, 20 * kMineCellHeightRadio)];
+            _subTitle = [[UILabel alloc] initWithFrame:CGRectMake(_nameLabel.left, _nameLabel.bottom, 150, 20)];
             _subTitle.font = [UIFont systemFontOfSize:13];
             _subTitle.textColor = [UIColor lightGrayColor];
             [self.contentView addSubview:_subTitle];
@@ -40,13 +40,13 @@
 }
 
 - (void)setUserIcon:(NSString *)iconStr nameTitle:(NSString *)nameStr subTitle:(NSString *)subTitleStr {
-    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:iconStr] placeholderImage:nil];
+    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:iconStr] placeholderImage:[UIImage imageNamed:@"icon"]];
     _nameLabel.text = nameStr;
     _subTitle.text = subTitleStr;
 }
 
 + (CGFloat)cellHeight {
-    return 96.f;
+    return 80.0;
 }
 
 @end

@@ -32,6 +32,9 @@
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.myTableView registerClass:[MainTableViewCell class] forCellReuseIdentifier:kCellIdentifier_MainTableViewCell];
     [self.view addSubview:self.myTableView];
+    [self.myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
     
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
     header.automaticallyChangeAlpha = YES;

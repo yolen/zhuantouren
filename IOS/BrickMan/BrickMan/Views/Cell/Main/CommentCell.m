@@ -7,6 +7,8 @@
 //
 
 #import "CommentCell.h"
+#import "NSDate+Common.h"
+#import "UILabel+Common.h"
 
 @interface CommentCell()
 @property (strong, nonatomic) UIImageView *iconImageView;
@@ -38,6 +40,7 @@
         }
         if (!_commentLabel) {
             _commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, _timeLabel.bottom + 10, kScreen_Width - 70, 1)];
+//            _commentLabel.lineBreakMode = NSLineBreakByCharWrapping;
             _commentLabel.font = [UIFont systemFontOfSize:12];
             _commentLabel.textColor = [UIColor lightGrayColor];
             [self.contentView addSubview:_commentLabel];
@@ -49,7 +52,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:self.comment.user.userHead] placeholderImage:[UIImage imageNamed:@"user_icon"]];
+    [_iconImageView sd_setImageWithURL:[NSURL URLWithString:self.comment.user.userHead] placeholderImage:[UIImage imageNamed:@"icon"]];
     _nameLabel.text = self.comment.user.userAlias;
     _timeLabel.text = [self.comment.date stringDisplay_HHmm];
     [_commentLabel setLongString:self.comment.commentContent withFitWidth:(kScreen_Width - 70)];
@@ -57,7 +60,7 @@
 
 + (CGFloat)cellHeightWithModel:(BMComment *)comment {
     CGFloat height = 60;
-    height += [comment.commentContent getHeightWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(kScreen_Width - 10, CGFLOAT_MAX)] + 10;
+    height += [comment.commentContent getHeightWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(kScreen_Width - 70, CGFLOAT_MAX)] + 10;
     return height;
 }
 

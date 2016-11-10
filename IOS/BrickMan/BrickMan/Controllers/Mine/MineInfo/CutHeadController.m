@@ -95,7 +95,7 @@
     [super viewDidAppear:animated];
     
     if (self.imgView.width < self.cutView.width || self.imgView.height < self.cutView.height) {
-        [MBProgressHUD showError:@"照片尺寸不符合要求,请重新选择"];
+        [NSObject showHudTipStr:@"照片尺寸不符合要求,请重新选择"];
         [self performSelector:@selector(dismiss:) withObject:nil afterDelay:0.8];
     }
 }

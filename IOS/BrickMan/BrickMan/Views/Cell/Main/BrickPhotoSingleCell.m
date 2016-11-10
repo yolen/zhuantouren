@@ -26,7 +26,7 @@
         _photoImgView.clipsToBounds = YES;
         [self.contentView addSubview:_photoImgView];
     }
-    NSString *imageStr = [NSString stringWithFormat:@"%@/%@",kImageUrl,attachmentModel.attachmentPath];
+    NSString *imageStr = [NSString stringWithFormat:@"%@/compress/%@",kImageUrl,attachmentModel.attachmentPath];
     CGSize reSize = [[CacheImageSize shareManager] sizeWithSrc:imageStr originalWidth:kSingleCellWith maxHeight:kSingleCellMaxHeight];
     
     __weak typeof(self) weakSelf = self;
@@ -42,7 +42,7 @@
 }
 
 + (CGSize)cellHeithWithAttachment:(BMAttachment *)attachment {
-    NSString *imageStr = [NSString stringWithFormat:@"%@/%@",kImageUrl,attachment.attachmentPath];
+    NSString *imageStr = [NSString stringWithFormat:@"%@/compress/%@",kImageUrl,attachment.attachmentPath];
     CGSize size = [[CacheImageSize shareManager] sizeWithSrc:imageStr originalWidth:kSingleCellWith maxHeight:kSingleCellMaxHeight];
     return size;
 }

@@ -47,7 +47,7 @@
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 100)];
     
     UIButton *quitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    quitBtn.frame = CGRectMake(10, 30, kScreen_Width - 20, 35*SCALE);
+    quitBtn.frame = CGRectMake(10, 50, kScreen_Width - 20, 35*SCALE);
     quitBtn.layer.cornerRadius = 3.0;
     quitBtn.layer.masksToBounds = YES;
     quitBtn.backgroundColor = kNavigationBarColor;
@@ -98,7 +98,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat height = indexPath.section == 0 ? [Mine_headerCell cellHeight] : [Mine_titleCell cellHeight];
-    return height * kMineCellHeightRadio;
+    return height;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -169,7 +169,7 @@
                 tabBarVC.selectedIndex = 0;
             }
         }
-        [NSObject showSuccessMsg:@"退出登录成功"];
+        [NSObject showSuccessMsg:@"退出成功"];
     }
 }
 

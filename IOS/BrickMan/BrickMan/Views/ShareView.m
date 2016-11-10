@@ -6,13 +6,18 @@
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
+#define kShareView_NumPerLine 4
 #import "ShareView.h"
+#import "UMSocialData.h"
+#import "BMAttachment.h"
+#import "UMSocialSnsPlatformManager.h"
 
-@interface ShareView()
+@interface ShareView()<UMSocialUIDelegate>
 @property (strong, nonatomic) UIView *bgView, *contentView;
 @property (strong, nonatomic) UILabel *titleL;
 
 @property (strong, nonatomic) NSArray *shareSnsValues;
+@property (strong, nonatomic) BMContent *content;
 @end
 
 @implementation ShareView
@@ -28,8 +33,9 @@
     return instance;
 }
 
-+ (ShareView *)showShareView {
++ (ShareView *)showShareViewWithContent:(BMContent *)content {
     ShareView *share_view = [self sharedInstance];
+    share_view.content = content;
     [share_view p_show];
     return share_view;
 }
@@ -49,27 +55,42 @@
         }
         
         if(!_contentView) {
-            _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 200)];
+            _contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 150)];
             _contentView.backgroundColor = [UIColor whiteColor];
             
-            UIView *separatorView = [[UIView alloc] initWithFrame:CGRectMake(kScreen_Width/2 - 0.25, 10, 0.5, 60)];
+            UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, kScreen_Width, 20)];
+            titleLabel.font = [UIFont systemFontOfSize:14];
+            titleLabel.textAlignment = NSTextAlignmentCenter;
+            titleLabel.text = @"分享到";
+            [_contentView addSubview:titleLabel];
+            
+            
+            UIView *separatorView = [[UIView alloc] init];
             separatorView.backgroundColor = kLineColor;
             [_contentView addSubview:separatorView];
             
-            UIView *separatorView2 = [[UIView alloc] initWithFrame:CGRectMake(0, separatorView.bottom + 10, kScreen_Width, 0.5)];
-            separatorView2.backgroundColor = kLineColor;
-            [_contentView addSubview:separatorView2];
-            
             UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            cancelBtn.frame = CGRectMake(0, separatorView2.bottom, kScreen_Width, 40);
             [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
             [cancelBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+            [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
             cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
             [cancelBtn addTarget:self action:@selector(p_dismiss) forControlEvents:UIControlEventTouchUpInside];
             [_contentView addSubview:cancelBtn];
             
             [_contentView setY:kScreen_Height];
             [self addSubview:_contentView];
+            
+            [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(_contentView);
+                make.right.equalTo(_contentView);
+                make.bottom.equalTo(_contentView);
+                make.height.mas_equalTo(40);
+            }];
+            [separatorView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(cancelBtn.mas_top);
+                make.left.right.equalTo(_contentView);
+                make.height.equalTo(0.5);
+            }];
         }
     }
     return self;
@@ -124,6 +145,8 @@
 +(NSArray *)supportSnsValues{
     NSMutableArray *resultSnsValues = [@[
                                          @"qq",
+                                         @"qzone",
+                                         @"wxsession",
                                          @"wxtimeline",
                                          ] mutableCopy];
     return resultSnsValues;
@@ -136,15 +159,15 @@
             NSString *snsName = _shareSnsValues[index];
             ShareView_Item *item = [ShareView_Item itemWithSnsName:snsName];
             CGPoint pointO = CGPointZero;
-            pointO.x = (kScreen_Width/2 - [ShareView_Item itemWidth])/2 + kScreen_Width/2*index;
-            pointO.y = 0.0;
+            pointO.x = [ShareView_Item itemWidth] * (index%kShareView_NumPerLine);
+            pointO.y = [ShareView_Item itemHeight] * (index/kShareView_NumPerLine) + 40;
             [item setOrigin:pointO];
             item.clickedBlock = ^(NSString *snsName){
                 [self shareItemClickedWithSnsName:snsName];
             };
             [_contentView addSubview:item];
         }
-        CGFloat contentHeight = ((_shareSnsValues.count - 1)/2 + 1)*[ShareView_Item itemHeight] + 60;
+        CGFloat contentHeight = [ShareView_Item itemHeight] + 80;
         [self.contentView setSize:CGSizeMake(kScreen_Width, contentHeight)];
     }
 }
@@ -156,7 +179,45 @@
     [self dismissWithCompletionBlock:completion];
 }
 - (void)doShareToSnsName:(NSString *)snsName {
-    
+    NSString *title = @"砖头人app";
+    NSString *shareText = self.content.contentTitle;
+    BMAttachment *attachment = self.content.brickContentAttachmentList.firstObject;
+    NSString *shareUrl = [NSString stringWithFormat:@"%@/index.html?contentId=%@",kBaseUrl,attachment.contentId];
+    UIImage *shareImage = [UIImage imageNamed:@"icon"];
+    [UMSocialData defaultData].extConfig.yxtimelineData.yxMessageType = UMSocialYXMessageTypeApp;
+    if ([snsName isEqualToString:@"qq"]) {
+        [UMSocialData defaultData].extConfig.qqData.title = title;
+        [UMSocialData defaultData].extConfig.qqData.url = shareUrl;
+    }else if ([snsName isEqualToString:@"qzone"]) {
+        [UMSocialData defaultData].extConfig.qzoneData.title = title;
+        [UMSocialData defaultData].extConfig.qzoneData.url = shareUrl;
+    }else if([snsName isEqualToString:@"wxsession"]) {
+        [UMSocialData defaultData].extConfig.wechatSessionData.title = title;
+        [UMSocialData defaultData].extConfig.wechatSessionData.url = shareUrl;
+    }else if ([snsName isEqualToString:@"wxtimeline"]) {
+        [UMSocialData defaultData].extConfig.wechatTimelineData.title = shareText;
+        [UMSocialData defaultData].extConfig.wechatTimelineData.url = shareUrl;
+    }
+
+    [[UMSocialControllerService defaultControllerService] setShareText:shareText shareImage:shareImage socialUIDelegate:self];
+    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:snsName];
+    snsPlatform.snsClickHandler(nil,[UMSocialControllerService defaultControllerService],YES);
+}
+
+#pragma mark - UMSocialUIDelegate
+- (void)didFinishGetUMSocialDataInViewController:(UMSocialResponseEntity *)response {
+    if ((response.responseCode == UMSResponseCodeSuccess)) {
+        [NSObject showSuccessMsg:@"分享成功"];
+        if (self.successShareBlock) {
+            self.successShareBlock();
+        }
+    }else {
+        [NSObject showErrorMsg:@"分享失败"];
+    }
+}
+
+- (BOOL)isDirectShareInIconActionSheet{
+    return YES;
 }
 
 @end
@@ -172,8 +233,10 @@
 - (instancetype)init {
     if (self = [super init]) {
         self.frame = CGRectMake(0, 0, [ShareView_Item itemWidth], [ShareView_Item itemHeight]);
+        
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
-        _button.frame = CGRectMake(0, 0, [ShareView_Item itemWidth], [ShareView_Item itemWidth]);
+        CGFloat padding_button = kScaleFrom_iPhone5_Desgin(15);
+        _button.frame = CGRectMake(padding_button, 0, [ShareView_Item itemWidth] - 2*padding_button, [ShareView_Item itemWidth] - 2*padding_button);
         [_button addTarget:self action:@selector(buttonClicked) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_button];
         
@@ -209,11 +272,11 @@
 }
 
 + (CGFloat)itemWidth{
-    return 60.0;
+    return kScreen_Width/kShareView_NumPerLine;
 }
 
 + (CGFloat)itemHeight{
-    return 60.0;
+    return [self itemWidth];
 }
 
 + (NSDictionary *)snsNameDict{
@@ -221,8 +284,10 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         snsNameDict = @{
-                        @"qq": @"QQ",
-                        @"wxtimeline": @"微信",
+                        @"qq" : @"QQ",
+                        @"qzone" : @"QQ空间",
+                        @"wxtimeline" : @"朋友圈",
+                        @"wxsession" : @"微信好友",
                         };
     });
     return snsNameDict;

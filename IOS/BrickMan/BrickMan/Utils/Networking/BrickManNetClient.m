@@ -79,19 +79,19 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
                 DebugLog(@"\n===========response===========\n%@:\n%@", path, responseObject);
                 id error = [self handleResponse:responseObject autoShowError:autoShowError];
                 if (error) {
-                    responseObject = [NSObject loadResponseWithPath:localPath];
+//                    responseObject = [NSObject loadResponseWithPath:localPath];
                     block(responseObject,error);
                 }else{
                     id result = [responseObject valueForKey:@"body"];
-                    [NSObject saveResponseData:result toPath:localPath];
+//                    [NSObject saveResponseData:result toPath:localPath];
                     block(result, nil);
                 }
                 
             } failure:^(NSURLSessionDataTask *task, NSError *error) {
                 DebugLog(@"\n===========response===========\n%@:\n%@", path, error);
                 !autoShowError || [NSObject showError:error];
-                NSDictionary *responseObject = [NSObject loadResponseWithPath:localPath];
-                block(responseObject, error);
+//                NSDictionary *responseObject = [NSObject loadResponseWithPath:localPath];
+                block(nil, error);
             }];
             break;}
         case Post:{

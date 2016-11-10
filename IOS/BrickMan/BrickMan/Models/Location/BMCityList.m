@@ -8,6 +8,7 @@
 
 #import "BMCityList.h"
 #import "BMCity.h"
+#import "YYModel.h"
 
 @implementation BMCityList
 

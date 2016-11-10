@@ -38,8 +38,6 @@
     
     self.dataList = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.tableView];
-    [self.tableView registerClass:[Mine_BrickCell class] forCellReuseIdentifier:kCellIdentifier_Mine_BrickCell];
     
     [self sendRequest];
 }
@@ -48,6 +46,8 @@
     __weak typeof(self) weakSelf = self;
     [[BrickManAPIManager shareInstance] requestMyBrickFlowerWithParams:@{@"type":@"2"} andBlock:^(id data, NSError *error) {
         if (data) {
+            [weakSelf.view addSubview:self.tableView];
+            [weakSelf.tableView registerClass:[Mine_BrickCell class] forCellReuseIdentifier:kCellIdentifier_Mine_BrickCell];
             [weakSelf.dataList addObjectsFromArray:data];
             [weakSelf.tableView reloadData];
         }
@@ -76,45 +76,37 @@
 }
 
 - (UIView *)tableHeaderView {
-    UIView *tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width - 20, 210.f)];
+    UIView *tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreen_Width - 20, 60)];
     tableHeaderView.backgroundColor = [UIColor whiteColor];
-    UIImageView *brickImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"about_icon"]];
-    brickImgView.center = CGPointMake(self.view.center.x, 57.f);
-    brickImgView.bounds = CGRectMake(0, 0, 61.f, 61.f);
-    [tableHeaderView addSubview:brickImgView];
-    self.numberOfFlower = [[UILabel alloc]initWithFrame:CGRectMake(brickImgView.left, brickImgView.bottom, brickImgView.width, 70.f)];
-    self.numberOfFlower.font = [UIFont boldSystemFontOfSize:19.f];
-    self.numberOfFlower.text = @"52000";
-    self.numberOfFlower.textAlignment = NSTextAlignmentCenter;
-    [tableHeaderView addSubview:self.numberOfFlower];
+   
     CGFloat cellWidth = kScreen_Width - 20;
     CGFloat rankingLblWidth = cellWidth * 148/1185.f;
     CGFloat headWidth = cellWidth * 258/1185.f;
     CGFloat nicknameLblWidth = cellWidth * 258/1185.f;
     CGFloat gradeLblWidth = cellWidth * 260/1185.f;
     CGFloat numberLblWidth = cellWidth * 261/1185.f;
-    UILabel *rankingLbl = [[UILabel alloc]initWithFrame:CGRectMake(0, self.numberOfFlower.bottom, rankingLblWidth, 46.f)];
+    UILabel *rankingLbl = [[UILabel alloc]initWithFrame:CGRectMake(0, 8, rankingLblWidth, 46.f)];
     rankingLbl.font = TITLE_FONT;
     rankingLbl.text = @"排名";
     rankingLbl.textAlignment = NSTextAlignmentCenter;
     rankingLbl.backgroundColor = RGBCOLOR(240, 239, 254);
-    UILabel *head = [[UILabel alloc]initWithFrame:CGRectMake(rankingLbl.right, self.numberOfFlower.bottom, headWidth, rankingLbl.height)];
+    UILabel *head = [[UILabel alloc]initWithFrame:CGRectMake(rankingLbl.right, 8, headWidth, rankingLbl.height)];
     head.font = TITLE_FONT;
     head.text = @"头像";
     head.textAlignment = NSTextAlignmentCenter;
     head.backgroundColor = RGBCOLOR(224, 255, 249);
-    UILabel *nicknameLbl = [[UILabel alloc]initWithFrame:CGRectMake(head.right, self.numberOfFlower.bottom, nicknameLblWidth, rankingLbl.height)];
+    UILabel *nicknameLbl = [[UILabel alloc]initWithFrame:CGRectMake(head.right, 8, nicknameLblWidth, rankingLbl.height)];
     nicknameLbl.font = TITLE_FONT;
     nicknameLbl.text = @"昵称";
     nicknameLbl.textAlignment = NSTextAlignmentCenter;
     nicknameLbl.numberOfLines = 0;
     nicknameLbl.backgroundColor = RGBCOLOR(249, 246, 229);
-    UILabel *gradeLbl = [[UILabel alloc]initWithFrame:CGRectMake(nicknameLbl.right, self.numberOfFlower.bottom, gradeLblWidth, rankingLbl.height)];
+    UILabel *gradeLbl = [[UILabel alloc]initWithFrame:CGRectMake(nicknameLbl.right, 8, gradeLblWidth, rankingLbl.height)];
     gradeLbl.font = TITLE_FONT;
     gradeLbl.text = @"等级";
     gradeLbl.textAlignment = NSTextAlignmentCenter;
     gradeLbl.backgroundColor = RGBCOLOR(253, 238, 240);
-    UILabel *numberLbl = [[UILabel alloc]initWithFrame:CGRectMake(gradeLbl.right, self.numberOfFlower.bottom, numberLblWidth, rankingLbl.height)];
+    UILabel *numberLbl = [[UILabel alloc]initWithFrame:CGRectMake(gradeLbl.right, 8, numberLblWidth, rankingLbl.height)];
     numberLbl.font = TITLE_FONT;
     numberLbl.text = @"花数";
     numberLbl.textAlignment = NSTextAlignmentCenter;

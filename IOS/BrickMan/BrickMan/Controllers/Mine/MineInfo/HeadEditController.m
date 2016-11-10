@@ -18,8 +18,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的头像";
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(saveHead:)];
-    self.navigationItem.rightBarButtonItem = rightItem;
     [self.view addSubview:self.headImgView];
     
     UIButton *changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -33,10 +31,6 @@
     changeBtn.layer.cornerRadius = 5.f;
     [changeBtn addTarget:self action:@selector(changeHead:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:changeBtn];
-}
-
-- (void)saveHead:(UIBarButtonItem *)sender {
-    
 }
 
 - (void)changeHead:(UIButton *)sender {

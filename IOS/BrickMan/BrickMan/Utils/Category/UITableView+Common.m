@@ -13,10 +13,7 @@
 - (void)addLineforPlainCell:(UITableViewCell *)cell
           forRowAtIndexPath:(NSIndexPath *)indexPath
               withLeftSpace:(CGFloat)leftSpace {
-    [self addLineforPlainCell:cell
-            forRowAtIndexPath:indexPath
-                withLeftSpace:leftSpace
-               hasSectionLine:YES];
+    [self addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:leftSpace hasSectionLine:YES];
 }
 
 
@@ -49,64 +46,30 @@
     if (indexPath.row == 0 && indexPath.row == [self numberOfRowsInSection:indexPath.section] - 1) {
         //只有一个cell。加上长线&下长线
         if (hasSectionLine) {
-            [self layer:layer
-                addLineUp:YES
-                  andLong:YES
-                 andColor:sectionLineColor
-                andBounds:bounds
-            withLeftSpace:0];
-            [self layer:layer
-                addLineUp:NO
-                  andLong:YES
-                 andColor:sectionLineColor
-                andBounds:bounds
-            withLeftSpace:0];
+            [self layer:layer addLineUp:YES andLong:YES andColor:sectionLineColor andBounds:bounds withLeftSpace:0];
+            [self layer:layer addLineUp:NO andLong:YES andColor:sectionLineColor andBounds:bounds withLeftSpace:0];
         }
     } else if (indexPath.row == 0) {
         //第一个cell。加上长线&下短线
         if (hasSectionLine) {
-            [self layer:layer
-                addLineUp:YES
-                  andLong:YES
-                 andColor:sectionLineColor
-                andBounds:bounds
-            withLeftSpace:0];
+            [self layer:layer addLineUp:YES andLong:YES andColor:sectionLineColor andBounds:bounds withLeftSpace:0];
         }
-        [self layer:layer
-            addLineUp:NO
-              andLong:NO
-             andColor:lineColor
-            andBounds:bounds
-        withLeftSpace:leftSpace];
+        [self layer:layer addLineUp:NO andLong:NO andColor:lineColor andBounds:bounds withLeftSpace:leftSpace];
     } else if (indexPath.row == [self numberOfRowsInSection:indexPath.section] - 1) {
         //最后一个cell。加下长线
         if (hasSectionLine) {
-            [self layer:layer
-                addLineUp:NO
-                  andLong:YES
-                 andColor:sectionLineColor
-                andBounds:bounds
-            withLeftSpace:0];
+            [self layer:layer addLineUp:NO andLong:YES andColor:sectionLineColor andBounds:bounds withLeftSpace:0];
         }
     } else {
         //中间的cell。只加下短线
-        [self layer:layer
-            addLineUp:NO
-              andLong:NO
-             andColor:lineColor
-            andBounds:bounds
-        withLeftSpace:leftSpace];
+        [self layer:layer addLineUp:NO andLong:NO andColor:lineColor andBounds:bounds withLeftSpace:leftSpace];
     }
     UIView *testView = [[UIView alloc] initWithFrame:bounds];
     [testView.layer insertSublayer:layer atIndex:0];
     cell.backgroundView = testView;
 }
 
-- (void)layer:(CALayer *)layer
-    addLineUp:(BOOL)isUp
-      andLong:(BOOL)isLong
-     andColor:(CGColorRef)color
-    andBounds:(CGRect)bounds
+- (void)layer:(CALayer *)layer addLineUp:(BOOL)isUp andLong:(BOOL)isLong andColor:(CGColorRef)color andBounds:(CGRect)bounds
 withLeftSpace:(CGFloat)leftSpace {
     CALayer *lineLayer = [[CALayer alloc] init];
     CGFloat lineHeight = (1.0f / [UIScreen mainScreen].scale);
@@ -130,12 +93,12 @@ withLeftSpace:(CGFloat)leftSpace {
 /**
  *  重写 hitTest方法,自动回收键盘
  */
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    id view = [super hitTest:point withEvent:event];
-    if (![view isKindOfClass:[UITextView class]] || ![view isKindOfClass:[UITextField class]]) {
-        [self endEditing:YES];
-    }
-    return view;
-}
+//- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+//    id view = [super hitTest:point withEvent:event];
+//    if (![view isKindOfClass:[UITextView class]] || ![view isKindOfClass:[UITextField class]]) {
+//        [self endEditing:YES];
+//    }
+//    return view;
+//}
 
 @end

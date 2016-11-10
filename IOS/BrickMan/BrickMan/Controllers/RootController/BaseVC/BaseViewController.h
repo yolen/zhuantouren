@@ -10,4 +10,6 @@
 
 @interface BaseViewController : UIViewController
 
+@property (assign, nonatomic) BOOL isEndEdit;
+
 @end
