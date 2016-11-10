@@ -148,12 +148,14 @@ public class BrickListFragment extends BaseFragment {
 
     public void loadSuccess(List<BrickBean> brickList, int pageSize, boolean hasMore) {
         this.hasMore = hasMore;
-        if (mPageNo == 1) {
-            mPtr.refreshComplete();
-            mData = brickList;
-            mAdapter.setNewData(mData);
-        } else {
-            mAdapter.notifyDataChangedAfterLoadMore(brickList, true);
+        if (mPtr!=null) {
+            if (mPageNo == 1) {
+                mPtr.refreshComplete();
+                mData = brickList;
+                mAdapter.setNewData(mData);
+            } else {
+                mAdapter.notifyDataChangedAfterLoadMore(brickList, true);
+            }
         }
     }
 

@@ -26,6 +26,7 @@ import com.brickman.app.model.Bean.BannerBean;
 import com.brickman.app.model.Bean.BrickBean;
 import com.brickman.app.model.MainModel;
 import com.brickman.app.module.brick.TopActivity;
+import com.brickman.app.module.mine.MessageActivity;
 import com.brickman.app.module.mine.PublishActivity;
 import com.brickman.app.module.update.UpdateChecker;
 import com.brickman.app.module.widget.view.ToastManager;
@@ -58,13 +59,15 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
     RelativeLayout publish;
     @BindView(R.id.top)
     RelativeLayout top;
+    @BindView(R.id.message)
+    ImageView messageIcon;
 
     private LayoutInflater mInflator;
     public TabHost mTabHost;
     public TabManager mTabManager;
 
     private String[] tabNames;
-    private Class[] clzzs = new Class[]{HomeFragment.class, AdFragment.class, UserFragment.class};
+    private Class[] clzzs = new Class[]{HomeFragment.class, MainFragment.class, UserFragment.class};
     private int[] tabImgs = new int[]{R.drawable.tab_home, R.drawable.tab_brick, R.drawable.tab_user};
 
     private static final int REQUEST_CODE = 0; // 请求码
@@ -158,6 +161,9 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
             // 发布返回刷新
             ArrayList<Fragment> list = (ArrayList<Fragment>) ((HomeFragment) mTabManager.getTab(tabNames[0]).getFragment()).fragments;
             ((BrickListFragment)list.get(0)).reload();
+        }else if (requestCode==REQUEST_CODE&&requestCode==1003){
+            // 消息返回刷新
+            messageIcon.setImageResource(R.mipmap.bm_nonemessage);
         }
     }
 
@@ -254,7 +260,8 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                 break;
             case R.id.publish:
                 if (MApplication.mAppContext.mUser != null) {
-                    startActivityForResultWithAnim(new Intent(this, PublishActivity.class), 1002);
+                    startActivityForResultWithAnim(new Intent(this, MessageActivity.class),1003);
+//                    startActivityForResultWithAnim();
                 } else {
                     startActivityWithAnim(new Intent(this, LoginActivity.class));
                 }

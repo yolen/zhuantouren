@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/dp_10">
+<ImageView
+    android:id="@+id/message_icon"
+    android:src="@mipmap/bm_message_icon"
+    android:layout_centerVertical="true"
+    android:layout_width="@dimen/dp_40"
+    android:layout_height="@dimen/dp_40"
+    android:layout_marginRight="@dimen/dp_10"/>
+
+    <ImageView
+        android:id="@+id/forward"
+        android:src="@mipmap/bm_forward"
+        android:layout_centerVertical="true"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_40"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/dp_10"/>
+    <LinearLayout
+        android:layout_toRightOf="@id/message_icon"
+        android:layout_toLeftOf="@id/forward"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/title"
+            android:text="fe"
+            android:textSize="@dimen/sp_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"/>
+        <TextView
+            android:id="@+id/content"
+            android:text="好的"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/text_color_dark"/>
+    </LinearLayout>
+</RelativeLayout>
