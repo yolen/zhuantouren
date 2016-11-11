@@ -220,6 +220,7 @@
 		79ED805A1DD5E55500C011A5 /* man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED80561DD5E55500C011A5 /* man@2x.png */; };
 		79ED805B1DD5E55500C011A5 /* woman@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED80571DD5E55500C011A5 /* woman@3x.png */; };
 		79ED805C1DD5E55500C011A5 /* woman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED80581DD5E55500C011A5 /* woman@2x.png */; };
+		79ED805F1DD5EDCD00C011A5 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 79ED805E1DD5EDCD00C011A5 /* UIView+Common.m */; };
 		79F39E8E1D596DF400FEAB40 /* city.json in Resources */ = {isa = PBXBuildFile; fileRef = 79F39E8D1D596DF400FEAB40 /* city.json */; };
 		79F39E911D596F7400FEAB40 /* BMCityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F39E901D596F7400FEAB40 /* BMCityList.m */; };
 		79F71F201D49DA9900C2AF2D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F71F1F1D49DA9900C2AF2D /* Security.framework */; };
@@ -575,6 +576,8 @@
 		79ED80561DD5E55500C011A5 /* man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "man@2x.png"; sourceTree = "<group>"; };
 		79ED80571DD5E55500C011A5 /* woman@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman@3x.png"; sourceTree = "<group>"; };
 		79ED80581DD5E55500C011A5 /* woman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman@2x.png"; sourceTree = "<group>"; };
+		79ED805D1DD5EDCD00C011A5 /* UIView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Common.h"; sourceTree = "<group>"; };
+		79ED805E1DD5EDCD00C011A5 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
 		79F39E8D1D596DF400FEAB40 /* city.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.json; sourceTree = "<group>"; };
 		79F39E8F1D596F7400FEAB40 /* BMCityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCityList.h; sourceTree = "<group>"; };
 		79F39E901D596F7400FEAB40 /* BMCityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCityList.m; sourceTree = "<group>"; };
@@ -1268,6 +1271,8 @@
 				30353BAD1D65579F00A7D554 /* NSDate+Common.m */,
 				30EE73A61D6DFF9C00E79968 /* UISearchBar+Common.h */,
 				30EE73A71D6DFF9C00E79968 /* UISearchBar+Common.m */,
+				79ED805D1DD5EDCD00C011A5 /* UIView+Common.h */,
+				79ED805E1DD5EDCD00C011A5 /* UIView+Common.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1722,6 +1727,7 @@
 				30C5BB541D4210A8001DF9D2 /* BrickPhotoCell.m in Sources */,
 				5A686DEE1D445DFC00455FB2 /* UITextField+Common.m in Sources */,
 				3047635F1D69D66B006DB5F0 /* MSSBrowseActionSheet.m in Sources */,
+				79ED805F1DD5EDCD00C011A5 /* UIView+Common.m in Sources */,
 				30CE65E91D6ED4A0004E5BAB /* BMContent.m in Sources */,
 				304763611D69D66B006DB5F0 /* MSSBrowseBaseViewController.m in Sources */,
 				79F71F321D49DF1100C2AF2D /* BMLoginViewController.m in Sources */,

@@ -9,7 +9,8 @@
 #import "BMGalleryTableHeaderView.h"
 
 #define kHEAD_WIDTH_BG kScreen_Width / 5
-#define kHEAD_WIDTH (kHEAD_WIDTH_BG - 10)
+#define kPADDING 3
+#define kHEAD_WIDTH (kHEAD_WIDTH_BG - 2 * kPADDING)
 
 @implementation BMGalleryTableHeaderView {
     /** 用户头像 */
@@ -78,8 +79,8 @@
     }];
     [_headerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.mas_equalTo(headerImageBgView.center);
-        make.top.left.mas_equalTo(headerImageBgView).offset(5);
-        make.right.bottom.mas_equalTo(headerImageBgView).offset(-5);
+        make.top.left.mas_equalTo(headerImageBgView).offset(kPADDING);
+        make.right.bottom.mas_equalTo(headerImageBgView).offset(-kPADDING);
     }];
     
     [_motoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -102,7 +103,7 @@
     [_headerImageView sd_setImageWithURL:[NSURL URLWithString:user.userHead] placeholderImage:[UIImage imageNamed:@"icon"]];
     _ganderImageView.image = [user.userSexStr isEqualToString:@"男"] ? [UIImage imageNamed:@"man"] : [UIImage imageNamed:@"woman"];
     
-    _nickNameLabel.text = user.userName;
+    _nickNameLabel.text = user.userAlias;
     _motoLabel.text = user.motto;
 }
 

@@ -13,9 +13,12 @@
 #import "BMAttachment.h"
 #import "MSSBrowseModel.h"
 #import "UICustomCollectionView.h"
-#import "MSSBrowseNetworkViewController.h"
 #import "NSDate+Common.h"
 #import "UILabel+Common.h"
+#import "UIView+Common.h"
+
+#import "MSSBrowseNetworkViewController.h"
+#import "GalleryController.h"
 
 @interface MainTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) UIImageView *iconImageView;
@@ -32,22 +35,40 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        __weak typeof(self) weakSelf = self;
         if (!_iconImageView) {
             _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kPaddingLeft, 10, 40, 40)];
             _iconImageView.layer.cornerRadius = _iconImageView.width/2;
             _iconImageView.layer.masksToBounds = YES;
+            _iconImageView.userInteractionEnabled = YES;
+            [_iconImageView tta_addTapGestureWithTarget:_iconImageView action:^(UITapGestureRecognizer *tap){
+                if (weakSelf.pushGalleryBlock) {
+                    weakSelf.pushGalleryBlock();
+                }
+            }];
             [self.contentView addSubview:_iconImageView];
         }
         if (!_nameLabel) {
             _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 15, 150, 20)];
             _nameLabel.font = [UIFont systemFontOfSize:14];
+            _nameLabel.userInteractionEnabled = YES;
+            [_nameLabel tta_addTapGestureWithTarget:_nameLabel action:^(UITapGestureRecognizer *tap){
+                if (weakSelf.pushGalleryBlock) {
+                    weakSelf.pushGalleryBlock();
+                }
+            }];
             [self.contentView addSubview:_nameLabel];
         }
         if (!_timeLabel) {
             _timeLabel  = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, _nameLabel.bottom - 5, 150, 20)];
             _timeLabel.font = [UIFont systemFontOfSize:12];
             _timeLabel.textColor = [UIColor lightGrayColor];
+            _timeLabel.userInteractionEnabled = YES;
+            [_timeLabel tta_addTapGestureWithTarget:_timeLabel action:^(UITapGestureRecognizer *tap){
+                if (weakSelf.pushGalleryBlock) {
+                    weakSelf.pushGalleryBlock();
+                }
+            }];
             [self.contentView addSubview:_timeLabel];
         }
         if (!_reportBtn) {
@@ -123,7 +144,7 @@
             [_brickBtn setImage:[UIImage imageNamed:@"brick_nor"] forState:UIControlStateNormal];
             [_brickBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
             _brickBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-            [_brickBtn setTitle:@"鲜花" forState:UIControlStateNormal];
+            [_brickBtn setTitle:@"拍砖" forState:UIControlStateNormal];
             [_brickBtn addTarget:self action:@selector(operationAction:) forControlEvents:UIControlEventTouchUpInside];
             [self.contentView addSubview:_brickBtn];
         }
@@ -356,7 +377,7 @@
                     if (data) {
                         [NSObject showSuccessMsg:@"拍砖成功"];
                         [weakSelf.brickBtn setTitle:[NSString stringWithFormat:@"拍砖 %ld",(long)(weakSelf.model.contentBricks.integerValue + 1)] forState:UIControlStateNormal];
-                        [weakSelf.brickBtn setImage:[UIImage imageNamed:@"flower_sel"] forState:UIControlStateNormal];
+                        [weakSelf.brickBtn setImage:[UIImage imageNamed:@"brick_sel"] forState:UIControlStateNormal];
                     }
                 }];
             }

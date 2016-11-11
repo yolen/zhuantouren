@@ -13,6 +13,7 @@
     #import <SDWebImage/UIImageView+WebCache.h>
 
     #import "UIViewExt.h"
+    #import "UIView+Common.h"
     #import "UIImage+Common.h"
     #import "NSObject+Common.h"
     #import "UITableView+Common.h"

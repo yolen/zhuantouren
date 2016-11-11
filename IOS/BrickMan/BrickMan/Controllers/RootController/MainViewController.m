@@ -7,16 +7,18 @@
 //
 
 #import "MainViewController.h"
+#import "ComposeViewController.h"
+#import "DetailBrickViewController.h"
+#import "LoginViewController.h"
+#import "GalleryController.h"
+
 #import "MainTableViewCell.h"
 #import "XTSegmentControl.h"
 #import "iCarousel.h"
 #import "BrickListView.h"
-#import "DetailBrickViewController.h"
-#import "LoginViewController.h"
 #import "BMContentList.h"
 #import "Advertisement.h"
 #import "AutoScrollBannerView.h"
-#import "ComposeViewController.h"
 #import "YYModel.h"
 
 @interface MainViewController ()<iCarouselDataSource, iCarouselDelegate>
@@ -123,6 +125,11 @@
         vc.model = model;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
+    listView.goToGalleryBlock = ^(NSString *userID, NSString *userNickName){
+        GalleryController *galleryVc = [[GalleryController alloc] initWithUserNickName:userNickName userID:userID];
+        [weakSelf.navigationController pushViewController:galleryVc animated:YES];
+    };
+    
     [listView setSubScrollsToTop:(index == carousel.currentItemIndex)];
     return listView;
 }

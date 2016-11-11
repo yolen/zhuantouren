@@ -122,7 +122,7 @@
         case 1:{
             switch (indexPath.row) {
                 case 0: {
-                    GalleryController *gallery = [[GalleryController alloc]init];
+                    GalleryController *gallery = [[GalleryController alloc]initWithUserNickName:@"我" userID:[BMUser getUserModel].userId];
                     viewController = gallery;
                 }
                     break;

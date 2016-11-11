@@ -138,6 +138,11 @@
             self.goToDetailBlock(model);
         }
     };
+    cell.pushGalleryBlock = ^(){
+        if (self.goToGalleryBlock) {
+            self.goToGalleryBlock(model.userId, model.user.userAlias);
+        }
+    };
     cell.pushLoginBlock = ^(){
         
     };

@@ -9,7 +9,11 @@
 #import "BaseViewController.h"
 
 @interface GalleryController : BaseViewController
+/** 用户名 */
+@property (nonatomic, copy) NSString *userNickName;
+/** 用户 id */
+@property (nonatomic, copy) NSString *userID;
 
-@property (nonatomic, copy) NSString *userId;
-
++ (instancetype)galleryControllerWithUserNickName:(NSString *)userNickName userID:(NSString *)userID;
+- (instancetype)initWithUserNickName:(NSString *)userNickName userID:(NSString *)userID;
 @end

@@ -25,14 +25,27 @@
 
 @implementation GalleryController
 
++ (instancetype)galleryControllerWithUserNickName:(NSString *)userNickName userID:(NSString *)userID {
+    return [[self alloc] initWithUserNickName:userNickName userID:userNickName];
+}
+
+- (instancetype)initWithUserNickName:(NSString *)userNickName userID:(NSString *)userID {
+    if (self = [super init]) {
+        self.userNickName = userNickName;
+        self.userID = userID;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.title = @"我的砖集";
+    self.title = [NSString stringWithFormat:@"%@的砖集", self.userNickName];
     self.contentList = [[BMContentList alloc] init];
+    self.contentList.userID = self.userID;
     
     self.myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.myTableView.dataSource = self;
@@ -106,7 +119,7 @@
 
 - (void)requestUserInfo {
     //刷新数据
-    [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : self.userId} andBlock:^(id data, NSError *error) {
+    [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : self.userID} andBlock:^(id data, NSError *error) {
         if (data) {
             BMGalleryTableHeaderView *tableHeaderView = (BMGalleryTableHeaderView *)self.myTableView.tableHeaderView;
             [tableHeaderView configHeaderViewWithUser: [BMUser getUserModel]];
