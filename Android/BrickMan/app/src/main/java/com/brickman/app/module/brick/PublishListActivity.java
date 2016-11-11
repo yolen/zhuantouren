@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -53,12 +54,15 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
     PtrClassicFrameLayout mPtr;
     @BindView(R.id.paddingheight)
     View padingtop;
+
     @BindView(R.id.avator)
     CircleImageView avator;
     @BindView(R.id.name)
     TextView name;
     @BindView(R.id.desc)
     TextView desc;
+    @BindView(R.id.sex)
+     ImageView sex;
 
     private BrickListAdapter mAdapter;
     private List<BrickBean> mData = new ArrayList<BrickBean>();
@@ -67,7 +71,7 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
     private String userId;
     public String userName;
     public String userHead;
-
+    public String motto1=null;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_publish_list;
@@ -83,6 +87,7 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
         userId = getIntent().getStringExtra("userId");
         userName = getIntent().getStringExtra("userName");
         userHead = getIntent().getStringExtra("userHeader");
+        motto1=getIntent().getStringExtra("desc");
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,10 +198,20 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
     }
     private void initData() {
         if (MApplication.mAppContext.mUser != null) {
-            Glide.with(this).load(MApplication.mAppContext.mUser.userHead)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL).into(avator);
-            name.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.userName) ? MApplication.mAppContext.mUser.userAlias : MApplication.mAppContext.mUser.userName);
+            Glide.with(this).load(userHead).diskCacheStrategy(DiskCacheStrategy.ALL).into(avator);
+            name.setText(userName);
+            if (sex.equals("男")){
+                sex.setImageResource(R.mipmap.man);
+            }else {
+                sex.setImageResource(R.mipmap.woman);
+            }
+
+//            name.setText(TextUtils.isEmpty(userName) ? MApplication.mAppContext.mUser.userAlias : MApplication.mAppContext.mUser.userName);
+            if (motto1!=null){
+                desc.setText(motto1);
+            }else {
             desc.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.motto) ? "他的格言就是没有格言!!!" : MApplication.mAppContext.mUser.motto);
+            }
         } else {
             Glide.with(this).load(R.mipmap.ic_launcher).into(avator);
             name.setText("未登录");

@@ -54,6 +54,7 @@ public class MessageActivity extends BaseActivity <MessagePresenter,MessageListM
         View loadingView = this.getLayoutInflater().inflate(R.layout.loading_more_view, (ViewGroup) mRecyclerView.getParent(), false);
         mAdapter.setLoadingView(loadingView);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        mAdapter.openLoadMore(0,false);
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -76,6 +77,7 @@ public class MessageActivity extends BaseActivity <MessagePresenter,MessageListM
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
+
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
                 .color(Color.GRAY)
                 .sizeResId(R.dimen.dp_02)
@@ -95,7 +97,7 @@ public class MessageActivity extends BaseActivity <MessagePresenter,MessageListM
         });
         mPtr.setLastUpdateTimeRelateObject(this);
         mPresenter.loadMessagekList(mPageNo);
-        mAdapter.openLoadMore(0,false);
+
     }
 
     @Override
@@ -105,6 +107,7 @@ public class MessageActivity extends BaseActivity <MessagePresenter,MessageListM
 
     @Override
     public void loadMessageSuccess(List<String> dataist, boolean hasMor) {
+
         this.hasMore=hasMor;
         if (mPageNo==1) {
             mPtr.refreshComplete();
