@@ -10,4 +10,6 @@
 
 @interface GalleryController : BaseViewController
 
+@property (nonatomic, copy) NSString *userId;
+
 @end

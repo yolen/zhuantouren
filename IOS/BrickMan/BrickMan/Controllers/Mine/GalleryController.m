@@ -10,8 +10,14 @@
 #import "MainTableViewCell.h"
 #import "DetailBrickViewController.h"
 #import <MJRefresh/MJRefresh.h>
+#import "BMGalleryTableHeaderView.h"
 
-@interface GalleryController ()<UITableViewDataSource,UITableViewDelegate>
+#define kHEAD_RADIO 800.0 / 1242.0
+
+@interface GalleryController ()<UITableViewDataSource,UITableViewDelegate> {
+    /** UINavigationBar 的shadowImage */
+    UIImage *_navShadowImage;
+}
 @property (nonatomic, strong) UITableView *myTableView;
 @property (strong, nonatomic) BMContentList *contentList;
 
@@ -22,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.title = @"我的砖集";
     self.contentList = [[BMContentList alloc] init];
@@ -36,6 +44,8 @@
         make.edges.equalTo(self.view);
     }];
     
+    self.myTableView.tableHeaderView = [[BMGalleryTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kHEAD_RADIO * kScreen_Width)];
+    
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
     header.automaticallyChangeAlpha = YES;
     header.lastUpdatedTimeLabel.hidden = YES;
@@ -43,6 +53,20 @@
     
     self.myTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMore)];
     [self refresh];
+    [self requestUserInfo];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    _navShadowImage = self.navigationController.navigationBar.shadowImage;
+    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:kNavigationBarColor] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:_navShadowImage];
 }
 
 #pragma mark - refresh
@@ -76,6 +100,16 @@
             }else {
                 [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
             }
+        }
+    }];
+}
+
+- (void)requestUserInfo {
+    //刷新数据
+    [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : self.userId} andBlock:^(id data, NSError *error) {
+        if (data) {
+            BMGalleryTableHeaderView *tableHeaderView = (BMGalleryTableHeaderView *)self.myTableView.tableHeaderView;
+            [tableHeaderView configHeaderViewWithUser: [BMUser getUserModel]];
         }
     }];
 }
