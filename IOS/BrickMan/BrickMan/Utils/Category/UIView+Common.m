@@ -7,7 +7,6 @@
 //
 
 #import "UIView+Common.h"
-#import <objc/runtime.h>
 
 static const void *kTAP_ACTION;
 
