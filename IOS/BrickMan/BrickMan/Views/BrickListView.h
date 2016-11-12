@@ -14,7 +14,7 @@
 
 @property (copy, nonatomic) void(^scrollBlock)(CGFloat offset);
 @property (copy, nonatomic) void(^goToDetailBlock)(BMContent *model);
-@property (nonatomic, copy) void(^goToGalleryBlock)(NSString *userID, NSString *userNickName);
+@property (nonatomic, copy) void(^goToGalleryBlock)(BMContent *model);
 
 
 - (instancetype)initWithFrame:(CGRect)frame andIndex:(NSInteger)index;

@@ -21,13 +21,15 @@
     #import "UIColor+expanded.h"
     #import "BrickManAPIManager.h"
     #import "BMUser.h"
+
+#import "UINavigationController+Common.h"
 #endif
 
-//#define kBaseUrl @"http://dev.brickman.cn" //测试
-//#define kImageUrl @"http://dev.img.brickman.cn"
+#define kBaseUrl @"http://dev.brickman.cn" //测试
+#define kImageUrl @"http://dev.img.brickman.cn"
 
-#define kBaseUrl @"http://115.28.16.51" //生产
-#define kImageUrl @"http://115.28.16.51:2080"
+//#define kBaseUrl @"http://115.28.16.51" //生产
+//#define kImageUrl @"http://115.28.16.51:2080"
 #define kAboutUrl @"http://115.28.16.51:2080/html/brickman.html"
 
 #define kUMSocialKey @""

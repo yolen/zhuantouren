@@ -39,6 +39,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:kNotification_RefreshUserInfo object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)reloadData {
     [self.myTableView reloadData];
 }
@@ -122,7 +127,7 @@
         case 1:{
             switch (indexPath.row) {
                 case 0: {
-                    GalleryController *gallery = [[GalleryController alloc]initWithUserNickName:@"我" userID:[BMUser getUserModel].userId];
+                    GalleryController *gallery = [[GalleryController alloc] init];
                     viewController = gallery;
                 }
                     break;

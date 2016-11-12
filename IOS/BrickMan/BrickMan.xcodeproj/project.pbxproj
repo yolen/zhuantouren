@@ -221,6 +221,7 @@
 		79ED805B1DD5E55500C011A5 /* woman@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED80571DD5E55500C011A5 /* woman@3x.png */; };
 		79ED805C1DD5E55500C011A5 /* woman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED80581DD5E55500C011A5 /* woman@2x.png */; };
 		79ED805F1DD5EDCD00C011A5 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 79ED805E1DD5EDCD00C011A5 /* UIView+Common.m */; };
+		79ED80621DD6343100C011A5 /* UINavigationController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 79ED80611DD6343100C011A5 /* UINavigationController+Common.m */; };
 		79F39E8E1D596DF400FEAB40 /* city.json in Resources */ = {isa = PBXBuildFile; fileRef = 79F39E8D1D596DF400FEAB40 /* city.json */; };
 		79F39E911D596F7400FEAB40 /* BMCityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F39E901D596F7400FEAB40 /* BMCityList.m */; };
 		79F71F201D49DA9900C2AF2D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F71F1F1D49DA9900C2AF2D /* Security.framework */; };
@@ -578,6 +579,8 @@
 		79ED80581DD5E55500C011A5 /* woman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman@2x.png"; sourceTree = "<group>"; };
 		79ED805D1DD5EDCD00C011A5 /* UIView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Common.h"; sourceTree = "<group>"; };
 		79ED805E1DD5EDCD00C011A5 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
+		79ED80601DD6343100C011A5 /* UINavigationController+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Common.h"; sourceTree = "<group>"; };
+		79ED80611DD6343100C011A5 /* UINavigationController+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Common.m"; sourceTree = "<group>"; };
 		79F39E8D1D596DF400FEAB40 /* city.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.json; sourceTree = "<group>"; };
 		79F39E8F1D596F7400FEAB40 /* BMCityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCityList.h; sourceTree = "<group>"; };
 		79F39E901D596F7400FEAB40 /* BMCityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCityList.m; sourceTree = "<group>"; };
@@ -1249,6 +1252,8 @@
 		30F91D611D3DCC1A007D9BDB /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				79ED80601DD6343100C011A5 /* UINavigationController+Common.h */,
+				79ED80611DD6343100C011A5 /* UINavigationController+Common.m */,
 				30F91D621D3DCC1F007D9BDB /* UIViewExt.h */,
 				30F91D631D3DCC1F007D9BDB /* UIViewExt.m */,
 				30F91D741D3DE8F3007D9BDB /* UIImage+Common.h */,
@@ -1719,6 +1724,7 @@
 				30703B6D1D99191A005512D1 /* BMLocationCell.m in Sources */,
 				303529CF1D48766200CFDD77 /* UIPlaceHolderTextView.m in Sources */,
 				304763671D69D66B006DB5F0 /* MSSBrowseRemindView.m in Sources */,
+				79ED80621DD6343100C011A5 /* UINavigationController+Common.m in Sources */,
 				30721A851D3E587A00D54E09 /* UITableView+Common.m in Sources */,
 				30C5BB6C1D425699001DF9D2 /* MainTableViewCell.m in Sources */,
 				3047636A1D69D66B006DB5F0 /* UIView+MSSLayout.m in Sources */,

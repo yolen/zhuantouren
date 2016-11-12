@@ -140,7 +140,7 @@
     };
     cell.pushGalleryBlock = ^(){
         if (self.goToGalleryBlock) {
-            self.goToGalleryBlock(model.userId, model.user.userAlias);
+            self.goToGalleryBlock(model);
         }
     };
     cell.pushLoginBlock = ^(){

@@ -125,8 +125,9 @@
         vc.model = model;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
-    listView.goToGalleryBlock = ^(NSString *userID, NSString *userNickName){
-        GalleryController *galleryVc = [[GalleryController alloc] initWithUserNickName:userNickName userID:userID];
+    listView.goToGalleryBlock = ^(BMContent *model){
+        GalleryController *galleryVc = [[GalleryController alloc] init];
+        galleryVc.model = model;
         [weakSelf.navigationController pushViewController:galleryVc animated:YES];
     };
     
