@@ -161,12 +161,12 @@
             switch (indexPath.row) {
                 case 0: {
                     BMFeedBackViewController *feedbackVc = [[BMFeedBackViewController alloc] init];
-                    [self.navigationController pushViewController:feedbackVc animated:YES];
+                    viewController = feedbackVc;
                 }
                     break;
                 case 1: {
                     AboutController *about = [[AboutController alloc]init];
-                    [self.navigationController pushViewController:about animated:YES];
+                    viewController = about;
                 }
                     break;
                 default:

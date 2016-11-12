@@ -112,9 +112,8 @@
         make.size.mas_equalTo(CGSizeMake(216 * SCALE, 36 * SCALE));
     }];
     [_joinUsButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.mas_equalTo(_joinUsBgView);
-        make.edges.mas_equalTo(_joinUsBgView).with.insets(UIEdgeInsetsMake(2 * SCALE, 2 * SCALE, 2 * SCALE, 2 * SCALE));
-        make.size.mas_equalTo(CGSizeMake(216 * SCALE, 36 * SCALE));
+        make.left.top.mas_equalTo(_joinUsBgView).offset(2 * SCALE);
+        make.right.bottom.mas_equalTo(_joinUsBgView).offset(-2 * SCALE);
     }];
     
     [tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
