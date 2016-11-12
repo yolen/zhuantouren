@@ -7,13 +7,15 @@
 //
 
 #import "DetailBrickViewController.h"
+#import "LoginViewController.h"
+#import "GalleryController.h"
+
 #import "MainTableViewCell.h"
 #import "CommentCell.h"
 #import "CommentInputView.h"
 #import "BMAttachment.h"
 #import "BMCommentList.h"
 #import <MJRefresh/MJRefresh.h>
-#import "LoginViewController.h"
 #import "ShareView.h"
 
 @interface DetailBrickViewController()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
@@ -149,9 +151,17 @@
             };
         };
         cell.reportBlock = ^(){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"您确定要举报这位砖头人发布的事件吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"您确定要举报这位漂泊者发布的砖集吗" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             [alert show];
         };
+        
+        if (!self.isComeFromeGallery) { // 如果当前页面是从`砖集`页面来了,内则不能再次推出砖集页面
+            cell.pushGalleryBlock = ^(){
+                GalleryController *galleryVc = [[GalleryController alloc] init];
+                galleryVc.model = self.model;
+                [weakSelf.navigationController pushViewController:galleryVc animated:YES];
+            };
+        }
 //        cell.commentBlock = ^(){
 //            [weakSelf.inputView becomeFirstResponder];
 //            

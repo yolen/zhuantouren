@@ -8,8 +8,10 @@
 
 #import "BaseViewController.h"
 
+@class BMContent;
+
 @interface GalleryController : BaseViewController
 
-@property (nonatomic, copy) NSString *userId;
+@property (strong, nonatomic) BMContent *model;
 
 @end

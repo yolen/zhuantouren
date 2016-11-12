@@ -11,6 +11,8 @@
 
 @interface BMContentList : NSObject
 
+@property (nonatomic, copy) NSString *userID;
+
 @property (assign, nonatomic) BOOL canLoadMore, willLoadMore, isLoading;
 @property (strong, nonatomic) NSNumber *pageNo, *orderType;
 @property (strong, nonatomic) NSMutableArray *data;

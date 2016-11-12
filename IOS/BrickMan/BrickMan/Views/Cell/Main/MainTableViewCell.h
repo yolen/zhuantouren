@@ -22,6 +22,7 @@
 @property (copy, nonatomic) void(^refreshCellBlock)();
 @property (copy, nonatomic) void(^pushDetailBlock)();
 @property (copy, nonatomic) void(^pushLoginBlock)();
+@property (nonatomic, copy) void(^pushGalleryBlock)(); /** 点击用户头像跳转到个人砖集 */
 @property (copy, nonatomic) void(^reportBlock)();
 
 @property (strong, nonatomic) BMContent *model;

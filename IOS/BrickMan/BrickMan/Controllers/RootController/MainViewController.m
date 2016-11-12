@@ -7,15 +7,17 @@
 //
 
 #import "MainViewController.h"
+#import "ComposeViewController.h"
+#import "DetailBrickViewController.h"
+#import "LoginViewController.h"
+#import "GalleryController.h"
+
 #import "MainTableViewCell.h"
 #import "XTSegmentControl.h"
 #import "BrickListView.h"
-#import "DetailBrickViewController.h"
-#import "LoginViewController.h"
 #import "BMContentList.h"
 #import "Advertisement.h"
 #import "AutoScrollBannerView.h"
-#import "ComposeViewController.h"
 #import "YYModel.h"
 #import "SwipeTableView.h"
 #import <MJRefresh.h>
@@ -120,7 +122,11 @@
         vc.model = model;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
-    
+    brickListView.goToGalleryBlock = ^(BMContent *model){
+        GalleryController *galleryVc = [[GalleryController alloc] init];
+        galleryVc.model = model;
+        [weakSelf.navigationController pushViewController:galleryVc animated:YES];
+    };
     return brickListView;
 }
 

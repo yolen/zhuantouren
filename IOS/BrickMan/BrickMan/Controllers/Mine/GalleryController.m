@@ -7,16 +7,19 @@
 //
 
 #import "GalleryController.h"
-#import "MainTableViewCell.h"
 #import "DetailBrickViewController.h"
+#import "MainTableViewCell.h"
 #import <MJRefresh/MJRefresh.h>
 #import "BMGalleryTableHeaderView.h"
+#import "BMContent.h"
 
 #define kHEAD_RADIO 800.0 / 1242.0
+#define kHEAD_HEIGHT kHEAD_RADIO * kScreen_Width
 
 @interface GalleryController ()<UITableViewDataSource,UITableViewDelegate> {
     /** UINavigationBar 的shadowImage */
     UIImage *_navShadowImage;
+    BMGalleryTableHeaderView *_headerView;
 }
 @property (nonatomic, strong) UITableView *myTableView;
 @property (strong, nonatomic) BMContentList *contentList;
@@ -31,42 +34,46 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.title = @"我的砖集";
+    __weak typeof(self) weakSelf = self;
+    
     self.contentList = [[BMContentList alloc] init];
+    self.contentList.userID = self.model ? self.model.userId : [BMUser getUserModel].userId; // 设置获取砖集列表时所用的 用户id
     
     self.myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.myTableView.dataSource = self;
     self.myTableView.delegate = self;
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.myTableView registerClass:[MainTableViewCell class] forCellReuseIdentifier:kCellIdentifier_MainTableViewCell];
+    self.myTableView.contentInset = UIEdgeInsetsMake(kHEAD_HEIGHT, 0, 0, 0);
+    self.myTableView.scrollIndicatorInsets = UIEdgeInsetsMake(kHEAD_HEIGHT, 0, 0, 0);
     [self.view addSubview:self.myTableView];
     [self.myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.edges.equalTo(weakSelf.view);
     }];
     
-    self.myTableView.tableHeaderView = [[BMGalleryTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kHEAD_RADIO * kScreen_Width)];
+    _headerView = [[BMGalleryTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kHEAD_HEIGHT)];
+    _headerView.popGalleryBlock = ^{
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    };
+    [self.view addSubview:_headerView];
     
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
     header.automaticallyChangeAlpha = YES;
     header.lastUpdatedTimeLabel.hidden = YES;
-    self.myTableView.mj_header = header;
     
     self.myTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMore)];
     [self refresh];
-    [self requestUserInfo];
+//    [self requestUserInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    _navShadowImage = self.navigationController.navigationBar.shadowImage;
-    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:kNavigationBarColor] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:_navShadowImage];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - refresh
@@ -106,10 +113,9 @@
 
 - (void)requestUserInfo {
     //刷新数据
-    [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : self.userId} andBlock:^(id data, NSError *error) {
+    [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : self.model.userId} andBlock:^(id data, NSError *error) {
         if (data) {
-            BMGalleryTableHeaderView *tableHeaderView = (BMGalleryTableHeaderView *)self.myTableView.tableHeaderView;
-            [tableHeaderView configHeaderViewWithUser: [BMUser getUserModel]];
+            [_headerView configHeaderViewWithUser: [BMUser getUserModel]];
         }
     }];
 }
@@ -132,6 +138,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DetailBrickViewController *vc = [[DetailBrickViewController alloc] init];
+    vc.comeFromGallery = YES; // 标记下一个详情页面是由`砖集`页面来的,将不能再次显示`砖集`页面
     vc.model = self.contentList.data[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -145,5 +152,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offsetY = scrollView.contentOffset.y;
+    CGFloat offset = offsetY + kHEAD_HEIGHT;
+
+    if (offset < 0) { // 放大
+        _headerView.y = 0;
+        _headerView.height = kHEAD_HEIGHT - offset;
+        self.myTableView.scrollIndicatorInsets = UIEdgeInsetsMake(-offsetY, 0, 0, 0);
+    } else { // 移动
+        _headerView.height = kHEAD_HEIGHT;
+        CGFloat min = kHEAD_HEIGHT - 64;
+        _headerView.y = -MIN(offset, min);
+    }
+    [_headerView configItemsWith:offset];
+}
+
 
 @end

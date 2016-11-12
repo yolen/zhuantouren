@@ -17,6 +17,7 @@
 #import "UMSocialQQHandler.h"
 #import "UMSocialWechatHandler.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
+#import "AFNetworkActivityIndicatorManager.h"
 
 static void customHandler() {
     //友盟分享初始化
@@ -49,6 +50,8 @@ static void customHandler() {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
 
+    [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
+    
     customHandler();
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"isShowIntroducePage"]) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isShowIntroducePage"];
