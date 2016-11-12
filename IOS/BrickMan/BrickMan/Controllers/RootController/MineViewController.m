@@ -7,14 +7,16 @@
 //
 
 #import "MineViewController.h"
-#import "Mine_headerCell.h"
-#import "Mine_titleCell.h"
 #import "PersonInfoController.h"
 #import "GalleryController.h"
 #import "BrickController.h"
 #import "FlowerController.h"
 #import "AboutController.h"
 #import "RootTabBarController.h"
+#import "BMFeedBackViewController.h"
+
+#import "Mine_headerCell.h"
+#import "Mine_titleCell.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate>
 @property (strong, nonatomic) UITableView *myTableView;
@@ -70,7 +72,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : (section == 1 ? 3 : 1);
+    return section == 0 ? 1 : (section == 1 ? 3 : 2);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -94,7 +96,15 @@
                     break;
             }
         }else {
-            [cell setIconImage:@"about_icon" withTitle:@"关于我们"];
+            switch (indexPath.row) {
+                case 0:
+                    [cell setIconImage:@"feedback" withTitle:@"反馈我们"];
+                    break;
+                case 1:
+                    [cell setIconImage:@"about_icon" withTitle:@"关于我们"];
+                default:
+                    break;
+            }
         }
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:kPaddingLeft hasSectionLine:NO];
         return cell;
@@ -148,8 +158,20 @@
         }
             break;
         case 2:{
-            AboutController *about = [[AboutController alloc]init];
-            [self.navigationController pushViewController:about animated:YES];
+            switch (indexPath.row) {
+                case 0: {
+                    BMFeedBackViewController *feedbackVc = [[BMFeedBackViewController alloc] init];
+                    [self.navigationController pushViewController:feedbackVc animated:YES];
+                }
+                    break;
+                case 1: {
+                    AboutController *about = [[AboutController alloc]init];
+                    [self.navigationController pushViewController:about animated:YES];
+                }
+                    break;
+                default:
+                    break;
+            }
         }
             break;
         default:

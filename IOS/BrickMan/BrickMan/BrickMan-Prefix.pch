@@ -9,6 +9,8 @@
 
 #define MAS_SHORTHAND_GLOBALS
 #ifdef __OBJC__
+    #import <objc/runtime.h>
+
     #import <Masonry/Masonry.h>
     #import <SDWebImage/UIImageView+WebCache.h>
 
@@ -21,6 +23,7 @@
     #import "UIColor+expanded.h"
     #import "BrickManAPIManager.h"
     #import "BMUser.h"
+    #import "UIButton+Block.h"
 
 #import "UINavigationController+Common.h"
 #endif
@@ -37,6 +40,8 @@
 #define kWXAppSecret @""
 #define kQQAppId @""
 #define kQQAppKey @""
+#define kQQGroupAccount @"482735401" // 团队群
+#define kQQGroupKey @"3d14af6d1c294a3149e3142a9d8fd0077c4f717c1fb0c9798719e1a846c115bc"// 团队群
 #define kUMRedirectURL @""
 #define kGDAppKey @""
 const static NSString *APIKey = @"";
