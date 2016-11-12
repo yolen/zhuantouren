@@ -8,15 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "BMContent.h"
+#import "BMContentList.h"
 
-@interface BrickListView : UIView
-@property (strong, nonatomic) UITableView *myTableView;
+@interface BrickListView : UITableView
 
 @property (copy, nonatomic) void(^scrollBlock)(CGFloat offset);
 @property (copy, nonatomic) void(^goToDetailBlock)(BMContent *model);
+@property (copy, nonatomic) void(^getCurContentListBlock)(BMContentList *list);
 
+@property (strong, nonatomic) BMContentList *curList;
 
-- (instancetype)initWithFrame:(CGRect)frame andIndex:(NSInteger)index;
+- (void)refreshContentListWithIndex:(NSInteger)index; //初始化刷新
+
 - (void)setContentListWithType:(NSInteger)type;
 
 - (void)refresh;

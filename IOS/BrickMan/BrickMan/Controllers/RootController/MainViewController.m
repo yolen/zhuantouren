@@ -9,7 +9,6 @@
 #import "MainViewController.h"
 #import "MainTableViewCell.h"
 #import "XTSegmentControl.h"
-#import "iCarousel.h"
 #import "BrickListView.h"
 #import "DetailBrickViewController.h"
 #import "LoginViewController.h"
@@ -18,16 +17,20 @@
 #import "AutoScrollBannerView.h"
 #import "ComposeViewController.h"
 #import "YYModel.h"
+#import "SwipeTableView.h"
+#import <MJRefresh.h>
 
-@interface MainViewController ()<iCarouselDataSource, iCarouselDelegate>
+@interface MainViewController ()<SwipeTableViewDataSource,SwipeTableViewDelegate,UIScrollViewDelegate>
+@property (nonatomic, strong) SwipeTableView * swipeTableView;
+@property (nonatomic, strong) STHeaderView * tableViewHeader;
 @property (strong, nonatomic) XTSegmentControl *mySegmentControl;
-@property (strong, nonatomic) iCarousel *myCarousel;
 @property (strong, nonatomic) AutoScrollBannerView *bannerView;
 
 @property (strong, nonatomic) NSArray *titleArray;
 @property (strong, nonatomic) UIView *headerView;
 @property (assign, nonatomic) NSInteger oldSelectedIndex;
 @property (strong, nonatomic) NSMutableDictionary *contentListDic;
+@property (strong, nonatomic) NSMutableDictionary *cacheDataDic;
 @end
 
 @implementation MainViewController
@@ -35,28 +38,50 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.titleArray = @[@"最近发布",@"砖头最多",@"鲜花最多",@"评论最多"];
-    
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    self.headerView = [self customHeaderView];
-    self.oldSelectedIndex = 0;
+    self.titleArray = [@[@"最近发布",@"砖头最多",@"鲜花最多",@"评论最多"] mutableCopy];
     self.contentListDic = [NSMutableDictionary dictionaryWithCapacity:self.titleArray.count];
+    self.cacheDataDic = [NSMutableDictionary dictionaryWithCapacity:4];
     
-    _myCarousel = [[iCarousel alloc] initWithFrame:CGRectMake(0, self.headerView.bottom, kScreen_Width, self.view.height - 155)];
-    _myCarousel.dataSource = self;
-    _myCarousel.delegate = self;
-    _myCarousel.decelerationRate = 1.0;
-    _myCarousel.scrollSpeed = 1.0;
-    _myCarousel.type = iCarouselTypeLinear;
-    _myCarousel.pagingEnabled = YES;
-    _myCarousel.clipsToBounds = YES;
-    _myCarousel.bounceDistance = 0.2;
-    [self.view addSubview:_myCarousel];
+    __weak typeof(self) weakSelf = self;
+    _mySegmentControl = [[XTSegmentControl alloc] initWithFrame:CGRectMake(0, self.bannerView.bottom, kScreen_Width, 50) Items:self.titleArray selectedBlock:^(NSInteger index) {
+        [weakSelf.swipeTableView scrollToItemAtIndex:index animated:NO];
+    }];
+    _mySegmentControl.backgroundColor = kViewBGColor;
+    
+    _swipeTableView = [[SwipeTableView alloc] init];
+    _swipeTableView.backgroundColor = [UIColor clearColor];
+    _swipeTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    _swipeTableView.delegate = self;
+    _swipeTableView.dataSource = self;
+    _swipeTableView.shouldAdjustContentSize = YES;
+    _swipeTableView.swipeHeaderView = [self tableViewHeader];
+    _swipeTableView.swipeHeaderBar = self.mySegmentControl;
+    _swipeTableView.swipeHeaderBarScrollDisabled = YES;
+    _swipeTableView.swipeHeaderTopInset = 0;
+    [self.view addSubview:_swipeTableView];
+    [_swipeTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(kScreen_Width);
+        make.top.equalTo(self.view.top);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-39);
+    }];
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"compose"] style:UIBarButtonItemStylePlain target:self action:@selector(composeAction:)];
     self.navigationItem.rightBarButtonItem = rightItem;
     
     [self requestForBannder];
+}
+
+- (UIView *)tableViewHeader {
+    if (!_tableViewHeader) {
+        self.bannerView = [[AutoScrollBannerView alloc] init];
+        
+        self.tableViewHeader = [[STHeaderView alloc]init];
+        _tableViewHeader.frame = self.bannerView.bounds;
+        _tableViewHeader.backgroundColor = [UIColor clearColor];
+        _tableViewHeader.layer.masksToBounds = YES;
+        [_tableViewHeader addSubview:self.bannerView];
+    }
+    return _tableViewHeader;
 }
 
 - (void)requestForBannder {
@@ -70,85 +95,45 @@
     }];
 }
 
-- (UIView *)customHeaderView {
-    UIView *headerV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 170)];
-    [self.view addSubview:headerV];
-    
-    self.bannerView = [[AutoScrollBannerView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 120)];
-    [headerV addSubview:self.bannerView];
-    
-    __weak typeof(self) weakSelf = self;
-    _mySegmentControl = [[XTSegmentControl alloc] initWithFrame:CGRectMake(0, self.bannerView.bottom, kScreen_Width, 50) Items:self.titleArray selectedBlock:^(NSInteger index) {
-        if (index == self.oldSelectedIndex) {
-            return ;
-        }
-        [weakSelf.myCarousel scrollToItemAtIndex:index animated:NO];
-    }];
-    _mySegmentControl.backgroundColor = kViewBGColor;
-    [headerV addSubview:_mySegmentControl];
-    
-    return headerV;
+#pragma mark - SwipeTableView
+- (NSInteger)numberOfItemsInSwipeTableView:(SwipeTableView *)swipeView {
+    return 4;
 }
 
-#pragma mark - iCarousel
-- (NSUInteger)numberOfItemsInCarousel:(iCarousel *)carousel {
-    return self.titleArray.count;
-}
-
-- (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSUInteger)index reusingView:(UIView *)view {
-    BrickListView *listView = (BrickListView *)view;
-    if (listView) {
-        [listView setContentListWithType:index];
-    }else {
-        listView = [[BrickListView alloc] initWithFrame:carousel.bounds andIndex:index];
+- (UIScrollView *)swipeTableView:(SwipeTableView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIScrollView *)view {
+    BrickListView * brickListView = (BrickListView *)view;
+    if (!brickListView) {
+        brickListView = [[BrickListView alloc]initWithFrame:swipeView.bounds style:UITableViewStylePlain];
     }
+    if (![self.cacheDataDic objectForKey:[NSNumber numberWithInteger:index]]) {
+        [brickListView refreshContentListWithIndex:index];
+    }else {
+        [brickListView setCurList:[self.cacheDataDic objectForKey:[NSNumber numberWithInteger:index]]];
+    }
+    brickListView.getCurContentListBlock = ^(BMContentList *list){
+        [self.cacheDataDic setObject:list forKey:[NSNumber numberWithInteger:index]];
+    };
     
     __weak typeof(self) weakSelf = self;
-    listView.scrollBlock = ^(CGFloat offset){
-        if (offset < 0) {
-            [weakSelf.headerView setY:0];
-            [weakSelf.myCarousel setY:170];
-        }else if (offset <= 120 && offset >= 0) {
-            [weakSelf.headerView setY:-(offset)];
-            [weakSelf.myCarousel setY:(170-offset)];
-        }else if (offset > 120) {
-            if (weakSelf.headerView.top != -120) {
-                [weakSelf.headerView setY:-120];
-                [weakSelf.myCarousel setY:50];
-            }
-        }
-    };
-    listView.goToDetailBlock = ^(BMContent *model){
+    brickListView.goToDetailBlock = ^(BMContent *model){
         DetailBrickViewController *vc = [[DetailBrickViewController alloc] init];
         vc.model = model;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
-    [listView setSubScrollsToTop:(index == carousel.currentItemIndex)];
-    return listView;
-}
-
-- (void)carouselDidScroll:(iCarousel *)carousel {
-    if (_mySegmentControl) {
-        float offset = carousel.scrollOffset;
-        if (offset > 0) {
-            [_mySegmentControl moveIndexWithProgress:offset];
-        }
-    }
-}
-
-- (void)carouselCurrentItemIndexDidChange:(iCarousel *)carousel {
-    if (_mySegmentControl) {
-        _mySegmentControl.currentIndex = carousel.currentItemIndex;
-    }
-    if (_oldSelectedIndex != carousel.currentItemIndex) {
-        _oldSelectedIndex = carousel.currentItemIndex;
-//        BrickListView *listView = (BrickListView *)carousel.currentItemView;
-//        [listView refresh];
-    }
     
-    [carousel.visibleItemViews enumerateObjectsUsingBlock:^(BrickListView *obj, NSUInteger idx, BOOL *stop) {
-        [obj setSubScrollsToTop:(obj == carousel.currentItemView)];
-    }];
+    return brickListView;
+}
+
+- (void)swipeTableViewCurrentItemIndexDidChange:(SwipeTableView *)swipeView {
+    _mySegmentControl.currentIndex = swipeView.currentItemIndex;
+}
+
+- (void)swipeTableViewDidScroll:(SwipeTableView *)swipeView {
+    [_mySegmentControl moveIndexWithProgress:(swipeView.contentView.contentOffset.x/kScreen_Width)];
+}
+
+- (BOOL)swipeTableView:(SwipeTableView *)swipeTableView shouldPullToRefreshAtIndex:(NSInteger)index {
+    return YES;
 }
 
 #pragma mark - Handler

@@ -19,8 +19,6 @@
 - (instancetype)init {
     if (self = [super init]) {
         [self setSize:CGSizeMake(kScreen_Width, 120)];
-        
-        
     }
     return self;
 }

@@ -174,7 +174,6 @@
 		30C5BADC1D406008001DF9D2 /* Mine_titleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BADA1D406008001DF9D2 /* Mine_titleCell.m */; };
 		30C5BAE61D40655E001DF9D2 /* UILabel+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BAE51D40655E001DF9D2 /* UILabel+Common.m */; };
 		30C5BAE91D406594001DF9D2 /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BAE81D406594001DF9D2 /* NSString+Common.m */; };
-		30C5BB101D408250001DF9D2 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB0F1D408250001DF9D2 /* iCarousel.m */; };
 		30C5BB141D40837E001DF9D2 /* XTSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB131D40837E001DF9D2 /* XTSegmentControl.m */; };
 		30C5BB1A1D4084A1001DF9D2 /* UIColor+expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB191D4084A1001DF9D2 /* UIColor+expanded.m */; };
 		30C5BB1D1D408A20001DF9D2 /* BrickListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB1C1D408A20001DF9D2 /* BrickListView.m */; };
@@ -193,6 +192,10 @@
 		30CE65EB1D6ED4A0004E5BAB /* BMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65E61D6ED4A0004E5BAB /* BMUser.m */; };
 		30CE65F11D6ED5A1004E5BAB /* BMCommentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65F01D6ED5A1004E5BAB /* BMCommentList.m */; };
 		30CE65F41D6ED5BB004E5BAB /* BMComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65F31D6ED5BB004E5BAB /* BMComment.m */; };
+		30DB870B1DD552EB008ADE9F /* STCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DB87041DD552EB008ADE9F /* STCollectionView.m */; };
+		30DB870C1DD552EB008ADE9F /* STHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DB87061DD552EB008ADE9F /* STHeaderView.m */; };
+		30DB870D1DD552EB008ADE9F /* SwipeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DB87081DD552EB008ADE9F /* SwipeTableView.m */; };
+		30DB870E1DD552EB008ADE9F /* UIView+STFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DB870A1DD552EB008ADE9F /* UIView+STFrame.m */; };
 		30EE73A81D6DFF9C00E79968 /* UISearchBar+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30EE73A71D6DFF9C00E79968 /* UISearchBar+Common.m */; };
 		30F61C521D9A433A00B4E613 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F61C511D9A433A00B4E613 /* RegisterViewController.m */; };
 		30F91D641D3DCC1F007D9BDB /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F91D631D3DCC1F007D9BDB /* UIViewExt.m */; };
@@ -493,8 +496,6 @@
 		30C5BAE51D40655E001DF9D2 /* UILabel+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Common.m"; sourceTree = "<group>"; };
 		30C5BAE71D406594001DF9D2 /* NSString+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Common.h"; sourceTree = "<group>"; };
 		30C5BAE81D406594001DF9D2 /* NSString+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Common.m"; sourceTree = "<group>"; };
-		30C5BB0E1D408250001DF9D2 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
-		30C5BB0F1D408250001DF9D2 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 		30C5BB121D40837E001DF9D2 /* XTSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSegmentControl.h; sourceTree = "<group>"; };
 		30C5BB131D40837E001DF9D2 /* XTSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSegmentControl.m; sourceTree = "<group>"; };
 		30C5BB181D4084A1001DF9D2 /* UIColor+expanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+expanded.h"; sourceTree = "<group>"; };
@@ -527,6 +528,14 @@
 		30CE65F01D6ED5A1004E5BAB /* BMCommentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCommentList.m; sourceTree = "<group>"; };
 		30CE65F21D6ED5BB004E5BAB /* BMComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMComment.h; sourceTree = "<group>"; };
 		30CE65F31D6ED5BB004E5BAB /* BMComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMComment.m; sourceTree = "<group>"; };
+		30DB87031DD552EB008ADE9F /* STCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCollectionView.h; sourceTree = "<group>"; };
+		30DB87041DD552EB008ADE9F /* STCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCollectionView.m; sourceTree = "<group>"; };
+		30DB87051DD552EB008ADE9F /* STHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STHeaderView.h; sourceTree = "<group>"; };
+		30DB87061DD552EB008ADE9F /* STHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STHeaderView.m; sourceTree = "<group>"; };
+		30DB87071DD552EB008ADE9F /* SwipeTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeTableView.h; sourceTree = "<group>"; };
+		30DB87081DD552EB008ADE9F /* SwipeTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeTableView.m; sourceTree = "<group>"; };
+		30DB87091DD552EB008ADE9F /* UIView+STFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+STFrame.h"; sourceTree = "<group>"; };
+		30DB870A1DD552EB008ADE9F /* UIView+STFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+STFrame.m"; sourceTree = "<group>"; };
 		30EE73A61D6DFF9C00E79968 /* UISearchBar+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UISearchBar+Common.h"; sourceTree = "<group>"; };
 		30EE73A71D6DFF9C00E79968 /* UISearchBar+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UISearchBar+Common.m"; sourceTree = "<group>"; };
 		30F61C501D9A433A00B4E613 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -1165,19 +1174,10 @@
 				306038551D8112E900318326 /* UMSocial_Sdk_5.2.1 */,
 				304763411D69D66B006DB5F0 /* MSSBrowse */,
 				30353BAF1D6557BE00A7D554 /* NSDate+Helper */,
+				30DB87021DD552EB008ADE9F /* SwipeTableView */,
 				30C5BB111D40837E001DF9D2 /* XTSegmentControl */,
-				30C5BB0D1D408250001DF9D2 /* iCarousel */,
 			);
 			path = Library;
-			sourceTree = "<group>";
-		};
-		30C5BB0D1D408250001DF9D2 /* iCarousel */ = {
-			isa = PBXGroup;
-			children = (
-				30C5BB0E1D408250001DF9D2 /* iCarousel.h */,
-				30C5BB0F1D408250001DF9D2 /* iCarousel.m */,
-			);
-			path = iCarousel;
 			sourceTree = "<group>";
 		};
 		30C5BB111D40837E001DF9D2 /* XTSegmentControl */ = {
@@ -1241,6 +1241,21 @@
 				30CE65E61D6ED4A0004E5BAB /* BMUser.m */,
 			);
 			path = Content;
+			sourceTree = "<group>";
+		};
+		30DB87021DD552EB008ADE9F /* SwipeTableView */ = {
+			isa = PBXGroup;
+			children = (
+				30DB87031DD552EB008ADE9F /* STCollectionView.h */,
+				30DB87041DD552EB008ADE9F /* STCollectionView.m */,
+				30DB87051DD552EB008ADE9F /* STHeaderView.h */,
+				30DB87061DD552EB008ADE9F /* STHeaderView.m */,
+				30DB87071DD552EB008ADE9F /* SwipeTableView.h */,
+				30DB87081DD552EB008ADE9F /* SwipeTableView.m */,
+				30DB87091DD552EB008ADE9F /* UIView+STFrame.h */,
+				30DB870A1DD552EB008ADE9F /* UIView+STFrame.m */,
+			);
+			path = SwipeTableView;
 			sourceTree = "<group>";
 		};
 		30F91D611D3DCC1A007D9BDB /* Category */ = {
@@ -1706,6 +1721,7 @@
 				5A1CD6C11D476E670007E4D1 /* Mine_BrickModel.m in Sources */,
 				304763681D69D66B006DB5F0 /* MSSBrowseZoomScrollView.m in Sources */,
 				5A52DE391D41FCB500D28DB2 /* CutHeadController.m in Sources */,
+				30DB870B1DD552EB008ADE9F /* STCollectionView.m in Sources */,
 				30CE65EB1D6ED4A0004E5BAB /* BMUser.m in Sources */,
 				5A1CD6C41D4773C30007E4D1 /* Mine_BrickCell.m in Sources */,
 				303CE97B1D9A0ABA00BE6CB8 /* LoginViewController.m in Sources */,
@@ -1746,18 +1762,20 @@
 				302114B71D796C68004FFF36 /* XTSafeCollection.m in Sources */,
 				79FBFBEB1D420904001C43C2 /* ComposePictureCell.m in Sources */,
 				1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */,
-				30C5BB101D408250001DF9D2 /* iCarousel.m in Sources */,
 				304763641D69D66B006DB5F0 /* MSSBrowseLocalViewController.m in Sources */,
 				5A52DE361D41F21A00D28DB2 /* HeadEditController.m in Sources */,
 				79F39E911D596F7400FEAB40 /* BMCityList.m in Sources */,
 				30CE65F41D6ED5BB004E5BAB /* BMComment.m in Sources */,
 				30C5BB441D411D8A001DF9D2 /* CommentCell.m in Sources */,
 				30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */,
+				30DB870D1DD552EB008ADE9F /* SwipeTableView.m in Sources */,
 				5A52DE2F1D41EF5E00D28DB2 /* FlowerController.m in Sources */,
 				304763621D69D66B006DB5F0 /* MSSBrowseCollectionViewCell.m in Sources */,
+				30DB870C1DD552EB008ADE9F /* STHeaderView.m in Sources */,
 				30F61C521D9A433A00B4E613 /* RegisterViewController.m in Sources */,
 				30C5BADB1D406008001DF9D2 /* Mine_headerCell.m in Sources */,
 				302D99F91D3DF34400F295A0 /* BrickManNetClient.m in Sources */,
+				30DB870E1DD552EB008ADE9F /* UIView+STFrame.m in Sources */,
 				1BFD4D431D3CD0F100ABE8E6 /* MineViewController.m in Sources */,
 				30353BAE1D65579F00A7D554 /* NSDate+Common.m in Sources */,
 				5A52DE321D41EF7400D28DB2 /* AboutController.m in Sources */,

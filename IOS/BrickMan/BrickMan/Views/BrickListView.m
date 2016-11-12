@@ -9,45 +9,43 @@
 #import "BrickListView.h"
 #import "MainTableViewCell.h"
 #import <MJRefresh/MJRefresh.h>
-#import "BMContentList.h"
+#import "SwipeTableView.h"
 
 @interface BrickListView()<UITableViewDelegate,UITableViewDataSource>
-@property (strong, nonatomic) BMContentList *contentList;
-@property (assign, nonatomic) NSInteger curIndex;
+@property (strong, nonatomic) MJRefreshNormalHeader *refresh_header;
 @end
 
 @implementation BrickListView
 
-- (instancetype)initWithFrame:(CGRect)frame andIndex:(NSInteger)index {
-    if (self = [super initWithFrame:frame]) {
-        self.contentList = [BMContentList contentListlWithType:index];
-        self.curIndex = index;
+- (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
+    if (self = [super initWithFrame:frame style:style]) {
         
-        self.myTableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
-        self.myTableView.dataSource = self;
-        self.myTableView.delegate = self;
-        self.myTableView.backgroundColor = [UIColor clearColor];
-        self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.myTableView registerClass:[MainTableViewCell class] forCellReuseIdentifier:kCellIdentifier_MainTableViewCell];
-        [self addSubview:self.myTableView];
+        self.dataSource = self;
+        self.delegate = self;
+        self.backgroundColor = [UIColor clearColor];
+        self.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [self registerClass:[MainTableViewCell class] forCellReuseIdentifier:kCellIdentifier_MainTableViewCell];
         
-        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
-        header.automaticallyChangeAlpha = YES;
-        header.lastUpdatedTimeLabel.hidden = YES;
-        self.myTableView.mj_header = header;
+        self.refresh_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
+        self.refresh_header.automaticallyChangeAlpha = YES;
+        self.refresh_header.lastUpdatedTimeLabel.hidden = YES;
+        self.mj_header = self.refresh_header;
         
         
         MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMore)];
         [footer setTitle:@"正在加载..." forState:MJRefreshStateRefreshing];
-        self.myTableView.mj_footer = footer;
-        
-        [self sendRequest];
+        self.mj_footer = footer;
     }
     return self;
 }
 
+- (void)refreshContentListWithIndex:(NSInteger)index {
+    self.curList = [BMContentList contentListlWithType:index];
+    [self refresh];
+}
+
 - (void)setContentListWithType:(NSInteger)type {
-    self.contentList = [BMContentList contentListlWithType:type];
+    self.curList = [BMContentList contentListlWithType:type];
     [self refresh];
 }
 
@@ -60,57 +58,71 @@
     }];
 }
 
+- (void)setCurList:(BMContentList *)curList {
+    if (_curList != curList) {
+        _curList = curList;
+        
+        [self reloadData];
+    }
+}
+
 #pragma mark - refresh
 - (void)refresh {
-    if (self.contentList.isLoading) {
+    if (self.curList.isLoading) {
         return;
     }
-    self.contentList.willLoadMore = NO;
+    self.curList.willLoadMore = NO;
     [self sendRequest];
 }
 
 - (void)refreshMore {
-    if (self.contentList.isLoading || !self.contentList.canLoadMore) {
+    if (self.curList.isLoading || !self.curList.canLoadMore) {
         return;
     }
-    self.contentList.willLoadMore = YES;
+    self.curList.willLoadMore = YES;
     [self sendRequest];
 }
 
 - (void)sendRequest {
     __weak typeof(self) weakSelf = self;
     
-    if (self.contentList.orderType.integerValue == 3) {
-        [[BrickManAPIManager shareInstance] requestContentByCommentWithObj:self.contentList andBlock:^(id data, NSError *error) {
-            [weakSelf.myTableView.mj_header endRefreshing];
-            [weakSelf.myTableView.mj_footer endRefreshing];
+    if (self.curList.orderType.integerValue == 3) {
+        [[BrickManAPIManager shareInstance] requestContentByCommentWithObj:self.curList andBlock:^(id data, NSError *error) {
+            [weakSelf.mj_header endRefreshing];
+            [weakSelf.mj_footer endRefreshing];
             if (data) {
-                [weakSelf.contentList configWithData:data];
-                [weakSelf.myTableView reloadData];
+                [weakSelf.curList configWithData:data];
+                if (weakSelf.getCurContentListBlock) {
+                    weakSelf.getCurContentListBlock(weakSelf.curList);
+                }
+                [weakSelf reloadData];
                 
                 BMContentList *model = (BMContentList *)data;
-                if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
-                    [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
+                if (!weakSelf.curList.canLoadMore || model.data.count == 0) {
+                    [weakSelf.mj_footer endRefreshingWithNoMoreData];
                 }
             }else {
-                [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
+                [weakSelf.mj_footer endRefreshingWithNoMoreData];
             }
 
         }];
     }else {
-        [[BrickManAPIManager shareInstance] requestContentListWithObj:self.contentList andBlock:^(id data, NSError *error) {
-            [weakSelf.myTableView.mj_header endRefreshing];
-            [weakSelf.myTableView.mj_footer endRefreshing];
+        [[BrickManAPIManager shareInstance] requestContentListWithObj:self.curList andBlock:^(id data, NSError *error) {
+            [weakSelf.mj_header endRefreshing];
+            [weakSelf.mj_footer endRefreshing];
             if (data) {
-                [weakSelf.contentList configWithData:data];
-                [weakSelf.myTableView reloadData];
+                [weakSelf.curList configWithData:data];
+                if (weakSelf.getCurContentListBlock) {
+                    weakSelf.getCurContentListBlock(weakSelf.curList);
+                }
+                [weakSelf reloadData];
                 
                 BMContentList *model = (BMContentList *)data;
-                if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
-                    [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
+                if (!weakSelf.curList.canLoadMore || model.data.count == 0) {
+                    [weakSelf.mj_footer endRefreshingWithNoMoreData];
                 }
             }else {
-                [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
+                [weakSelf.mj_footer endRefreshingWithNoMoreData];
             }
         }];
     }
@@ -118,20 +130,20 @@
 
 #pragma mark - tableView
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.contentList.data.count;
+    return self.curList.data.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
-    BMContent *model = self.contentList.data[indexPath.row];
+    BMContent *model = self.curList.data[indexPath.row];
     cell.model = model;
     cell.isDetail = NO;
-    if ((self.myTableView.isDragging || self.myTableView.isDecelerating) ) {
+    if ((self.isDragging || self.isDecelerating) ) {
         
     }
     __weak typeof(self) weakSelf = self;
     cell.refreshCellBlock = ^(){
-        [weakSelf.myTableView reloadData];
+        [weakSelf reloadData];
     };
     cell.pushDetailBlock = ^(){
         if (self.goToDetailBlock) {
@@ -145,21 +157,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    BMContent  *model = self.contentList.data[indexPath.row];
+    BMContent  *model = self.curList.data[indexPath.row];
     return [MainTableViewCell cellHeightWithModel:model];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    BMContent *model = self.contentList.data[indexPath.row];
+    BMContent *model = self.curList.data[indexPath.row];
     if (self.goToDetailBlock) {
         self.goToDetailBlock(model);
-    }
-}
-
-#pragma mark - scroll
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (self.scrollBlock) {
-        self.scrollBlock(scrollView.contentOffset.y);
     }
 }
 

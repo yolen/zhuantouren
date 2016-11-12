@@ -356,7 +356,7 @@
                     if (data) {
                         [NSObject showSuccessMsg:@"拍砖成功"];
                         [weakSelf.brickBtn setTitle:[NSString stringWithFormat:@"拍砖 %ld",(long)(weakSelf.model.contentBricks.integerValue + 1)] forState:UIControlStateNormal];
-                        [weakSelf.brickBtn setImage:[UIImage imageNamed:@"flower_sel"] forState:UIControlStateNormal];
+                        [weakSelf.brickBtn setImage:[UIImage imageNamed:@"brick_sel"] forState:UIControlStateNormal];
                     }
                 }];
             }
