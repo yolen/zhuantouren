@@ -79,7 +79,7 @@
     if (indexPath.section == 0) {
         Mine_headerCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_headerCell forIndexPath:indexPath];
         BMUser *user = [BMUser getUserModel];
-        [cell setUserIcon:user.userHead nameTitle:user.userAlias subTitle:user.motto.length > 0 ? user.motto : @"路见不平,拍砖相助!"];
+        [cell setUserIcon:user.userHead nameTitle:user.userAlias subTitle:user.motto.length > 0 ? user.motto : @"漂泊者的分享交流社区"];
         return cell;
     }else {
         Mine_titleCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_titleCell forIndexPath:indexPath];

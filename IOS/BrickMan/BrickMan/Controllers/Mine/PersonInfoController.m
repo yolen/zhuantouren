@@ -61,7 +61,7 @@
             cell.subLabel.text = self.user.userSexStr;
             cell.accessoryType = UITableViewCellAccessoryNone;
         }else if (indexPath.row == 3) {
-            cell.subLabel.text = self.user.motto.length > 0 ? self.user.motto : @"路见不平,拍砖相助!";
+            cell.subLabel.text = self.user.motto.length > 0 ? self.user.motto : @"漂泊者的分享交流社区";
         }
         [cell.subLabel setHidden:NO];
         [cell.subImgView setHidden:YES];
@@ -101,7 +101,7 @@
             break;
         case 3: { //更改座右铭
             MottoController *motto = [[MottoController alloc]init];
-            motto.mottoString = self.user.motto.length > 0 ? self.user.motto : @"路见不平,拍砖相助!";
+            motto.mottoString = self.user.motto.length > 0 ? self.user.motto : @"漂泊者的分享交流社区";
             motto.updateBlock = ^(NSString *value){
                 weakSelf.user.motto = value;
                 [weakSelf.myTableView reloadData];

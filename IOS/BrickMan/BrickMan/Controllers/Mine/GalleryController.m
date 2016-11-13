@@ -103,10 +103,8 @@
             [weakSelf.contentList configWithData:data];
             [weakSelf.myTableView reloadData];
             BMContentList *model = (BMContentList *)data;
-            if (![model.userInfor.userId isEqualToString:self.user.userId]) {
-                // 获取到的信息不一至时,刷新头部用户信息页面
-                [_headerView configHeaderViewWithUser: model.userInfor];
-            }
+            // 获取到的信息后,刷新头部用户信息页面(主要是传进来的用户数据里面没有用户的座佑铭)
+            [_headerView configHeaderViewWithUser: model.userInfor];
             if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
                 [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
             }else {
