@@ -55,6 +55,8 @@
     _headerView.popGalleryBlock = ^{
         [weakSelf.navigationController popViewControllerAnimated:YES];
     };
+    // 配置头部用户信息页面
+    [_headerView configHeaderViewWithUser: self.user];
     [self.view addSubview:_headerView];
     
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
@@ -101,8 +103,10 @@
             [weakSelf.contentList configWithData:data];
             [weakSelf.myTableView reloadData];
             BMContentList *model = (BMContentList *)data;
-            // 配置头部用户信息页面
-            [_headerView configHeaderViewWithUser: model.userInfor];
+            if (![model.userInfor.userId isEqualToString:self.user.userId]) {
+                // 获取到的信息不一至时,刷新头部用户信息页面
+                [_headerView configHeaderViewWithUser: model.userInfor];
+            }
             if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
                 [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
             }else {
