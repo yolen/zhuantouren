@@ -12,6 +12,6 @@
 
 @interface GalleryController : BaseViewController
 
-@property (strong, nonatomic) BMContent *model;
+@property (nonatomic, strong) BMUser *user;
 
 @end

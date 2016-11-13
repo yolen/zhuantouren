@@ -158,7 +158,8 @@
         if (!self.isComeFromeGallery) { // 如果当前页面是从`砖集`页面来了,内则不能再次推出砖集页面
             cell.pushGalleryBlock = ^(){
                 GalleryController *galleryVc = [[GalleryController alloc] init];
-                galleryVc.model = self.model;
+                self.model.user.userId = self.model.user.userId.length == 0 ? self.model.userId : self.model.user.userId;
+                galleryVc.user = self.model.user;
                 [weakSelf.navigationController pushViewController:galleryVc animated:YES];
             };
         }

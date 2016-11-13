@@ -154,13 +154,8 @@
     _ganderImageView.image = [user.userSexStr isEqualToString:@"男"] ? [UIImage imageNamed:@"man"] : [UIImage imageNamed:@"woman"];
     
     _nickNameLabel.text = user.userAlias;
-    
-    if (user.motto) {
-        _mottoLabel.text = user.motto;
-    } else {
-        _mottoLabel.text = @"前往`个人信息`页面,可以添加自己的座佑铭哟~~~";
-    }
     _titleLable.text = user.userAlias ? [NSString stringWithFormat:@"%@的砖集", user.userAlias] : @"砖集";
+    _mottoLabel.text = user.motto.length == 0 ? @"路见不平,拍砖相助!" : user.motto;
 }
 
 - (void)configItemsWith:(CGFloat)offset {

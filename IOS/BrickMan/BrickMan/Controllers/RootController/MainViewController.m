@@ -124,7 +124,8 @@
     };
     brickListView.goToGalleryBlock = ^(BMContent *model){
         GalleryController *galleryVc = [[GalleryController alloc] init];
-        galleryVc.model = model;
+        model.user.userId = model.user.userId.length == 0 ? model.userId : model.user.userId;
+        galleryVc.user = model.user;
         [weakSelf.navigationController pushViewController:galleryVc animated:YES];
     };
     return brickListView;

@@ -37,7 +37,7 @@
     __weak typeof(self) weakSelf = self;
     
     self.contentList = [[BMContentList alloc] init];
-    self.contentList.userID = self.model ? self.model.userId : [BMUser getUserModel].userId; // 设置获取砖集列表时所用的 用户id
+    self.contentList.userID = self.user.userId ? self.user.userId : [BMUser getUserModel].userId; // 设置获取砖集列表时所用的 用户id
     
     self.myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.myTableView.dataSource = self;
@@ -63,7 +63,6 @@
     
     self.myTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshMore)];
     [self refresh];
-//    [self requestUserInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -102,20 +101,13 @@
             [weakSelf.contentList configWithData:data];
             [weakSelf.myTableView reloadData];
             BMContentList *model = (BMContentList *)data;
+            // 配置头部用户信息页面
+            [_headerView configHeaderViewWithUser: model.userInfor];
             if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
                 [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
             }else {
                 [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
             }
-        }
-    }];
-}
-
-- (void)requestUserInfo {
-    //刷新数据
-    [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : self.model.userId} andBlock:^(id data, NSError *error) {
-        if (data) {
-            [_headerView configHeaderViewWithUser: [BMUser getUserModel]];
         }
     }];
 }
@@ -128,7 +120,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
-    cell.model = self.contentList.data[indexPath.row];
+    BMContent *model = self.contentList.data[indexPath.row];
+    model.user = model.user == nil ? self.contentList.userInfor : model.user;
+    cell.model = model;
     //判断在我的砖集状态下,cell的四个按钮不可点击
     [cell setIsGallery:YES];
     return cell;
@@ -140,6 +134,7 @@
     DetailBrickViewController *vc = [[DetailBrickViewController alloc] init];
     vc.comeFromGallery = YES; // 标记下一个详情页面是由`砖集`页面来的,将不能再次显示`砖集`页面
     vc.model = self.contentList.data[indexPath.row];
+    vc.model.user = vc.model.user ? vc.model.user : self.contentList.userInfor;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "BMPage.h"
 
+@class BMUser;
+
 @interface BMContentList : NSObject
 
 @property (nonatomic, copy) NSString *userID;
@@ -17,6 +19,8 @@
 @property (strong, nonatomic) NSNumber *pageNo, *orderType;
 @property (strong, nonatomic) NSMutableArray *data;
 @property (strong, nonatomic) BMPage *page;
+/** 此条列表的发布人信息 */
+@property (nonatomic, strong) BMUser *userInfor;
 
 + (BMContentList *)contentListlWithType:(NSInteger)type;
 
