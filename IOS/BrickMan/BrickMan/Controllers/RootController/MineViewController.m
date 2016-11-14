@@ -191,11 +191,8 @@
     if (buttonIndex == 0) {
         [BMUser removeUserInfo];
         RootTabBarController *tabBarVC = [RootTabBarController sharedInstance];
-        for (int i = 0; i < 3; i++) {
-            if (i == 0) {
-                tabBarVC.selectedIndex = 0;
-            }
-        }
+        tabBarVC.selectedIndex = 0;
+        [tabBarVC.myTabBar changeTabBarToIndex:0];
         [NSObject showSuccessMsg:@"退出成功"];
     }
 }
