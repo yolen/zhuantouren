@@ -11,7 +11,6 @@
 		1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4CFA1D3CCC3100ABE8E6 /* AppDelegate.m */; };
 		1BFD4D111D3CCC3100ABE8E6 /* BrickManTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D101D3CCC3100ABE8E6 /* BrickManTests.m */; };
 		1BFD4D1C1D3CCC3100ABE8E6 /* BrickManUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D1B1D3CCC3100ABE8E6 /* BrickManUITests.m */; };
-		1BFD4D321D3CD02500ABE8E6 /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D311D3CD02500ABE8E6 /* RootTabBarController.m */; };
 		1BFD4D3D1D3CD0B500ABE8E6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D3C1D3CD0B500ABE8E6 /* MainViewController.m */; };
 		1BFD4D431D3CD0F100ABE8E6 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFD4D421D3CD0F100ABE8E6 /* MineViewController.m */; };
 		302114A11D781B18004FFF36 /* BMStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 302114A01D781B18004FFF36 /* BMStartView.m */; };
@@ -126,9 +125,6 @@
 		303CD4DF1D7EA5140052CEAD /* tabbar2_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 303CD4781D7EA5140052CEAD /* tabbar2_nor@3x.png */; };
 		303CD4E01D7EA5140052CEAD /* tabbar2_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 303CD4791D7EA5140052CEAD /* tabbar2_sel@2x.png */; };
 		303CD4E11D7EA5140052CEAD /* tabbar2_sel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 303CD47A1D7EA5140052CEAD /* tabbar2_sel@3x.png */; };
-		303CD4E21D7EA5140052CEAD /* tabBar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 303CD47B1D7EA5140052CEAD /* tabBar_bg@2x.png */; };
-		303CD4E31D7EA5140052CEAD /* tabBar_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 303CD47C1D7EA5140052CEAD /* tabBar_bg@3x.png */; };
-		303CD4E41D7EA5140052CEAD /* tabBar_bg_6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 303CD47D1D7EA5140052CEAD /* tabBar_bg_6@2x.png */; };
 		303CD4E71D7FB48E0052CEAD /* brick_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 303CD4E51D7FB48E0052CEAD /* brick_nor@2x.png */; };
 		303CD4E81D7FB48E0052CEAD /* brick_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 303CD4E61D7FB48E0052CEAD /* brick_sel@2x.png */; };
 		303CE9721D9A0A9E00BE6CB8 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 303CE96B1D9A0A9E00BE6CB8 /* close@2x.png */; };
@@ -170,6 +166,11 @@
 		30703B6F1D991D83005512D1 /* bm_btn_lbs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30703B6E1D991D83005512D1 /* bm_btn_lbs@2x.png */; };
 		30703B8C1D99270C005512D1 /* EditLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30703B8B1D99270C005512D1 /* EditLocationViewController.m */; };
 		30721A851D3E587A00D54E09 /* UITableView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30721A841D3E587A00D54E09 /* UITableView+Common.m */; };
+		307CD3E81DD97E1300B1B9F6 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 307CD3E71DD97E1300B1B9F6 /* CustomTabBar.m */; };
+		307CD3EB1DD97E2400B1B9F6 /* TabBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 307CD3EA1DD97E2400B1B9F6 /* TabBarButton.m */; };
+		307CD3ED1DD9815B00B1B9F6 /* tabBar_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 307CD3EC1DD9815B00B1B9F6 /* tabBar_bg@2x.png */; };
+		307CD3EF1DD9835D00B1B9F6 /* tabbar_brickViewBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 307CD3EE1DD9835D00B1B9F6 /* tabbar_brickViewBg@2x.png */; };
+		309523D71DD99AAC003DBD3C /* RootTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309523D61DD99AAC003DBD3C /* RootTabBarController.m */; };
 		30C5BADB1D406008001DF9D2 /* Mine_headerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BAD81D406008001DF9D2 /* Mine_headerCell.m */; };
 		30C5BADC1D406008001DF9D2 /* Mine_titleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BADA1D406008001DF9D2 /* Mine_titleCell.m */; };
 		30C5BAE61D40655E001DF9D2 /* UILabel+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BAE51D40655E001DF9D2 /* UILabel+Common.m */; };
@@ -270,8 +271,6 @@
 		1BFD4D1B1D3CCC3100ABE8E6 /* BrickManUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrickManUITests.m; sourceTree = "<group>"; };
 		1BFD4D1D1D3CCC3100ABE8E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BFD4D291D3CCC8200ABE8E6 /* BrickMan-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BrickMan-Prefix.pch"; sourceTree = "<group>"; };
-		1BFD4D301D3CD02500ABE8E6 /* RootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarController.h; sourceTree = "<group>"; };
-		1BFD4D311D3CD02500ABE8E6 /* RootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarController.m; sourceTree = "<group>"; };
 		1BFD4D381D3CD09B00ABE8E6 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		1BFD4D391D3CD09B00ABE8E6 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		1BFD4D3B1D3CD0B500ABE8E6 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -408,9 +407,6 @@
 		303CD4781D7EA5140052CEAD /* tabbar2_nor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar2_nor@3x.png"; sourceTree = "<group>"; };
 		303CD4791D7EA5140052CEAD /* tabbar2_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar2_sel@2x.png"; sourceTree = "<group>"; };
 		303CD47A1D7EA5140052CEAD /* tabbar2_sel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar2_sel@3x.png"; sourceTree = "<group>"; };
-		303CD47B1D7EA5140052CEAD /* tabBar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabBar_bg@2x.png"; sourceTree = "<group>"; };
-		303CD47C1D7EA5140052CEAD /* tabBar_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabBar_bg@3x.png"; sourceTree = "<group>"; };
-		303CD47D1D7EA5140052CEAD /* tabBar_bg_6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabBar_bg_6@2x.png"; sourceTree = "<group>"; };
 		303CD4E51D7FB48E0052CEAD /* brick_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brick_nor@2x.png"; sourceTree = "<group>"; };
 		303CD4E61D7FB48E0052CEAD /* brick_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "brick_sel@2x.png"; sourceTree = "<group>"; };
 		303CE96B1D9A0A9E00BE6CB8 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
@@ -488,6 +484,14 @@
 		30703B8B1D99270C005512D1 /* EditLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditLocationViewController.m; sourceTree = "<group>"; };
 		30721A831D3E587A00D54E09 /* UITableView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+Common.h"; sourceTree = "<group>"; };
 		30721A841D3E587A00D54E09 /* UITableView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+Common.m"; sourceTree = "<group>"; };
+		307CD3E61DD97E1300B1B9F6 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
+		307CD3E71DD97E1300B1B9F6 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
+		307CD3E91DD97E2400B1B9F6 /* TabBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarButton.h; sourceTree = "<group>"; };
+		307CD3EA1DD97E2400B1B9F6 /* TabBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarButton.m; sourceTree = "<group>"; };
+		307CD3EC1DD9815B00B1B9F6 /* tabBar_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabBar_bg@2x.png"; sourceTree = "<group>"; };
+		307CD3EE1DD9835D00B1B9F6 /* tabbar_brickViewBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_brickViewBg@2x.png"; sourceTree = "<group>"; };
+		309523D51DD99AAC003DBD3C /* RootTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarController.h; sourceTree = "<group>"; };
+		309523D61DD99AAC003DBD3C /* RootTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarController.m; sourceTree = "<group>"; };
 		30C5BAD71D406008001DF9D2 /* Mine_headerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mine_headerCell.h; sourceTree = "<group>"; };
 		30C5BAD81D406008001DF9D2 /* Mine_headerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mine_headerCell.m; sourceTree = "<group>"; };
 		30C5BAD91D406008001DF9D2 /* Mine_titleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mine_titleCell.h; sourceTree = "<group>"; };
@@ -730,8 +734,9 @@
 			isa = PBXGroup;
 			children = (
 				1BFD4D371D3CD09B00ABE8E6 /* BaseVC */,
-				1BFD4D301D3CD02500ABE8E6 /* RootTabBarController.h */,
-				1BFD4D311D3CD02500ABE8E6 /* RootTabBarController.m */,
+				307CD3E21DD97CE500B1B9F6 /* CustomTabBar */,
+				309523D51DD99AAC003DBD3C /* RootTabBarController.h */,
+				309523D61DD99AAC003DBD3C /* RootTabBarController.m */,
 				1BFD4D3B1D3CD0B500ABE8E6 /* MainViewController.h */,
 				1BFD4D3C1D3CD0B500ABE8E6 /* MainViewController.m */,
 				302114B11D792F3C004FFF36 /* AdvertisementViewController.h */,
@@ -996,9 +1001,8 @@
 				303CD4781D7EA5140052CEAD /* tabbar2_nor@3x.png */,
 				303CD4791D7EA5140052CEAD /* tabbar2_sel@2x.png */,
 				303CD47A1D7EA5140052CEAD /* tabbar2_sel@3x.png */,
-				303CD47B1D7EA5140052CEAD /* tabBar_bg@2x.png */,
-				303CD47C1D7EA5140052CEAD /* tabBar_bg@3x.png */,
-				303CD47D1D7EA5140052CEAD /* tabBar_bg_6@2x.png */,
+				307CD3EC1DD9815B00B1B9F6 /* tabBar_bg@2x.png */,
+				307CD3EE1DD9835D00B1B9F6 /* tabbar_brickViewBg@2x.png */,
 			);
 			path = tabbar;
 			sourceTree = "<group>";
@@ -1134,6 +1138,17 @@
 				30703B671D99166B005512D1 /* MAMapKit.framework */,
 			);
 			path = AMap;
+			sourceTree = "<group>";
+		};
+		307CD3E21DD97CE500B1B9F6 /* CustomTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				307CD3E61DD97E1300B1B9F6 /* CustomTabBar.h */,
+				307CD3E71DD97E1300B1B9F6 /* CustomTabBar.m */,
+				307CD3E91DD97E2400B1B9F6 /* TabBarButton.h */,
+				307CD3EA1DD97E2400B1B9F6 /* TabBarButton.m */,
+			);
+			path = CustomTabBar;
 			sourceTree = "<group>";
 		};
 		30C5BAD51D406008001DF9D2 /* Main */ = {
@@ -1519,11 +1534,10 @@
 				303CD4C81D7EA5140052CEAD /* Introduce_0@2x.png in Resources */,
 				30353BB41D6557BE00A7D554 /* README.textile in Resources */,
 				303CD4E81D7FB48E0052CEAD /* brick_sel@2x.png in Resources */,
-				303CD4E31D7EA5140052CEAD /* tabBar_bg@3x.png in Resources */,
+				307CD3ED1DD9815B00B1B9F6 /* tabBar_bg@2x.png in Resources */,
 				303CD49A1D7EA5140052CEAD /* compose@3x.png in Resources */,
 				303CD4D11D7EA5140052CEAD /* loginbackground@3x.png in Resources */,
 				303CD4CF1D7EA5140052CEAD /* Introduce_3@3x.png in Resources */,
-				303CD4E21D7EA5140052CEAD /* tabBar_bg@2x.png in Resources */,
 				303CE9751D9A0A9E00BE6CB8 /* login_bg0@2x.png in Resources */,
 				303CD4E71D7FB48E0052CEAD /* brick_nor@2x.png in Resources */,
 				303CD49D1D7EA5140052CEAD /* delete_image@3x.png in Resources */,
@@ -1551,6 +1565,7 @@
 				3060386C1D8112E900318326 /* UMSocialLocalizable.strings in Resources */,
 				303CD48A1D7EA5140052CEAD /* add_pic@2x.png in Resources */,
 				303CD4B21D7EA5140052CEAD /* share_nor@2x.png in Resources */,
+				307CD3EF1DD9835D00B1B9F6 /* tabbar_brickViewBg@2x.png in Resources */,
 				303CD4BE1D7EA5140052CEAD /* flower@2x.png in Resources */,
 				303CD4AF1D7EA5140052CEAD /* report_sel@2x.png in Resources */,
 				303CD4821D7EA5140052CEAD /* brick_mud@2x.png in Resources */,
@@ -1576,7 +1591,6 @@
 				3047635E1D69D66B006DB5F0 /* mss_browseLoading@3x.png in Resources */,
 				303CD4A51D7EA5140052CEAD /* man_nor@2x.png in Resources */,
 				303CD4B71D7EA5140052CEAD /* share_sel@3x.png in Resources */,
-				303CD4E41D7EA5140052CEAD /* tabBar_bg_6@2x.png in Resources */,
 				79F39E8E1D596DF400FEAB40 /* city.json in Resources */,
 				303CE9761D9A0A9E00BE6CB8 /* login_bg1@2x.png in Resources */,
 				303CD4B51D7EA5140052CEAD /* share_qzone@2x.png in Resources */,
@@ -1715,6 +1729,7 @@
 				1BFD4D3D1D3CD0B500ABE8E6 /* MainViewController.m in Sources */,
 				30C5BAE61D40655E001DF9D2 /* UILabel+Common.m in Sources */,
 				792C20281D5893D80047E4D2 /* BMCity.m in Sources */,
+				309523D71DD99AAC003DBD3C /* RootTabBarController.m in Sources */,
 				30C5BADC1D406008001DF9D2 /* Mine_titleCell.m in Sources */,
 				304763651D69D66B006DB5F0 /* MSSBrowseModel.m in Sources */,
 				302D99FF1D3E058700F295A0 /* BrickManAPIManager.m in Sources */,
@@ -1751,7 +1766,6 @@
 				30353BB31D6557BE00A7D554 /* NSDate+Helper.m in Sources */,
 				302114A11D781B18004FFF36 /* BMStartView.m in Sources */,
 				302114B31D792F3C004FFF36 /* AdvertisementViewController.m in Sources */,
-				1BFD4D321D3CD02500ABE8E6 /* RootTabBarController.m in Sources */,
 				37C7F9C61DD5BF1200B1AF7D /* BMGalleryTableHeaderView.m in Sources */,
 				302E00D51D71FCB200F24147 /* CacheImageSize.m in Sources */,
 				303529C51D4862AC00CFDD77 /* CommentInputView.m in Sources */,
@@ -1763,12 +1777,14 @@
 				79FBFBEB1D420904001C43C2 /* ComposePictureCell.m in Sources */,
 				1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */,
 				304763641D69D66B006DB5F0 /* MSSBrowseLocalViewController.m in Sources */,
+				307CD3EB1DD97E2400B1B9F6 /* TabBarButton.m in Sources */,
 				5A52DE361D41F21A00D28DB2 /* HeadEditController.m in Sources */,
 				79F39E911D596F7400FEAB40 /* BMCityList.m in Sources */,
 				30CE65F41D6ED5BB004E5BAB /* BMComment.m in Sources */,
 				30C5BB441D411D8A001DF9D2 /* CommentCell.m in Sources */,
 				30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */,
 				30DB870D1DD552EB008ADE9F /* SwipeTableView.m in Sources */,
+				307CD3E81DD97E1300B1B9F6 /* CustomTabBar.m in Sources */,
 				5A52DE2F1D41EF5E00D28DB2 /* FlowerController.m in Sources */,
 				304763621D69D66B006DB5F0 /* MSSBrowseCollectionViewCell.m in Sources */,
 				30DB870C1DD552EB008ADE9F /* STHeaderView.m in Sources */,

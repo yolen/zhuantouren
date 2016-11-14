@@ -65,11 +65,11 @@ static void customHandler() {
     }
     [self.window makeKeyAndVisible];
 
-    BMStartView *startView = [BMStartView sharedInstance];
-    [startView startAnimationWithCompletionBlock:^{
-        DebugLog(@"Completion");
-    }];
-    
+//    BMStartView *startView = [BMStartView sharedInstance];
+//    [startView startAnimationWithCompletionBlock:^{
+//        DebugLog(@"Completion");
+//    }];
+//    
     return YES;
 }
 
