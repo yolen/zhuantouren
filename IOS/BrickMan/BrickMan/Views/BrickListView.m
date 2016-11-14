@@ -150,6 +150,11 @@
             self.goToDetailBlock(model);
         }
     };
+    cell.pushGalleryBlock = ^(){
+        if (self.goToGalleryBlock) {
+            self.goToGalleryBlock(model);
+        }
+    };
     cell.pushLoginBlock = ^(){
         
     };

@@ -7,14 +7,16 @@
 //
 
 #import "MineViewController.h"
-#import "Mine_headerCell.h"
-#import "Mine_titleCell.h"
 #import "PersonInfoController.h"
 #import "GalleryController.h"
 #import "BrickController.h"
 #import "FlowerController.h"
 #import "AboutController.h"
 #import "RootTabBarController.h"
+#import "BMFeedBackViewController.h"
+
+#import "Mine_headerCell.h"
+#import "Mine_titleCell.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate>
 @property (strong, nonatomic) UITableView *myTableView;
@@ -37,6 +39,11 @@
     self.myTableView.tableFooterView = [self customFooterView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:kNotification_RefreshUserInfo object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)reloadData {
@@ -65,14 +72,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : (section == 1 ? 3 : 1);
+    return section == 0 ? 1 : (section == 1 ? 3 : 2);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         Mine_headerCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_headerCell forIndexPath:indexPath];
         BMUser *user = [BMUser getUserModel];
-        [cell setUserIcon:user.userHead nameTitle:user.userAlias subTitle:user.motto.length > 0 ? user.motto : @"路见不平,拍砖相助!"];
+        [cell setUserIcon:user.userHead nameTitle:user.userAlias subTitle:user.motto.length > 0 ? user.motto : @"漂泊者的分享交流社区"];
         return cell;
     }else {
         Mine_titleCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_titleCell forIndexPath:indexPath];
@@ -89,7 +96,15 @@
                     break;
             }
         }else {
-            [cell setIconImage:@"about_icon" withTitle:@"关于我们"];
+            switch (indexPath.row) {
+                case 0:
+                    [cell setIconImage:@"feedback" withTitle:@"反馈我们"];
+                    break;
+                case 1:
+                    [cell setIconImage:@"about_icon" withTitle:@"关于我们"];
+                default:
+                    break;
+            }
         }
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:kPaddingLeft hasSectionLine:NO];
         return cell;
@@ -122,7 +137,7 @@
         case 1:{
             switch (indexPath.row) {
                 case 0: {
-                    GalleryController *gallery = [[GalleryController alloc]init];
+                    GalleryController *gallery = [[GalleryController alloc] init];
                     viewController = gallery;
                 }
                     break;
@@ -143,8 +158,20 @@
         }
             break;
         case 2:{
-            AboutController *about = [[AboutController alloc]init];
-            [self.navigationController pushViewController:about animated:YES];
+            switch (indexPath.row) {
+                case 0: {
+                    BMFeedBackViewController *feedbackVc = [[BMFeedBackViewController alloc] init];
+                    viewController = feedbackVc;
+                }
+                    break;
+                case 1: {
+                    AboutController *about = [[AboutController alloc]init];
+                    viewController = about;
+                }
+                    break;
+                default:
+                    break;
+            }
         }
             break;
         default:

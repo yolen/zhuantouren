@@ -10,6 +10,7 @@
 #import "BMContent.h"
 
 @interface DetailBrickViewController : BaseViewController
+@property (nonatomic, assign, getter=isComeFromeGallery) BOOL comeFromGallery;
 
 @property (strong, nonatomic) BMContent *model;
 

@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface BMGalleryTableHeaderView : UIView
+
+@property (nonatomic, copy) void (^popGalleryBlock)();
+
 - (void)configHeaderViewWithUser:(BMUser *)user;
+- (void)configItemsWith:(CGFloat)offset;
 @end

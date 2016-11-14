@@ -53,7 +53,7 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:3];
     [params setObject:[NSString stringWithFormat:@"%@",[NSNumber numberWithInteger:page]] forKey:@"pageNo"];
     [params setObject:kDefaultPageSize forKey:@"pageSize"];
-    [params setObject:[BMUser getUserModel].userId forKey:@"userId"];
+    [params setObject:self.userID forKey:@"userId"];
     return params;
 }
 
@@ -67,6 +67,7 @@
         self.data = [NSMutableArray arrayWithArray:model.data];
     }
     self.page = model.page;
+    self.userInfor = model.userInfor;
     _canLoadMore = model.page.pageNo.integerValue < model.page.totalRecords.integerValue;
 }
 

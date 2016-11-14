@@ -224,6 +224,14 @@
 		79ED805A1DD5E55500C011A5 /* man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED80561DD5E55500C011A5 /* man@2x.png */; };
 		79ED805B1DD5E55500C011A5 /* woman@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED80571DD5E55500C011A5 /* woman@3x.png */; };
 		79ED805C1DD5E55500C011A5 /* woman@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED80581DD5E55500C011A5 /* woman@2x.png */; };
+		79ED805F1DD5EDCD00C011A5 /* UIView+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 79ED805E1DD5EDCD00C011A5 /* UIView+Common.m */; };
+		79ED80621DD6343100C011A5 /* UINavigationController+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 79ED80611DD6343100C011A5 /* UINavigationController+Common.m */; };
+		79ED80651DD754E000C011A5 /* feedback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED80631DD754E000C011A5 /* feedback@2x.png */; };
+		79ED80661DD754E000C011A5 /* feedback@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED80641DD754E000C011A5 /* feedback@3x.png */; };
+		79ED80691DD7558C00C011A5 /* BMFeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79ED80681DD7558C00C011A5 /* BMFeedBackViewController.m */; };
+		79ED806C1DD7583F00C011A5 /* red_package@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED806A1DD7583F00C011A5 /* red_package@2x.png */; };
+		79ED806D1DD7583F00C011A5 /* red_package@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 79ED806B1DD7583F00C011A5 /* red_package@3x.png */; };
+		79ED80701DD7776200C011A5 /* UIButton+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 79ED806F1DD7776200C011A5 /* UIButton+Block.m */; };
 		79F39E8E1D596DF400FEAB40 /* city.json in Resources */ = {isa = PBXBuildFile; fileRef = 79F39E8D1D596DF400FEAB40 /* city.json */; };
 		79F39E911D596F7400FEAB40 /* BMCityList.m in Sources */ = {isa = PBXBuildFile; fileRef = 79F39E901D596F7400FEAB40 /* BMCityList.m */; };
 		79F71F201D49DA9900C2AF2D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F71F1F1D49DA9900C2AF2D /* Security.framework */; };
@@ -588,6 +596,18 @@
 		79ED80561DD5E55500C011A5 /* man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "man@2x.png"; sourceTree = "<group>"; };
 		79ED80571DD5E55500C011A5 /* woman@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman@3x.png"; sourceTree = "<group>"; };
 		79ED80581DD5E55500C011A5 /* woman@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "woman@2x.png"; sourceTree = "<group>"; };
+		79ED805D1DD5EDCD00C011A5 /* UIView+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Common.h"; sourceTree = "<group>"; };
+		79ED805E1DD5EDCD00C011A5 /* UIView+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Common.m"; sourceTree = "<group>"; };
+		79ED80601DD6343100C011A5 /* UINavigationController+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+Common.h"; sourceTree = "<group>"; };
+		79ED80611DD6343100C011A5 /* UINavigationController+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+Common.m"; sourceTree = "<group>"; };
+		79ED80631DD754E000C011A5 /* feedback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback@2x.png"; sourceTree = "<group>"; };
+		79ED80641DD754E000C011A5 /* feedback@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "feedback@3x.png"; sourceTree = "<group>"; };
+		79ED80671DD7558C00C011A5 /* BMFeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMFeedBackViewController.h; sourceTree = "<group>"; };
+		79ED80681DD7558C00C011A5 /* BMFeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMFeedBackViewController.m; sourceTree = "<group>"; };
+		79ED806A1DD7583F00C011A5 /* red_package@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_package@2x.png"; sourceTree = "<group>"; };
+		79ED806B1DD7583F00C011A5 /* red_package@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "red_package@3x.png"; sourceTree = "<group>"; };
+		79ED806E1DD7776200C011A5 /* UIButton+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Block.h"; sourceTree = "<group>"; };
+		79ED806F1DD7776200C011A5 /* UIButton+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Block.m"; sourceTree = "<group>"; };
 		79F39E8D1D596DF400FEAB40 /* city.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.json; sourceTree = "<group>"; };
 		79F39E8F1D596F7400FEAB40 /* BMCityList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCityList.h; sourceTree = "<group>"; };
 		79F39E901D596F7400FEAB40 /* BMCityList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCityList.m; sourceTree = "<group>"; };
@@ -880,6 +900,10 @@
 				377BDB3C1DD5857E00E9E29E /* zhuanji_bg@2x.png */,
 				377BDB3D1DD5857E00E9E29E /* zhuanji_bg@3x.png */,
 				30703B6E1D991D83005512D1 /* bm_btn_lbs@2x.png */,
+				79ED80631DD754E000C011A5 /* feedback@2x.png */,
+				79ED80641DD754E000C011A5 /* feedback@3x.png */,
+				79ED806A1DD7583F00C011A5 /* red_package@2x.png */,
+				79ED806B1DD7583F00C011A5 /* red_package@3x.png */,
 				303CD41D1D7EA5140052CEAD /* about_icon@2x.png */,
 				303CD41E1D7EA5140052CEAD /* about_icon@3x.png */,
 				303CD4E51D7FB48E0052CEAD /* brick_nor@2x.png */,
@@ -1276,6 +1300,10 @@
 		30F91D611D3DCC1A007D9BDB /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				79ED806E1DD7776200C011A5 /* UIButton+Block.h */,
+				79ED806F1DD7776200C011A5 /* UIButton+Block.m */,
+				79ED80601DD6343100C011A5 /* UINavigationController+Common.h */,
+				79ED80611DD6343100C011A5 /* UINavigationController+Common.m */,
 				30F91D621D3DCC1F007D9BDB /* UIViewExt.h */,
 				30F91D631D3DCC1F007D9BDB /* UIViewExt.m */,
 				30F91D741D3DE8F3007D9BDB /* UIImage+Common.h */,
@@ -1298,6 +1326,8 @@
 				30353BAD1D65579F00A7D554 /* NSDate+Common.m */,
 				30EE73A61D6DFF9C00E79968 /* UISearchBar+Common.h */,
 				30EE73A71D6DFF9C00E79968 /* UISearchBar+Common.m */,
+				79ED805D1DD5EDCD00C011A5 /* UIView+Common.h */,
+				79ED805E1DD5EDCD00C011A5 /* UIView+Common.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1325,6 +1355,8 @@
 				5A52DE2B1D41EF4C00D28DB2 /* BrickController.m */,
 				5A52DE2D1D41EF5E00D28DB2 /* FlowerController.h */,
 				5A52DE2E1D41EF5E00D28DB2 /* FlowerController.m */,
+				79ED80671DD7558C00C011A5 /* BMFeedBackViewController.h */,
+				79ED80681DD7558C00C011A5 /* BMFeedBackViewController.m */,
 				5A52DE301D41EF7400D28DB2 /* AboutController.h */,
 				5A52DE311D41EF7400D28DB2 /* AboutController.m */,
 			);
@@ -1546,6 +1578,7 @@
 				306038691D8112E900318326 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				303CD4951D7EA5140052CEAD /* comment_sel@2x.png in Resources */,
 				303CD4B31D7EA5140052CEAD /* share_nor@3x.png in Resources */,
+				79ED806D1DD7583F00C011A5 /* red_package@3x.png in Resources */,
 				79ED80591DD5E55500C011A5 /* man@3x.png in Resources */,
 				303CD4A11D7EA5140052CEAD /* flower_nor@3x.png in Resources */,
 				303CD4AA1D7EA5140052CEAD /* mine_icon@3x.png in Resources */,
@@ -1592,6 +1625,7 @@
 				303CD4A51D7EA5140052CEAD /* man_nor@2x.png in Resources */,
 				303CD4B71D7EA5140052CEAD /* share_sel@3x.png in Resources */,
 				79F39E8E1D596DF400FEAB40 /* city.json in Resources */,
+				79ED806C1DD7583F00C011A5 /* red_package@2x.png in Resources */,
 				303CE9761D9A0A9E00BE6CB8 /* login_bg1@2x.png in Resources */,
 				303CD4B51D7EA5140052CEAD /* share_qzone@2x.png in Resources */,
 				303CD4DD1D7EA5140052CEAD /* tabbar1_nor@3x.png in Resources */,
@@ -1622,6 +1656,7 @@
 				303CD4801D7EA5140052CEAD /* brick_green@2x.png in Resources */,
 				303CD4E01D7EA5140052CEAD /* tabbar2_sel@2x.png in Resources */,
 				303CD4A91D7EA5140052CEAD /* mine_icon@2x.png in Resources */,
+				79ED80651DD754E000C011A5 /* feedback@2x.png in Resources */,
 				303CE9731D9A0A9E00BE6CB8 /* icon_pwd@2x.png in Resources */,
 				303CD48D1D7EA5140052CEAD /* alert_failed_icon@2x.png in Resources */,
 				303CD4CD1D7EA5140052CEAD /* Introduce_2@3x.png in Resources */,
@@ -1643,6 +1678,7 @@
 				303CD4A81D7EA5140052CEAD /* man_sel@3x.png in Resources */,
 				303CD4CE1D7EA5140052CEAD /* Introduce_3@2x.png in Resources */,
 				303CE9781D9A0A9E00BE6CB8 /* separator@2x.png in Resources */,
+				79ED80661DD754E000C011A5 /* feedback@3x.png in Resources */,
 				303CD4A41D7EA5140052CEAD /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1745,6 +1781,7 @@
 				30703B6D1D99191A005512D1 /* BMLocationCell.m in Sources */,
 				303529CF1D48766200CFDD77 /* UIPlaceHolderTextView.m in Sources */,
 				304763671D69D66B006DB5F0 /* MSSBrowseRemindView.m in Sources */,
+				79ED80621DD6343100C011A5 /* UINavigationController+Common.m in Sources */,
 				30721A851D3E587A00D54E09 /* UITableView+Common.m in Sources */,
 				30C5BB6C1D425699001DF9D2 /* MainTableViewCell.m in Sources */,
 				3047636A1D69D66B006DB5F0 /* UIView+MSSLayout.m in Sources */,
@@ -1753,6 +1790,7 @@
 				30C5BB541D4210A8001DF9D2 /* BrickPhotoCell.m in Sources */,
 				5A686DEE1D445DFC00455FB2 /* UITextField+Common.m in Sources */,
 				3047635F1D69D66B006DB5F0 /* MSSBrowseActionSheet.m in Sources */,
+				79ED805F1DD5EDCD00C011A5 /* UIView+Common.m in Sources */,
 				30CE65E91D6ED4A0004E5BAB /* BMContent.m in Sources */,
 				304763611D69D66B006DB5F0 /* MSSBrowseBaseViewController.m in Sources */,
 				79F71F321D49DF1100C2AF2D /* BMLoginViewController.m in Sources */,
@@ -1778,6 +1816,7 @@
 				1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */,
 				304763641D69D66B006DB5F0 /* MSSBrowseLocalViewController.m in Sources */,
 				307CD3EB1DD97E2400B1B9F6 /* TabBarButton.m in Sources */,
+				79ED80701DD7776200C011A5 /* UIButton+Block.m in Sources */,
 				5A52DE361D41F21A00D28DB2 /* HeadEditController.m in Sources */,
 				79F39E911D596F7400FEAB40 /* BMCityList.m in Sources */,
 				30CE65F41D6ED5BB004E5BAB /* BMComment.m in Sources */,
@@ -1790,6 +1829,7 @@
 				30DB870C1DD552EB008ADE9F /* STHeaderView.m in Sources */,
 				30F61C521D9A433A00B4E613 /* RegisterViewController.m in Sources */,
 				30C5BADB1D406008001DF9D2 /* Mine_headerCell.m in Sources */,
+				79ED80691DD7558C00C011A5 /* BMFeedBackViewController.m in Sources */,
 				302D99F91D3DF34400F295A0 /* BrickManNetClient.m in Sources */,
 				30DB870E1DD552EB008ADE9F /* UIView+STFrame.m in Sources */,
 				1BFD4D431D3CD0F100ABE8E6 /* MineViewController.m in Sources */,

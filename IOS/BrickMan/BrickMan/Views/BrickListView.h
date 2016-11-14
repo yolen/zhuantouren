@@ -15,6 +15,7 @@
 @property (copy, nonatomic) void(^scrollBlock)(CGFloat offset);
 @property (copy, nonatomic) void(^goToDetailBlock)(BMContent *model);
 @property (copy, nonatomic) void(^getCurContentListBlock)(BMContentList *list);
+@property (nonatomic, copy) void(^goToGalleryBlock)(BMContent *model);
 
 @property (strong, nonatomic) BMContentList *curList;
 

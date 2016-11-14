@@ -167,7 +167,7 @@
     }];
 }
 
-- (void)requestUserContentListWithObj:(BMContentList *)contentList andBlock:(void(^)(id data, NSError *error))block { //我的砖集
+- (void)requestUserContentListWithObj:(BMContentList *)contentList andBlock:(void(^)(id data, NSError *error))block { //用户的砖集
     contentList.isLoading = YES;
     [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/user_content_list.json" withParams:[contentList getUserContentListParams] withMethodType:Get andBlock:^(id data, NSError *error) {
         contentList.isLoading = NO;
