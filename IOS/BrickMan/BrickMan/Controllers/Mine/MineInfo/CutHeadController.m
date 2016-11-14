@@ -116,7 +116,9 @@
 
 - (UIImage *)image:(UIImage *)image NewSize:(CGSize)size newOrigin:(CGPoint)origin{
     CGImageRef imgRef =  CGImageCreateWithImageInRect(image.CGImage, CGRectMake(origin.x, origin.y, size.width,size.height));
-    return [UIImage imageWithCGImage:imgRef];
+    UIImage *newImage = [UIImage imageWithCGImage:imgRef];
+    CFRelease(imgRef);
+    return newImage;
 }
 
 - (UIScrollView *)scrollView {

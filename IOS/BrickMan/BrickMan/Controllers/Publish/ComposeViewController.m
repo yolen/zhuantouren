@@ -220,10 +220,10 @@
     //保存原图片到相册中
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera && originalImage) {
         UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, NULL);
+        [self.pictures addObject:originalImage];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
     
-    [self.pictures addObject:originalImage];
     [self.pictureView reloadData];
 }
 

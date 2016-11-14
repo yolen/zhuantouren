@@ -48,7 +48,7 @@
 
 - (NSString *)tipFromError:(NSError *)error{
     if (error && error.userInfo) {
-        NSMutableString *tipStr = [[NSMutableString alloc] init];
+        NSMutableString *tipStr = nil;
         if ([error.userInfo objectForKey:@"body"]) {
             tipStr = error.userInfo[@"body"];
         }else{
