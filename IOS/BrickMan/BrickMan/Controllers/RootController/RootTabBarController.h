@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MainViewController.h"
+#import "CustomTabBar.h"
 
 @interface RootTabBarController : UITabBarController
+
+@property (strong, nonatomic) CustomTabBar *myTabBar;
 
 + (instancetype)sharedInstance;
 

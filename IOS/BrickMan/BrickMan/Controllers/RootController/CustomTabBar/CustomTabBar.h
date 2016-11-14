@@ -17,4 +17,6 @@
 
 @property (assign, nonatomic) id<CustomTabBarDelegate> delegate;
 
+- (void)changeTabBarToIndex:(NSInteger)index;
+
 @end

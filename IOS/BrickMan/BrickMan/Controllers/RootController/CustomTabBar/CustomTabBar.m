@@ -80,4 +80,10 @@
     _selectedTB = button;
 }
 
+- (void)changeTabBarToIndex:(NSInteger)index {
+    TabBarButton *btn = self.subviews[index];
+    _selectedTB.selected = NO;
+    btn.selected = YES;
+}
+
 @end

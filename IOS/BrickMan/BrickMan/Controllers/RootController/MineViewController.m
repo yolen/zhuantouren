@@ -192,6 +192,7 @@
         [BMUser removeUserInfo];
         RootTabBarController *tabBarVC = [RootTabBarController sharedInstance];
         tabBarVC.selectedIndex = 0;
+        [tabBarVC.myTabBar changeTabBarToIndex:0];
         [NSObject showSuccessMsg:@"退出成功"];
     }
 }

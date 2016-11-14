@@ -7,7 +7,6 @@
 //
 
 #import "RootTabBarController.h"
-#import "CustomTabBar.h"
 #import "BaseNavigationController.h"
 #import "AdvertisementViewController.h"
 #import "MineViewController.h"
@@ -15,7 +14,6 @@
 @interface RootTabBarController ()<UINavigationControllerDelegate,CustomTabBarDelegate>
 @property(nonatomic,strong) UIView *centerView;
 @property(nonatomic,strong) UIButton *centerBtn;
-@property (strong, nonatomic) CustomTabBar *myTabBar;
 
 @end
 
@@ -101,18 +99,6 @@
     //添加dock到根控制器界面
     [mainVC.view addSubview:_myTabBar];
     [mainVC.view addSubview:_centerView];
-}
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated  {
-    
-    [_myTabBar removeFromSuperview];
-    [_centerView removeFromSuperview];
-    
-    _myTabBar.frame = CGRectMake(0, self.view.height-kTabbarHeight, kScreen_Width, kTabbarHeight);
-    [self.view addSubview:_myTabBar];
-    
-    _centerView.center = CGPointMake(kScreen_Width/2, kScreen_Height - 61/2);
-    _centerView.bounds = CGRectMake(0, 0, 50, 61);
-    [self.view addSubview:_centerView];
 }
 
 - (void)didReceiveMemoryWarning {
