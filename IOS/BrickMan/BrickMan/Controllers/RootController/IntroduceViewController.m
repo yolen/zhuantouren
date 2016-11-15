@@ -8,9 +8,11 @@
 
 #import "IntroduceViewController.h"
 #import "RootTabBarController.h"
+#import "SMPageControl.h"
 
 @interface IntroduceViewController ()<UIScrollViewDelegate>
 @property (strong, nonatomic) UIScrollView *myScrollView;
+@property (strong, nonatomic) SMPageControl *pageControl;
 @end
 
 @implementation IntroduceViewController
@@ -25,15 +27,25 @@
     self.myScrollView.pagingEnabled = YES;
     self.myScrollView.bounces = NO;
     self.myScrollView.delegate = self;
-    self.myScrollView.contentSize = CGSizeMake(kScreen_Width * 4, kScreen_Height);
+    self.myScrollView.contentSize = CGSizeMake(kScreen_Width * 5, kScreen_Height);
     [self.view addSubview:self.myScrollView];
     
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         NSString *imgString = [NSString stringWithFormat:@"Introduce_%d",i];
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(i * kScreen_Width, 0, kScreen_Width, kScreen_Height)];
         imgView.image = [UIImage imageNamed:imgString];
         [self.myScrollView addSubview:imgView];
     }
+    self.pageControl = [[SMPageControl alloc] initWithFrame:CGRectMake((kScreen_Width - 80)/2, kScreen_Height - 40, 80, 10)];
+    self.pageControl.userInteractionEnabled = NO;
+    self.pageControl.backgroundColor = [UIColor clearColor];
+    self.pageControl.pageIndicatorImage = [UIImage imageNamed:@"page_unsel"];
+    self.pageControl.currentPageIndicatorImage = [UIImage imageNamed:@"page_sel"];
+    self.pageControl.numberOfPages = 5;
+    self.pageControl.currentPage = 0;
+    self.pageControl.alignment = SMPageControlAlignmentCenter;
+    [self.view addSubview:self.pageControl];
+    
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -53,6 +65,10 @@
             window.rootViewController = root;
         }];
     }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    self.pageControl.currentPage = floor(scrollView.contentOffset.x / kScreen_Width);
 }
 
 - (void)didReceiveMemoryWarning {
