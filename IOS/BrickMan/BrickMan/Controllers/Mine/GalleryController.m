@@ -33,7 +33,6 @@
     // Do any additional setup after loading the view.
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.title = @"砖集";
     
     __weak typeof(self) weakSelf = self;
     
@@ -57,7 +56,7 @@
         [weakSelf.navigationController popViewControllerAnimated:YES];
     };
     // 配置头部用户信息页面
-    [_headerView configHeaderViewWithUser: self.user];
+    [_headerView configHeaderViewWithUser: self.user ? self.user : [BMUser getUserModel]];
     [self.view addSubview:_headerView];
     
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];

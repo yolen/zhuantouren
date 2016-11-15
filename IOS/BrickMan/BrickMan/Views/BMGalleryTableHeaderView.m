@@ -167,7 +167,7 @@
     _ganderImageView.image = [user.userSexStr isEqualToString:@"男"] ? [UIImage imageNamed:@"man"] : [UIImage imageNamed:@"woman"];
     
     _nickNameLabel.text = user.userAlias;
-    _titleLable.text = user.userAlias ? [NSString stringWithFormat:@"%@的砖集", user.userAlias] : @"砖集";
+    _titleLable.text = user.userAlias ? [NSString stringWithFormat:@"%@的砖集", [user.userAlias isEqualToString: [BMUser getUserModel].userAlias] ? @"我" : user.userAlias] : @"砖集";
     _mottoLabel.text = user.motto.length == 0 ? @"路见不平,拍砖相助!" : user.motto;
 }
 
