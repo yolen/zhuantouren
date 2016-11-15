@@ -53,7 +53,7 @@
     [self.view addSubview:bottom_bgView];
     
     UIButton *close_btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    close_btn.frame = CGRectMake(10, 30, 15, 15);
+    close_btn.frame = CGRectMake(15, 30, 15, 15);
     [close_btn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
     [close_btn addTarget:self action:@selector(closeAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:close_btn];

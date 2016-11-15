@@ -52,7 +52,6 @@
     
     _swipeTableView = [[SwipeTableView alloc] init];
     _swipeTableView.backgroundColor = [UIColor clearColor];
-    _swipeTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _swipeTableView.delegate = self;
     _swipeTableView.dataSource = self;
     _swipeTableView.shouldAdjustContentSize = YES;
@@ -64,7 +63,7 @@
     [_swipeTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(kScreen_Width);
         make.top.equalTo(self.view.top);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-39);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-5);
     }];
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"compose"] style:UIBarButtonItemStylePlain target:self action:@selector(composeAction:)];
@@ -163,6 +162,9 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    [[SDWebImageManager sharedManager] cancelAll];
+    [[SDImageCache sharedImageCache] clearDisk];
 }
 
 @end

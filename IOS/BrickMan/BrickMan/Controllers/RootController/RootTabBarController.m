@@ -2,18 +2,18 @@
 //  RootTabBarController.m
 //  BrickMan
 //
-//  Created by TZ on 16/7/18.
+//  Created by TZ on 2016/11/14.
 //  Copyright © 2016年 BrickMan. All rights reserved.
 //
 
 #import "RootTabBarController.h"
-#import "MainViewController.h"
+#import "BaseNavigationController.h"
 #import "AdvertisementViewController.h"
 #import "MineViewController.h"
-#import "BaseNavigationController.h"
-#import "BMUser.h"
 
-@interface RootTabBarController ()<UITabBarControllerDelegate>
+@interface RootTabBarController ()<UINavigationControllerDelegate,CustomTabBarDelegate>
+@property(nonatomic,strong) UIView *centerView;
+@property(nonatomic,strong) UIButton *centerBtn;
 
 @end
 
@@ -21,90 +21,84 @@
 
 + (instancetype)sharedInstance {
     static RootTabBarController* instance = nil;
-
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        instance = [RootTabBarController new];
+        instance = [[RootTabBarController alloc] init];
     });
-
+    
     return instance;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view.
     
-    [self tabberView];
-}
-
-- (void)tabberView {
+    CustomTabBar *customerTB = [[CustomTabBar alloc] initWithFrame:CGRectMake(0, kScreen_Height - kTabbarHeight, kScreen_Width, kTabbarHeight)];
+    customerTB.delegate = self;
+    customerTB.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tabBar_bg"]];
+    [self.view addSubview:customerTB];
+    self.myTabBar = customerTB;
+    
+    self.centerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 61)];
+    self.centerView.center = CGPointMake(kScreen_Width/2, kScreen_Height - 61/2);
+    self.centerView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tabbar_brickViewBg"]];
+    self.centerBtn = [[UIButton alloc] initWithFrame:CGRectMake(5, 8, 40, 40)];
+    [self.centerBtn setBackgroundImage:[UIImage imageNamed:@"tabbar1_nor"] forState:UIControlStateNormal];
+    [self.centerBtn addTarget:self action:@selector(brickButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.centerView addSubview:self.centerBtn];
+    [self.view addSubview:self.centerView];
+    
     MainViewController *mainVC = [[MainViewController alloc] init];
     UINavigationController *mainNav = [[BaseNavigationController alloc]initWithRootViewController:mainVC];
     mainVC.title = @"砖集";
-    
+
     AdvertisementViewController *adverVC = [[AdvertisementViewController alloc] init];
     UINavigationController *adverNav = [[BaseNavigationController alloc]initWithRootViewController:adverVC];
-
     
     MineViewController *meVC = [[MineViewController alloc] init];
     UINavigationController *meNav = [[BaseNavigationController alloc]initWithRootViewController:meVC];
     meVC.title = @"我的";
-    self.delegate = self;
     self.viewControllers = @[mainNav,adverNav,meNav];
     
-    UIImage *bgImage = [UIImage imageNamed:@"tabBar_bg"];
-    if (kDevice_Is_iPhone6) {
-        bgImage = [UIImage imageNamed:@"tabBar_bg_6"];
+    for (UINavigationController *navVC in self.viewControllers) {
+        navVC.delegate = self;
     }
-
-    [[UITabBar appearance] setBackgroundImage:bgImage];
-    [[UITabBar appearance] setShadowImage:[[UIImage alloc] init]];
-    [[UITabBar appearance] setBackgroundColor:[UIColor clearColor]];
-    [[UITabBar appearance] setClipsToBounds:YES];
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                       kNavigationBarColor, NSForegroundColorAttributeName,
-                                                       nil] forState:UIControlStateSelected];
-    
-    UITabBar *tabbar = self.tabBar;
-    UITabBarItem *item1 = [tabbar.items objectAtIndex:0];
-    UITabBarItem *item2 = [tabbar.items objectAtIndex:1];
-    UITabBarItem *item3 = [tabbar.items objectAtIndex:2];
-    
-    item1.selectedImage = [[UIImage imageNamed:@"tabbar0_sel"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item1.image = [[UIImage imageNamed:@"tabbar0_nor"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item1.imageInsets = UIEdgeInsetsMake(3, 0, -3, 0);
-    item2.image = [[UIImage imageNamed:@"tabbar1_nor"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item3.selectedImage = [[UIImage imageNamed:@"tabbar2_sel"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item2.imageInsets = UIEdgeInsetsMake(5, 0, -5, 0);
-    item3.image = [[UIImage imageNamed:@"tabbar2_nor"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item3.imageInsets = UIEdgeInsetsMake(3, 0, -3, 0);
 }
 
-#pragma mark - UITabBarDelegate 
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    //当前选中viewController的下标
-    NSInteger shouldSelectIndex = -1;
-    NSArray* viewControllersArray = [tabBarController viewControllers];
-    
-    for (int i = 0 ; i<viewControllersArray.count ; i ++) {
-        if ([viewControllersArray objectAtIndex:i] == viewController) {
-            shouldSelectIndex = i;
-            
-            if (shouldSelectIndex == 2) {
-                //selectedIndex是上一个选中的页面
-                UINavigationController* firstNavVC = (UINavigationController*)[viewControllersArray objectAtIndex:tabBarController.selectedIndex];
-                MainViewController* vc = (MainViewController*)[firstNavVC.viewControllers objectAtIndex:0];
-                if (![BMUser isLogin]) { //未登录
-                    [vc pushLoginViewController];
-                    return NO;
-                }
-            }
-        }
-    }
-    return YES;
+- (void)brickButtonClick:(UIButton *)btn {
+    self.selectedIndex = 1;
 }
 
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    
+- (void)changeNavigation:(NSInteger)fromIndex to:(NSInteger)toIndex {
+    self.selectedIndex = toIndex;
+}
+
+- (MainViewController *)getMainViewController {
+    UINavigationController *nav = self.viewControllers[0];
+    MainViewController *vc = nav.viewControllers.firstObject;
+    return vc;
+}
+
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    self.tabBar.hidden = YES;
+    [_myTabBar removeFromSuperview];
+    [_centerView removeFromSuperview];
+        
+    // 调整tabbar的Y值
+    CGRect tabBarFrame = _myTabBar.frame;
+    CGRect centerViewFrame = _centerView.frame;
+    UIViewController *mainVC = navigationController.viewControllers.firstObject;
+    centerViewFrame.origin.y = mainVC.view.height -61;
+    tabBarFrame.origin.y = mainVC.view.height - kTabbarHeight;
+    _myTabBar.frame = tabBarFrame;
+        
+    _centerView.frame = centerViewFrame;
+        
+    //添加dock到根控制器界面
+    [mainVC.view addSubview:_myTabBar];
+    [mainVC.view addSubview:_centerView];
 }
 
 - (void)didReceiveMemoryWarning {
