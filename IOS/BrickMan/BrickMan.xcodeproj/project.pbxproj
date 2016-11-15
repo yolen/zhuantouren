@@ -184,6 +184,7 @@
 		30C5BB541D4210A8001DF9D2 /* BrickPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB531D4210A8001DF9D2 /* BrickPhotoCell.m */; };
 		30C5BB6C1D425699001DF9D2 /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB6A1D425699001DF9D2 /* MainTableViewCell.m */; };
 		30C5BB6D1D430C80001DF9D2 /* MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C5BB6A1D425699001DF9D2 /* MainTableViewCell.m */; };
+		30CA56321DDAA18E0071D8B1 /* del_cache@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CA56311DDAA18E0071D8B1 /* del_cache@2x.png */; };
 		30CC1F5F1D6FE22400A0DB80 /* BrickPhotoSingleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CC1F5E1D6FE22400A0DB80 /* BrickPhotoSingleCell.m */; };
 		30CC1F621D702C8600A0DB80 /* ChangeUserInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CC1F611D702C8600A0DB80 /* ChangeUserInfoController.m */; };
 		30CE65E71D6ED4A0004E5BAB /* BMAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65DE1D6ED4A0004E5BAB /* BMAttachment.m */; };
@@ -522,6 +523,7 @@
 		30C5BB531D4210A8001DF9D2 /* BrickPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickPhotoCell.m; sourceTree = "<group>"; };
 		30C5BB6A1D425699001DF9D2 /* MainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewCell.m; sourceTree = "<group>"; };
 		30C5BB6B1D425699001DF9D2 /* MainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewCell.h; sourceTree = "<group>"; };
+		30CA56311DDAA18E0071D8B1 /* del_cache@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "del_cache@2x.png"; sourceTree = "<group>"; };
 		30CC1F5D1D6FE22400A0DB80 /* BrickPhotoSingleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickPhotoSingleCell.h; sourceTree = "<group>"; };
 		30CC1F5E1D6FE22400A0DB80 /* BrickPhotoSingleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickPhotoSingleCell.m; sourceTree = "<group>"; };
 		30CC1F601D702C8600A0DB80 /* ChangeUserInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeUserInfoController.h; sourceTree = "<group>"; };
@@ -904,6 +906,7 @@
 				79ED80641DD754E000C011A5 /* feedback@3x.png */,
 				79ED806A1DD7583F00C011A5 /* red_package@2x.png */,
 				79ED806B1DD7583F00C011A5 /* red_package@3x.png */,
+				30CA56311DDAA18E0071D8B1 /* del_cache@2x.png */,
 				303CD41D1D7EA5140052CEAD /* about_icon@2x.png */,
 				303CD41E1D7EA5140052CEAD /* about_icon@3x.png */,
 				303CD4E51D7FB48E0052CEAD /* brick_nor@2x.png */,
@@ -1566,6 +1569,7 @@
 				303CD4C81D7EA5140052CEAD /* Introduce_0@2x.png in Resources */,
 				30353BB41D6557BE00A7D554 /* README.textile in Resources */,
 				303CD4E81D7FB48E0052CEAD /* brick_sel@2x.png in Resources */,
+				30CA56321DDAA18E0071D8B1 /* del_cache@2x.png in Resources */,
 				307CD3ED1DD9815B00B1B9F6 /* tabBar_bg@2x.png in Resources */,
 				303CD49A1D7EA5140052CEAD /* compose@3x.png in Resources */,
 				303CD4D11D7EA5140052CEAD /* loginbackground@3x.png in Resources */,

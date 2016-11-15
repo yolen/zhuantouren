@@ -10,7 +10,7 @@
 
 @interface Mine_titleCell()
 @property (strong, nonatomic) UIImageView *iconImageView;
-@property (strong, nonatomic) UILabel *titleLabel;
+@property (strong, nonatomic) UILabel *titleLabel, *contentLabel;
 @end
 
 @implementation Mine_titleCell
@@ -27,6 +27,14 @@
             _titleLabel.font = [UIFont systemFontOfSize:14];
             [self.contentView addSubview:_titleLabel];
         }
+        if (!_contentLabel) {
+            _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreen_Width - 80, 15, 50, 30)];
+            _contentLabel.textAlignment = NSTextAlignmentRight;
+            _contentLabel.textColor = [UIColor lightGrayColor];
+            _contentLabel.font = [UIFont systemFontOfSize:14];
+            _contentLabel.hidden = YES;
+            [self.contentView addSubview:_contentLabel];
+        }
     }
     return self;
 }
@@ -34,6 +42,13 @@
 - (void)setIconImage:(NSString *)imageStr withTitle:(NSString *)title {
     _iconImageView.image = [UIImage imageNamed:imageStr];
     _titleLabel.text = title;
+}
+
+- (void)setContent:(NSString *)content {
+    if (content) {
+        _contentLabel.hidden = NO;
+        _contentLabel.text = content;
+    }
 }
 
 + (CGFloat)cellHeight {

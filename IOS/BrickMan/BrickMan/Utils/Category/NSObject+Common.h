@@ -16,6 +16,8 @@
 + (void)showHudTipStr:(NSString *)tipStr;
 + (void)showSuccessMsg:(NSString *)success;
 + (void)showErrorMsg:(NSString *)error;
++ (instancetype)showHUDQueryStr:(NSString *)titleStr;
++ (NSUInteger)hideHUDQuery;
 - (id)handleResponse:(id)responseJSON autoShowError:(BOOL)autoShowError;
 
 #pragma mark - 缓存

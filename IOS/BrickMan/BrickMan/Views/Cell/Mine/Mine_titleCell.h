@@ -11,6 +11,8 @@
 
 @interface Mine_titleCell : UITableViewCell
 
+@property (strong, nonatomic) NSString *content;
+
 - (void)setIconImage:(NSString *)imageStr withTitle:(NSString *)title;
 + (CGFloat)cellHeight;
 @end

@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BrickMan/Utils/Category/NSObject+Common.m"
-            timestampString = "495885618.756862"
+            timestampString = "500868900.518042"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "+saveResponseData:toPath:"
             landmarkType = "7">
          </BreakpointContent>

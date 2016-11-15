@@ -11,6 +11,7 @@
 #import "RootTabBarController.h"
 
 #define kResponseCache_path  @"ResponseCache"
+#define kHUDQueryViewTag 101
 
 @implementation NSObject (Common)
 
@@ -45,6 +46,26 @@
     return hud;
 }
 
++ (instancetype)showHUDQueryStr:(NSString *)titleStr {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kKeyWindow animated:YES];
+    hud.tag = kHUDQueryViewTag;
+    hud.labelText = titleStr;
+    hud.labelFont = [UIFont boldSystemFontOfSize:14];
+    hud.margin = 10.f;
+    return hud;
+}
+
++ (NSUInteger)hideHUDQuery {
+    __block NSUInteger count = 0;
+    NSArray *huds = [MBProgressHUD allHUDsForView:kKeyWindow];
+    [huds enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
+        if (obj.tag == kHUDQueryViewTag) {
+            [obj removeFromSuperview];
+            count++;
+        }
+    }];
+    return count;
+}
 
 - (NSString *)tipFromError:(NSError *)error{
     if (error && error.userInfo) {

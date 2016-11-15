@@ -51,10 +51,10 @@
 }
 
 - (UIView *)customFooterView {
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 100)];
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 80)];
     
     UIButton *quitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    quitBtn.frame = CGRectMake(10, 50, kScreen_Width - 20, 35*SCALE);
+    quitBtn.frame = CGRectMake(10, 20, kScreen_Width - 20, 35*SCALE);
     quitBtn.layer.cornerRadius = 3.0;
     quitBtn.layer.masksToBounds = YES;
     quitBtn.backgroundColor = kNavigationBarColor;
@@ -72,7 +72,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : (section == 1 ? 3 : 2);
+    return section == 0 ? 1 : (section == 1 ? 3 : 3);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -101,8 +101,11 @@
                     [cell setIconImage:@"feedback" withTitle:@"反馈我们"];
                     break;
                 case 1:
-                    [cell setIconImage:@"about_icon" withTitle:@"关于我们"];
+                    [cell setIconImage:@"del_cache" withTitle:@"清除缓存"];
+                    cell.content = [self getSDImageCacheSize];
+                    break;
                 default:
+                    [cell setIconImage:@"about_icon" withTitle:@"关于我们"];
                     break;
             }
         }
@@ -151,7 +154,6 @@
                     viewController = flower;
                 }
                     break;
-                    
                 default:
                     break;
             }
@@ -165,11 +167,15 @@
                 }
                     break;
                 case 1: {
+                    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"是否清除缓存" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    sheet.tag = 1002;
+                    [sheet showInView:self.view];
+                }
+                    break;
+                default:{
                     AboutController *about = [[AboutController alloc]init];
                     viewController = about;
                 }
-                    break;
-                default:
                     break;
             }
         }
@@ -177,23 +183,42 @@
         default:
             break;
     }
-    [self.navigationController pushViewController:viewController animated:YES];
+    if (viewController) {
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
-#pragma mark - Btn Action
+#pragma mark - Action
 - (void)doQuitAction {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"是否退出登录" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"退出登录" otherButtonTitles:nil, nil];
+    sheet.tag = 1001;
     [sheet showInView:self.view];
+}
+
+- (NSString *)getSDImageCacheSize {
+    CGFloat tmpSize = [[SDImageCache sharedImageCache] getSize];
+    return [NSString stringWithFormat:@"%.1fM",tmpSize/1024/1024];
 }
 
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
-        [BMUser removeUserInfo];
-        RootTabBarController *tabBarVC = [RootTabBarController sharedInstance];
-        tabBarVC.selectedIndex = 0;
-        [tabBarVC.myTabBar changeTabBarToIndex:0];
-        [NSObject showSuccessMsg:@"退出成功"];
+        if (actionSheet.tag == 1001) {
+            [BMUser removeUserInfo];
+            RootTabBarController *tabBarVC = [RootTabBarController sharedInstance];
+            tabBarVC.selectedIndex = 0;
+            [tabBarVC.myTabBar changeTabBarToIndex:0];
+            [NSObject showSuccessMsg:@"退出成功"];
+        }else if(actionSheet.tag == 1002) {
+            [NSObject showHUDQueryStr:@"正在清除缓存..."];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+                    [NSObject hideHUDQuery];
+                    [NSObject showHudTipStr:@"清除缓存成功"];
+                    [self.myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:2]] withRowAnimation:UITableViewRowAnimationFade];
+                }];
+            });
+        }
     }
 }
 

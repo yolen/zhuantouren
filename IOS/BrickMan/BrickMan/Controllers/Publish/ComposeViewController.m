@@ -20,7 +20,7 @@
 #define PICTURE_COL_NUM 3
 #define PICTURE_WIDTH (kScreen_Width - (PICTURE_COL_NUM + 1) * PICTURE_MARGIN) / PICTURE_COL_NUM
 
-@interface ComposeViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,ComposePictureCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,TZImagePickerControllerDelegate,UIActionSheetDelegate, AMapLocationManagerDelegate>
+@interface ComposeViewController () <UITableViewDataSource, UITableViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,ComposePictureCellDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate,TZImagePickerControllerDelegate,UIActionSheetDelegate, AMapLocationManagerDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIPlaceHolderTextView *textView;
 @property (nonatomic, strong) UICollectionView *pictureView;
@@ -229,8 +229,9 @@
 
 #pragma mark - Actions
 - (void)returnHomeButtonAction {
-    [self.view endEditing:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.textView resignFirstResponder];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"退出此次编辑?" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    [alert show];
 }
 
 - (void)composeButtonAction {
@@ -261,7 +262,7 @@
             [[BrickManAPIManager shareInstance] requestAddContentWithParams:params andBlock:^(id data, NSError *error) {
                 [hud hide:YES];
                 if (data) {
-                    [weakSelf performSelector:@selector(dismiss) withObject:nil afterDelay:0.5];
+                    [weakSelf performSelector:@selector(dismissWithPublishSuccess) withObject:nil afterDelay:0.5];
                 }else {
                     [NSObject showError:error];
                 }
@@ -276,10 +277,22 @@
     
 }
 
-- (void)dismiss {
+- (void)dismissWithPublishSuccess {
     [NSObject showSuccessMsg:@"发布成功"];
     [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)dismissCurVC {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        [self performSelector:@selector(dismissCurVC) withObject:nil afterDelay:0.5];
+//        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - lazy loading
