@@ -20,7 +20,7 @@
 @property (strong, nonatomic) NSMutableArray *data;
 @property (strong, nonatomic) BMPage *page;
 /** 此条列表的发布人信息 */
-@property (nonatomic, strong) BMUser *userInfor;
+@property (nonatomic, strong) BMUser *user;
 
 + (BMContentList *)contentListlWithType:(NSInteger)type;
 
