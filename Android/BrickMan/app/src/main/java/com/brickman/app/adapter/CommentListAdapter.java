@@ -23,27 +23,31 @@ import java.util.List;
  */
 public class CommentListAdapter extends BaseQuickAdapter<CommentBean> {
     private BaseActivity mCtx;
-    public CommentListAdapter(BaseActivity ctx, int layoutResId, List<CommentBean> data) {
+    private boolean isfrompublish=false;
+    public CommentListAdapter(BaseActivity ctx,boolean isfrompublish, int layoutResId, List<CommentBean> data) {
         super(layoutResId, data);
         this.mCtx = ctx;
+        this.isfrompublish=isfrompublish;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, final CommentBean item) {
         Glide.with(mCtx).load(item.user.userHead).placeholder(R.mipmap.ic_launcher).centerCrop().crossFade().into((CircleImageView)helper.getView(R.id.avator));
-         helper.setOnClickListener(R.id.avator, new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent=new Intent(mCtx, PublishListActivity.class);
-                 intent.putExtra("title",item.user.userName+"的砖集");
-                 intent.putExtra("userId",item.user.userId);
-                 intent.putExtra("userName",item.user.userName);
-                 intent.putExtra("userHeader",item.user.userHead);
-                 intent.putExtra("desc",item.user.motto);
-
-                 mCtx.startActivityWithAnim(intent);
-             }
-         });
+        if (!isfrompublish) {
+            helper.setOnClickListener(R.id.avator, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mCtx, PublishListActivity.class);
+                    intent.putExtra("title", item.user.userName + "的砖集");
+                    intent.putExtra("userId", item.userId);
+                    intent.putExtra("userName", item.user.userName);
+                    intent.putExtra("userHeader", item.user.userHead);
+                    intent.putExtra("desc", item.user.motto);
+                    intent.putExtra("isfromdetail", true);
+                    mCtx.startActivityWithAnim(intent);
+                }
+            });
+        }
         helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
         helper.setText(R.id.nickName, TextUtils.isEmpty(item.user.userName) ? item.user.userAlias : item.user.userName);
         helper.setText(R.id.content, item.commentContent);

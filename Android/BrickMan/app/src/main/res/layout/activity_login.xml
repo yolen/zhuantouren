@@ -1,31 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:clipToPadding="false"
-    android:fitsSystemWindows="false"
+    android:background="@color/transparent"
+    android:orientation="vertical"
     tools:ignore="HardcodedText">
-
     <RelativeLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
+        android:layout_height="0dp"
+        android:background="@mipmap/bm_loginhead_bg">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-20dp"
-            android:scaleType="fitStart"
-            android:src="@mipmap/bm_launcher_01" />
+            android:orientation="vertical">
+        <View
+            android:id="@+id/padingtop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/close"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:background="@mipmap/bm_close"/>
+        </LinearLayout>
 
-        <com.brickman.app.module.widget.view.CircleImageView
+        <!--<com.brickman.app.module.widget.view.CircleImageView-->
+        <!--android:id="@+id/t1"-->
+        <!--android:layout_width="@dimen/dp_70"-->
+        <!--android:layout_height="@dimen/dp_70"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="@dimen/dp_60"-->
+        <!--android:src="@mipmap/ic_launcher" />-->
+        <TextView
+            android:text="@string/app_name"
             android:id="@+id/t1"
-            android:layout_width="@dimen/dp_70"
-            android:layout_height="@dimen/dp_70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_18"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_60"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_marginTop="@dimen/dp_80"/>
 
         <TextView
             android:id="@+id/t2"
@@ -53,6 +70,112 @@
             android:textStyle="normal"
             android:visibility="gone"/>
     </RelativeLayout>
+    <LinearLayout
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:background="@mipmap/bm_login_backgroud">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="3">
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="@dimen/dp_20"
+             android:layout_marginRight="@dimen/dp_20"
+             android:layout_marginTop="@dimen/dp_30"
+             android:orientation="horizontal"
+             android:padding="@dimen/dp_08"
+             android:background="@drawable/comment_edit_bg">
+             <ImageView
+                 android:src="@mipmap/bm_login_user_icon"
+                 android:layout_width="@dimen/dp_20"
+                 android:layout_height="@dimen/dp_20" />
+             <EditText
+                 android:id="@+id/username"
+                 android:background="@color/transparent"
+                 android:layout_width="match_parent"
+                 android:textSize="@dimen/sp_16"
+                 android:layout_marginLeft="@dimen/dp_05"
+                 android:layout_gravity="center"
+                 android:textColor="@color/text_color_dark"
+                 android:layout_height="match_parent" />
+         </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_08"
+                android:background="@drawable/comment_edit_bg">
+                <ImageView
+                    android:src="@mipmap/bm_logn_pwd_icon"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20" />
+
+                <EditText
+                    android:layout_marginLeft="@dimen/dp_05"
+                    android:id="@+id/password"
+                    android:background="@color/transparent"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_gravity="center"
+                    android:inputType="textPassword"
+                    android:textColor="@color/text_color_dark"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_login"
+                android:text="@string/login"
+                android:layout_width="match_parent"
+                android:textColor="@color/text_color_white"
+                android:textSize="@dimen/sp_18"
+                android:gravity="center"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal"
+                android:background="@drawable/login_submit_bg"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_05"
+                android:padding="@dimen/dp_05"
+                >
+                <TextView
+
+                    android:text="@string/register"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+
+                    android:text="@string/forgetpwd"
+                    android:textSize="@dimen/sp_14"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/text_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+        </LinearLayout>
+    <RelativeLayout
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fitsSystemWindows="false">
+
 
 
     <RelativeLayout
@@ -113,7 +236,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/rl"
-        android:layout_marginBottom="@dimen/dp_15"
+        android:layout_marginBottom="@dimen/dp_30"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -141,5 +264,6 @@
             android:layout_weight="1"
             android:background="@color/line" />
     </LinearLayout>
-
-</RelativeLayout>
+    </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.yolanda.nohttp.rest.Response;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -71,6 +72,26 @@ public class MainPresenter extends MainContract.Presenter {
                 mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
                 mView.dismissLoading();
                 mView.loadFailed(fragmentId);
+            }
+        });
+    }
+
+    @Override
+    public void loadMessageRemind(String token) {
+        mModel.loadMessageRemind(token, new HttpListener<JSONObject>() {
+            @Override
+            public void onSucceed(JSONObject response)  {
+                try {
+                    int no=response.getInt("body");
+                    mView.loadMRSuccess(no);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailed(int what, Response<JSONObject> response) {
+                   mView.showMsg("消息获取失败");
             }
         });
     }

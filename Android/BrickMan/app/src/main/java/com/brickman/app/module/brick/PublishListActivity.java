@@ -20,6 +20,7 @@ import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.utils.PhoneUtils;
 import com.brickman.app.contract.PublishListContract;
 import com.brickman.app.model.Bean.BrickBean;
+import com.brickman.app.model.Bean.UserBean;
 import com.brickman.app.model.PublishListModel;
 import com.brickman.app.module.widget.view.CircleImageView;
 import com.brickman.app.presenter.PublishListPresenter;
@@ -71,7 +72,9 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
     private String userId;
     public String userName;
     public String userHead;
+    public String userSex;
     public String motto1=null;
+    public boolean isfromdetail=false;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_publish_list;
@@ -87,7 +90,8 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
         userId = getIntent().getStringExtra("userId");
         userName = getIntent().getStringExtra("userName");
         userHead = getIntent().getStringExtra("userHeader");
-        motto1=getIntent().getStringExtra("desc");
+
+//        isfromdetail=getIntent().getBooleanExtra("isfromdetail",false);
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,20 +122,23 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
             }
         });
         mAdapter.openLoadMore(0, false);
-        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(PublishListActivity.this, BrickDetailActivity.class);
-                BrickBean.UsersBean usersBean = new BrickBean.UsersBean();
-                usersBean.userId = userId;
-                usersBean.userName = userName;
-                usersBean.userHead = userHead;
-                BrickBean item = mData.get(position);
-                item.users = usersBean;
-                intent.putExtra("item", item);
-                startActivityWithAnim(intent);
-            }
-        });
+        if (!isfromdetail) {
+            mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Intent intent = new Intent(PublishListActivity.this, BrickDetailActivity.class);
+                    BrickBean.UsersBean usersBean = new BrickBean.UsersBean();
+                    usersBean.userId = userId;
+                    usersBean.userName = userName;
+                    usersBean.userHead = userHead;
+                    BrickBean item = mData.get(position);
+                    item.users = usersBean;
+                    intent.putExtra("item", item);
+                    intent.putExtra("isFromPublish",true);
+                    startActivityWithAnim(intent);
+                }
+            });
+        }
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
@@ -155,13 +162,18 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
         mPtr.setLastUpdateTimeRelateObject(this);
         mPresenter.loadBrickList(userId, mPageNo);
         setPaddingheight();
-        initData();
+
     }
 
     @Override
-    public void loadSuccess(List<BrickBean> brickList, int pageSize, boolean hasMore) {
+    public void loadSuccess(List<BrickBean> brickList, UserBean userBean, int pageSize, boolean hasMore) {
         this.hasMore = hasMore;
         if (mPageNo == 1) {
+            userHead=userBean.userHead;
+            userName=userBean.userName;
+            userSex=userBean.getUserSex();
+            motto1=userBean.motto;
+            initData();
             mPtr.refreshComplete();
             mData = brickList;
             mAdapter.setNewData(mData);
@@ -197,10 +209,10 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
 
     }
     private void initData() {
-        if (MApplication.mAppContext.mUser != null) {
+
             Glide.with(this).load(userHead).diskCacheStrategy(DiskCacheStrategy.ALL).into(avator);
             name.setText(userName);
-            if (sex.equals("男")){
+            if (userSex.equals("男")){
                 sex.setImageResource(R.mipmap.man);
             }else {
                 sex.setImageResource(R.mipmap.woman);
@@ -212,11 +224,6 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
             }else {
             desc.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.motto) ? "他的格言就是没有格言!!!" : MApplication.mAppContext.mUser.motto);
             }
-        } else {
-            Glide.with(this).load(R.mipmap.ic_launcher).into(avator);
-            name.setText("未登录");
-            desc.setText("路见不平,拔刀相助");
-        }
 //        logout.setText(MApplication.mAppContext.mUser != null ? "退出登录" : "点击登录");
     }
 }

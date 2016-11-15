@@ -13,8 +13,8 @@ import com.brickman.app.contract.LoginContract;
 public class LoginModel implements LoginContract.Model {
     @Override
     public void login(String name, String pass, HttpListener httpListener) {
-        RequestParam param = ParamBuilder.buildParam("name", name).append("pwd", pass);
-        RequestHelper.sendPOSTRequest(false, Api.BASE_URL, param, httpListener);
+        RequestParam param = ParamBuilder.buildParam("userName", name).append("userPwd", pass);
+        RequestHelper.sendPOSTRequest(false, Api.LOGIN, param, httpListener);
     }
 
     @Override

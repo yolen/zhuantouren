@@ -109,6 +109,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
     private boolean isOperation;
 
     private boolean isAllow = true;
+    private boolean isFromPublish=false;
 
     @Override
     protected int getLayoutId() {
@@ -120,9 +121,10 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
         super.onCreate(savedInstanceState);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
+        isFromPublish=getIntent().getBooleanExtra("isFromPublish",false);
         setSupportActionBar(toolbar);
         brickBean = (BrickBean) getIntent().getSerializableExtra("item");
-        mAdapter = new CommentListAdapter(this, R.layout.item_comment, mData);
+        mAdapter = new CommentListAdapter(this,isFromPublish, R.layout.item_comment, mData);
         View loadingView = this.getLayoutInflater().inflate(R.layout.loading_more_view, (ViewGroup) mRecyclerView.getParent(), false);
         mAdapter.setLoadingView(loadingView);
         headerView = this.getLayoutInflater().inflate(R.layout.header_detail, (ViewGroup) mRecyclerView.getParent(), false);
@@ -202,24 +204,27 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
                 }
             }
         });
-        avator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BrickDetailActivity.this, PublishListActivity.class);
-                if (MApplication.mAppContext.mUser != null &&
-                        MApplication.mAppContext.mUser.userId.equals(brickBean.users.userId)) {
-                    intent.putExtra("title", getResources().getString(R.string.my_bricks));
-                } else {
-                    intent.putExtra("title", !TextUtils.isEmpty(brickBean.users.userName) ? brickBean.users.userName :
+        if (!isFromPublish) {
+            avator.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(BrickDetailActivity.this, PublishListActivity.class);
+                    if (MApplication.mAppContext.mUser != null &&
+                            MApplication.mAppContext.mUser.userId.equals(brickBean.users.userId)) {
+                        intent.putExtra("title", getResources().getString(R.string.my_bricks));
+                    } else {
+                        intent.putExtra("title", !TextUtils.isEmpty(brickBean.users.userName) ? brickBean.users.userName :
+                                brickBean.users.userAlias);
+                    }
+                    intent.putExtra("userName", !TextUtils.isEmpty(brickBean.users.userName) ? brickBean.users.userName :
                             brickBean.users.userAlias);
+                    intent.putExtra("userHeader", brickBean.users.userHead);
+                    intent.putExtra("userId", brickBean.userId);
+                    intent.putExtra("isfromdetail", true);
+                    startActivityWithAnim(intent);
                 }
-                intent.putExtra("userName", !TextUtils.isEmpty(brickBean.users.userName) ? brickBean.users.userName :
-                        brickBean.users.userAlias);
-                intent.putExtra("userHeader", brickBean.users.userHead);
-                intent.putExtra("userId", brickBean.userId);
-                startActivityWithAnim(intent);
-            }
-        });
+            });
+        }
     }
 
     private void initData(){

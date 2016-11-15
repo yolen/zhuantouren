@@ -121,6 +121,10 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
 
         // 自动检查更新
         UpdateChecker.checkForDialog(this, Api.APP_UPDATE_SERVER_URL, false);
+        if (MApplication.mAppContext.mUser!=null) {
+            if (MApplication.mAppContext.mUser.token!=null)
+            mPresenter.loadMessageRemind(MApplication.mAppContext.mUser.token);
+        }
     }
 
     @Override
@@ -159,9 +163,10 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
 //            }
         } else if (resultCode == RESULT_OK && requestCode == 1002) {
             // 发布返回刷新
+            mTabHost.setCurrentTab(0);
             ArrayList<Fragment> list = (ArrayList<Fragment>) ((HomeFragment) mTabManager.getTab(tabNames[0]).getFragment()).fragments;
             ((BrickListFragment)list.get(0)).reload();
-        }else if (requestCode==REQUEST_CODE&&requestCode==1003){
+        }else if (requestCode==RESULT_OK&&requestCode==1003){
             // 消息返回刷新
             messageIcon.setImageResource(R.mipmap.bm_nonemessage);
         }
@@ -170,6 +175,15 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
     @Override
     public void showMsg(String msg) {
         showToast(msg);
+    }
+
+    @Override
+    public void loadMRSuccess(int messageSum) {
+        if (messageSum>=1){
+            messageIcon.setImageResource(R.mipmap.bm_message);
+        }else {
+            messageIcon.setImageResource(R.mipmap.bm_nonemessage);
+        }
     }
 
     @Override

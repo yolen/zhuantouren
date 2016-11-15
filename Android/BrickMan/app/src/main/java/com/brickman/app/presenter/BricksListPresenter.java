@@ -10,6 +10,7 @@ import com.yolanda.nohttp.rest.Response;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,8 +23,14 @@ public class BricksListPresenter extends BricksListContract.Presenter {
             @Override
             public void onSucceed(JSONObject response) {
                 if(HttpUtil.isSuccess(response)){
-                    List<BricksBean> brickList = new Gson().fromJson(response.optJSONArray("body").toString(), new TypeToken<List<BricksBean>>(){}.getType());
-                    mView.loadSuccess(brickList);
+                    List<BricksBean> brickList =new ArrayList<BricksBean>();
+                    if (response.optJSONArray("body")!=null) {
+                            brickList = new Gson().fromJson(response.optJSONArray("body").toString(), new TypeToken<List<BricksBean>>() {
+                        }.getType());
+                        mView.loadSuccess(brickList);
+                    }else {
+                        mView.loadSuccess(brickList);
+                    }
                 } else {
                     mView.showMsg(response.optString("body"));
                 }

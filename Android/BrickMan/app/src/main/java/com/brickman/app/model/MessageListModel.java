@@ -2,7 +2,11 @@ package com.brickman.app.model;
 
 import android.support.annotation.NonNull;
 
+import com.brickman.app.common.base.Api;
 import com.brickman.app.common.http.HttpListener;
+import com.brickman.app.common.http.RequestHelper;
+import com.brickman.app.common.http.param.ParamBuilder;
+import com.brickman.app.common.http.param.RequestParam;
 import com.brickman.app.contract.MessageContract;
 
 import org.json.JSONObject;
@@ -18,34 +22,13 @@ import java.util.ListIterator;
  */
 
 public class MessageListModel implements MessageContract.Model{
-    private List<String> list=new ArrayList<>();
-    public MessageListModel(){
 
-        for (int i=0;i<50;i++){
-            list.add("我是第"+i+"条数据");
-        }
-    }
+
     @Override
-    public void loadMessageList( int pageNO, HttpListener httpListener) {
-        List<String> data=null;
-        switch (pageNO){
-            case 1:
-              data=list.subList(0,10);
-                break;
-            case 2:
-                data=list.subList(10,20);
-                break;
-            case 3:
-                data=list.subList(20,30);
-                break;
-            case 4:
-                data=list.subList(30,40);
-                break;
-            case 5:
-                data=list.subList(40,50);
-                break;
-        }
-        httpListener.onSucceed(data);
+    public void loadMessageList( int pageNO, String token,HttpListener httpListener) {
+        RequestParam params = ParamBuilder.buildParam("token", token );
+        RequestHelper.sendGETRequest(true, Api.GET_MESSSAGELIST, params, httpListener);
+
     }
 
 }

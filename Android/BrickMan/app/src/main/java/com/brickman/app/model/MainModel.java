@@ -32,4 +32,10 @@ public class MainModel implements MainContract.Model {
             RequestHelper.sendGETRequest(true, Api.GET_BRICKLIST, param, httpListener);
         }
     }
+
+    @Override
+    public void loadMessageRemind(String token,HttpListener httpListener) {
+        RequestParam params = ParamBuilder.buildParam("token", token );
+        RequestHelper.sendGETRequest(true, Api.FLUSH_MESSAGE, params, httpListener);
+    }
 }

@@ -108,7 +108,7 @@
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
             android:name=".module.brick.BrickDetailActivity"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
 
