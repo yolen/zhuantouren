@@ -18,11 +18,12 @@
 #import <MJRefresh/MJRefresh.h>
 #import "ShareView.h"
 
-@interface DetailBrickViewController()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
+@interface DetailBrickViewController()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate,UITextViewDelegate>
 @property(strong, nonatomic) UITableView *myTableView;
 @property (strong, nonatomic) CommentInputView *inputView;
 
 @property (strong, nonatomic) BMCommentList *commentList;
+@property (assign, nonatomic) CGFloat oldTextViewHeight;
 @end
 
 @implementation DetailBrickViewController
@@ -34,6 +35,7 @@
     self.commentList = [[BMCommentList alloc] init];
     BMAttachment *attachment = self.model.brickContentAttachmentList[0];
     self.commentList.contentId = [attachment.contentId stringValue];
+    _oldTextViewHeight = 33;
     
     self.myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.myTableView.dataSource = self;
@@ -48,10 +50,12 @@
     [self.myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+    
+    //inputView
     self.inputView = [CommentInputView getInputView];
+    self.inputView.inputTextView.delegate = self;
     __weak typeof(self) weakSelf = self;
     self.inputView.sendCommentBlock = ^(){
-        [weakSelf.inputView.inputTextView resignFirstResponder];
         [weakSelf commentAction];
     };
     self.inputView.updateInputViewHeight = ^(CGFloat heightToBottom){
@@ -61,6 +65,9 @@
             weakSelf.myTableView.contentInset = contentInsets;
         } completion:nil];
     };
+    [self.view addSubview:self.inputView];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardChange:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
     
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
     header.automaticallyChangeAlpha = YES;
@@ -71,20 +78,12 @@
     [footer setTitle:@"暂无更多评论" forState:MJRefreshStateNoMoreData];
     self.myTableView.mj_footer = footer;
     
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditAction)];
+//    tap.cancelsTouchesInView = NO;
+//    [self.view addGestureRecognizer:tap];
+    
     [self requestForDetailContent];
 //    [self refresh];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self.inputView p_show];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [self.inputView p_dismiss];
 }
 
 #pragma mark - Refresh
@@ -128,9 +127,10 @@
     [[BrickManAPIManager shareInstance] requestDetailContentWithParams:@{@"contentId" : [self.contentId stringValue]} andBlock:^(id data, NSError *error) {
         if (data) {
             weakSelf.model = data;
-            weakSelf.commentList.contentId = [weakSelf.model.id stringValue];
-            weakSelf.commentList.data = (NSMutableArray *)weakSelf.model.brickContentCommentList;
             [weakSelf.myTableView reloadData];
+            
+            weakSelf.commentList.contentId = [weakSelf.model.id stringValue];
+            [self refresh];
         }
     }];
 }
@@ -222,7 +222,66 @@
     }
 }
 
-#pragma mark - Comment
+#pragma mark - UITextViewDelegate
+- (void)textViewDidChange:(UITextView *)textView {
+    CGFloat height = textView.contentSize.height;
+    if (height != _oldTextViewHeight) {
+        CGFloat maxHeight = 100;
+        height = MIN(maxHeight, height);
+        CGFloat diffHeight = height - _oldTextViewHeight;
+        
+        if (ABS(diffHeight) > 0.1) {
+            CGRect newFrame = self.inputView.frame;
+            newFrame.size.height += diffHeight;
+            newFrame.origin.y -= diffHeight;
+            
+            [UIView animateWithDuration:0.3 animations:^{
+                [self.inputView setFrame:newFrame];
+                self.inputView.inputTextView.height = height;
+            }];
+            [self.inputView.inputTextView setContentOffset:CGPointZero animated:YES];
+            _oldTextViewHeight = textView.contentSize.height;
+        }
+    }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [self.inputView.inputTextView resignFirstResponder];
+        [self commentAction];
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark - keyboard
+- (void)keyboardChange:(NSNotification *)notification {
+    if ([self.inputView.inputTextView isFirstResponder]) {
+        NSDictionary* userInfo = [notification userInfo];
+        CGRect keyboardEndFrame = [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        CGFloat keyboardY =  keyboardEndFrame.origin.y - 64;
+        CGFloat selfOriginY = keyboardY - (_oldTextViewHeight == 33 ? 50 :_oldTextViewHeight + 17);
+        
+        if (selfOriginY == self.inputView.frame.origin.y) {
+            return;
+        }
+        __weak typeof(self) weakSelf = self;
+        void (^endFrameBlock)() = ^(){
+            [weakSelf.inputView setY:selfOriginY];
+        };
+        if ([notification name] == UIKeyboardWillChangeFrameNotification) {
+            NSTimeInterval animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+            UIViewAnimationCurve animationCurve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] intValue];
+            [UIView animateWithDuration:animationDuration delay:0.0f options:[self animationOptionsForCurve:animationCurve] animations:^{
+                endFrameBlock();
+            } completion:nil];
+        }else{
+            endFrameBlock();
+        }
+    }
+}
+
+#pragma mark - Action
 - (void)commentAction {
     if (![BMUser isLogin]) {
         LoginViewController *loginVC = [[LoginViewController alloc] init];
@@ -237,14 +296,14 @@
     MainTableViewCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     NSString *userId = [BMUser getUserModel].userId;
-    BMAttachment *attachModel = self.model.brickContentAttachmentList[0];
     NSDictionary *info = @{@"userId" : userId,
-                           @"contentId" : [attachModel.contentId stringValue],
+                           @"contentId" : [self.model.id stringValue],
                            @"commentContent" : self.inputView.inputTextView.text};
     __weak typeof(self) weakSelf = self;
     [[BrickManAPIManager shareInstance] requestAddCommentWithParams:info andBlock:^(id data, NSError *error) {
-        weakSelf.inputView.inputTextView.text = @"";
         if (data) {
+            [weakSelf.inputView resignCommentInputViewWithCompletion:nil];
+            
             [weakSelf refresh];
             [cell.commentBtn setTitle:[NSString stringWithFormat:@"评论 %ld",(long)(self.model.commentCount.integerValue + 1)] forState:UIControlStateNormal];
             [cell.commentBtn setImage: [UIImage imageNamed:@"comment_sel"] forState:UIControlStateNormal];
@@ -267,5 +326,31 @@
     }];
 }
 
+- (void)endEditAction {
+    if ([self.inputView.inputTextView isFirstResponder]) {
+        [self.inputView.inputTextView resignFirstResponder];
+        self.inputView.inputTextView.placeholder = @"你怎么看?";
+    }
+}
+
+#pragma mark - Others
+- (UIViewAnimationOptions)animationOptionsForCurve:(UIViewAnimationCurve)curve {
+    switch (curve) {
+        case UIViewAnimationCurveEaseInOut:
+            return UIViewAnimationOptionCurveEaseInOut;
+            break;
+        case UIViewAnimationCurveEaseIn:
+            return UIViewAnimationOptionCurveEaseIn;
+            break;
+        case UIViewAnimationCurveEaseOut:
+            return UIViewAnimationOptionCurveEaseOut;
+            break;
+        case UIViewAnimationCurveLinear:
+            return UIViewAnimationOptionCurveLinear;
+            break;
+    }
+    
+    return kNilOptions;
+}
 
 @end

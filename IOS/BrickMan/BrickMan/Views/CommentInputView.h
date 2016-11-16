@@ -17,4 +17,7 @@
 + (CommentInputView *)getInputView;
 - (void)p_show;
 - (void)p_dismiss;
+
+- (void)resignCommentInputViewWithCompletion:(void (^ __nullable)(BOOL finished))complection;
+
 @end
