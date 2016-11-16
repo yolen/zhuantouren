@@ -8,9 +8,13 @@
 
 #import "BrickManAPIManager.h"
 #import "BrickManNetClient.h"
+#import "YYModel.h"
+
+#import "BMContent.h"
 #import "BMCommentList.h"
 #import "Mine_BrickModel.h"
-#import "YYModel.h"
+#import "Notify.h"
+
 #define CustomErrorDomain @"com.zhuantouren.error"
 
 @implementation BrickManAPIManager
@@ -38,9 +42,15 @@
     }];
 }
 
-//TODO :
 - (void)requestDetailContentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block { //获取内容详情
-    
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/content/detail_content.json" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
+        if (data) {
+            BMContent *model = [BMContent yy_modelWithJSON:data];
+            block(model, nil);
+        }else {
+            block(nil, error);
+        }
+    }];
 }
 
 - (void)requestOperContentWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block { //送鲜花、拍砖、举报
@@ -80,6 +90,27 @@
         if (data) {
             BMContentList *model = [BMContentList yy_modelWithJSON:data];
             block(model, nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
+
+- (void)requestRemindWithParams:(NSDictionary *)params andBlock:(void(^)(id data, NSError *error))block { //刷新消息
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/notify/pull_remind.do" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
+        if (data) {
+            block(data,nil);
+        }else {
+            block(nil,error);
+        }
+    }];
+}
+
+- (void)requestUserNotifyWithParams:(NSDictionary *)params andBlock:(void(^)(id data, NSError *error))block { //用户消息列内容
+    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/notify/user_notify_list.do" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
+        if (data) {
+            NSArray *array = [NSArray yy_modelArrayWithClass:[Notify class] json:data];
+            block(array,nil);
         }else {
             block(nil,error);
         }

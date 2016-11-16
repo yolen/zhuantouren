@@ -8,7 +8,7 @@
 
 #import "RootTabBarController.h"
 #import "BaseNavigationController.h"
-#import "AdvertisementViewController.h"
+#import "PublishViewController.h"
 #import "MineViewController.h"
 
 @interface RootTabBarController ()<UINavigationControllerDelegate,CustomTabBarDelegate>
@@ -53,13 +53,14 @@
     UINavigationController *mainNav = [[BaseNavigationController alloc]initWithRootViewController:mainVC];
     mainVC.title = @"砖集";
 
-    AdvertisementViewController *adverVC = [[AdvertisementViewController alloc] init];
-    UINavigationController *adverNav = [[BaseNavigationController alloc]initWithRootViewController:adverVC];
+    PublishViewController *publishVC = [[PublishViewController alloc] init];
+    UINavigationController *publishNav = [[BaseNavigationController alloc]initWithRootViewController:publishVC];
+    publishVC.title = @"发布";
     
     MineViewController *meVC = [[MineViewController alloc] init];
     UINavigationController *meNav = [[BaseNavigationController alloc]initWithRootViewController:meVC];
     meVC.title = @"我的";
-    self.viewControllers = @[mainNav,adverNav,meNav];
+    self.viewControllers = @[mainNav,publishNav,meNav];
     
     for (UINavigationController *navVC in self.viewControllers) {
         navVC.delegate = self;

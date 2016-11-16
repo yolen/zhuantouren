@@ -20,6 +20,8 @@
 - (void)requestAdvertisementWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestAddShareCountWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestContentByCommentWithObj:(BMContentList *)contentList andBlock:(void(^)(id data, NSError *error))block;
+- (void)requestRemindWithParams:(NSDictionary *)params andBlock:(void(^)(id data, NSError *error))block;
+- (void)requestUserNotifyWithParams:(NSDictionary *)params andBlock:(void(^)(id data, NSError *error))block;
 
 //评论
 - (void)requestCommentListWithObj:(id)contentList andBlock:(void(^)(id data, NSError *error))block;

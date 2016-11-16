@@ -135,8 +135,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     DetailBrickViewController *vc = [[DetailBrickViewController alloc] init];
     vc.comeFromGallery = YES; // 标记下一个详情页面是由`砖集`页面来的,将不能再次显示`砖集`页面
-    vc.model = self.contentList.data[indexPath.row];
-    vc.model.user = vc.model.user ? vc.model.user : self.contentList.userInfor;
+    BMContent *content = self.contentList.data[indexPath.row];
+    vc.contentId = content.id;
+    vc.model.user = content.user ? content.user : self.contentList.userInfor;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

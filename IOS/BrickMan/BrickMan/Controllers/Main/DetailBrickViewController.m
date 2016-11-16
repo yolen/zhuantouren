@@ -21,6 +21,7 @@
 @interface DetailBrickViewController()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 @property(strong, nonatomic) UITableView *myTableView;
 @property (strong, nonatomic) CommentInputView *inputView;
+
 @property (strong, nonatomic) BMCommentList *commentList;
 @end
 
@@ -70,7 +71,8 @@
     [footer setTitle:@"暂无更多评论" forState:MJRefreshStateNoMoreData];
     self.myTableView.mj_footer = footer;
     
-    [self refresh];
+    [self requestForDetailContent];
+//    [self refresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -121,6 +123,18 @@
     }];
 }
 
+- (void)requestForDetailContent {
+    __weak typeof(self) weakSelf = self;
+    [[BrickManAPIManager shareInstance] requestDetailContentWithParams:@{@"contentId" : [self.contentId stringValue]} andBlock:^(id data, NSError *error) {
+        if (data) {
+            weakSelf.model = data;
+            weakSelf.commentList.contentId = [weakSelf.model.id stringValue];
+            weakSelf.commentList.data = (NSMutableArray *)weakSelf.model.brickContentCommentList;
+            [weakSelf.myTableView reloadData];
+        }
+    }];
+}
+
 #pragma mark - tableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -163,10 +177,10 @@
                 [weakSelf.navigationController pushViewController:galleryVc animated:YES];
             };
         }
-//        cell.commentBlock = ^(){
-//            [weakSelf.inputView becomeFirstResponder];
-//            
-//        };
+        //        cell.commentBlock = ^(){
+        //            [weakSelf.inputView becomeFirstResponder];
+        //
+        //        };
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:0 hasSectionLine:NO];
         return cell;
     }else {

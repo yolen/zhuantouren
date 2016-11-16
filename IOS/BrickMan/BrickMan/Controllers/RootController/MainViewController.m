@@ -11,6 +11,7 @@
 #import "DetailBrickViewController.h"
 #import "LoginViewController.h"
 #import "GalleryController.h"
+#import "UserNotifyViewController.h"
 
 #import "MainTableViewCell.h"
 #import "XTSegmentControl.h"
@@ -65,11 +66,15 @@
         make.top.equalTo(self.view.top);
         make.bottom.equalTo(self.view.mas_bottom).offset(-5);
     }];
-    
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"compose"] style:UIBarButtonItemStylePlain target:self action:@selector(composeAction:)];
-    self.navigationItem.rightBarButtonItem = rightItem;
-    
     [self requestForBannder];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if ([BMUser isLogin]) {
+        [self requestForRemind];
+    }
 }
 
 - (UIView *)tableViewHeader {
@@ -118,7 +123,7 @@
     __weak typeof(self) weakSelf = self;
     brickListView.goToDetailBlock = ^(BMContent *model){
         DetailBrickViewController *vc = [[DetailBrickViewController alloc] init];
-        vc.model = model;
+        vc.contentId = model.id;
         [weakSelf.navigationController pushViewController:vc animated:YES];
     };
     brickListView.goToGalleryBlock = ^(BMContent *model){
@@ -154,9 +159,31 @@
         [self pushLoginViewController];
         return;
     }
-    ComposeViewController *publishVC = [[ComposeViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:publishVC];
-    [self presentViewController:nav animated:YES completion:nil];
+    UserNotifyViewController *notifyVC = [[UserNotifyViewController alloc] init];
+    [self.navigationController pushViewController:notifyVC animated:YES];
+//    ComposeViewController *publishVC = [[ComposeViewController alloc] init];
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:publishVC];
+//    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (void)requestForRemind {
+    [[BrickManAPIManager shareInstance] requestRemindWithParams:nil andBlock:^(id data, NSError *error) {
+        NSNumber *countNum = (NSNumber *)data;
+        if (countNum.integerValue > 0) {
+            [self setRightBarButtonItemWithImage:@"message"];
+        }else {
+            [self setRightBarButtonItemWithImage:nil];
+        }
+    }];
+}
+
+- (void)setRightBarButtonItemWithImage:(NSString *)imageStr {
+    if (imageStr) {
+        UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:imageStr] style:UIBarButtonItemStylePlain target:self action:@selector(composeAction:)];
+        self.navigationItem.rightBarButtonItem = rightItem;
+    }else{
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

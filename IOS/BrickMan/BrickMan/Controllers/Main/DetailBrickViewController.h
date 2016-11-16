@@ -13,6 +13,6 @@
 @property (nonatomic, assign, getter=isComeFromeGallery) BOOL comeFromGallery;
 
 @property (strong, nonatomic) BMContent *model;
-
+@property (strong, nonatomic) NSNumber *contentId;
 @end
 

@@ -19,6 +19,8 @@
 		30041D031DDAAE95004F3666 /* Introduce_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 30041CFE1DDAAE95004F3666 /* Introduce_3.png */; };
 		30041D041DDAAE95004F3666 /* Introduce_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 30041CFF1DDAAE95004F3666 /* Introduce_4.png */; };
 		30041D081DDAB3A9004F3666 /* SMPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 30041D071DDAB3A9004F3666 /* SMPageControl.m */; };
+		30041D0B1DDAE31F004F3666 /* message@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30041D091DDAE31F004F3666 /* message@2x.png */; };
+		30041D121DDAECD3004F3666 /* UserNotifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30041D111DDAECD3004F3666 /* UserNotifyViewController.m */; };
 		302114A11D781B18004FFF36 /* BMStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 302114A01D781B18004FFF36 /* BMStartView.m */; };
 		302114A71D782AB3004FFF36 /* StartImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 302114A61D782AB3004FFF36 /* StartImageManager.m */; };
 		302114AD1D79102A004FFF36 /* AutoScrollBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 302114AC1D79102A004FFF36 /* AutoScrollBannerView.m */; };
@@ -192,6 +194,10 @@
 		30CE65EB1D6ED4A0004E5BAB /* BMUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65E61D6ED4A0004E5BAB /* BMUser.m */; };
 		30CE65F11D6ED5A1004E5BAB /* BMCommentList.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65F01D6ED5A1004E5BAB /* BMCommentList.m */; };
 		30CE65F41D6ED5BB004E5BAB /* BMComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CE65F31D6ED5BB004E5BAB /* BMComment.m */; };
+		30CF464B1DDB00FB00325C14 /* Notify.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF464A1DDB00FB00325C14 /* Notify.m */; };
+		30CF464E1DDB04E600325C14 /* PublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF464D1DDB04E600325C14 /* PublishViewController.m */; };
+		30CF46511DDC075400325C14 /* publish_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CF464F1DDC075400325C14 /* publish_bg@2x.png */; };
+		30CF46521DDC075400325C14 /* publish_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30CF46501DDC075400325C14 /* publish_btn@2x.png */; };
 		30DB870B1DD552EB008ADE9F /* STCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DB87041DD552EB008ADE9F /* STCollectionView.m */; };
 		30DB870C1DD552EB008ADE9F /* STHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DB87061DD552EB008ADE9F /* STHeaderView.m */; };
 		30DB870D1DD552EB008ADE9F /* SwipeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DB87081DD552EB008ADE9F /* SwipeTableView.m */; };
@@ -200,6 +206,7 @@
 		30F61C521D9A433A00B4E613 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F61C511D9A433A00B4E613 /* RegisterViewController.m */; };
 		30F91D641D3DCC1F007D9BDB /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F91D631D3DCC1F007D9BDB /* UIViewExt.m */; };
 		30F91D761D3DE8F3007D9BDB /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */; };
+		30FA91431DDAF9E60066706F /* NotifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FA91421DDAF9E60066706F /* NotifyCell.m */; };
 		377BDB3E1DD5857E00E9E29E /* zhuanji_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 377BDB3C1DD5857E00E9E29E /* zhuanji_bg@2x.png */; };
 		377BDB3F1DD5857E00E9E29E /* zhuanji_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 377BDB3D1DD5857E00E9E29E /* zhuanji_bg@3x.png */; };
 		37C7F9C61DD5BF1200B1AF7D /* BMGalleryTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C7F9C51DD5BF1200B1AF7D /* BMGalleryTableHeaderView.m */; };
@@ -291,6 +298,9 @@
 		30041CFF1DDAAE95004F3666 /* Introduce_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Introduce_4.png; sourceTree = "<group>"; };
 		30041D061DDAB3A9004F3666 /* SMPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMPageControl.h; sourceTree = "<group>"; };
 		30041D071DDAB3A9004F3666 /* SMPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMPageControl.m; sourceTree = "<group>"; };
+		30041D091DDAE31F004F3666 /* message@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "message@2x.png"; sourceTree = "<group>"; };
+		30041D101DDAECD3004F3666 /* UserNotifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserNotifyViewController.h; sourceTree = "<group>"; };
+		30041D111DDAECD3004F3666 /* UserNotifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserNotifyViewController.m; sourceTree = "<group>"; };
 		3021149F1D781B18004FFF36 /* BMStartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMStartView.h; sourceTree = "<group>"; };
 		302114A01D781B18004FFF36 /* BMStartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMStartView.m; sourceTree = "<group>"; };
 		302114A51D782AB3004FFF36 /* StartImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartImageManager.h; sourceTree = "<group>"; };
@@ -539,6 +549,12 @@
 		30CE65F01D6ED5A1004E5BAB /* BMCommentList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCommentList.m; sourceTree = "<group>"; };
 		30CE65F21D6ED5BB004E5BAB /* BMComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMComment.h; sourceTree = "<group>"; };
 		30CE65F31D6ED5BB004E5BAB /* BMComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMComment.m; sourceTree = "<group>"; };
+		30CF46491DDB00FB00325C14 /* Notify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notify.h; sourceTree = "<group>"; };
+		30CF464A1DDB00FB00325C14 /* Notify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notify.m; sourceTree = "<group>"; };
+		30CF464C1DDB04E600325C14 /* PublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishViewController.h; sourceTree = "<group>"; };
+		30CF464D1DDB04E600325C14 /* PublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishViewController.m; sourceTree = "<group>"; };
+		30CF464F1DDC075400325C14 /* publish_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "publish_bg@2x.png"; sourceTree = "<group>"; };
+		30CF46501DDC075400325C14 /* publish_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "publish_btn@2x.png"; sourceTree = "<group>"; };
 		30DB87031DD552EB008ADE9F /* STCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STCollectionView.h; sourceTree = "<group>"; };
 		30DB87041DD552EB008ADE9F /* STCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STCollectionView.m; sourceTree = "<group>"; };
 		30DB87051DD552EB008ADE9F /* STHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STHeaderView.h; sourceTree = "<group>"; };
@@ -555,6 +571,8 @@
 		30F91D631D3DCC1F007D9BDB /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		30F91D741D3DE8F3007D9BDB /* UIImage+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Common.h"; sourceTree = "<group>"; };
 		30F91D751D3DE8F3007D9BDB /* UIImage+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Common.m"; sourceTree = "<group>"; };
+		30FA91411DDAF9E60066706F /* NotifyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyCell.h; sourceTree = "<group>"; };
+		30FA91421DDAF9E60066706F /* NotifyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotifyCell.m; sourceTree = "<group>"; };
 		377BDB3C1DD5857E00E9E29E /* zhuanji_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zhuanji_bg@2x.png"; sourceTree = "<group>"; };
 		377BDB3D1DD5857E00E9E29E /* zhuanji_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zhuanji_bg@3x.png"; sourceTree = "<group>"; };
 		37C7F9C41DD5BF1200B1AF7D /* BMGalleryTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMGalleryTableHeaderView.h; sourceTree = "<group>"; };
@@ -760,6 +778,8 @@
 				1BFD4D3C1D3CD0B500ABE8E6 /* MainViewController.m */,
 				302114B11D792F3C004FFF36 /* AdvertisementViewController.h */,
 				302114B21D792F3C004FFF36 /* AdvertisementViewController.m */,
+				30CF464C1DDB04E600325C14 /* PublishViewController.h */,
+				30CF464D1DDB04E600325C14 /* PublishViewController.m */,
 				1BFD4D411D3CD0F100ABE8E6 /* MineViewController.h */,
 				1BFD4D421D3CD0F100ABE8E6 /* MineViewController.m */,
 				30466C871D61761E006BAEDE /* IntroduceViewController.h */,
@@ -901,6 +921,8 @@
 		303CD41C1D7EA5140052CEAD /* common */ = {
 			isa = PBXGroup;
 			children = (
+				30CF464F1DDC075400325C14 /* publish_bg@2x.png */,
+				30CF46501DDC075400325C14 /* publish_btn@2x.png */,
 				79ED80551DD5E55500C011A5 /* man@3x.png */,
 				79ED80561DD5E55500C011A5 /* man@2x.png */,
 				79ED80571DD5E55500C011A5 /* woman@3x.png */,
@@ -944,6 +966,7 @@
 				303CD4371D7EA5140052CEAD /* flower_sel@2x.png */,
 				303CD4381D7EA5140052CEAD /* flower_sel@3x.png */,
 				303CD4391D7EA5140052CEAD /* icon@2x.png */,
+				30041D091DDAE31F004F3666 /* message@2x.png */,
 				303CD43A1D7EA5140052CEAD /* man_nor@2x.png */,
 				303CD43B1D7EA5140052CEAD /* man_nor@3x.png */,
 				303CD43C1D7EA5140052CEAD /* man_sel@2x.png */,
@@ -1044,6 +1067,8 @@
 				30CE65DC1D6ED4A0004E5BAB /* Content */,
 				302114AE1D791424004FFF36 /* Advertisement.h */,
 				302114AF1D791424004FFF36 /* Advertisement.m */,
+				30CF46491DDB00FB00325C14 /* Notify.h */,
+				30CF464A1DDB00FB00325C14 /* Notify.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1192,6 +1217,8 @@
 				30C5BB531D4210A8001DF9D2 /* BrickPhotoCell.m */,
 				30CC1F5D1D6FE22400A0DB80 /* BrickPhotoSingleCell.h */,
 				30CC1F5E1D6FE22400A0DB80 /* BrickPhotoSingleCell.m */,
+				30FA91411DDAF9E60066706F /* NotifyCell.h */,
+				30FA91421DDAF9E60066706F /* NotifyCell.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1257,6 +1284,8 @@
 			children = (
 				30C5BB4C1D4209F8001DF9D2 /* DetailBrickViewController.h */,
 				30C5BB4D1D4209F8001DF9D2 /* DetailBrickViewController.m */,
+				30041D101DDAECD3004F3666 /* UserNotifyViewController.h */,
+				30041D111DDAECD3004F3666 /* UserNotifyViewController.m */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1594,6 +1623,7 @@
 				30041D011DDAAE95004F3666 /* Introduce_1.png in Resources */,
 				303CD4871D7EA5140052CEAD /* brick_silvery@3x.png in Resources */,
 				30041D041DDAAE95004F3666 /* Introduce_4.png in Resources */,
+				30041D0B1DDAE31F004F3666 /* message@2x.png in Resources */,
 				303CD4831D7EA5140052CEAD /* brick_mud@3x.png in Resources */,
 				303CE9721D9A0A9E00BE6CB8 /* close@2x.png in Resources */,
 				303CD4B01D7EA5140052CEAD /* report_sel@3x.png in Resources */,
@@ -1631,6 +1661,7 @@
 				3047635E1D69D66B006DB5F0 /* mss_browseLoading@3x.png in Resources */,
 				303CD4A51D7EA5140052CEAD /* man_nor@2x.png in Resources */,
 				30041D031DDAAE95004F3666 /* Introduce_3.png in Resources */,
+				30CF46511DDC075400325C14 /* publish_bg@2x.png in Resources */,
 				303CD4B71D7EA5140052CEAD /* share_sel@3x.png in Resources */,
 				79F39E8E1D596DF400FEAB40 /* city.json in Resources */,
 				79ED806C1DD7583F00C011A5 /* red_package@2x.png in Resources */,
@@ -1671,6 +1702,7 @@
 				303CD4851D7EA5140052CEAD /* brick_red@3x.png in Resources */,
 				303CD4BF1D7EA5140052CEAD /* flower@3x.png in Resources */,
 				303CD4AD1D7EA5140052CEAD /* report_nor@2x.png in Resources */,
+				30CF46521DDC075400325C14 /* publish_btn@2x.png in Resources */,
 				30703B6F1D991D83005512D1 /* bm_btn_lbs@2x.png in Resources */,
 				79ED805A1DD5E55500C011A5 /* man@2x.png in Resources */,
 				303CD4BC1D7EA5140052CEAD /* woman_sel@2x.png in Resources */,
@@ -1769,6 +1801,7 @@
 				30C5BB4E1D4209F8001DF9D2 /* DetailBrickViewController.m in Sources */,
 				1BFD4D3D1D3CD0B500ABE8E6 /* MainViewController.m in Sources */,
 				30C5BAE61D40655E001DF9D2 /* UILabel+Common.m in Sources */,
+				30041D121DDAECD3004F3666 /* UserNotifyViewController.m in Sources */,
 				792C20281D5893D80047E4D2 /* BMCity.m in Sources */,
 				309523D71DD99AAC003DBD3C /* RootTabBarController.m in Sources */,
 				30C5BADC1D406008001DF9D2 /* Mine_titleCell.m in Sources */,
@@ -1809,6 +1842,7 @@
 				30041D081DDAB3A9004F3666 /* SMPageControl.m in Sources */,
 				30353BB31D6557BE00A7D554 /* NSDate+Helper.m in Sources */,
 				302114A11D781B18004FFF36 /* BMStartView.m in Sources */,
+				30CF464E1DDB04E600325C14 /* PublishViewController.m in Sources */,
 				302114B31D792F3C004FFF36 /* AdvertisementViewController.m in Sources */,
 				37C7F9C61DD5BF1200B1AF7D /* BMGalleryTableHeaderView.m in Sources */,
 				302E00D51D71FCB200F24147 /* CacheImageSize.m in Sources */,
@@ -1820,6 +1854,7 @@
 				302114B71D796C68004FFF36 /* XTSafeCollection.m in Sources */,
 				79FBFBEB1D420904001C43C2 /* ComposePictureCell.m in Sources */,
 				1BFD4CFB1D3CCC3100ABE8E6 /* AppDelegate.m in Sources */,
+				30CF464B1DDB00FB00325C14 /* Notify.m in Sources */,
 				304763641D69D66B006DB5F0 /* MSSBrowseLocalViewController.m in Sources */,
 				307CD3EB1DD97E2400B1B9F6 /* TabBarButton.m in Sources */,
 				79ED80701DD7776200C011A5 /* UIButton+Block.m in Sources */,
@@ -1843,6 +1878,7 @@
 				5A52DE321D41EF7400D28DB2 /* AboutController.m in Sources */,
 				1BFD4CF81D3CCC3100ABE8E6 /* main.m in Sources */,
 				7907306E1D4114A700E726E2 /* ComposeViewController.m in Sources */,
+				30FA91431DDAF9E60066706F /* NotifyCell.m in Sources */,
 				302114B01D791424004FFF36 /* Advertisement.m in Sources */,
 				30CE65E71D6ED4A0004E5BAB /* BMAttachment.m in Sources */,
 				306343C11D6C5625007241CA /* MyLog.m in Sources */,

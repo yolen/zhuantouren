@@ -15,7 +15,7 @@
 @property (strong, nonatomic) NSString *contentStatus, *contentTitle, *userId, *contentPlace;
 @property (strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) BMUser *user;
-@property (strong, nonatomic) NSArray *brickContentAttachmentList;
+@property (strong, nonatomic) NSArray *brickContentAttachmentList, *brickContentCommentList;
 
 @end
 

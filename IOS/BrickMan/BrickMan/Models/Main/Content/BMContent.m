@@ -8,6 +8,7 @@
 
 #import "BMContent.h"
 #import "BMAttachment.h"
+#import "BMComment.h"
 
 @implementation BMContent
 
@@ -21,7 +22,8 @@
 }
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"brickContentAttachmentList" : [BMAttachment class]};
+    return @{@"brickContentAttachmentList" : [BMAttachment class],
+             @"brickContentCommentList" : [BMComment class]};
 }
 
 
