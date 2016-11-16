@@ -28,7 +28,7 @@ public class WelcomeGuideActivity extends BaseActivity implements View.OnClickLi
 
     // 引导页图片资源
     private static final int[] pics = {R.layout.guide_view1,
-            R.layout.guide_view2, R.layout.guide_view3, R.layout.guide_view4};
+            R.layout.guide_view2, R.layout.guide_view3, R.layout.guide_view4,R.layout.guide_view5};
 
     // 底部小点图片
     private ImageView[] dots;

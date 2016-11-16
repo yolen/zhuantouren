@@ -35,7 +35,7 @@ public class BrickListAdapter extends BaseQuickAdapter<BrickBean> {
             Glide.with(mCtx).load(((PublishListActivity)mCtx).userHead)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop().into((CircleImageView)helper.getView(R.id.avator));
-            helper.setText(R.id.name, ((PublishListActivity)mCtx).userName);
+            helper.setText(R.id.name, TextUtils.isEmpty(((PublishListActivity)mCtx).userName) ? ((PublishListActivity)mCtx).userAliar :((PublishListActivity)mCtx).userName);
 
         } else {
             Glide.with(mCtx).load(item.users.userHead)
@@ -43,9 +43,14 @@ public class BrickListAdapter extends BaseQuickAdapter<BrickBean> {
                     .centerCrop().into((CircleImageView)helper.getView(R.id.avator));
             helper.setText(R.id.name, TextUtils.isEmpty(item.users.userName) ? item.users.userAlias : item.users.userName);
         }
+
         helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
         helper.setText(R.id.address, item.contentPlace);
-        helper.setImageResource(R.id.report, MApplication.mAppContext.mUser.userSex=="男"? R.mipmap.man : R.mipmap.woman);
+        if (item.users!=null) {
+            if (item.users.userSexStr!=null) {
+                helper.setImageResource(R.id.report, item.users.userSexStr.equals("男") ? R.mipmap.man : R.mipmap.woman);
+            }
+        }
         helper.setText(R.id.content, item.contentTitle);
         helper.setImageResource(R.id.iconComment, item.commentCount > 0 ? R.mipmap.bm_comment_sel : R.mipmap.bm_comment_nor);
         helper.setText(R.id.commentNum, item.commentCount + "");

@@ -109,6 +109,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
     private boolean isOperation;
 
     private boolean isAllow = true;
+    private boolean isFromPublish=false;
 
     @Override
     protected int getLayoutId() {
@@ -120,9 +121,10 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
         super.onCreate(savedInstanceState);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
+        isFromPublish=getIntent().getBooleanExtra("isFromPublish",false);
         setSupportActionBar(toolbar);
         brickBean = (BrickBean) getIntent().getSerializableExtra("item");
-        mAdapter = new CommentListAdapter(this, R.layout.item_comment, mData);
+        mAdapter = new CommentListAdapter(this,isFromPublish, R.layout.item_comment, mData);
         View loadingView = this.getLayoutInflater().inflate(R.layout.loading_more_view, (ViewGroup) mRecyclerView.getParent(), false);
         mAdapter.setLoadingView(loadingView);
         headerView = this.getLayoutInflater().inflate(R.layout.header_detail, (ViewGroup) mRecyclerView.getParent(), false);
@@ -191,7 +193,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
             @Override
             public void onClick(View view) {
                 if (MApplication.mAppContext.mUser != null) {
-                    new ConfirmDialog(BrickDetailActivity.this, "砖头人，您确定要举报这件社会事儿吗？", new ConfirmDialog.OnConfirmListener() {
+                    new ConfirmDialog(BrickDetailActivity.this, "您确定要举报这位漂泊者发布的砖集吗？", new ConfirmDialog.OnConfirmListener() {
                         @Override
                         public void confirm() {
                             mPresenter.report(brickBean.id + "");
@@ -202,24 +204,27 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
                 }
             }
         });
-        avator.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(BrickDetailActivity.this, PublishListActivity.class);
-                if (MApplication.mAppContext.mUser != null &&
-                        MApplication.mAppContext.mUser.userId.equals(brickBean.users.userId)) {
-                    intent.putExtra("title", getResources().getString(R.string.my_bricks));
-                } else {
-                    intent.putExtra("title", !TextUtils.isEmpty(brickBean.users.userName) ? brickBean.users.userName :
+        if (!isFromPublish) {
+            avator.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(BrickDetailActivity.this, PublishListActivity.class);
+                    if (MApplication.mAppContext.mUser != null &&
+                            MApplication.mAppContext.mUser.userId.equals(brickBean.users.userId)) {
+                        intent.putExtra("title", getResources().getString(R.string.my_bricks));
+                    } else {
+                        intent.putExtra("title", !TextUtils.isEmpty(brickBean.users.userName) ? brickBean.users.userName :
+                                brickBean.users.userAlias);
+                    }
+                    intent.putExtra("userName", !TextUtils.isEmpty(brickBean.users.userName) ? brickBean.users.userName :
                             brickBean.users.userAlias);
+                    intent.putExtra("userHeader", brickBean.users.userHead);
+                    intent.putExtra("userId", brickBean.userId);
+                    intent.putExtra("isfromdetail", true);
+                    startActivityWithAnim(intent);
                 }
-                intent.putExtra("userName", !TextUtils.isEmpty(brickBean.users.userName) ? brickBean.users.userName :
-                        brickBean.users.userAlias);
-                intent.putExtra("userHeader", brickBean.users.userHead);
-                intent.putExtra("userId", brickBean.userId);
-                startActivityWithAnim(intent);
-            }
-        });
+            });
+        }
     }
 
     private void initData(){
@@ -350,7 +355,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
                         startActivityWithAnim(new Intent(BrickDetailActivity.this, LoginActivity.class));
                     }
                 } else {
-                    showMsg("砖头人,你已经为这事儿表过态度了!");
+                    showMsg("您已经为这条砖集表过态度了!");
                 }
                 break;
             case R.id.brick:
@@ -361,7 +366,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
                         startActivityWithAnim(new Intent(BrickDetailActivity.this, LoginActivity.class));
                     }
                 } else {
-                    showMsg("砖头人,你已经为这事儿表过态度了!");
+                    showMsg("您已经为这条砖集表过态度了!");
                 }
                 break;
             case R.id.share:

@@ -101,7 +101,7 @@ public class UserFragment extends BaseFragment {
             Glide.with(mActivity).load(MApplication.mAppContext.mUser.userHead)
                     .diskCacheStrategy(DiskCacheStrategy.ALL).into(avator);
             name.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.userName) ? MApplication.mAppContext.mUser.userAlias : MApplication.mAppContext.mUser.userName);
-            desc.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.motto) ? "他的格言就是没有格言!!!" : MApplication.mAppContext.mUser.motto);
+            desc.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.motto) ? getResources().getString(R.string.default_motto) : MApplication.mAppContext.mUser.motto);
         } else {
             Glide.with(mActivity).load(R.mipmap.ic_launcher).into(avator);
             name.setText("未登录");

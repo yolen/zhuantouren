@@ -81,6 +81,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.READ_PHONE_STATE
     };
+    private boolean hasMessage=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +122,20 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
 
         // 自动检查更新
         UpdateChecker.checkForDialog(this, Api.APP_UPDATE_SERVER_URL, false);
+        //获取消息
+        if (MApplication.mAppContext.mUser!=null) {
+            if (MApplication.mAppContext.mUser.token!=null)
+            mPresenter.loadMessageRemind(MApplication.mAppContext.mUser.token);
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (MApplication.mAppContext.mUser!=null) {
+            if (MApplication.mAppContext.mUser.token!=null)
+                mPresenter.loadMessageRemind(MApplication.mAppContext.mUser.token);
+        }
     }
 
     @Override
@@ -159,17 +174,32 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
 //            }
         } else if (resultCode == RESULT_OK && requestCode == 1002) {
             // 发布返回刷新
+            mTabHost.setCurrentTab(0);
             ArrayList<Fragment> list = (ArrayList<Fragment>) ((HomeFragment) mTabManager.getTab(tabNames[0]).getFragment()).fragments;
             ((BrickListFragment)list.get(0)).reload();
-        }else if (requestCode==REQUEST_CODE&&requestCode==1003){
+        }else if (requestCode==RESULT_OK&&requestCode==1003){
             // 消息返回刷新
-            messageIcon.setImageResource(R.mipmap.bm_nonemessage);
+//            messageIcon.setImageResource(R.mipmap.bm_nonemessage);
+            hasMessage=false;
+            messageIcon.setVisibility(View.GONE);
         }
     }
 
     @Override
     public void showMsg(String msg) {
         showToast(msg);
+    }
+
+    @Override
+    public void loadMRSuccess(int messageSum) {
+        if (messageSum>=1){
+            messageIcon.setVisibility(View.VISIBLE);
+            messageIcon.setImageResource(R.mipmap.bm_message);
+            hasMessage=true;
+        }else {
+            hasMessage=false;
+            messageIcon.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -260,7 +290,10 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
                 break;
             case R.id.publish:
                 if (MApplication.mAppContext.mUser != null) {
-                    startActivityForResultWithAnim(new Intent(this, MessageActivity.class),1003);
+                    if (hasMessage) {
+                        startActivityForResultWithAnim(new Intent(this, MessageActivity.class),1003);
+                    }
+
 //                    startActivityForResultWithAnim();
                 } else {
                     startActivityWithAnim(new Intent(this, LoginActivity.class));

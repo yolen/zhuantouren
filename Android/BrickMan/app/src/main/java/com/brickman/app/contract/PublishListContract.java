@@ -5,6 +5,7 @@ import com.brickman.app.common.base.BasePresenter;
 import com.brickman.app.common.base.BaseView;
 import com.brickman.app.common.http.HttpListener;
 import com.brickman.app.model.Bean.BrickBean;
+import com.brickman.app.model.Bean.UserBean;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface PublishListContract {
     }
 
     interface View extends BaseView {
-        void loadSuccess(List<BrickBean> brickList, int pageSize, boolean hasMore);
+        void loadSuccess(List<BrickBean> brickList, UserBean userBean, int pageSize, boolean hasMore);
         void loadFailed();
         void showMsg(String msg);
     }

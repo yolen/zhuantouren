@@ -56,7 +56,7 @@
         [weakSelf.navigationController popViewControllerAnimated:YES];
     };
     // 配置头部用户信息页面
-    [_headerView configHeaderViewWithUser: self.user];
+    [_headerView configHeaderViewWithUser: self.user ? self.user : [BMUser getUserModel]];
     [self.view addSubview:_headerView];
     
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresh)];
@@ -70,11 +70,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:kNavigationBarColor] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
 #pragma mark - refresh
@@ -104,7 +108,7 @@
             [weakSelf.myTableView reloadData];
             BMContentList *model = (BMContentList *)data;
             // 获取到的信息后,刷新头部用户信息页面(主要是传进来的用户数据里面没有用户的座佑铭)
-            [_headerView configHeaderViewWithUser: model.userInfor];
+            [_headerView configHeaderViewWithUser: model.user];
             if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
                 [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
             }else {
@@ -123,7 +127,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
     BMContent *model = self.contentList.data[indexPath.row];
-    model.user = model.user == nil ? self.contentList.userInfor : model.user;
+    model.user = model.user == nil ? self.contentList.user : model.user;
     cell.model = model;
     //判断在我的砖集状态下,cell的四个按钮不可点击
     [cell setIsGallery:YES];
@@ -137,7 +141,7 @@
     vc.comeFromGallery = YES; // 标记下一个详情页面是由`砖集`页面来的,将不能再次显示`砖集`页面
     BMContent *content = self.contentList.data[indexPath.row];
     vc.contentId = content.id;
-    vc.model.user = content.user ? content.user : self.contentList.userInfor;
+    vc.model.user = content.user ? content.user : self.contentList.user;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -154,7 +158,6 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offsetY = scrollView.contentOffset.y;
     CGFloat offset = offsetY + kHEAD_HEIGHT;
-
     if (offset < 0) { // 放大
         _headerView.y = 0;
         _headerView.height = kHEAD_HEIGHT - offset;

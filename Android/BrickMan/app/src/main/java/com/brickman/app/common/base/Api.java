@@ -21,10 +21,15 @@ public interface Api {
     // ------------GET--------------
     // 首页轮播接口【1启动页广告 || 2首页banner广告 || 3 中间上部相机广告 || 4 中间下部公益广告】
     String GET_BANNER = BASE_URL + "/advertisement/advertisement_list_by_type.json";
+
     // 登录接口
     String POST_LOGIN = BASE_URL + "/user/auth_login.json";
     // 列表接口
     String GET_BRICKLIST = BASE_URL + "/content/list_content.json";
+    //刷新消息
+    String FLUSH_MESSAGE=BASE_URL+"/notify/pull_remind.do";
+    //获取消息列表
+    String GET_MESSSAGELIST=BASE_URL+"/notify/user_notify_list.do";
     // 列表接口【内容列表按评论数量排序】
     String GET_BRICKLIST_BY_COMMENT = BASE_URL + "/content/content_list_by_comments_count.json";
     // 用户发布列表
@@ -40,6 +45,10 @@ public interface Api {
 
     // ------------POST--------------
 
+    //用户名密码登录
+    String LOGIN=BASE_URL+"/user/login.json";
+    //注册
+    String REGISTER=BASE_URL+"/user/regist.json";
     // 发布接口
     String POST_PUBLISH = BASE_URL + "/content/add_content.do";
     // 评论接口
@@ -64,8 +73,8 @@ public interface Api {
     // -------------H5----------------
     //关于我们
     String ABOUT_US = IMG_URL + "html/brickman.html";
-    //反馈我们
-    String  FEEDBACK_US="";
+    //反馈我们 http://dev.img.brickman.cn/html/brickmanback.html
+    String  FEEDBACK_US=IMG_URL+"html/brickmanback.html";
     // 登录成功
     String ACTION_LOGIN = "com.brickman.app.action.login";
     // 用户信息变更

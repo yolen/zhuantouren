@@ -1,31 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:clipToPadding="false"
-    android:fitsSystemWindows="false"
+    android:background="@color/transparent"
+    android:orientation="vertical"
     tools:ignore="HardcodedText">
-
     <RelativeLayout
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
+        android:layout_height="0dp"
+        android:background="@mipmap/bm_loginhead_bg">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-20dp"
-            android:scaleType="fitStart"
-            android:src="@mipmap/bm_launcher_01" />
+            android:orientation="vertical">
+        <View
+            android:id="@+id/padingtop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/close"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_16"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:background="@mipmap/bm_close"/>
+        </LinearLayout>
 
-        <com.brickman.app.module.widget.view.CircleImageView
+        <!--<com.brickman.app.module.widget.view.CircleImageView-->
+        <!--android:id="@+id/t1"-->
+        <!--android:layout_width="@dimen/dp_70"-->
+        <!--android:layout_height="@dimen/dp_70"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="@dimen/dp_60"-->
+        <!--android:src="@mipmap/ic_launcher" />-->
+        <TextView
+            android:text="@string/app_name"
             android:id="@+id/t1"
-            android:layout_width="@dimen/dp_70"
-            android:layout_height="@dimen/dp_70"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_18"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/dp_60"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_marginTop="@dimen/dp_80"/>
 
         <TextView
             android:id="@+id/t2"
@@ -52,94 +70,41 @@
             android:textSize="@dimen/sp_16"
             android:textStyle="normal"
             android:visibility="gone"/>
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/rl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dp_30"
-        android:layout_marginLeft="@dimen/dp_80"
-        android:layout_marginRight="@dimen/dp_80">
-
-        <TextView
-            android:id="@+id/loginWX"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:drawablePadding="@dimen/dp_06"
-            android:drawableTop="@mipmap/share_weixin_icon"
-            android:text="微信登录"
-            android:textAlignment="center"
-            android:textColor="?attr/text_color"
-            android:textSize="@dimen/sp_16"
-            android:visibility="gone"
-            tools:ignore="RtlHardcoded" />
-
-        <TextView
-            android:id="@+id/loginQQ"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:drawablePadding="@dimen/dp_06"
-            android:drawableTop="@mipmap/share_qq_friends_icon"
-            android:text="QQ登录"
-            android:textAlignment="center"
-            android:textColor="?attr/text_color"
-            android:textSize="@dimen/sp_16"
-            tools:ignore="RtlHardcoded" />
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/slidingTab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="bottom"
+            android:background="@color/transparent"
+            app:tl_divider_color="@color/transparent"
+            app:tl_divider_padding="@dimen/dp_10"
+            app:tl_divider_width="@dimen/dp_01"
+            app:tl_indicator_color="@color/text_color_white"
+            app:tl_indicator_height="@dimen/dp_02"
+            app:tl_indicator_width_equal_title="false"
+            app:tl_indicator_width="@dimen/dp_40"
+            app:tl_tab_padding="@dimen/dp_00"
+            app:tl_tab_space_equal="true"
+            app:tl_textSelectColor="@color/text_color_white"
+            app:tl_textUnselectColor="@color/text_color_white"
+            app:tl_underline_color="@color/white"
+            android:layout_alignParentBottom="true"
+            app:tl_underline_height="0dp" />
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/skip"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_above="@id/rl"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/dp_120"
-        android:background="@drawable/btn_white"
-        android:gravity="center"
-        android:paddingLeft="@dimen/dp_25"
-        android:paddingRight="@dimen/dp_25"
-        android:text="先随便看看"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/sp_16"
-        tools:ignore="HardcodedText,RtlHardcoded" />
-
     <LinearLayout
+        android:layout_weight="2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/rl"
-        android:layout_marginBottom="@dimen/dp_15"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:layout_height="0dp"
+        android:background="@mipmap/bm_login_backgroud">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_005"
-            android:layout_weight="1"
-            android:background="@color/line" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:gravity="center"
-            android:text="社交账号登录"
-            android:textColor="@color/text_color_deep"
-            android:textSize="@dimen/sp_16"
-            tools:ignore="HardcodedText,RtlHardcoded" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_005"
-            android:layout_weight="1"
-            android:background="@color/line" />
+    <com.brickman.app.module.widget.view.ViewPagerFixed
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

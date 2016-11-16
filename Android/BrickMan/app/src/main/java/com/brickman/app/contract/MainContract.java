@@ -18,6 +18,7 @@ public interface MainContract {
     interface Model extends BaseModel {
         void loadAD(int type, int pageNo, HttpListener<JSONObject> httpListener);
         void loadBrickList(int type, int pageNO, HttpListener httpListener);
+        void loadMessageRemind(String token, HttpListener httpListener);
     }
 
     interface View extends BaseView {
@@ -25,11 +26,14 @@ public interface MainContract {
         void loadSuccess(int fragmentId, List<BrickBean> brickList, int pageSize, boolean hasMore);
         void loadFailed(int fragmentId);
         void showMsg(String msg);
+        void loadMRSuccess(int messageSum);
+
     }
 
     abstract class Presenter extends BasePresenter<Model, View> {
         public abstract void loadAD(int type, int pageNo);
         public abstract void loadBrickList(int fragmentId, int pageNO);
+        public abstract void loadMessageRemind(String token);
         @Override
         public void onStart() {}
     }

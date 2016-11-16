@@ -29,7 +29,10 @@
     /** 标题,显示为:XX 的砖集 */
     UILabel *_titleLable;
     
-    CGFloat _selfHeight;
+    UIView *_navCustomBgView;
+    BOOL _isAnimation;
+    CGFloat _lastOffset;
+    BOOL _isScrollUp;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -40,7 +43,6 @@
 }
 
 - (void)setupUI {
-    _selfHeight = self.height;
     
     _bgImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"zhuanji_bg"]];
     _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -55,6 +57,8 @@
     _lineView = [[UIView alloc] init];
     _backButton = [[UIButton alloc] init];
     _titleLable = [[UILabel alloc] init];
+    
+    _navCustomBgView = [[UIView alloc] init];
     
     // config
     _headerImageBgView.backgroundColor = [UIColor whiteColor];
@@ -82,12 +86,15 @@
     [_backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(didClickBackButton) forControlEvents:UIControlEventTouchUpInside];
     _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    _backButton.alpha = 0;
+//    _backButton.alpha = 0;
     
     _titleLable.textColor = [UIColor whiteColor];
     _titleLable.font = [UIFont boldSystemFontOfSize:18];
-    _titleLable.alpha = 0;
+//    _titleLable.alpha = 0;
     _titleLable.text = @"砖集";
+    
+    _navCustomBgView.backgroundColor = kNavigationBarColor;
+    _navCustomBgView.alpha = 0.0;
     
     _mottoLabel.text=@"motto";
     _nickNameLabel.text = @"nick name";
@@ -100,13 +107,14 @@
     [self addSubview:_nickNameLabel];
     [self addSubview:_ganderImageView];
     [self addSubview:_mottoLabel];
+    [self addSubview:_navCustomBgView];
     [self addSubview:_backButton];
     [self addSubview:_titleLable];
     
     [_headerImageBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.height.mas_equalTo(self.mas_width).dividedBy(5);
         make.centerX.mas_equalTo(self.mas_centerX);
-        make.centerY.mas_equalTo(self.mas_centerY).offset(-10);
+        make.centerY.mas_equalTo(self.mas_centerY).offset(-10 * SCALE);
     }];
     [_headerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.mas_equalTo(_headerImageBgView).offset(kPADDING);
@@ -125,11 +133,11 @@
     [_mottoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.mas_centerX);
         make.height.mas_equalTo(20);
-        make.bottom.mas_equalTo(self.mas_bottom).offset(-15);
+        make.bottom.mas_equalTo(self.mas_bottom).offset(-15 * SCALE);
     }];
     [_nickNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.mas_centerX).offset(-10);
-        make.bottom.mas_equalTo(_mottoLabel.mas_top).offset(-15);
+        make.bottom.mas_equalTo(_mottoLabel.mas_top).offset(-15 * SCALE);
     }];
     [_ganderImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_nickNameLabel.mas_right).offset(10);
@@ -147,6 +155,11 @@
         make.centerX.mas_equalTo(self);
         make.top.mas_equalTo([UIApplication sharedApplication].keyWindow.mas_top).offset(28);
     }];
+    
+    [_navCustomBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.mas_equalTo([UIApplication sharedApplication].keyWindow);
+        make.height.mas_equalTo(64);
+    }];
 }
 
 - (void)configHeaderViewWithUser:(BMUser *)user  {
@@ -154,25 +167,46 @@
     _ganderImageView.image = [user.userSexStr isEqualToString:@"男"] ? [UIImage imageNamed:@"man"] : [UIImage imageNamed:@"woman"];
     
     _nickNameLabel.text = user.userAlias;
-    _titleLable.text = user.userAlias ? [NSString stringWithFormat:@"%@的砖集", user.userAlias] : @"砖集";
+    _titleLable.text = user.userAlias ? [NSString stringWithFormat:@"%@的砖集", [user.userAlias isEqualToString: [BMUser getUserModel].userAlias] ? @"我" : user.userAlias] : @"砖集";
     _mottoLabel.text = user.motto.length == 0 ? @"路见不平,拍砖相助!" : user.motto;
 }
 
 - (void)configItemsWith:(CGFloat)offset {
+    _isScrollUp = offset > _lastOffset ? YES : NO;
+    _lastOffset = offset;
     if (offset > 0) {
         CGFloat min = self.height - 64;
         CGFloat progress = 1 - (offset / min);
-        
-        _backButton.alpha = 1 - progress - 0.1;
-        _titleLable.alpha = 1 - progress - 0.1;
-        _bgImageView.alpha = progress + 0.1;
-        _nickNameLabel.alpha = progress;
-        _ganderImageView.alpha = progress;
-        _mottoLabel.alpha = progress;
+        if (progress < 0.2) {
+            if (!_isAnimation && _isScrollUp) {
+                _isAnimation = YES;
+                [UIView animateWithDuration:1.0 animations:^{
+                    _navCustomBgView.alpha = 1.0;
+                } completion:^(BOOL finished) {
+                    _isAnimation = NO;
+                }];
+            } else if (progress > 0 && !_isAnimation && ! _isScrollUp) {
+                _isAnimation = YES;
+                [UIView animateWithDuration:0.5 animations:^{
+                    _navCustomBgView.alpha = 0.0;
+                } completion:^(BOOL finished) {
+                    _isAnimation = NO;
+                }];
+            }
+        }
+//        _backButton.alpha = 1 - progress - 0.1;
+//        _titleLable.alpha = 1 - progress - 0.1;
+//        _bgImageView.alpha = progress + 0.1;
+//        _nickNameLabel.alpha = progress;
+//        _ganderImageView.alpha = progress;
+//        _mottoLabel.alpha = progress;
     } else {
-        _bgImageView.alpha = 1.0;
-        _backButton.alpha = 0.0;
-        _titleLable.alpha = 0.0;
+//        _bgImageView.alpha = 1.0;
+//        _backButton.alpha = 0.0;
+//        _titleLable.alpha = 0.0;
+//        [UIView animateWithDuration:0.5 animations:^{
+//            _navCustomBgView.alpha = 1.0;
+//        }];
     }
 }
 

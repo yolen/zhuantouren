@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_weight="2"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bm_login_backgroud">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="3">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_30"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_08"
+                android:background="@drawable/comment_edit_bg">
+                <ImageView
+                    android:src="@mipmap/bm_login_user_icon"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20" />
+                <EditText
+                    android:id="@+id/username"
+                    android:background="@color/transparent"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_marginLeft="@dimen/dp_05"
+                    android:layout_gravity="center"
+                    android:hint="@string/settingusername"
+                    android:textColorHint="@color/text_light_gray"
+                    android:textColor="@color/text_color_dark"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_08"
+                android:background="@drawable/comment_edit_bg">
+                <ImageView
+                    android:src="@mipmap/bm_logn_pwd_icon"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20" />
+
+                <EditText
+                    android:layout_marginLeft="@dimen/dp_05"
+                    android:id="@+id/verifypassword"
+                    android:background="@color/transparent"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_gravity="center"
+                    android:inputType="textPassword"
+                    android:hint="@string/settingpwd"
+                    android:textColorHint="@color/text_light_gray"
+                    android:textColor="@color/text_color_dark"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_08"
+                android:background="@drawable/comment_edit_bg">
+                <ImageView
+                    android:src="@mipmap/bm_logn_pwd_icon"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20" />
+
+                <EditText
+                    android:layout_marginLeft="@dimen/dp_05"
+                    android:id="@+id/password"
+                    android:background="@color/transparent"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/sp_16"
+                    android:layout_gravity="center"
+                    android:inputType="textPassword"
+                    android:hint="@string/verifypwd"
+                    android:textColorHint="@color/text_light_gray"
+                    android:textColor="@color/text_color_dark"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_register"
+                android:text="@string/register"
+                android:layout_width="match_parent"
+                android:textColor="@color/text_color_white"
+                android:textSize="@dimen/sp_18"
+                android:gravity="center"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginRight="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal"
+                android:background="@drawable/login_submit_bg"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.brickman.app.module.mine;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,13 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.brickman.app.MApplication;
 import com.brickman.app.R;
 import com.brickman.app.adapter.BricksListAdapter;
 import com.brickman.app.adapter.MessageListAdapter;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.contract.MessageContract;
+import com.brickman.app.model.Bean.BrickBean;
+import com.brickman.app.model.Bean.MessageBean;
 import com.brickman.app.model.MessageListModel;
+import com.brickman.app.module.brick.BrickDetailActivity;
 import com.brickman.app.module.main.MainActivity;
 import com.brickman.app.presenter.MessagePresenter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,7 +44,7 @@ public class MessageActivity extends BaseActivity <MessagePresenter,MessageListM
     @BindView(R.id.ptr)
     PtrClassicFrameLayout mPtr;
     MessageListAdapter mAdapter;
-    List<String> mData=new ArrayList<>();
+    List<MessageBean> mData=new ArrayList<>();
     private boolean hasMore = true;
     private int mPageNo = 1;
     @Override
@@ -68,7 +74,7 @@ public class MessageActivity extends BaseActivity <MessagePresenter,MessageListM
                             mAdapter.addFooterView(not_loadingview);
                             showToast("没有更多内容了");
                         } else {
-                            mPresenter.loadMessagekList(mPageNo);
+                            mPresenter.loadMessagekList(mPageNo, MApplication.mAppContext.mUser.token);
                         }
                     }
                 });
@@ -77,9 +83,26 @@ public class MessageActivity extends BaseActivity <MessagePresenter,MessageListM
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(MessageActivity.this, BrickDetailActivity.class);
+                BrickBean brickBean=new BrickBean();
+                brickBean.id=mData.get(position).contentId;
+                intent.putExtra("item", brickBean);
+                intent.putExtra("isFromPublish",true);
+//                startActivityForResultWithAnim(intent, 1001);
+                startActivityWithAnim(intent);
+                TextView title= (TextView) view.findViewById(R.id.title);
+                TextView content= (TextView) view.findViewById(R.id.content);
+                content.setTextColor(getResources().getColor(R.color.text_light_gray));
+                title.setTextColor(getResources().getColor(R.color.text_light_gray));
+                title.setText("此消息已查看!");
 
+            }
+        });
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
-                .color(Color.GRAY)
+                .color(getResources().getColor(R.color.bg_tab))
                 .sizeResId(R.dimen.dp_02)
                 .marginResId(R.dimen.dp_00, R.dimen.dp_00)
                 .build());
@@ -87,7 +110,7 @@ public class MessageActivity extends BaseActivity <MessagePresenter,MessageListM
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 mPageNo=1;
-              mPresenter.loadMessagekList(mPageNo);
+              mPresenter.loadMessagekList(mPageNo,MApplication.mAppContext.mUser.token);
             }
 
             @Override
@@ -96,7 +119,7 @@ public class MessageActivity extends BaseActivity <MessagePresenter,MessageListM
             }
         });
         mPtr.setLastUpdateTimeRelateObject(this);
-        mPresenter.loadMessagekList(mPageNo);
+        mPresenter.loadMessagekList(mPageNo,MApplication.mAppContext.mUser.token);
 
     }
 
@@ -106,7 +129,7 @@ public class MessageActivity extends BaseActivity <MessagePresenter,MessageListM
     }
 
     @Override
-    public void loadMessageSuccess(List<String> dataist, boolean hasMor) {
+    public void loadMessageSuccess(List<MessageBean> dataist, boolean hasMor) {
 
         this.hasMore=hasMor;
         if (mPageNo==1) {

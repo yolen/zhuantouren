@@ -40,8 +40,8 @@
 #define kWXAppSecret @""
 #define kQQAppId @""
 #define kQQAppKey @""
-#define kQQGroupAccount @"482735401" // 团队群
-#define kQQGroupKey @"3d14af6d1c294a3149e3142a9d8fd0077c4f717c1fb0c9798719e1a846c115bc"// 团队群
+#define kQQGroupAccount @""
+#define kQQGroupKey @""
 #define kUMRedirectURL @""
 #define kGDAppKey @""
 const static NSString *APIKey = @"";
