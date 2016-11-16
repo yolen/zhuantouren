@@ -18,6 +18,12 @@ public class LoginModel implements LoginContract.Model {
     }
 
     @Override
+    public void register(String name, String pass, String verifypass, HttpListener listener) {
+        RequestParam param = ParamBuilder.buildParam("userName", name).append("userPwd", pass).append("checkPassWord",verifypass);
+        RequestHelper.sendPOSTRequest(false, Api.REGISTER, param, listener);
+    }
+
+    @Override
     public void sign(String name, String pass) {
 
     }

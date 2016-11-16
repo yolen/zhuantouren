@@ -6,5 +6,5 @@ package com.brickman.app.model.Bean;
 
 public class MessageBean {
     public String text;//": "王磊评论了《我是歌手》!",
-    public String contentId;//": 163
+    public int contentId;//": 163
 }

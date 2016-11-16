@@ -2,33 +2,29 @@ package com.brickman.app.module.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import com.brickman.app.MApplication;
 import com.brickman.app.R;
 import com.brickman.app.common.base.Api;
 import com.brickman.app.common.base.BaseActivity;
-import com.brickman.app.common.http.HttpListener;
-import com.brickman.app.common.http.HttpUtil;
-import com.brickman.app.common.http.RequestHelper;
-import com.brickman.app.common.http.param.ParamBuilder;
-import com.brickman.app.common.http.param.RequestParam;
 import com.brickman.app.common.umeng.UMSdkManager;
-import com.brickman.app.common.umeng.auth.LoginListener;
 import com.brickman.app.common.utils.PhoneUtils;
 import com.brickman.app.contract.LoginContract;
 import com.brickman.app.model.Bean.UserBean;
 import com.brickman.app.model.LoginModel;
+import com.brickman.app.module.widget.view.ViewPagerFixed;
 import com.brickman.app.presenter.LoginPresenter;
-import com.google.gson.Gson;
-import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.umeng.socialize.controller.UMServiceFactory;
-import com.yolanda.nohttp.rest.Response;
+import java.util.ArrayList;
 
-import org.json.JSONObject;
-
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,13 +34,16 @@ import butterknife.OnClick;
  */
 public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> implements LoginContract.View {
     UMSdkManager mUMSdkManager;
-    @BindView(R.id.username)
-     EditText username;
-    @BindView(R.id.password)
-     EditText password;
     @BindView(R.id.padingtop)
     View padingtop;
-
+    @BindView(R.id.slidingTab)
+    SlidingTabLayout mSlidingTab;
+    @BindView(R.id.vp)
+    ViewPagerFixed mVp;
+    MyPagerAdapter mAdapter;
+    private final String[] titles = {"登录", "注册"};
+    public ArrayList<Fragment> fragments = new ArrayList<>();
+    private RegisterFragment registerFragment=null;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
@@ -55,57 +54,49 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
         super.onCreate(savedInstanceState);
         mUMSdkManager = UMSdkManager.init(this, UMServiceFactory.getUMSocialService(UMSdkManager.LOGIN));
         setPaddingheight();
+        mAdapter = new MyPagerAdapter(getSupportFragmentManager());
+
+        fragments.add(LoginFragment.getInstance(""));
+        registerFragment=RegisterFragment.getInstance("");
+        fragments.add(registerFragment);
+        mVp.setAdapter(mAdapter);
+        mVp.setOffscreenPageLimit(2);
+        mSlidingTab.setViewPager(mVp, titles);
+        mSlidingTab.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
+        mVp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-    @OnClick({R.id.loginWX, R.id.loginQQ, R.id.skip,R.id.close,R.id.btn_login})
+    @OnClick({R.id.close})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.close:
                 finishWithAnim();
-                break;
-            case R.id.loginWX:
-//                mUMSdkManager.login(this, SHARE_MEDIA.WEIXIN, new LoginListener() {
-//                    @Override
-//                    public void success(String access_token, String openid, Map<String, Object> info) {
-                        //TODO ...
-//                    }
-//                });
-                showToast("暂不支持微信登录!!!");
-                break;
-            case R.id.loginQQ:
-                mUMSdkManager.login(this, SHARE_MEDIA.QQ, new LoginListener() {
-                    @Override
-                    public void success(String access_token, String openid, Map<String, Object> info) {
-                        RequestParam params = ParamBuilder.buildParam("thirdAuth", "qq")
-                                .append("accessToken", access_token).append("openId", openid);
-                        RequestHelper.sendPOSTRequest(false, Api.POST_LOGIN, params, new HttpListener<JSONObject>() {
-                            @Override
-                            public void onSucceed(JSONObject response) {
-                                if(HttpUtil.isSuccess(response)){
-                                    UserBean user = new Gson().fromJson(response.optJSONObject("body").toString(), UserBean.class);
-                                    MApplication.mDataKeeper.put("user_info", user);
-                                    MApplication.mAppContext.mUser = user;
-                                    sendBroadcast(new Intent(Api.ACTION_LOGIN));
-                                    finishWithAnim();
-                                }
-                            }
-
-                            @Override
-                            public void onFailed(int what, Response<JSONObject> response) {
-
-                            }
-                        });
-                        //TODO ...
-//                        loginWithPlatfprm("wechat", info.get("openid").toString(), info.get("nickname").toString(), info.get("headimgurl").toString(), Integer.valueOf(info.get("sex").toString()) == 1 ? "male" : "female");
-                    }
-                });
-                break;
-            case R.id.skip:
-                finishWithAnim();
-                break;
-            case R.id.btn_login:
-               mPresenter.login(username.getText().toString(),password.getText().toString());
-                break;
+             break;
         }
     }
 
@@ -117,6 +108,21 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
             MApplication.mAppContext.mUser = usersBean;
             sendBroadcast(new Intent(Api.ACTION_LOGIN));
             finishWithAnim();
+
+    }
+
+    @Override
+    public void registerSuccess(String msg) {
+        showToast(msg);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                registerFragment.password.setText("");
+                registerFragment.verifypassword.setText("");
+                mVp.setCurrentItem(0);
+                mSlidingTab.setCurrentTab(0);
+            }
+        }, 2000);
 
     }
 
@@ -138,5 +144,25 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
         layoutParams.height= PhoneUtils.getStatusbarHeight(this);
         padingtop.setLayoutParams(layoutParams);
 
+    }
+    public class MyPagerAdapter extends FragmentPagerAdapter {
+        public MyPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
     }
 }

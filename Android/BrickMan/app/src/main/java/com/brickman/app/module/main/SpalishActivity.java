@@ -79,7 +79,7 @@ public class SpalishActivity extends BaseActivity {
                 finishWithAnim();
                 startActivityWithAnim(new Intent(SpalishActivity.this, MainActivity.class));
             }
-        }, 3000);
+        }, 1000);
     }
 
     @Override

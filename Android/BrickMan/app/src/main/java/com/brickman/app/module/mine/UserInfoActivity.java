@@ -77,7 +77,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter, UserInfoMo
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(mAvator);
         mNickName.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.userName) ?
-                MApplication.mAppContext.mUser.userAlias : MApplication.mAppContext.mUser.userName);
+                MApplication.mAppContext.mUser.userAlias : MApplication.mAppContext.mUser.userAlias);
         mSex.setText(MApplication.mAppContext.mUser.getUserSex());
         mMotto.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.motto) ? "他的格言就是没有格言!!!" : MApplication.mAppContext.mUser.motto);
     }

@@ -236,7 +236,10 @@
             android:src="@mipmap/bm_icon_arrow_right" />
 
     </RelativeLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line" />
     <RelativeLayout
         android:id="@+id/about"
         android:layout_width="match_parent"

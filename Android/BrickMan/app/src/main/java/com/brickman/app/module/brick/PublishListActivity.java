@@ -71,6 +71,7 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
     private boolean hasMore = true;
     private String userId;
     public String userName;
+    public String userAliar;
     public String userHead;
     public String userSex;
     public String motto1=null;
@@ -173,6 +174,8 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
             userName=userBean.userName;
             userSex=userBean.getUserSex();
             motto1=userBean.motto;
+            userAliar=userBean.userAlias;
+            mTitle.setText(userAliar+"的砖集");
             initData();
             mPtr.refreshComplete();
             mData = brickList;
@@ -211,7 +214,7 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
     private void initData() {
 
             Glide.with(this).load(userHead).diskCacheStrategy(DiskCacheStrategy.ALL).into(avator);
-            name.setText(userName);
+            name.setText(TextUtils.isEmpty(userName)?userAliar:userName);
             if (userSex.equals("男")){
                 sex.setImageResource(R.mipmap.man);
             }else {

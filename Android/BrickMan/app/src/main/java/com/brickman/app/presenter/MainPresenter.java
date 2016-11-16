@@ -82,6 +82,7 @@ public class MainPresenter extends MainContract.Presenter {
             @Override
             public void onSucceed(JSONObject response)  {
                 try {
+                    response.toString();
                     int no=response.getInt("body");
                     mView.loadMRSuccess(no);
                 } catch (JSONException e) {

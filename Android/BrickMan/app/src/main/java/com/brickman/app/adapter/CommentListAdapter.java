@@ -49,7 +49,7 @@ public class CommentListAdapter extends BaseQuickAdapter<CommentBean> {
             });
         }
         helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
-        helper.setText(R.id.nickName, TextUtils.isEmpty(item.user.userName) ? item.user.userAlias : item.user.userName);
+        helper.setText(R.id.nickName, TextUtils.isEmpty(item.user.userName) ? item.user.userAlias : item.user.userAlias);
         helper.setText(R.id.content, item.commentContent);
     }
 }

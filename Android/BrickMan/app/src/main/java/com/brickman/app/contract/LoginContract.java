@@ -13,11 +13,14 @@ import  com.brickman.app.model.Bean.UserBean;
 public interface LoginContract {
     interface Model extends BaseModel {
         void login(String name, String pass, HttpListener listener);
+        void register(String name, String pass,String verifypass, HttpListener listener);
+
         void sign(String name, String pass);
     }
 
     interface View extends BaseView {
         void loginSuccess(UserBean usersBean);
+        void registerSuccess(String msg);
         void signSuccess();
         void showMsg(String  msg);
     }
@@ -25,6 +28,7 @@ public interface LoginContract {
     abstract class Presenter extends BasePresenter<Model, View> {
         public abstract void login(String name, String pass);
         public abstract void sign(String name, String pass);
+        public abstract void register(String name, String pass,String verifypass);
         @Override
         public void onStart() {}
     }

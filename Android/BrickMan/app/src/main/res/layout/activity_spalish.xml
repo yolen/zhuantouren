@@ -9,7 +9,7 @@
         android:id="@+id/iv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:src="@mipmap/bm_launcher" />
 
     <LinearLayout
@@ -18,7 +18,8 @@
         android:layout_below="@id/iv"
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/logo"

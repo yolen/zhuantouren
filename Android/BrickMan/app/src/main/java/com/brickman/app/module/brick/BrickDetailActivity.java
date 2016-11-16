@@ -193,7 +193,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
             @Override
             public void onClick(View view) {
                 if (MApplication.mAppContext.mUser != null) {
-                    new ConfirmDialog(BrickDetailActivity.this, "砖头人，您确定要举报这件社会事儿吗？", new ConfirmDialog.OnConfirmListener() {
+                    new ConfirmDialog(BrickDetailActivity.this, "您确定要举报这位漂泊者发布的砖集吗？", new ConfirmDialog.OnConfirmListener() {
                         @Override
                         public void confirm() {
                             mPresenter.report(brickBean.id + "");
@@ -355,7 +355,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
                         startActivityWithAnim(new Intent(BrickDetailActivity.this, LoginActivity.class));
                     }
                 } else {
-                    showMsg("砖头人,你已经为这事儿表过态度了!");
+                    showMsg("您已经为这条砖集表过态度了!");
                 }
                 break;
             case R.id.brick:
@@ -366,7 +366,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
                         startActivityWithAnim(new Intent(BrickDetailActivity.this, LoginActivity.class));
                     }
                 } else {
-                    showMsg("砖头人,你已经为这事儿表过态度了!");
+                    showMsg("您已经为这条砖集表过态度了!");
                 }
                 break;
             case R.id.share:

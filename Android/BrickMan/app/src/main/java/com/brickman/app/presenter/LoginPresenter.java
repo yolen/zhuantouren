@@ -60,6 +60,35 @@ public class LoginPresenter extends LoginContract.Presenter {
     }
 
     @Override
+    public void register(String name, String pass, String verifypass) {
+        mView.showLoading();
+        mModel.register(name, pass, verifypass, new HttpListener<JSONObject>() {
+            @Override
+            public void onSucceed(JSONObject response) {
+                try {
+                    if (response.getString("code").equals("101")) {
+                        mView.registerSuccess(response.getString("body"));
+                    } else  if (response.getString("code").equals("104")){
+                        mView.showMsg(response.getString("body"));
+                    }else {
+                        mView.showMsg(response.getString("body"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                mView.dismissLoading();
+            }
+
+            @Override
+            public void onFailed(int what, Response response) {
+                mView.showMsg(HttpUtil.makeErrorMessage(response.getException()));
+                mView.dismissLoading();
+            }
+        });
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
     }

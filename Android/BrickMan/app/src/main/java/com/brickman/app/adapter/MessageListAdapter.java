@@ -26,7 +26,7 @@ public class MessageListAdapter extends BaseQuickAdapter<MessageBean> {
 
     @Override
     protected void convert(BaseViewHolder baseViewHolder, MessageBean s) {
-        baseViewHolder.setText(R.id.title,s.text);
+        baseViewHolder.setText(R.id.title,"有新消息，请点击查看!");
         baseViewHolder.setText(R.id.content,s.text);
 
     }

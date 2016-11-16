@@ -47,6 +47,8 @@ public interface Api {
 
     //用户名密码登录
     String LOGIN=BASE_URL+"/user/login.json";
+    //注册
+    String REGISTER=BASE_URL+"/user/regist.json";
     // 发布接口
     String POST_PUBLISH = BASE_URL + "/content/add_content.do";
     // 评论接口

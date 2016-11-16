@@ -35,7 +35,7 @@ public class BrickListAdapter extends BaseQuickAdapter<BrickBean> {
             Glide.with(mCtx).load(((PublishListActivity)mCtx).userHead)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop().into((CircleImageView)helper.getView(R.id.avator));
-            helper.setText(R.id.name, ((PublishListActivity)mCtx).userName);
+            helper.setText(R.id.name, TextUtils.isEmpty(((PublishListActivity)mCtx).userName) ? ((PublishListActivity)mCtx).userAliar :((PublishListActivity)mCtx).userName);
 
         } else {
             Glide.with(mCtx).load(item.users.userHead)
@@ -43,6 +43,7 @@ public class BrickListAdapter extends BaseQuickAdapter<BrickBean> {
                     .centerCrop().into((CircleImageView)helper.getView(R.id.avator));
             helper.setText(R.id.name, TextUtils.isEmpty(item.users.userName) ? item.users.userAlias : item.users.userName);
         }
+
         helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
         helper.setText(R.id.address, item.contentPlace);
         if (item.users!=null) {

@@ -166,7 +166,10 @@
             android:name=".module.update.DownloadService"
             android:exported="true" />
 
-        <activity android:name=".module.mine.MessageActivity"></activity>
+        <activity android:name=".module.mine.MessageActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.ColorActionBar"></activity>
     </application>
 
 </manifest>

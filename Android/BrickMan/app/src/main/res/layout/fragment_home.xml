@@ -20,6 +20,7 @@
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_120"
+            app:image_scale_type="center_crop"
             app:indicator_drawable_selected="@drawable/dot_focus"
             app:indicator_drawable_unselected="@drawable/dot_normal"
             app:indicator_height="6dp"
