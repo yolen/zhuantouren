@@ -3,6 +3,7 @@ package com.brickman.app.module.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.brickman.app.MApplication;
@@ -35,6 +36,7 @@ public class SpalishActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         // 判断是否是第一次开启应用
         boolean isFirstOpen = MApplication.mDataKeeper.get(Api.FIRST_OPEN, false);
         // 如果是第一次启动，则先进入功能引导页
@@ -42,9 +44,9 @@ public class SpalishActivity extends BaseActivity {
             Intent intent = new Intent(this, WelcomeGuideActivity.class);
             startActivity(intent);
             finish();
-            return;
+
         } else {
-            super.onCreate(savedInstanceState);
+
             RequestParam params = ParamBuilder.buildParam("advertisementType", "1");
             RequestHelper.sendGETRequest(true, Api.GET_BANNER, params, new HttpListener<JSONObject>() {
                 @Override
@@ -76,8 +78,9 @@ public class SpalishActivity extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                finishWithAnim();
+
                 startActivityWithAnim(new Intent(SpalishActivity.this, MainActivity.class));
+                finishWithAnim();
             }
         }, 1000);
     }

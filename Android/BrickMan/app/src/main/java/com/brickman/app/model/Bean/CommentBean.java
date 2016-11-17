@@ -37,18 +37,5 @@ public class CommentBean {
 
     public UserBean user;
 
-    public static class UserBean {
-        public String userId;
-        public String userAlias;
-        public String userHead;
-        public String userName;
-        public String userPhone;
-        public String userStatus;
-        public String userSex;
-        public String userSexStr;
-        public String motto;
-        public String plat;
-        public String platId;
-        public String token;
-    }
+
 }

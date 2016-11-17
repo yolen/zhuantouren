@@ -39,6 +39,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Transparent">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,7 +51,7 @@
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
             android:name=".module.main.WelcomeGuideActivity"
-            android:theme="@style/AppTheme.ColorActionBar" />
+            android:theme="@style/AppTheme.ColorActionBar"></activity>
         <activity
             android:name=".module.main.MainActivity"
             android:launchMode="singleTask"
@@ -166,10 +167,13 @@
             android:name=".module.update.DownloadService"
             android:exported="true" />
 
-        <activity android:name=".module.mine.MessageActivity"
+        <activity
+            android:name=".module.mine.MessageActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ColorActionBar"></activity>
+            android:theme="@style/AppTheme.ColorActionBar" />
+
+
     </application>
 
 </manifest>

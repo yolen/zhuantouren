@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
 
 import com.brickman.app.common.data.DataKeeper;
 import com.brickman.app.common.data.cipher.Base64Cipher;
@@ -38,6 +39,7 @@ public class MApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         mAppContext = this;
         //配置程序异常退出处理
 //        Thread.setDefaultUncaughtExceptionHandler(new LocalFileHandler(this));
@@ -73,6 +75,7 @@ public class MApplication extends Application {
                 .setPauseOnScrollListener(new GlidePauseOnScrollListener(false, true))
                 .build();
         GalleryFinal.init(coreConfig);
+
     }
 
     public static MApplication getInstance(){

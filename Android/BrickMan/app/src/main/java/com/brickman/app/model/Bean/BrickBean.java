@@ -49,7 +49,7 @@ public class BrickBean implements Serializable {
      * token : null
      */
 
-    public UsersBean users;
+    public UserBean users;
     /**
      * id : 1
      * contentId : 3
@@ -59,25 +59,7 @@ public class BrickBean implements Serializable {
 
     public List<BrickContentAttachmentListBean> brickContentAttachmentList;
 
-    public static class UsersBean implements Serializable {
-        public String userId;
-        public String userAlias;
-        public String userHead;
-        public String userName;
-        public String userPhone;
-        public String userStatus;
-        public String userSex;
-        public String userSexStr;
-        public String motto;
-        public String plat;
-        public String platId;
-        public String token;
-    }
 
-    public static class BrickContentAttachmentListBean implements Serializable {
-        public int id;
-        public int contentId;
-        public String type;
-        public String attachmentPath;
-    }
+
+
 }

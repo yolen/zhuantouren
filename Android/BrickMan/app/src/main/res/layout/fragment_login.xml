@@ -92,7 +92,7 @@
 
 
                 <TextView
-
+                    android:id="@+id/forgetpwd"
                     android:text="@string/forgetpwd"
                     android:textSize="@dimen/sp_14"
                     android:layout_alignParentRight="true"

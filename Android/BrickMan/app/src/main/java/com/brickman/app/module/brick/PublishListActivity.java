@@ -128,7 +128,7 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
                 @Override
                 public void onItemClick(View view, int position) {
                     Intent intent = new Intent(PublishListActivity.this, BrickDetailActivity.class);
-                    BrickBean.UsersBean usersBean = new BrickBean.UsersBean();
+                    UserBean usersBean = new UserBean();
                     usersBean.userId = userId;
                     usersBean.userName = userName;
                     usersBean.userHead = userHead;

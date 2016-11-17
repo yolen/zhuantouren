@@ -60,6 +60,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
     TextView address;
     ImageView report;
     TextView content;
+    ImageView sexImg;
     LinearLayout imageList;
     LinearLayout linearLayout;
     @BindView(R.id.rv)
@@ -188,7 +189,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
         report = ButterKnife.findById(headerView, R.id.report);
         content = ButterKnife.findById(headerView, R.id.content);
         imageList = ButterKnife.findById(headerView, R.id.imageList);
-
+        sexImg=ButterKnife.findById(headerView,R.id.sex);
         report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -243,7 +244,9 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
         brickNum.setText(brickDetailBean.contentBricks + "");
         iconShare.setImageResource(brickDetailBean.contentShares > 0 ? R.mipmap.bm_share_sel : R.mipmap.bm_share_nor);
         shareNum.setText(brickDetailBean.contentShares + "");
-        mImagesAdapter = new ImagesAdapter(this, linearLayout, true, brickBean.brickContentAttachmentList);
+
+        sexImg.setImageResource( brickDetailBean.users.getUserSex().equals("男") ? R.mipmap.man : R.mipmap.woman);
+        mImagesAdapter = new ImagesAdapter(this, linearLayout, true, brickDetailBean.brickContentAttachmentList);
         mImagesAdapter.init();
     }
 
@@ -251,6 +254,10 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
     public void loadDetailSuccess(BrickDetailBean brickDetailBean) {
         if(brickDetailBean != null){
             this.brickDetailBean = brickDetailBean;
+//            brickDetailBean.
+            if (brickBean.brickContentAttachmentList==null){
+
+            }
             initData();
         }
     }

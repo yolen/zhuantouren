@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/iv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@mipmap/bm_launcher" />
 
@@ -19,7 +19,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="gone">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/logo"

@@ -105,7 +105,7 @@ public class UserFragment extends BaseFragment {
         } else {
             Glide.with(mActivity).load(R.mipmap.ic_launcher).into(avator);
             name.setText("未登录");
-            desc.setText("路见不平,拔刀相助");
+            desc.setText("一起打造漂泊者社区吧!");
         }
         logout.setText(MApplication.mAppContext.mUser != null ? "退出登录" : "点击登录");
     }

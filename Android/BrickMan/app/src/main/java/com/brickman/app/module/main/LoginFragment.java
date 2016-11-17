@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import com.brickman.app.MApplication;
 import com.brickman.app.R;
 import com.brickman.app.common.base.Api;
@@ -17,6 +19,7 @@ import com.brickman.app.common.http.param.ParamBuilder;
 import com.brickman.app.common.http.param.RequestParam;
 import com.brickman.app.common.umeng.auth.LoginListener;
 import com.brickman.app.model.Bean.UserBean;
+import com.brickman.app.module.dialog.PromptDialog;
 import com.google.gson.Gson;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yolanda.nohttp.rest.Response;
@@ -36,6 +39,9 @@ public class LoginFragment extends BaseFragment {
     EditText username;
     @BindView(R.id.password)
     EditText password;
+    @BindView(R.id.forgetpwd)
+    TextView forgetPwd;
+
     public static LoginFragment getInstance(String title) {
         LoginFragment sf = new LoginFragment();
         Bundle bundle = new Bundle();
@@ -59,11 +65,14 @@ public class LoginFragment extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_login;
     }
-    @OnClick({R.id.loginWX, R.id.loginQQ,R.id.btn_login})
+    @OnClick({R.id.loginWX, R.id.loginQQ,R.id.btn_login,R.id.forgetpwd})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.close:
                 ((LoginActivity)mActivity).finishWithAnim();
+                break;
+            case R.id.forgetpwd:
+                new PromptDialog(getContext(),getResources().getString(R.string.findpwdprompt)).show();
                 break;
             case R.id.loginWX:
 //                mUMSdkManager.login(this, SHARE_MEDIA.WEIXIN, new LoginListener() {

@@ -47,8 +47,8 @@ public class BrickListAdapter extends BaseQuickAdapter<BrickBean> {
         helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
         helper.setText(R.id.address, item.contentPlace);
         if (item.users!=null) {
-            if (item.users.userSexStr!=null) {
-                helper.setImageResource(R.id.report, item.users.userSexStr.equals("男") ? R.mipmap.man : R.mipmap.woman);
+            if (item.users.getUserSex()!=null) {
+                helper.setImageResource(R.id.report, item.users.getUserSex().equals("男") ? R.mipmap.man : R.mipmap.woman);
             }
         }
         helper.setText(R.id.content, item.contentTitle);

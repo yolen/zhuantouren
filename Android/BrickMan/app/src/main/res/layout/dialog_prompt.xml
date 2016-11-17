@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@drawable/prompt_bg"
+    android:padding="@dimen/dp_10"
+    android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+  >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_48"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="提示"
+        android:textColor="@color/text_color_dark"
+        android:textSize="@dimen/sp_20" />
+
+
+    <TextView android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dp_40"
+        android:padding="@dimen/dp_05"
+        android:layout_margin="@dimen/dp_15"
+
+        android:layout_marginRight="@dimen/dp_15"
+        android:gravity="center"
+        android:text=""
+        android:textSize="@dimen/sp_18"
+        android:textColor="@color/text_color_dark"/>
+
+<View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/gray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:orientation="horizontal">
+
+
+
+        <Button
+            android:id="@+id/confirm"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_48"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1"
+            android:background="@drawable/item_bg"
+            android:text="@string/know"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/sp_20" />
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>

@@ -10,6 +10,8 @@ import com.brickman.app.R;
 import com.brickman.app.common.base.Api;
 import com.brickman.app.common.utils.DensityUtils;
 import com.brickman.app.model.Bean.BrickBean;
+import com.brickman.app.model.Bean.BrickContentAttachmentListBean;
+import com.brickman.app.model.Bean.BrickDetailBean;
 import com.brickman.app.module.brick.ImageSwitcherActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -24,10 +26,10 @@ public class ImagesAdapter {
     private Context mCtx;
     private LinearLayout mRootView;
     private boolean mClickble;
-    private List<BrickBean.BrickContentAttachmentListBean> mImgList;
+    private List<BrickContentAttachmentListBean> mImgList;
     int pos = 0;
 
-    public ImagesAdapter(Context ctx, LinearLayout rootView, boolean clickable, List<BrickBean.BrickContentAttachmentListBean> imgList) {
+    public ImagesAdapter(Context ctx, LinearLayout rootView, boolean clickable, List<BrickContentAttachmentListBean> imgList) {
         this.mCtx = ctx;
         this.mRootView = rootView;
         this.mClickble = clickable;
@@ -132,7 +134,7 @@ public class ImagesAdapter {
                     Intent intent = new Intent(mCtx, ImageSwitcherActivity.class);
                     intent.putExtra(ImageSwitcherActivity.INTENT_KEY_IMAGE_SOURCE_TYPE, ImageSwitcherActivity.SOURCE_TYPE_NETWORK);
                     ArrayList<String> imageList = new ArrayList<String>();
-                    for (BrickBean.BrickContentAttachmentListBean item : mImgList) {
+                    for (BrickContentAttachmentListBean item : mImgList) {
                         imageList.add(Api.IMG_URL + item.attachmentPath);
                     }
                     intent.putStringArrayListExtra(ImageSwitcherActivity.INTENT_KEY_IMAGE_LIST, imageList);

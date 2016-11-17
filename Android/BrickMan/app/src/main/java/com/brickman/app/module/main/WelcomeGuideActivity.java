@@ -184,7 +184,7 @@ public class WelcomeGuideActivity extends BaseActivity implements View.OnClickLi
         public void onPageSelected(int position) {
             // 设置底部小点选中状态
             setCurDot(position);
-            timer = new CountDownTimer(3000, 1000) {
+            timer = new CountDownTimer(2000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     startBtn.setText(millisUntilFinished / 1000 + "秒进入");

@@ -61,7 +61,8 @@
                         android:layout_width="@dimen/dp_28"
                         android:layout_height="@dimen/dp_22"
                         android:layout_centerVertical="true"
-                        android:src="@mipmap/bm_message" />
+                        android:src="@mipmap/bm_message"
+                        android:visibility="gone"/>
                 </RelativeLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>

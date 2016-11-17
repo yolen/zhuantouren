@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.brickman.app.MApplication;
 import com.brickman.app.R;
@@ -20,9 +21,11 @@ import com.brickman.app.common.umeng.auth.LoginListener;
 import com.brickman.app.model.Bean.UserBean;
 import com.google.gson.Gson;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.TencentWbShareContent;
 import com.yolanda.nohttp.rest.Response;
 
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.Map;
 
@@ -42,6 +45,7 @@ public class RegisterFragment extends BaseFragment {
     EditText password;
     @BindView(R.id.verifypassword)
     EditText verifypassword;
+
 
     public static RegisterFragment getInstance(String title) {
         RegisterFragment sf = new RegisterFragment();
