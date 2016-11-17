@@ -68,6 +68,11 @@
 }
 
 - (void)brickButtonClick:(UIButton *)btn {
+    if (![BMUser isLogin]) {
+        MainViewController *mainVC = [self getMainViewController];
+        [mainVC pushLoginViewController];
+        return;
+    }
     self.selectedIndex = 1;
 }
 

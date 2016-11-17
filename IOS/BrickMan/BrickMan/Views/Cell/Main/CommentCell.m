@@ -30,6 +30,7 @@
         if (!_nameLabel) {
             _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 15, 100, 20)];
             _nameLabel.font = [UIFont systemFontOfSize:14];
+            _nameLabel.textColor = [UIColor lightGrayColor];
             [self.contentView addSubview:_nameLabel];
         }
         if (!_timeLabel) {
@@ -41,8 +42,7 @@
         if (!_commentLabel) {
             _commentLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, _timeLabel.bottom + 10, kScreen_Width - 70, 1)];
 //            _commentLabel.lineBreakMode = NSLineBreakByCharWrapping;
-            _commentLabel.font = [UIFont systemFontOfSize:12];
-            _commentLabel.textColor = [UIColor lightGrayColor];
+            _commentLabel.font = [UIFont systemFontOfSize:14];
             [self.contentView addSubview:_commentLabel];
         }
     }
@@ -60,7 +60,7 @@
 
 + (CGFloat)cellHeightWithModel:(BMComment *)comment {
     CGFloat height = 60;
-    height += [comment.commentContent getHeightWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(kScreen_Width - 70, CGFLOAT_MAX)] + 10;
+    height += [comment.commentContent getHeightWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(kScreen_Width - 70, CGFLOAT_MAX)] + 10;
     return height;
 }
 

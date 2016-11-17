@@ -21,11 +21,12 @@
 #import "GalleryController.h"
 
 @interface MainTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
-@property (strong, nonatomic) UIImageView *iconImageView;
+@property (strong, nonatomic) UIImageView *iconImageView, *sexIcon;
 @property (strong, nonatomic) UILabel *nameLabel, *timeLabel, *contentLabel, *locationLabel;
 @property (strong, nonatomic) UIView *separatorLine, *separatorLine2, *bottomView;
 @property (strong, nonatomic) UIButton *flowerBtn;
 @property (strong, nonatomic) UICustomCollectionView *myCollectionView;
+
 @property (strong, nonatomic) NSDictionary *dic;
 @property (strong, nonatomic) NSArray *imageArray;
 @end
@@ -49,7 +50,7 @@
             [self.contentView addSubview:_iconImageView];
         }
         if (!_nameLabel) {
-            _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 15, 150, 20)];
+            _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 15, 1, 20)];
             _nameLabel.font = [UIFont systemFontOfSize:14];
             _nameLabel.userInteractionEnabled = YES;
             [_nameLabel tta_addTapGestureWithTarget:_nameLabel action:^(UITapGestureRecognizer *tap){
@@ -58,6 +59,10 @@
                 }
             }];
             [self.contentView addSubview:_nameLabel];
+        }
+        if (!_sexIcon) {
+            _sexIcon = [[UIImageView alloc] initWithFrame:CGRectMake(_nameLabel.right + 5, 17, 16, 16)];
+            [self.contentView addSubview:_sexIcon];
         }
         if (!_timeLabel) {
             _timeLabel  = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, _nameLabel.bottom - 5, 150, 20)];
@@ -77,6 +82,7 @@
             _reportBtn.frame = CGRectMake(kScreen_Width - 40, 15, 30, 30);
             [_reportBtn setImage:[UIImage imageNamed:@"report_nor"] forState:UIControlStateNormal];
             [_reportBtn addTarget:self action:@selector(operationAction:) forControlEvents:UIControlEventTouchUpInside];
+            _reportBtn.hidden = YES;
             [self.contentView addSubview:_reportBtn];
         }
         if (!_separatorLine) {
@@ -186,11 +192,22 @@
     CGFloat curY = 61+20;
     
     [_iconImageView sd_setImageWithURL:[NSURL URLWithString:self.model.user.userHead ? self.model.user.userHead : [BMUser getUserModel].userHead] placeholderImage:[UIImage imageNamed:@"icon"]];
-    _nameLabel.text = self.model.user.userAlias ? self.model.user.userAlias : [BMUser getUserModel].userAlias;
+    
+    NSString *name = self.model.user.userAlias ? self.model.user.userAlias : [BMUser getUserModel].userAlias;
+    CGFloat nameWidth = [name getWidthWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(150, 20)];
+    _nameLabel.text = name;
+    _nameLabel.width = nameWidth;
+    
+    _sexIcon.left = kPaddingLeft + 55 + nameWidth;
+    _sexIcon.image = [UIImage imageNamed:([self.model.user.userSex isEqualToString:@"USER_SEX01"] ? @"man" : @"woman")];
+    _sexIcon.hidden = self.isDetail ? YES : NO;
+    
     _timeLabel.text = [self.model.date stringDisplay_HHmm];
     [_contentLabel setLongString:self.model.contentTitle withFitWidth:(kScreen_Width - 10)];
     curY += [self.model.contentTitle getHeightWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(kScreen_Width - 20, CGFLOAT_MAX)];
     [_separatorLine2 setY:curY];
+    
+    _reportBtn.hidden = _isDetail ? NO : YES;
     
     if (self.model.brickContentAttachmentList.count > 0) {
         [self.myCollectionView reloadData];
