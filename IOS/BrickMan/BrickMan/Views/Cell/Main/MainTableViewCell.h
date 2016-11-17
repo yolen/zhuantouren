@@ -26,7 +26,6 @@
 @property (copy, nonatomic) void(^reportBlock)();
 
 @property (strong, nonatomic) BMContent *model;
-@property (strong, nonatomic) CommentInputView *inputView;
 
 + (CGFloat)cellHeightWithModel:(BMContent *)contentModel;
 @end

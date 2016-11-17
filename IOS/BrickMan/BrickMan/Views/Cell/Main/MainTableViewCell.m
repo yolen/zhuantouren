@@ -294,9 +294,6 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.inputView) {
-        [self.inputView p_dismiss];
-    }
     NSMutableArray *browseItemArray = [[NSMutableArray alloc]init];
     NSArray *attachmentArray = self.model.brickContentAttachmentList;
     for (int i = 0; i < attachmentArray.count; i++) {
@@ -315,11 +312,6 @@
     }
     BrickPhotoCell *cell = (BrickPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
     MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.photoImgView.tag - 100];
-    if (self.inputView) {
-        bvc.tapBlock = ^(){
-            [self.inputView p_show];
-        };
-    }
     [bvc showBrowseViewController];
 }
 

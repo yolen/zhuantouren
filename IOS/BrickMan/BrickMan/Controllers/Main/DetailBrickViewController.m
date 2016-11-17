@@ -149,11 +149,9 @@
         MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
         cell.model = self.model;
         cell.isDetail = YES;
-        cell.inputView = self.inputView;
         
         __weak typeof(self) weakSelf = self;
         cell.pushLoginBlock = ^(){
-            [self.inputView p_dismiss];
             LoginViewController *loginVC = [[LoginViewController alloc] init];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
             [self presentViewController:nav animated:YES completion:nil];
