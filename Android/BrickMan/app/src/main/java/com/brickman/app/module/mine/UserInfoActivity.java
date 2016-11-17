@@ -79,7 +79,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter, UserInfoMo
         mNickName.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.userName) ?
                 MApplication.mAppContext.mUser.userAlias : MApplication.mAppContext.mUser.userAlias);
         mSex.setText(MApplication.mAppContext.mUser.getUserSex());
-        mMotto.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.motto) ? "他的格言就是没有格言!!!" : MApplication.mAppContext.mUser.motto);
+        mMotto.setText(TextUtils.isEmpty(MApplication.mAppContext.mUser.motto) ? "漂泊者分享交流社区!" : MApplication.mAppContext.mUser.motto);
     }
 
     @Override
