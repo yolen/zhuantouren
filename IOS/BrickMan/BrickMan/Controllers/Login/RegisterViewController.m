@@ -39,7 +39,7 @@
 - (void)configUI {
     //textField
     self.userID_TF = [[UITextField alloc] initWithFrame:CGRectMake(20, 30, kScreen_Width - 40, 40)];
-    self.userID_TF.placeholder = @"设置用户名";
+    self.userID_TF.placeholder = @"设置用户名(3-15位字母、数字组合)";
     self.userID_TF.backgroundColor = [UIColor whiteColor];
     self.userID_TF.leftViewMode=UITextFieldViewModeAlways;
     self.userID_TF.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -54,7 +54,7 @@
     self.userID_TF.leftView = left_view1;
 
     self.password_TF = [[UITextField alloc] initWithFrame:CGRectMake(20, self.userID_TF.bottom + 30, kScreen_Width - 40, 40)];
-    self.password_TF.placeholder = @"设置密码(6-20位字母、数字组合)";
+    self.password_TF.placeholder = @"设置密码(6-15位字母、数字组合)";
     self.password_TF.secureTextEntry = YES;
     self.password_TF.backgroundColor = [UIColor whiteColor];
     self.password_TF.leftViewMode=UITextFieldViewModeAlways;
@@ -90,7 +90,7 @@
     [self.registerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     [self.registerBtn addTarget:self action:@selector(registerAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.registerBtn.layer.cornerRadius = 3.0;
+    self.registerBtn.layer.cornerRadius = 5.0;
     self.registerBtn.layer.masksToBounds = YES;
     [self.view addSubview:self.registerBtn];
 }
@@ -105,15 +105,25 @@
         tipString = @"请输入密码";
     }else if (self.confirm_TF.text.length == 0) {
         tipString = @"请输入确认密码";
-    }else if (self.password_TF.text.length < 6 || self.password_TF.text.length > 20) {
-        tipString = @"密码为6-20位字母、数字组合";
-    }else if ([_password_TF.text length] >= 6) {
-        NSString * regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
+    }else if (self.userID_TF.text.length < 3 || self.password_TF.text.length > 15) {
+        tipString = @"用户名为3-15位字母、数字组合";
+    }else if (self.password_TF.text.length < 6 || self.password_TF.text.length > 15) {
+        tipString = @"密码为6-15位字母、数字组合";
+    }else if ([_userID_TF.text length] >= 3) {
+        NSString * regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{3,15}$";
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
         BOOL result = [pred evaluateWithObject:_password_TF.text];
         
         if (!result) {
-            tipString = @"密码为6-20位字母、数字组合";
+            tipString = @"用户名为3-15位字母、数字组合";
+        }
+    }else if ([_password_TF.text length] >= 6) {
+        NSString * regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,15}$";
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+        BOOL result = [pred evaluateWithObject:_password_TF.text];
+        
+        if (!result) {
+            tipString = @"密码为6-15位字母、数字组合";
         }
     }else if (!isEqual) {
         tipString = @"确认密码与密码不一致";

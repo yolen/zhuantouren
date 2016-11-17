@@ -27,4 +27,6 @@
 + (NSString* )pathInCacheDirectory:(NSString *)fileName;
 + (BOOL) createDirInCache:(NSString *)dirName;
 
+
+
 @end

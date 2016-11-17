@@ -55,7 +55,7 @@
     
     UIButton *quitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     quitBtn.frame = CGRectMake(10, 20, kScreen_Width - 20, 35*SCALE);
-    quitBtn.layer.cornerRadius = 3.0;
+    quitBtn.layer.cornerRadius = 5.0;
     quitBtn.layer.masksToBounds = YES;
     quitBtn.backgroundColor = kNavigationBarColor;
     [quitBtn setTitle:@"退出登录" forState:UIControlStateNormal];

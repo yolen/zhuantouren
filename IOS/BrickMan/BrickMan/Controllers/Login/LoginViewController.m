@@ -103,7 +103,7 @@
     [self.loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [self.loginBtn addTarget:self action:@selector(loginAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.loginBtn.layer.cornerRadius = 3.0;
+    self.loginBtn.layer.cornerRadius = 5.0;
     self.loginBtn.layer.masksToBounds = YES;
     [self.view addSubview:self.loginBtn];
     
@@ -197,7 +197,7 @@
 }
 
 - (void)forgetPwdAction:(id)sender {
-    
+    kTipAlert(@"请加砖头人app用户反馈群（387655797），找管理员索要登录密码。");
 }
 
 - (void)qqLoginAction:(id)sender {

@@ -177,7 +177,7 @@
     if (offset > 0) {
         CGFloat min = self.height - 64;
         CGFloat progress = 1 - (offset / min);
-        if (progress < 0.2) {
+        if (progress < 0.5) {
             if (!_isAnimation && _isScrollUp) {
                 _isAnimation = YES;
                 [UIView animateWithDuration:1.0 animations:^{

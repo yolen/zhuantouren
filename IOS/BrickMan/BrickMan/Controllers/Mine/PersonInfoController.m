@@ -13,9 +13,12 @@
 #import "ChangeUserInfoController.h"
 #import "UITextField+Common.h"
 
+@import AVFoundation;
+@import AssetsLibrary;
+
 #define kMinLength 2
 
-@interface PersonInfoController ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
+@interface PersonInfoController ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UITableView *myTableView;
 @property (nonatomic, strong) NSArray *titles;
 @end
@@ -49,8 +52,7 @@
     cell.titleLabel.text = self.titles[indexPath.row];
     if (indexPath.row == 0) {
         
-        NSString *imagePath = self.user.userHead;
-        [cell.subImgView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:[UIImage imageNamed:@"icon"]];
+        [cell.subImgView sd_setImageWithURL:[NSURL URLWithString:self.user.userHead] placeholderImage:[UIImage imageNamed:@"icon"]];
         [cell.subLabel setHidden:YES];
         [cell.subImgView setHidden:NO];
     } else {
@@ -75,14 +77,8 @@
     __weak typeof(self) weakSelf = self;
     switch (indexPath.row) {
         case 0: { //更改头像
-            HeadEditController *headEdit = [[HeadEditController alloc]init];
-            headEdit.updateBlock = ^(NSString *value){
-                weakSelf.user.userHead = value;
-                [weakSelf.myTableView reloadData];
-            };
-            NSString *imagePath = self.user.userHead;
-            [headEdit.headImgView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:[UIImage imageNamed:@"icon"]];
-            [self.navigationController pushViewController:headEdit animated:YES];
+            UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照", @"从相册选择", nil];
+            [sheet showInView:self.view];
         }
             break;
         case 1: { //更改昵称
@@ -114,6 +110,83 @@
     }
 }
 
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 2) {
+        return;
+    }
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    if (buttonIndex == 0) {
+        if (![self checkCameraAuthorizationStatus]) {
+            return;
+        }
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    }else {
+        if (![self checkPhotoLibraryAuthorizationStatus]) {
+            return;
+        }
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark - picker Image 
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *originalImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    //保存原图片到相册中
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera && originalImage) {
+        UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, NULL);
+    }
+    
+    __weak typeof(self) weakSelf = self;
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSData *data = UIImageJPEGRepresentation(originalImage, 1.0);
+        //对于大于100kb的图片进行压缩
+        if ((float)data.length/1024 > 30) {
+            data = UIImageJPEGRepresentation(originalImage, 1024*30 / (float)data.length);
+        }
+        UIImage *image = [UIImage imageWithData:data];
+        
+        [[BrickManAPIManager shareInstance] uploadFileWithImages:@[image] doneBlock:^(NSString *imagePath, NSError *error) {
+            if (imagePath) {
+                BMUser *user = [BMUser getUserModel];
+                [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : user.userId, @"userHead" : imagePath} andBlock:^(id data, NSError *error) {
+                    if (data) {
+                        //刷新数据
+                        [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
+                            if (data) {
+                                [NSObject showSuccessMsg:@"更换头像成功"];
+                                [BMUser saveUserInfo:data];
+                                [weakSelf reload];
+                            }
+                        }];
+                    }
+                }];
+            }
+        } progerssBlock:nil];
+
+    }];
+}
+
+- (void)reload {
+    self.user = [BMUser getUserModel];
+    [self.myTableView reloadData];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
+}
+
+#pragma mark - alert
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        NSURL *settingsURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+        if ([[UIApplication sharedApplication] canOpenURL:settingsURL]) {
+            [[UIApplication sharedApplication] openURL:settingsURL];
+        }
+    }
+}
+
 #pragma mark - 懒加载
 - (NSArray *)titles {
     if (!_titles) {
@@ -130,4 +203,45 @@
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+- (BOOL)checkPhotoLibraryAuthorizationStatus {
+    if ([ALAssetsLibrary respondsToSelector:@selector(authorizationStatus)]) {
+        ALAuthorizationStatus authStatus = [ALAssetsLibrary authorizationStatus];
+        if (ALAuthorizationStatusDenied == authStatus ||
+            ALAuthorizationStatusRestricted == authStatus) {
+            [self showSettingAlertStr:@"请在iPhone的“设置->隐私->照片”中打开本应用的访问权限"];
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (BOOL)checkCameraAuthorizationStatus {
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        kTipAlert(@"该设备不支持拍照");
+        return NO;
+    }
+    
+    if ([AVCaptureDevice respondsToSelector:@selector(authorizationStatusForMediaType:)]) {
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (AVAuthorizationStatusDenied == authStatus ||
+            AVAuthorizationStatusRestricted == authStatus) {
+            [self showSettingAlertStr:@"请在iPhone的“设置->隐私->相机”中打开本应用的访问权限"];
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+- (void)showSettingAlertStr:(NSString *)tipStr {
+    //iOS8+系统下可跳转到‘设置’页面，否则只弹出提示窗即可
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:tipStr delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置", nil];
+        [alert show];
+    }else{
+        kTipAlert(@"%@", tipStr);
+    }
+}
+
 @end
