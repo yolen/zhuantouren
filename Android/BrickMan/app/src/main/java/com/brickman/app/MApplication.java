@@ -35,46 +35,63 @@ public class MApplication extends Application {
     public static DataKeeper mDataKeeper;
     public UserBean mUser;
     public boolean isNight = false;
+    private long start,end;
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        start=System.currentTimeMillis();
+        Log.e("stime","startime"+start);
+    }
+
 
     @Override
     public void onCreate() {
         super.onCreate();
-
         mAppContext = this;
-        //配置程序异常退出处理
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("stime","starttime"+System.currentTimeMillis());
+                //配置程序异常退出处理
 //        Thread.setDefaultUncaughtExceptionHandler(new LocalFileHandler(this));
-        Logger.init("BRICK_MAN");
-        com.yolanda.nohttp.Logger.setTag("NoHttpSample");
-        com.yolanda.nohttp.Logger.setDebug(true);// 开始NoHttp的调试模式, 这样就能看到请求过程和日志
-        mDataKeeper = new DataKeeper(this, "BRICK_MAN");
-        mUser = (UserBean) mDataKeeper.get("user_info");
-        NoHttp.initialize(this);
-        NoHttp.setEnableCache(true);
-        //设置主题
-        ThemeConfig theme = new ThemeConfig.Builder()
-                .setCheckNornalColor(getResources().getColor(R.color.light_gray))
-                .setCheckSelectedColor(getResources().getColor(R.color.dark_green))
-                .setCropControlColor(getResources().getColor(R.color.white))
-                .setTitleBarBgColor(getResources().getColor(R.color.colorAccent))
-                .setTitleBarTextColor(getResources().getColor(R.color.white))
-                .setTitleBarIconColor(getResources().getColor(R.color.white))
-                .setFabNornalColor(getResources().getColor(R.color.colorAccent))
-                .setFabPressedColor(getResources().getColor(R.color.colorPrimaryDark))
-                .build();
-        //配置功能
-        FunctionConfig functionConfig = new FunctionConfig.Builder()
-                .setEnableCamera(true)
-                .setEnableEdit(true)
-                .setEnableCrop(true)
-                .setEnableRotate(true)
-                .setCropSquare(true)
-                .setEnablePreview(true)
-                .build();
-        CoreConfig coreConfig = new CoreConfig.Builder(this, new GlideImageLoader(), theme)
-                .setFunctionConfig(functionConfig)
-                .setPauseOnScrollListener(new GlidePauseOnScrollListener(false, true))
-                .build();
-        GalleryFinal.init(coreConfig);
+                Logger.init("BRICK_MAN");
+                com.yolanda.nohttp.Logger.setTag("NoHttpSample");
+                com.yolanda.nohttp.Logger.setDebug(true);// 开始NoHttp的调试模式, 这样就能看到请求过程和日志
+                mDataKeeper = new DataKeeper(mAppContext, "BRICK_MAN");
+                mUser = (UserBean) mDataKeeper.get("user_info");
+                NoHttp.initialize(mAppContext);
+                NoHttp.setEnableCache(true);
+                //设置主题
+                ThemeConfig theme = new ThemeConfig.Builder()
+                        .setCheckNornalColor(getResources().getColor(R.color.light_gray))
+                        .setCheckSelectedColor(getResources().getColor(R.color.dark_green))
+                        .setCropControlColor(getResources().getColor(R.color.white))
+                        .setTitleBarBgColor(getResources().getColor(R.color.colorAccent))
+                        .setTitleBarTextColor(getResources().getColor(R.color.white))
+                        .setTitleBarIconColor(getResources().getColor(R.color.white))
+                        .setFabNornalColor(getResources().getColor(R.color.colorAccent))
+                        .setFabPressedColor(getResources().getColor(R.color.colorPrimaryDark))
+                        .build();
+                //配置功能
+                FunctionConfig functionConfig = new FunctionConfig.Builder()
+                        .setEnableCamera(true)
+                        .setEnableEdit(true)
+                        .setEnableCrop(true)
+                        .setEnableRotate(true)
+                        .setCropSquare(true)
+                        .setEnablePreview(true)
+                        .build();
+                CoreConfig coreConfig = new CoreConfig.Builder(mAppContext, new GlideImageLoader(), theme)
+                        .setFunctionConfig(functionConfig)
+                        .setPauseOnScrollListener(new GlidePauseOnScrollListener(false, true))
+                        .build();
+                GalleryFinal.init(coreConfig);
+                end=System.currentTimeMillis();
+                Log.e("stime","endtime"+end+"耗时"+(end-start));
+
+            }
+        }).start();
+        Log.e("stime","endtime"+System.currentTimeMillis());
 
     }
 

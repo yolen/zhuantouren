@@ -20,6 +20,7 @@ android {
         versionCode 5
         versionName '1.0.5'
         signingConfig signingConfigs.config
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -57,6 +58,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:appcompat-v7:+'
     compile 'com.yolanda.nohttp:nohttp:1.0.7'
     compile 'com.jakewharton:butterknife:8.4.0'
