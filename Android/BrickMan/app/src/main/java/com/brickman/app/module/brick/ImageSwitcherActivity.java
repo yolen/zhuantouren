@@ -199,11 +199,11 @@ public class ImageSwitcherActivity extends BaseActivity {
             // 本地文件
             if (mSourceType.equals(SOURCE_TYPE_LOCAL_FILE)) {
                 String imagePath = "file://" + resource;
-                Glide.with(ImageSwitcherActivity.this).load(imagePath).asGif().diskCacheStrategy(DiskCacheStrategy.ALL).into(imgFull);
+                Glide.with(ImageSwitcherActivity.this).load(imagePath).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgFull);
             } else { // 网络文件
                 // 显示缩略图
                 // 读取大图
-                Glide.with(ImageSwitcherActivity.this).load(resource).asGif().diskCacheStrategy(DiskCacheStrategy.ALL).into(imgFull);
+                Glide.with(ImageSwitcherActivity.this).load(resource).diskCacheStrategy(DiskCacheStrategy.ALL).into(imgFull);
             }
             imgFull.setOnClickListener(new OnClickListener() {
                 @Override

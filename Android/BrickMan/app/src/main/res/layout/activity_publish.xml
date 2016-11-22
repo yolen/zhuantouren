@@ -57,7 +57,7 @@
         android:layout_height="@dimen/dp_120"
         android:background="@color/white"
         android:gravity="top"
-        android:hint="你看见的,就是我想知道的..."
+        android:hint="分享你我的北漂生涯..."
         android:lineSpacingExtra="@dimen/dp_02"
         android:maxLength="100"
         android:paddingTop="@dimen/dp_08"
