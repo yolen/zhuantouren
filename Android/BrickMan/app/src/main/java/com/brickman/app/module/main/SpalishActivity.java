@@ -37,6 +37,7 @@ public class SpalishActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MApplication.mAppContext.inite();
         // 判断是否是第一次开启应用
         boolean isFirstOpen = MApplication.mDataKeeper.get(Api.FIRST_OPEN, false);
         // 如果是第一次启动，则先进入功能引导页

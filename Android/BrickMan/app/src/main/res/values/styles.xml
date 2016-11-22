@@ -47,7 +47,7 @@
         <item name="colorPrimary">@color/transparent</item>
         <item name="colorPrimaryDark">@color/transparent</item>
         <item name="colorAccent">@color/transparent</item>
-        <item name="android:windowBackground">@color/colorAccent</item>
+        <item name="android:windowBackground">@drawable/logo_splash</item>
         <item name="text_color">@color/text_color_dark</item>
     </style>
 
