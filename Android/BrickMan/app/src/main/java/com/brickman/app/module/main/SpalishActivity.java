@@ -3,7 +3,6 @@ package com.brickman.app.module.main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.brickman.app.MApplication;
@@ -45,9 +44,7 @@ public class SpalishActivity extends BaseActivity {
             Intent intent = new Intent(this, WelcomeGuideActivity.class);
             startActivity(intent);
             finish();
-
         } else {
-
             RequestParam params = ParamBuilder.buildParam("advertisementType", "1");
             RequestHelper.sendGETRequest(true, Api.GET_BANNER, params, new HttpListener<JSONObject>() {
                 @Override

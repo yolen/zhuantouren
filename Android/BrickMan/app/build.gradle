@@ -12,14 +12,12 @@ android {
     compileSdkVersion 23
     buildToolsVersion '23.0.1'
     defaultConfig {
-        vectorDrawables.useSupportLibrary = true
         applicationId "com.brickman.app"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 5
         versionName '1.0.5'
         signingConfig signingConfigs.config
-        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -28,6 +26,7 @@ android {
             zipAlignEnabled true
             proguardFile './proguard-rules.pro'
             shrinkResources false
+            signingConfig signingConfigs.config
         }
         debug {
             signingConfig signingConfigs.config
@@ -49,47 +48,28 @@ android {
     }
     productFlavors {
     }
-    dexOptions {
-        incremental true
-    }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-//    testCompile 'junit:junit:4.12'
-//    compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:appcompat-v7:+'
     compile 'com.yolanda.nohttp:nohttp:1.0.7'
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-//    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.wang.avi:library:1.0.5'
-    //    compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.orhanobut:logger:1.15'
     compile 'com.android.support:design:+'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.4'
-    // http://blog.csdn.net/analyzesystem/article/details/51426473
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.6@aar'
     compile 'com.google.code.gson:gson:2.4'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
-    //    compile 'com.joanzapata.android:base-adapter-helper:1.1.11'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.9.3'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
-    // https://github.com/yqritc/RecyclerView-FlexibleDivider
-    //    compile 'com.android.support.constraint:constraint-layout:1.0.+'
-    // https://github.com/IsseiAoki/SimpleCropView
     compile 'com.isseiaoki:simplecropview:1.1.4'
     compile project(':social_sdk_library_project')
     compile 'cn.finalteam:galleryfinal:1.4.8.7'
     compile 'com.makeramen:roundedimageview:2.2.1'
-    // https://github.com/Curzibn/Luban.git
     compile 'top.zibin:Luban:1.0.8'
-//    compile 'io.reactivex:rxandroid:1.2.1'
-//    compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.youth.banner:banner:+'
-    //最新版本
-    // https://github.com/bingoogolapple/BGABadgeView-Android.git
-    //    compile 'cn.bingoogolapple:bga-badgeview:latestVersion@aar'
     compile files('libs/AMap2DMap_2.9.1_AMapLocation_2.8.0_20160825.jar')
 }
