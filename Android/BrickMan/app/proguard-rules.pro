@@ -79,6 +79,11 @@
 -keep public class * extends android.support.v4.view.ActionProvider {
     public <init>(android.content.Context);
 }
+-keep class android.support.v7.** { *; }
+-keep public class * extends android.support.v7.**
+-keep interface android.support.v7.app.** { *; }
+-dontwarn android.support.**    # 忽略警告
+
 #--------------- BEGIN: supportV4V7 ----------
 -dontwarn android.support.design.**
 -keep class android.support.design.** { *; }

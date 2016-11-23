@@ -214,7 +214,7 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
     private void initData() {
 
             Glide.with(this).load(userHead).diskCacheStrategy(DiskCacheStrategy.ALL).into(avator);
-            name.setText(TextUtils.isEmpty(userName)?userAliar:userName);
+            name.setText(TextUtils.isEmpty(userAliar)?userName:userAliar);
             if (userSex.equals("男")){
                 sex.setImageResource(R.mipmap.man);
             }else {

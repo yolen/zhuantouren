@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="HardcodedText"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_weight="2"
@@ -23,19 +22,21 @@
                 android:layout_marginTop="@dimen/dp_30"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_08"
-                android:background="@drawable/comment_edit_bg">
+                android:background="@drawable/input_edit_bg">
                 <ImageView
                     android:src="@mipmap/bm_login_user_icon"
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20" />
                 <EditText
                     android:id="@+id/username"
-                    android:background="@color/transparent"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:textSize="@dimen/sp_16"
                     android:layout_marginLeft="@dimen/dp_05"
                     android:layout_gravity="center"
                     android:hint="@string/inputusername"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:cursorVisible="true"
                     android:textColorHint="@color/text_light_gray"
                     android:textColor="@color/text_color_dark"
                     android:layout_height="match_parent" />
@@ -48,21 +49,24 @@
                 android:layout_marginTop="@dimen/dp_20"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_08"
-                android:background="@drawable/comment_edit_bg">
+                android:background="@drawable/input_edit_bg">
                 <ImageView
                     android:src="@mipmap/bm_logn_pwd_icon"
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20" />
 
+
                 <EditText
                     android:layout_marginLeft="@dimen/dp_05"
                     android:id="@+id/password"
-                    android:background="@color/transparent"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:textSize="@dimen/sp_16"
                     android:layout_gravity="center"
                     android:inputType="textPassword"
                     android:hint="@string/inputpwd"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:cursorVisible="true"
                     android:textColorHint="@color/text_light_gray"
                     android:textColor="@color/text_color_dark"
                     android:layout_height="match_parent" />
@@ -89,8 +93,6 @@
                 android:layout_marginTop="@dimen/dp_05"
                 android:padding="@dimen/dp_05"
                 >
-
-
                 <TextView
                     android:id="@+id/forgetpwd"
                     android:text="@string/forgetpwd"
@@ -105,11 +107,7 @@
             android:layout_weight="2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:fitsSystemWindows="false">
-
-
-
+            >
             <RelativeLayout
                 android:id="@+id/rl"
                 android:layout_width="match_parent"
@@ -128,7 +126,7 @@
                     android:drawableTop="@mipmap/share_weixin_icon"
                     android:text="微信登录"
                     android:textAlignment="center"
-                    android:textColor="?attr/text_color"
+                    android:textColor="@color/text_color_dark"
                     android:textSize="@dimen/sp_16"
                     android:visibility="gone"
                     tools:ignore="RtlHardcoded" />
@@ -142,7 +140,7 @@
                     android:drawableTop="@mipmap/share_qq_friends_icon"
                     android:text="QQ登录"
                     android:textAlignment="center"
-                    android:textColor="?attr/text_color"
+                    android:textColor="@color/text_color_dark"
                     android:textSize="@dimen/sp_16"
                     tools:ignore="RtlHardcoded" />
 

@@ -37,10 +37,7 @@ public class MApplication extends Application {
         Logger.init("BRICK_MAN");
         mDataKeeper = new DataKeeper(mAppContext, "BRICK_MAN");
         mAppContext.mUser = (UserBean) mDataKeeper.get("user_info");
-        com.yolanda.nohttp.Logger.setTag("NoHttpSample");
-        com.yolanda.nohttp.Logger.setDebug(true);// 开始NoHttp的调试模式, 这样就能看到请求过程和日志
-        NoHttp.initialize(mAppContext);
-        NoHttp.setEnableCache(true);
+
         //设置主题
         ThemeConfig theme = new ThemeConfig.Builder()
                 .setCheckNornalColor(mAppContext.getResources().getColor(R.color.light_gray))
@@ -72,6 +69,11 @@ public class MApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mAppContext = this;
+        com.yolanda.nohttp.Logger.setTag("NoHttpSample");
+        com.yolanda.nohttp.Logger.setDebug(true);// 开始NoHttp的调试模式, 这样就能看到请求过程和日志
+        NoHttp.initialize(mAppContext);
+        NoHttp.setEnableCache(true);
+        inite();
     }
 
     public static MApplication getInstance() {

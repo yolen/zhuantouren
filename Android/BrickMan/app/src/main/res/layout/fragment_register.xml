@@ -23,19 +23,21 @@
                 android:layout_marginTop="@dimen/dp_30"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_08"
-                android:background="@drawable/comment_edit_bg">
+                android:background="@drawable/input_edit_bg">
                 <ImageView
                     android:src="@mipmap/bm_login_user_icon"
                     android:layout_width="@dimen/dp_20"
                     android:layout_height="@dimen/dp_20" />
                 <EditText
                     android:id="@+id/username"
-                    android:background="@color/transparent"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:textSize="@dimen/sp_16"
                     android:layout_marginLeft="@dimen/dp_05"
                     android:layout_gravity="center"
                     android:hint="@string/settingusername"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:cursorVisible="true"
                     android:textColorHint="@color/text_light_gray"
                     android:textColor="@color/text_color_dark"
                     android:layout_height="match_parent" />
@@ -48,7 +50,7 @@
                 android:layout_marginTop="@dimen/dp_20"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_08"
-                android:background="@drawable/comment_edit_bg">
+                android:background="@drawable/input_edit_bg">
                 <ImageView
                     android:src="@mipmap/bm_logn_pwd_icon"
                     android:layout_width="@dimen/dp_20"
@@ -57,12 +59,14 @@
                 <EditText
                     android:layout_marginLeft="@dimen/dp_05"
                     android:id="@+id/verifypassword"
-                    android:background="@color/transparent"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:textSize="@dimen/sp_16"
                     android:layout_gravity="center"
                     android:inputType="textPassword"
                     android:hint="@string/settingpwd"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:cursorVisible="true"
                     android:textColorHint="@color/text_light_gray"
                     android:textColor="@color/text_color_dark"
                     android:layout_height="match_parent" />
@@ -75,7 +79,7 @@
                 android:layout_marginTop="@dimen/dp_20"
                 android:orientation="horizontal"
                 android:padding="@dimen/dp_08"
-                android:background="@drawable/comment_edit_bg">
+                android:background="@drawable/input_edit_bg">
                 <ImageView
                     android:src="@mipmap/bm_logn_pwd_icon"
                     android:layout_width="@dimen/dp_20"
@@ -84,12 +88,14 @@
                 <EditText
                     android:layout_marginLeft="@dimen/dp_05"
                     android:id="@+id/password"
-                    android:background="@color/transparent"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:textSize="@dimen/sp_16"
                     android:layout_gravity="center"
                     android:inputType="textPassword"
                     android:hint="@string/verifypwd"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:cursorVisible="true"
                     android:textColorHint="@color/text_light_gray"
                     android:textColor="@color/text_color_dark"
                     android:layout_height="match_parent" />

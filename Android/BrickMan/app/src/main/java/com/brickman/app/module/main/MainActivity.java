@@ -175,6 +175,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         } else if (resultCode == RESULT_OK && requestCode == 1002) {
             // 发布返回刷新
             mTabHost.setCurrentTab(0);
+
             ArrayList<Fragment> list = (ArrayList<Fragment>) ((HomeFragment) mTabManager.getTab(tabNames[0]).getFragment()).fragments;
             ((BrickListFragment)list.get(0)).reload();
         }else if (requestCode==RESULT_OK&&requestCode==1003){
