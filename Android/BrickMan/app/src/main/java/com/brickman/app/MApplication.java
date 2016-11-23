@@ -5,18 +5,13 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Environment;
-import android.util.Log;
-
 import com.brickman.app.common.data.DataKeeper;
-import com.brickman.app.common.data.cipher.Base64Cipher;
 import com.brickman.app.common.glide.GlideImageLoader;
 import com.brickman.app.common.glide.GlidePauseOnScrollListener;
 import com.brickman.app.model.Bean.UserBean;
 import com.orhanobut.logger.Logger;
 import com.yolanda.nohttp.NoHttp;
-
 import java.util.List;
-
 import cn.finalteam.galleryfinal.CoreConfig;
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
