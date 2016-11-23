@@ -126,7 +126,7 @@ public class ImageDialog extends Dialog {
     private void compress(final String imagePath) {
         Luban.get(mCtx)
                 .load(new File(imagePath))                     //传人要压缩的图片
-                .putGear(Luban.FIRST_GEAR)//设定压缩档次，默认三挡
+//                .putGear(Luban.FIRST_GEAR)//设定压缩档次，默认三挡
                 .setCompressListener(new OnCompressListener() { //设置回调
                     @Override
                     public void onStart() {

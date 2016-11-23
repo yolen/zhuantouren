@@ -2,13 +2,17 @@ package com.brickman.app.adapter;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.brickman.app.MApplication;
 import com.brickman.app.R;
+import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.utils.DateUtil;
 import com.brickman.app.model.Bean.BrickBean;
+import com.brickman.app.module.brick.BrickDetailActivity;
 import com.brickman.app.module.brick.PublishListActivity;
 import com.brickman.app.module.widget.view.CircleImageView;
 import com.bumptech.glide.Glide;
@@ -22,15 +26,15 @@ import java.util.List;
  * Created by mayu on 16/7/20,下午2:36.
  */
 public class BrickListAdapter extends BaseQuickAdapter<BrickBean> {
-    private Context mCtx;
+    private BaseActivity mCtx;
     private ImagesAdapter mImagesAdapter;
-    public BrickListAdapter(Context ctx, int layoutResId, List<BrickBean> data) {
+    public BrickListAdapter(BaseActivity ctx, int layoutResId, List<BrickBean> data) {
         super(layoutResId, data);
         this.mCtx = ctx;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, BrickBean item) {
+    protected void convert(BaseViewHolder helper, final BrickBean item) {
         if(mCtx instanceof PublishListActivity){
             Glide.with(mCtx).load(((PublishListActivity)mCtx).userHead)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -43,6 +47,30 @@ public class BrickListAdapter extends BaseQuickAdapter<BrickBean> {
                     .centerCrop().into((CircleImageView)helper.getView(R.id.avator));
             helper.setText(R.id.name, TextUtils.isEmpty(item.users.userName) ? item.users.userAlias : item.users.userName);
         }
+        helper.setOnClickListener(R.id.avator, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!(mCtx instanceof PublishListActivity)) {
+
+                    Intent intent = new Intent(mCtx, PublishListActivity.class);
+                    intent.putExtra("title", item.users.userAlias + "的砖集");
+                    intent.putExtra("userId", item.userId);
+                    intent.putExtra("userName", item.users.userName);
+                    intent.putExtra("userHeader", item.users.userHead);
+                    intent.putExtra("desc", item.users.motto);
+                    intent.putExtra("isfromdetail", true);
+                    mCtx.startActivityWithAnim(intent);
+                }
+            }
+        });
+        helper.setOnClickListener(R.id.layout_detail, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mCtx, BrickDetailActivity.class);
+                intent.putExtra("item", item);
+                mCtx.startActivityForResultWithAnim(intent, 1001);
+            }
+        });
 
         helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
         helper.setText(R.id.address, item.contentPlace);

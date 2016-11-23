@@ -115,14 +115,14 @@ public class BrickListFragment extends BaseFragment {
             }
         });
         mAdapter.openLoadMore(0, false);
-        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(mActivity, BrickDetailActivity.class);
-                intent.putExtra("item", mData.get(position));
-                mActivity.startActivityForResultWithAnim(intent, 1001);
-            }
-        });
+//        mAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Intent intent = new Intent(mActivity, BrickDetailActivity.class);
+//                intent.putExtra("item", mData.get(position));
+//                mActivity.startActivityForResultWithAnim(intent, 1001);
+//            }
+//        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);

@@ -64,6 +64,11 @@
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/layout_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -266,5 +271,6 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/line" />
+    </LinearLayout>
 
 </LinearLayout>
