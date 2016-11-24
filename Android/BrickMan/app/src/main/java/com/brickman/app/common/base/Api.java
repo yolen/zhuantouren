@@ -64,7 +64,7 @@ public interface Api {
     // 分享回调
     String SHARE_UPDATE_COUNT = BASE_URL + "/content/add_share_count.json";
     // 分享页面
-    String SHARE_BRICKMAN_PAGE = BASE_URL + "/index.html?contentId=";
+    String SHARE_BRICKMAN_PAGE = BASE_URL + "/brickmanshare.html?contentId=";
 
     // 头条
     String TOP_URL = "http://v.juhe.cn/toutiao/index";
