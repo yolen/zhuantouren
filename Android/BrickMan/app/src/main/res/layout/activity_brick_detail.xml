@@ -74,7 +74,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/gray" />
+        android:background="@color/gray"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -118,7 +119,7 @@
         <View
             android:layout_width="@dimen/dp_01"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dp_04"
+            android:layout_marginBottom="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_04"
             android:background="@color/line" />
 

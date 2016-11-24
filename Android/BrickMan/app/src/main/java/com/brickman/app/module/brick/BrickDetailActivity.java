@@ -157,7 +157,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(this)
-                .color(getResources().getColor(R.color.light_gray))
+                .color(getResources().getColor(R.color.white))
                 .sizeResId(R.dimen.dp_01)
                 .marginResId(R.dimen.dp_70, R.dimen.dp_00)
                 .build(), 0);

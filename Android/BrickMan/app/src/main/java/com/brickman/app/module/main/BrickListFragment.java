@@ -72,7 +72,7 @@ public class BrickListFragment extends BaseFragment {
     protected void initView(View view, Bundle savedInstanceState) {
         String type = getArguments().getString("type");
         switch (type) {
-            case "最近发布":
+            case "最新发布":
                 mType = 0;
                 break;
             case "砖头最多":

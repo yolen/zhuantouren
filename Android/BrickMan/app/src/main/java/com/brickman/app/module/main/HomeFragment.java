@@ -37,7 +37,7 @@ public class HomeFragment extends BaseFragment implements OnTabSelectListener {
     ViewPagerFixed mVp;
     MyPagerAdapter mAdapter;
 
-    private final String[] titles = {"最近发布", "砖头最多", "鲜花最多", "评论最多"};
+    private final String[] titles = {"最新发布", "砖头最多", "鲜花最多", "评论最多"};
     public ArrayList<Fragment> fragments = new ArrayList<>();
 
     @Override
