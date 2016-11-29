@@ -31,6 +31,7 @@ static void customHandler() {
     UINavigationBar *navigationBar = [UINavigationBar appearance];
     [navigationBar setBackgroundImage:[UIImage imageWithColor:kNavigationBarColor]
                         forBarMetrics:UIBarMetricsDefault];
+    [navigationBar setShadowImage:[[UIImage alloc] init]];
     [navigationBar setTintColor:[UIColor whiteColor]];
     NSDictionary *textAttributes = @{
                                      NSFontAttributeName: [UIFont systemFontOfSize:18],

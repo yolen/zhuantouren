@@ -1550,7 +1550,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = BM;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = BrickMan;
 				TargetAttributes = {
 					1BFD4CF21D3CCC3100ABE8E6 = {
@@ -1949,6 +1949,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1959,8 +1960,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
@@ -1997,6 +2000,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2007,8 +2011,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
@@ -2056,7 +2062,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BrickMan/BrickMan-Prefix.pch";
 				INFOPLIST_FILE = BrickMan/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2092,6 +2098,7 @@
 					"-framework",
 					"\"UIKit\"",
 					"-fobjc-arc",
+					"-w",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.brickapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2122,7 +2129,7 @@
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BrickMan/BrickMan-Prefix.pch";
 				INFOPLIST_FILE = BrickMan/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2159,6 +2166,7 @@
 					"-framework",
 					"\"UIKit\"",
 					"-fobjc-arc",
+					"-w",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.brickapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

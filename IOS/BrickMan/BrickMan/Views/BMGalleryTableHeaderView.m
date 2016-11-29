@@ -23,7 +23,6 @@
     UIImageView *_ganderImageView;
     /** 用户座右铭 */
     UILabel *_mottoLabel;
-    UIView *_lineView;
     /** 返回按钮 */
     UIButton *_backButton;
     /** 标题,显示为:XX 的砖集 */
@@ -54,7 +53,6 @@
     _nickNameLabel = [[UILabel alloc] init];
     _ganderImageView = [[UIImageView alloc] init];
     _mottoLabel = [[UILabel alloc] init];
-    _lineView = [[UIView alloc] init];
     _backButton = [[UIButton alloc] init];
     _titleLable = [[UILabel alloc] init];
     
@@ -81,8 +79,6 @@
     _mottoLabel.textColor = [UIColor whiteColor];
     _mottoLabel.font = [UIFont systemFontOfSize:16];
     
-    _lineView.backgroundColor = [UIColor lightGrayColor];
-    
     [_backButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(didClickBackButton) forControlEvents:UIControlEventTouchUpInside];
     _backButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -100,7 +96,6 @@
     _nickNameLabel.text = @"nick name";
     
     // add
-    [self addSubview:_lineView];
     [self addSubview:_bgImageView];
     [self addSubview:_headerImageBgView];
     [self addSubview:_headerImageView];
@@ -126,8 +121,6 @@
     [super layoutSubviews];
     
     _bgImageView.frame = self.bounds;
-    CGFloat lineHeight = 1.0 / [UIScreen mainScreen].scale;
-    _lineView.frame = CGRectMake(0, self.height, kScreen_Width, lineHeight);
     
     // layout
     [_mottoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -177,37 +170,47 @@
     if (offset > 0) {
         CGFloat min = self.height - 64;
         CGFloat progress = 1 - (offset / min);
-        if (progress < 0.5) {
-            if (!_isAnimation && _isScrollUp) {
-                _isAnimation = YES;
-                [UIView animateWithDuration:1.0 animations:^{
-                    _navCustomBgView.alpha = 1.0;
-                } completion:^(BOOL finished) {
-                    _isAnimation = NO;
-                }];
-            } else if (progress > 0 && !_isAnimation && ! _isScrollUp) {
-                _isAnimation = YES;
-                [UIView animateWithDuration:0.5 animations:^{
-                    _navCustomBgView.alpha = 0.0;
-                } completion:^(BOOL finished) {
-                    _isAnimation = NO;
-                }];
-            }
-        }
-//        _backButton.alpha = 1 - progress - 0.1;
-//        _titleLable.alpha = 1 - progress - 0.1;
-//        _bgImageView.alpha = progress + 0.1;
-//        _nickNameLabel.alpha = progress;
-//        _ganderImageView.alpha = progress;
-//        _mottoLabel.alpha = progress;
+//        if (progress < 0.5) {
+//            if (!_isAnimation && _isScrollUp) {
+//                _isAnimation = YES;
+//                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hiddenNavAnimation) object:nil];
+//                [self performSelector:@selector(showNavAnimation) withObject:nil];
+//            } else if (progress > 0 && !_isAnimation && ! _isScrollUp) {
+//                _isAnimation = YES;
+//                [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showNavAnimation) object:nil];
+//                [self performSelector:@selector(hiddenNavAnimation) withObject:nil];
+//            }
+//        }
+        _backButton.alpha = 1 - progress - 0.1;
+        _titleLable.alpha = 1 - progress - 0.1;
+        _bgImageView.alpha = progress + 0.1;
+        _nickNameLabel.alpha = progress;
+        _ganderImageView.alpha = progress;
+        _mottoLabel.alpha = progress;
     } else {
-//        _bgImageView.alpha = 1.0;
-//        _backButton.alpha = 0.0;
-//        _titleLable.alpha = 0.0;
+        _bgImageView.alpha = 1.0;
+        _backButton.alpha = 0.0;
+        _titleLable.alpha = 0.0;
 //        [UIView animateWithDuration:0.5 animations:^{
 //            _navCustomBgView.alpha = 1.0;
 //        }];
     }
+}
+
+- (void)showNavAnimation {
+    [UIView animateWithDuration:1.0 animations:^{
+        _navCustomBgView.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        _isAnimation = NO;
+    }];
+}
+
+- (void)hiddenNavAnimation {
+    [UIView animateWithDuration:0.5 animations:^{
+        _navCustomBgView.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        _isAnimation = NO;
+    }];
 }
 
 #pragma mark - Actions
