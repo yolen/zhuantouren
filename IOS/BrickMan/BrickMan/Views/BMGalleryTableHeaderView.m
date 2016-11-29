@@ -181,7 +181,7 @@
 //                [self performSelector:@selector(hiddenNavAnimation) withObject:nil];
 //            }
 //        }
-        _backButton.alpha = 1 - progress - 0.1;
+//        _backButton.alpha = 1 - progress - 0.1;
         _titleLable.alpha = 1 - progress - 0.1;
         _bgImageView.alpha = progress + 0.1;
         _nickNameLabel.alpha = progress;
@@ -189,7 +189,7 @@
         _mottoLabel.alpha = progress;
     } else {
         _bgImageView.alpha = 1.0;
-        _backButton.alpha = 0.0;
+//        _backButton.alpha = 0.0;
         _titleLable.alpha = 0.0;
 //        [UIView animateWithDuration:0.5 animations:^{
 //            _navCustomBgView.alpha = 1.0;
