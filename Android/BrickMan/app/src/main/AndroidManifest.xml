@@ -67,7 +67,7 @@
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
             android:name=".module.brick.PublishListActivity"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ColorActionBar" />
         <activity
