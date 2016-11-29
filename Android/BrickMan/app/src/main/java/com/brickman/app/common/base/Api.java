@@ -9,13 +9,15 @@ public interface Api {
 
     String KEY = "53b4be63fac688e0";
     // 测试
-//    String BASE_URL = "http://123.57.63.161";
+//
+    String IMG_URL = "http://dev.img.brickman.cn/";
     String BASE_URL="http://dev.brickman.cn";
     /**
      * 生产
      */
-//    String BASE_URL = "http://115.28.16.51";
-    String IMG_URL = "http://dev.img.brickman.cn/" ;//+ ":2080/";
+//    String IMG_URL = "http://img.brickman.cn/";
+//    String BASE_URL = "http://www.brickman.cn";
+
     String IMG_COMPRESS_URL = IMG_URL + "compress/";
 
     // ------------GET--------------
