@@ -29,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.internal.util.unsafe.MpmcArrayQueue;
 
 import static com.brickman.app.R.id.nickName;
 import static com.brickman.app.R.id.toolbar;

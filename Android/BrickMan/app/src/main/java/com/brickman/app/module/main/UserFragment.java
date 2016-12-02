@@ -123,7 +123,7 @@ public class UserFragment extends BaseFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mUMSdkManager = UMSdkManager.init(mActivity, UMServiceFactory.getUMSocialService(UMSdkManager.LOGIN));
+        mUMSdkManager =new UMSdkManager(mActivity, UMServiceFactory.getUMSocialService(UMSdkManager.LOGIN));
         IntentFilter filter = new IntentFilter();
         filter.addAction(Api.ACTION_LOGIN);
         filter.addAction(Api.ACTION_USERINFO);

@@ -3,6 +3,7 @@ package com.brickman.app.module.brick;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import cn.finalteam.galleryfinal.PhotoSelectActivity;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -43,6 +45,9 @@ import in.srain.cube.views.ptr.PtrHandler;
  * Created by mayu on 16/7/22,下午1:14.
  */
 public class PublishListActivity extends BaseActivity<PublishListPresenter, PublishListModel> implements PublishListContract.View {
+
+//    @BindView(R.id.app_bar_layout)
+//    AppBarLayout mAppBarLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolBar;
     @BindView(R.id.back)
@@ -87,6 +92,7 @@ public class PublishListActivity extends BaseActivity<PublishListPresenter, Publ
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
         mToolBar.setTitle("");
         setSupportActionBar(mToolBar);
+
         mTitle.setText(getIntent().getStringExtra("title"));
         userId = getIntent().getStringExtra("userId");
         userName = getIntent().getStringExtra("userName");

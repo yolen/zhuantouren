@@ -52,7 +52,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUMSdkManager = UMSdkManager.init(this, UMServiceFactory.getUMSocialService(UMSdkManager.LOGIN));
+        mUMSdkManager = new UMSdkManager(this, UMServiceFactory.getUMSocialService(UMSdkManager.LOGIN));
         setPaddingheight();
         mAdapter = new MyPagerAdapter(getSupportFragmentManager());
 

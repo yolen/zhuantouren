@@ -114,7 +114,7 @@ public class CityActivity extends BaseActivity {
             }
         });
 
-        mLocationManager = LocationManager.init(this, new LocationManager.OnResultListener() {
+        mLocationManager = new LocationManager(this, new LocationManager.OnResultListener() {
             @Override
             public void getAddress(String city, String address) {
                 MApplication.setLocation(city, address);

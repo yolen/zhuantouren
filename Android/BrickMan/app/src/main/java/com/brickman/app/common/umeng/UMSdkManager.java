@@ -37,25 +37,17 @@ import java.util.Map;
  * Umeng分享、第三方登录、自动更新 Created by mayu on 15/8/11,上午10:07.
  */
 public class UMSdkManager {
-	private static Activity mAct;
-	private static UMSdkManager umSdkManager;
+	private  Activity mAct;
+
 	public static final String SHARE = "com.umeng.share";
 	public static final String LOGIN = "com.umeng.login";
-	public static UMSocialService mController;
+	public  UMSocialService mController;
 
 	public UMSdkManager(Activity act, UMSocialService controller) {
-		UMSdkManager.mAct = act;
-		UMSdkManager.mController = controller;
+		mAct = act;
+		mController = controller;
+		addPlatforms();
 	}
-
-	public static UMSdkManager init(Activity act, UMSocialService controller) {
-		if (umSdkManager == null) {
-			umSdkManager = new UMSdkManager(act, controller);
-			umSdkManager.configPlatforms(controller);
-		}
-		return umSdkManager;
-	}
-
 	/**
 	 * isWXAppInstalledAndSupported(mAct)
 	 * 
@@ -85,6 +77,17 @@ public class UMSdkManager {
 		// 添加微信、微信朋友圈平台
 		addWXPlatform(mAct);
 	}
+	/**
+	 * add QQ、WEIXIN平台参数
+	 */
+	public void addPlatforms() {
+		// 添加新浪sso授权
+//		mController.getConfig().setSsoHandler(new SinaSsoHandler());
+		// 添加QQ、QZone平台
+		addQQQZonePlatform(mAct);
+		// 添加微信、微信朋友圈平台
+		addWXPlatform(mAct);
+	}
 
 	/**
 	 * 如果有使用任一平台的SSO授权, 则必须在对应的activity中实现onActivityResult方法, 并添加如下代码
@@ -93,7 +96,7 @@ public class UMSdkManager {
 	 * @param resultCode
 	 * @param data
 	 */
-	public static void onActivityResult(int requestCode, int resultCode, Intent data) {
+	public  void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// 根据requestCode获取对应的SsoHandler
 		/**使用SSO授权必须添加如下代码 */
 		if(mController != null){

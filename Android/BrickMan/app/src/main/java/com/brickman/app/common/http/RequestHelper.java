@@ -142,4 +142,15 @@ public class RequestHelper {
         mHttpUtil.downloadQueue.add(0, downloadRequest, downloadListener);
         downloadRequest.start();
     }
+
+    public static void cancelAll(){
+        if (mHttpUtil!=null){
+            mHttpUtil.cancelAll();
+        }
+    }
+    public static void cancelBySign(Object sign){
+        if (mHttpUtil!=null){
+            mHttpUtil.cancelBySign(sign);
+        }
+    }
 }

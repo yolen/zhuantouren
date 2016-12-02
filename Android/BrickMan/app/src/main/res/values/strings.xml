@@ -26,7 +26,7 @@
         <item>砖头人</item>
         <item>我的</item>
     </string-array>
-    <string name="findpwdprompt">请加砖头人app用户反馈群（387655797），找管理员索要登录密码。</string>
+    <string name="findpwdprompt">请加QQ群（387655797）找管理员重置登录密码。</string>
     <string name="loading_more">正在努力加载中...</string>
     <string name="not_loading">这里是我的底线了</string>
 

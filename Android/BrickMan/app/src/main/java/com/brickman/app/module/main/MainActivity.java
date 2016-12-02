@@ -112,7 +112,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
         if (mPermissionsChecker.lacksPermissions(PERMISSIONS)) {
             startPermissionsActivity();
         } else {
-            LocationManager.init(this, new LocationManager.OnResultListener() {
+            new LocationManager(this, new LocationManager.OnResultListener() {
                 @Override
                 public void getAddress(String city, String address) {
                     MApplication.setLocation(city, address);
@@ -159,7 +159,7 @@ public class MainActivity extends BaseActivity<MainPresenter, MainModel> impleme
             if(resultCode == PermissionsActivity.PERMISSIONS_DENIED){
                 finish();
             } else if(resultCode == PermissionsActivity.PERMISSIONS_GRANTED){
-                LocationManager.init(this, new LocationManager.OnResultListener() {
+                new LocationManager(this, new LocationManager.OnResultListener() {
                     @Override
                     public void getAddress(String city, String address) {
                         MApplication.setLocation(city, address);

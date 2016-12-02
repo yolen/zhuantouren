@@ -113,7 +113,7 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
                 .build());
         mAddress = MApplication.getAddress();
         location.setText(TextUtils.isEmpty(mAddress) ? "选择位置" : mAddress);
-        mLocationManager = LocationManager.init(this, new LocationManager.OnResultListener() {
+        mLocationManager = new LocationManager(this.getApplicationContext(), new LocationManager.OnResultListener() {
             @Override
             public void getAddress(String city, String address) {
                 new LBSDialog(PublishActivity.this, address, new LBSDialog.OnAddressListener() {
@@ -167,7 +167,7 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
      * @param imagePath
      */
     private void compressImage(final String imagePath){
-        Luban.get(this)
+        Luban.get(this.getApplicationContext())
                 .load(new File(imagePath))                     //传人要压缩的图片
                 .putGear(Luban.THIRD_GEAR)//设定压缩档次，默认三挡
                 .setCompressListener(new OnCompressListener() { //设置回调

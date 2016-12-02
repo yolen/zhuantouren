@@ -57,7 +57,7 @@ public class ShareDialog extends Dialog implements
 	    View view = li.inflate(R.layout.dialog_share, null);
 		setContentView(view, params);
 
-        mUMSdkManager = UMSdkManager.init((Activity) mContext, UMServiceFactory.getUMSocialService(UMSdkManager.SHARE));
+        mUMSdkManager =new UMSdkManager((Activity) mContext, UMServiceFactory.getUMSocialService(UMSdkManager.SHARE));
         mUMSdkManager.setShareContent((Activity) mContext, mShareContent);
 
 		findViewById(R.id.btnWX).setOnClickListener(this);

@@ -10,6 +10,8 @@ import com.brickman.app.common.glide.GlideImageLoader;
 import com.brickman.app.common.glide.GlidePauseOnScrollListener;
 import com.brickman.app.model.Bean.UserBean;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.yolanda.nohttp.NoHttp;
 import java.util.List;
 import cn.finalteam.galleryfinal.CoreConfig;
@@ -65,9 +67,18 @@ public class MApplication extends Application {
         GalleryFinal.init(coreConfig);
     }
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+        // Normal app init code...
         mAppContext = this;
         com.yolanda.nohttp.Logger.setTag("NoHttpSample");
         com.yolanda.nohttp.Logger.setDebug(true);// 开始NoHttp的调试模式, 这样就能看到请求过程和日志

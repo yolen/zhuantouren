@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.brickman.app.MApplication;
+import com.squareup.leakcanary.RefWatcher;
+
 import butterknife.ButterKnife;
 
 /**
@@ -51,6 +54,11 @@ public abstract class BaseFragment extends Fragment {
         ButterKnife.bind(this, view);
         initView(view, savedInstanceState);
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

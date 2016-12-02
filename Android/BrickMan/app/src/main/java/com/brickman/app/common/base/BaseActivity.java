@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.brickman.app.MApplication;
 import com.brickman.app.R;
+import com.brickman.app.common.http.HttpUtil;
+import com.brickman.app.common.http.RequestHelper;
 import com.brickman.app.common.utils.TUtil;
 import com.brickman.app.module.dialog.LoadingDialog;
 import com.brickman.app.module.widget.view.SwipeBackLayout;
@@ -213,6 +215,13 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        RequestHelper.cancelAll();
+
     }
 
     public void finishWithAnim() {

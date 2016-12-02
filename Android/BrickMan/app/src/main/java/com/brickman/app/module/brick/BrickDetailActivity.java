@@ -258,6 +258,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
             if (brickBean.brickContentAttachmentList==null){
 
             }
+
             initData();
         }
     }
@@ -401,6 +402,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
     public void finishWithAnim() {
         setResult(isOperation ? RESULT_OK : RESULT_CANCELED);
         super.finishWithAnim();
+
     }
 
     @Override

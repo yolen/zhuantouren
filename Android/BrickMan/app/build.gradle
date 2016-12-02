@@ -74,4 +74,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.youth.banner:banner:+'
     compile files('libs/AMap2DMap_2.9.1_AMapLocation_2.8.0_20160825.jar')
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }

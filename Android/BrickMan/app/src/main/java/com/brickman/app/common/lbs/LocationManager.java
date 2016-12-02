@@ -23,9 +23,9 @@ public class LocationManager {
         initLocation();
     }
 
-    public static LocationManager init(Context ctx, OnResultListener onResultListener){
-        return new LocationManager(ctx, onResultListener);
-    }
+//    public static LocationManager init(Context ctx, OnResultListener onResultListener){
+//        return new LocationManager(ctx, onResultListener);
+//    }
 
     /**
      * 初始化定位
