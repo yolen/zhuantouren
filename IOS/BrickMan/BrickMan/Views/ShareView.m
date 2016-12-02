@@ -181,8 +181,8 @@
 - (void)doShareToSnsName:(NSString *)snsName {
     NSString *title = @"砖头人app";
     NSString *shareText = self.content.contentTitle;
-    BMAttachment *attachment = self.content.brickContentAttachmentList.firstObject;
-    NSString *shareUrl = [NSString stringWithFormat:@"%@/index.html?contentId=%@",kBaseUrl,attachment.contentId];
+    NSNumber *contentId = self.content.id;
+    NSString *shareUrl = [NSString stringWithFormat:@"%@/brickmanshare.html?contentId=%@",kBaseUrl,contentId];
     UIImage *shareImage = [UIImage imageNamed:@"icon"];
     [UMSocialData defaultData].extConfig.yxtimelineData.yxMessageType = UMSocialYXMessageTypeApp;
     if ([snsName isEqualToString:@"qq"]) {

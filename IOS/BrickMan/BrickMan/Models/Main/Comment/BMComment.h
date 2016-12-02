@@ -11,8 +11,8 @@
 
 @interface BMComment : NSObject
 
-@property (strong, nonatomic) NSNumber *id, *userId, *contentId, *updateId, *createdTime;
-@property (strong, nonatomic) NSString *commentContent, *updateTime;
+@property (strong, nonatomic) NSNumber *id, *contentId, *updateId, *createdTime;
+@property (strong, nonatomic) NSString *commentContent, *updateTime, *userId;
 @property (strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) BMUser *user;
 

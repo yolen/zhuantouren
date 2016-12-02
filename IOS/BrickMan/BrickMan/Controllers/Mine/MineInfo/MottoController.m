@@ -65,16 +65,13 @@
     NSString *mottoString = [self.textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : userId, @"motto" : mottoString} andBlock:^(id data, NSError *error) {
         if (data) {
-            //刷新数据
-            [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : userId} andBlock:^(id data, NSError *error) {
-                if (data) {
-                    [BMUser saveUserInfo:data];
-                }
-            }];
+            NSMutableDictionary *userInfo = [[[NSUserDefaults standardUserDefaults] objectForKey:kUserInfo] mutableCopy];
+            userInfo[@"motto"] = mottoString;
+            [BMUser saveUserInfo:userInfo];
+            
             if (weakSelf.updateBlock) {
                 weakSelf.updateBlock(weakSelf.textView.text);
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
             [self.navigationController popViewControllerAnimated:YES];
         }else {
             [NSObject showErrorMsg:@"修改昵称失败"];

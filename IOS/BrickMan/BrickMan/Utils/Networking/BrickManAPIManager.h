@@ -39,7 +39,6 @@
 - (void)requestMyBrickFlowerWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestUserContentListWithObj:(BMContentList *)contentList andBlock:(void(^)(id data, NSError *error))block;
 - (void)requestUpdateUserInfoWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
-- (void)requestUserInfoWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;
 
 //刷新token
 - (void)requestTokenWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block;

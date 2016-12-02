@@ -39,8 +39,8 @@
     self.pageControl = [[SMPageControl alloc] initWithFrame:CGRectMake((kScreen_Width - 80)/2, kScreen_Height - 40, 80, 10)];
     self.pageControl.userInteractionEnabled = NO;
     self.pageControl.backgroundColor = [UIColor clearColor];
-    self.pageControl.pageIndicatorImage = [UIImage imageNamed:@"page_unsel"];
-    self.pageControl.currentPageIndicatorImage = [UIImage imageNamed:@"page_sel"];
+    self.pageControl.pageIndicatorImage = [UIImage imageNamed:@"page_intro_unsel"];
+    self.pageControl.currentPageIndicatorImage = [UIImage imageNamed:@"page_intro_sel"];
     self.pageControl.numberOfPages = 5;
     self.pageControl.currentPage = 0;
     self.pageControl.alignment = SMPageControlAlignmentCenter;

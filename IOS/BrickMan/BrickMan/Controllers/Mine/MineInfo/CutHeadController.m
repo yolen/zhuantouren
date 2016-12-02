@@ -72,16 +72,13 @@
             [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : user.userId, @"userHead" : imagePath} andBlock:^(id data, NSError *error) {
                 if (data) {
                     [NSObject showSuccessMsg:@"更换头像成功"];
+                    NSMutableDictionary *userInfo = [[[NSUserDefaults standardUserDefaults] objectForKey:kUserInfo] mutableCopy];
+                    userInfo[@"userHead"] = imagePath;
+                    [BMUser saveUserInfo:userInfo];
+                    
                     if (weakSelf.updateBlock) {
                         weakSelf.updateBlock(imagePath);
                     }
-                    //刷新数据
-                    [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
-                        if (data) {
-                            [BMUser saveUserInfo:data];
-                        }
-                    }];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
                     HeadEditController *headEdit = self.navigationController.viewControllers[self.navigationController.viewControllers.count - 2];
                     headEdit.headImgView.image = newImage;
                     [self.navigationController popViewControllerAnimated:YES];

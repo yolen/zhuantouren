@@ -41,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.titleArray = [@[@"最近发布",@"砖头最多",@"鲜花最多",@"评论最多"] mutableCopy];
+    self.titleArray = [@[@"最新发布",@"砖头最多",@"鲜花最多",@"评论最多"] mutableCopy];
     self.contentListDic = [NSMutableDictionary dictionaryWithCapacity:self.titleArray.count];
     self.cacheDataDic = [NSMutableDictionary dictionaryWithCapacity:4];
     

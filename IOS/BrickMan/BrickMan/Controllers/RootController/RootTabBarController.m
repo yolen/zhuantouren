@@ -14,6 +14,7 @@
 @interface RootTabBarController ()<UINavigationControllerDelegate,CustomTabBarDelegate>
 @property(nonatomic,strong) UIView *centerView;
 @property(nonatomic,strong) UIButton *centerBtn;
+@property (strong, nonatomic) UIViewController *lastVC;
 
 @end
 
@@ -55,7 +56,7 @@
 
     PublishViewController *publishVC = [[PublishViewController alloc] init];
     UINavigationController *publishNav = [[BaseNavigationController alloc]initWithRootViewController:publishVC];
-    publishVC.title = @"发布";
+    publishVC.title = @"砖头人";
     
     MineViewController *meVC = [[MineViewController alloc] init];
     UINavigationController *meNav = [[BaseNavigationController alloc]initWithRootViewController:meVC];
@@ -73,6 +74,7 @@
         [mainVC pushLoginViewController];
         return;
     }
+    [self.myTabBar btnClick:nil];
     self.selectedIndex = 1;
 }
 
@@ -84,6 +86,12 @@
     UINavigationController *nav = self.viewControllers[0];
     MainViewController *vc = nav.viewControllers.firstObject;
     return vc;
+}
+
+- (void)addTabBarView {
+    MainViewController *mainVC = [self getMainViewController];
+    [mainVC.view addSubview:_myTabBar];
+    [mainVC.view addSubview:_centerView];
 }
 
 
@@ -98,13 +106,18 @@
     UIViewController *mainVC = navigationController.viewControllers.firstObject;
     centerViewFrame.origin.y = mainVC.view.height -61;
     tabBarFrame.origin.y = mainVC.view.height - kTabbarHeight;
+    if (([viewController isKindOfClass:[MineViewController class]] || [viewController isKindOfClass:[MainViewController class]])&& self.lastVC && !self.lastVC.automaticallyAdjustsScrollViewInsets && ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0 && [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)) {
+        tabBarFrame.origin.y = mainVC.view.height - kTabbarHeight - 64;
+        centerViewFrame.origin.y -= 64;
+    }
     _myTabBar.frame = tabBarFrame;
-        
     _centerView.frame = centerViewFrame;
         
     //添加dock到根控制器界面
     [mainVC.view addSubview:_myTabBar];
     [mainVC.view addSubview:_centerView];
+    
+    self.lastVC = viewController;
 }
 
 - (void)didReceiveMemoryWarning {

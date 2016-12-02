@@ -26,9 +26,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupUI];
+    self.title = @"关于我们";
+//    [self setupUI];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:webView];
+    [webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kFeedBackUrl]];
+    [webView loadRequest:request];
 }
 
+/*
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
@@ -121,5 +131,6 @@
         make.top.mas_equalTo(_joinUsBgView.mas_bottom).offset(12 * SCALE);
     }];
 }
+ */
 
 @end

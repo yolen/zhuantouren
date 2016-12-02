@@ -12,6 +12,7 @@
 #import "MottoController.h"
 #import "ChangeUserInfoController.h"
 #import "UITextField+Common.h"
+#import "ActionSheetStringPicker.h"
 
 @import AVFoundation;
 @import AssetsLibrary;
@@ -28,6 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"个人资料";
+    self.titles = @[@"我的头像",@"我的昵称",@"我的性别",@"座右铭"];
     
     self.myTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.myTableView.dataSource = self;
@@ -61,7 +63,6 @@
             cell.subLabel.text = self.user.userAlias;
         }else if(indexPath.row == 2) {
             cell.subLabel.text = self.user.userSexStr;
-            cell.accessoryType = UITableViewCellAccessoryNone;
         }else if (indexPath.row == 3) {
             cell.subLabel.text = self.user.motto.length > 0 ? self.user.motto : @"漂泊者的分享交流社区";
         }
@@ -92,7 +93,24 @@
         }
             break;
         case 2: { //更改性别
-
+            NSArray *sexArray = @[@"男",@"女"];
+            NSInteger selectIndex = [sexArray indexOfObject:self.user.userSexStr];
+            [ActionSheetStringPicker showPickerWithTitle:nil rows:@[sexArray] initialSelection:@[[NSNumber numberWithInteger:selectIndex]] doneBlock:^(ActionSheetStringPicker *picker, NSArray *selectedIndex, NSArray *selectedValue) {
+                NSString *sexString = [selectedValue.firstObject isEqualToString:@"男"] ? @"USER_SEX01" : @"USER_SEX02";
+                
+                [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : self.user.userId, @"userSex" : sexString} andBlock:^(id data, NSError *error) {
+                    if (data) {
+                        NSMutableDictionary *userInfo = [[[NSUserDefaults standardUserDefaults] objectForKey:kUserInfo] mutableCopy];
+                        userInfo[@"userSex"] = sexString;
+                        userInfo[@"userSexStr"] = selectedValue.firstObject;
+                        [BMUser saveUserInfo:userInfo];
+                        
+                        [weakSelf.myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                    }else {
+                        [NSObject showErrorMsg:@"修改性别失败"];
+                    }
+                }];
+            } cancelBlock:nil origin:self.view];
         }
             break;
         case 3: { //更改座右铭
@@ -155,14 +173,12 @@
                 BMUser *user = [BMUser getUserModel];
                 [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : user.userId, @"userHead" : imagePath} andBlock:^(id data, NSError *error) {
                     if (data) {
-                        //刷新数据
-                        [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
-                            if (data) {
-                                [NSObject showSuccessMsg:@"更换头像成功"];
-                                [BMUser saveUserInfo:data];
-                                [weakSelf reload];
-                            }
-                        }];
+                        [NSObject showSuccessMsg:@"更换头像成功"];
+                        NSMutableDictionary *userInfo = [[[NSUserDefaults standardUserDefaults] objectForKey:kUserInfo] mutableCopy];
+                        userInfo[@"userHead"] = [NSString stringWithFormat:@"%@/%@",kImageUrl,imagePath];
+                        [BMUser saveUserInfo:userInfo];
+                        
+                        [weakSelf reload];
                     }
                 }];
             }
@@ -174,7 +190,6 @@
 - (void)reload {
     self.user = [BMUser getUserModel];
     [self.myTableView reloadData];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
 }
 
 #pragma mark - alert
@@ -185,14 +200,6 @@
             [[UIApplication sharedApplication] openURL:settingsURL];
         }
     }
-}
-
-#pragma mark - 懒加载
-- (NSArray *)titles {
-    if (!_titles) {
-        _titles = @[@"我的头像",@"我的昵称",@"我的性别",@"座右铭"];
-    }
-    return _titles;
 }
 
 - (void)didReceiveMemoryWarning {

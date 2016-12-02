@@ -13,7 +13,12 @@
 #import <TZImagePickerController.h>
 #import <MBProgressHUD.h>
 #import "EditLocationViewController.h"
+#import "RootTabBarController.h"
 
+@import AVFoundation;
+@import AssetsLibrary;
+
+#define kSettingAlertTag 1001
 #define DefaultLocationTimeout  6
 #define DefaultReGeocodeTimeout 3
 #define PICTURE_MARGIN 15
@@ -194,6 +199,9 @@
 #pragma mark - ActionSheet
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
+        if (![self checkCameraAuthorizationStatus]) {
+            return;
+        }
         UIImagePickerController *picker = [[UIImagePickerController alloc]init];
         picker.delegate = self;
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -274,13 +282,18 @@
     } progerssBlock:^(CGFloat progressValue) {
         
     }];
-    
 }
 
 - (void)dismissWithPublishSuccess {
     [NSObject showSuccessMsg:@"发布成功"];
     [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    //跳转到首页
+    RootTabBarController *tabBarVC = [RootTabBarController sharedInstance];
+    [tabBarVC addTabBarView];
+    tabBarVC.selectedIndex = 0;
+    [tabBarVC.myTabBar changeTabBarToIndex:0];
 }
 
 - (void)dismissCurVC {
@@ -290,8 +303,14 @@
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        [self performSelector:@selector(dismissCurVC) withObject:nil afterDelay:0.5];
-//        [self dismissViewControllerAnimated:YES completion:nil];
+        if (alertView.tag == kSettingAlertTag) {
+            NSURL *settingsURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            if ([[UIApplication sharedApplication] canOpenURL:settingsURL]) {
+                [[UIApplication sharedApplication] openURL:settingsURL];
+            }
+        }else {
+            [self performSelector:@selector(dismissCurVC) withObject:nil afterDelay:0.5];
+        }
     }
 }
 
@@ -323,5 +342,35 @@
 - (void)dealloc {
     self.pictures = nil;
 }
+
+- (BOOL)checkCameraAuthorizationStatus {
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        kTipAlert(@"该设备不支持拍照");
+        return NO;
+    }
+    
+    if ([AVCaptureDevice respondsToSelector:@selector(authorizationStatusForMediaType:)]) {
+        AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (AVAuthorizationStatusDenied == authStatus ||
+            AVAuthorizationStatusRestricted == authStatus) {
+            [self showSettingAlertStr:@"请在iPhone的“设置->隐私->相机”中打开本应用的访问权限"];
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+- (void)showSettingAlertStr:(NSString *)tipStr {
+    //iOS8+系统下可跳转到‘设置’页面，否则只弹出提示窗即可
+    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:tipStr delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置", nil];
+        alert.tag = kSettingAlertTag;
+        [alert show];
+    }else{
+        kTipAlert(@"%@", tipStr);
+    }
+}
+
 
 @end

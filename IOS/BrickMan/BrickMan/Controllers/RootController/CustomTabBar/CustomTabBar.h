@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TabBarButton.h"
 
 @protocol CustomTabBarDelegate <NSObject>
 @required
@@ -16,6 +17,8 @@
 @interface CustomTabBar : UIView
 
 @property (assign, nonatomic) id<CustomTabBarDelegate> delegate;
+
+-(void) btnClick:(TabBarButton *)button;
 
 - (void)changeTabBarToIndex:(NSInteger)index;
 

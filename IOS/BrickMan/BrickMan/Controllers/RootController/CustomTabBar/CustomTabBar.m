@@ -7,7 +7,6 @@
 //
 
 #import "CustomTabBar.h"
-#import "TabBarButton.h"
 #import "RootTabBarController.h"
 
 @interface CustomTabBar()
@@ -68,16 +67,20 @@
 }
 
 -(void) btnClick:(TabBarButton *)button {
-    NSInteger toIndex = button.tag;
-    if (![BMUser isLogin] && toIndex == 2) {
-         MainViewController *mainVC = [[RootTabBarController sharedInstance] getMainViewController];
-        [mainVC pushLoginViewController];
-        return;
+    if (button) {
+        NSInteger toIndex = button.tag;
+        if (![BMUser isLogin] && toIndex == 2) {
+            MainViewController *mainVC = [[RootTabBarController sharedInstance] getMainViewController];
+            [mainVC pushLoginViewController];
+            return;
+        }
+        [self.delegate changeNavigation:_selectedTB.tag to:toIndex];
+        _selectedTB.selected = NO;
+        button.selected = YES;
+        _selectedTB = button;
+    }else {
+        _selectedTB.selected = NO;
     }
-    [self.delegate changeNavigation:_selectedTB.tag to:toIndex];
-    _selectedTB.selected = NO;
-    button.selected = YES;
-    _selectedTB = button;
 }
 
 - (void)changeTabBarToIndex:(NSInteger)index {

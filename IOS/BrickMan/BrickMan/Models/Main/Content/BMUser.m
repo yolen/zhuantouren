@@ -9,8 +9,6 @@
 #import "BMUser.h"
 #import <YYModel/YYModel.h>
 
-#define kUserInfo @"UserInfo"
-
 @implementation BMUser
 
 #pragma mark - user

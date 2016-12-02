@@ -184,9 +184,6 @@
             [BMUser saveUserInfo:data];
             [[BrickManNetClient sharedJsonClient] setToken:data[@"token"]];
             [self dismissViewControllerAnimated:YES completion:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
-        }else {
-            [NSObject showErrorMsg:@"登录失败"];
         }
     }];
 }
@@ -197,7 +194,7 @@
 }
 
 - (void)forgetPwdAction:(id)sender {
-    kTipAlert(@"请加砖头人app用户反馈群（387655797），找管理员索要登录密码。");
+    kTipAlert(@"请加QQ群（387655797）找管理员重置登录密码。");
 }
 
 - (void)qqLoginAction:(id)sender {
@@ -216,7 +213,6 @@
             [BMUser saveUserInfo:data];
             [[BrickManNetClient sharedJsonClient] setToken:data[@"token"]];
             [self dismissViewControllerAnimated:YES completion:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
         }else {
             [NSObject showErrorMsg:@"登录失败"];
         }
