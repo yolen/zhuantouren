@@ -42,6 +42,7 @@
 - (void)setContent:(NSString *)contentStr withIsRead:(BOOL)isRead {
     self.contentLabel.text = contentStr;
     self.titleLabel.textColor = isRead ? [UIColor lightGrayColor] : kNavigationBarColor;
+    self.contentLabel.textColor = isRead ? [UIColor lightGrayColor] : kNavigationBarColor;
     self.titleLabel.text = isRead ? @"此消息已查看!" : @"有新消息,请查看!";
 }
 

@@ -238,16 +238,16 @@
     [_reportBtn setImage:[UIImage imageNamed:(self.model.contentReports.integerValue > 0 ? @"report_sel" : @"report_nor")] forState:UIControlStateNormal];
     curY += 3;
     [_commentBtn setY:curY];
-    [_commentBtn setTitle:(self.model.commentCount.integerValue > 0 ? [NSString stringWithFormat:@"评论 %@",self.model.commentCount] : @"评论 99") forState:UIControlStateNormal];
+    [_commentBtn setTitle:(self.model.commentCount.integerValue > 0 ? [NSString stringWithFormat:@"评论 %@",self.model.commentCount] : @"评论 0") forState:UIControlStateNormal];
     [_commentBtn setImage:[UIImage imageNamed:(self.model.commentCount.integerValue > 0 ? @"comment_sel" : @"commnet_nor")] forState:UIControlStateNormal];
     [_flowerBtn setY:curY];
-    [_flowerBtn setTitle:(self.model.contentFlowors.integerValue > 0 ? [NSString stringWithFormat:@"鲜花 %@",self.model.contentFlowors] : @"鲜花 99") forState:UIControlStateNormal];
+    [_flowerBtn setTitle:(self.model.contentFlowors.integerValue > 0 ? [NSString stringWithFormat:@"鲜花 %@",self.model.contentFlowors] : @"鲜花 0") forState:UIControlStateNormal];
     [_flowerBtn setImage:[UIImage imageNamed:(self.model.contentFlowors.integerValue > 0 ? @"flower_sel" : @"flower_nor")] forState:UIControlStateNormal];
     [_shareBtn setY:curY];
-    [_shareBtn setTitle:(self.model.contentShares.integerValue > 0 ? [NSString stringWithFormat:@"分享 %@",self.model.contentShares] : @"分享 99") forState:UIControlStateNormal];
+    [_shareBtn setTitle:(self.model.contentShares.integerValue > 0 ? [NSString stringWithFormat:@"分享 %@",self.model.contentShares] : @"分享 0") forState:UIControlStateNormal];
     [_shareBtn setImage:[UIImage imageNamed:(self.model.contentShares.integerValue > 0 ? @"share_sel" : @"share_nor")] forState:UIControlStateNormal];
     [_brickBtn setY:curY];
-    [_brickBtn setTitle:(self.model.contentBricks.integerValue > 0 ? [NSString stringWithFormat:@"拍砖 %@",self.model.contentBricks] : @"拍砖 99") forState:UIControlStateNormal];
+    [_brickBtn setTitle:(self.model.contentBricks.integerValue > 0 ? [NSString stringWithFormat:@"拍砖 %@",self.model.contentBricks] : @"拍砖 0") forState:UIControlStateNormal];
     [_brickBtn setImage:[UIImage imageNamed:(self.model.contentBricks.integerValue > 0 ? @"brick_sel" : @"brick_nor")] forState:UIControlStateNormal];
     curY += 30;
 
