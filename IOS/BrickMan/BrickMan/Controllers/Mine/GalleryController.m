@@ -110,9 +110,9 @@
             [_headerView configHeaderViewWithUser: model.user];
             if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
                 [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
-            }else {
-                [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
             }
+        }else {
+            [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
         }
     }];
 }

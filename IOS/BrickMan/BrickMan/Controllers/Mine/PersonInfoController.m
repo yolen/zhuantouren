@@ -104,6 +104,7 @@
                         userInfo[@"userSex"] = sexString;
                         userInfo[@"userSexStr"] = selectedValue.firstObject;
                         [BMUser saveUserInfo:userInfo];
+                        weakSelf.user = [BMUser getUserModel];
                         
                         [weakSelf.myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                     }else {

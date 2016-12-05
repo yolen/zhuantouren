@@ -2032,8 +2032,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
@@ -2056,7 +2056,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "2c71b0f7-9507-47f2-8ad8-8b60c743f56b";
+				PROVISIONING_PROFILE = "a3a871a1-c17a-40aa-ba42-e38a0e9296a9";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -2083,8 +2083,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
@@ -2101,7 +2101,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "2c71b0f7-9507-47f2-8ad8-8b60c743f56b";
+				PROVISIONING_PROFILE = "a3a871a1-c17a-40aa-ba42-e38a0e9296a9";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -2115,8 +2115,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2168,7 +2168,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.brickapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2c71b0f7-9507-47f2-8ad8-8b60c743f56b";
+				PROVISIONING_PROFILE = "a3a871a1-c17a-40aa-ba42-e38a0e9296a9";
 				SWIFT_OBJC_BRIDGING_HEADER = "BrickMan/Models/Main/BrickMan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -2182,8 +2182,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2236,7 +2236,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.brickapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2c71b0f7-9507-47f2-8ad8-8b60c743f56b";
+				PROVISIONING_PROFILE = "a3a871a1-c17a-40aa-ba42-e38a0e9296a9";
 				SWIFT_OBJC_BRIDGING_HEADER = "BrickMan/Models/Main/BrickMan-Bridging-Header.h";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

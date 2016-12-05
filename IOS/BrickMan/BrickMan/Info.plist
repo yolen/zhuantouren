@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.1</string>
+	<string>1.0.5</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -50,7 +50,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbauth2</string>
@@ -111,7 +111,7 @@
 		<key>NSExceptionDomains</key>
 		<dict/>
 	</dict>
-	<key>NSCalendarsUsageDescription</key>
+	<key>NSCameraUsageDescription</key>
 	<string>访问相机</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>获取您当前的位置,需要位置权限</string>
