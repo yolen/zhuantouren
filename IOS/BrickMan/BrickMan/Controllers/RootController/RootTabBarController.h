@@ -18,4 +18,6 @@
 
 - (MainViewController *)getMainViewController;
 
+- (void)addTabBarView;
+
 @end

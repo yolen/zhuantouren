@@ -20,18 +20,31 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        __weak typeof(self) weakSelf = self;
         if (!_iconImageView) {
             _iconImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
             _iconImageView.layer.cornerRadius = _iconImageView.width/2;
             _iconImageView.layer.masksToBounds = YES;
+            _iconImageView.userInteractionEnabled = YES;
             [self.contentView addSubview:_iconImageView];
+            
+            [_iconImageView tta_addTapGestureWithTarget:_iconImageView action:^(UITapGestureRecognizer *tap){
+                if (weakSelf.pushGalleryBlock) {
+                    weakSelf.pushGalleryBlock();
+                }
+            }];
         }
         if (!_nameLabel) {
             _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, 15, 100, 20)];
             _nameLabel.font = [UIFont systemFontOfSize:14];
             _nameLabel.textColor = [UIColor lightGrayColor];
+            _nameLabel.userInteractionEnabled = YES;
             [self.contentView addSubview:_nameLabel];
+            [_nameLabel tta_addTapGestureWithTarget:_nameLabel action:^(UITapGestureRecognizer *tap){
+                if (weakSelf.pushGalleryBlock) {
+                    weakSelf.pushGalleryBlock();
+                }
+            }];
         }
         if (!_timeLabel) {
             _timeLabel  = [[UILabel alloc] initWithFrame:CGRectMake(_iconImageView.right + 10, _nameLabel.bottom - 5, 150, 20)];

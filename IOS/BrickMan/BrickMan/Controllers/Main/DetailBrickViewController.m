@@ -145,12 +145,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    __weak typeof(self) weakSelf = self;
     if (indexPath.section == 0) {
         MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
         cell.model = self.model;
         cell.isDetail = YES;
         
-        __weak typeof(self) weakSelf = self;
         cell.pushLoginBlock = ^(){
             LoginViewController *loginVC = [[LoginViewController alloc] init];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
@@ -185,6 +185,15 @@
         CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_CommentCell forIndexPath:indexPath];
         BMComment *comment = self.commentList.data[indexPath.row];
         cell.comment = comment;
+        if (!self.isComeFromeGallery) { // 如果当前页面是从`砖集`页面来了,内则不能再次推出砖集页面
+            cell.pushGalleryBlock = ^(){
+                GalleryController *galleryVc = [[GalleryController alloc] init];
+                self.model.user.userId = comment.userId;
+                galleryVc.user = self.model.user;
+                [weakSelf.navigationController pushViewController:galleryVc animated:YES];
+            };
+        }
+        
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:60.0];
         return cell;
     }
@@ -209,8 +218,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
         MainTableViewCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
-        BMAttachment *attachmentModel = self.model.brickContentAttachmentList[0];
-        NSString *contentId = [attachmentModel.contentId stringValue];
+        NSString *contentId = [self.model.id stringValue];
         [[BrickManAPIManager shareInstance] requestOperContentWithParams:@{@"contentId" : contentId, @"operType" : @"3", @"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
             if (data) {
                 [NSObject showSuccessMsg:@"举报成功"];

@@ -221,17 +221,6 @@
     }];
 }
 
-- (void)requestUserInfoWithParams:(id)params andBlock:(void(^)(id data, NSError *error))block { //请求用户信息
-    [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/get_user_info.do" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {
-        if (data) {
-            block(data,nil);
-        }else {
-            block(nil,error);
-        }
-    }];
-}
-
-
 #pragma mark - Refresh Token
 - (void)requestTokenWithParams:(id)params andBlock:(void (^)(id, NSError *))block {
     [[BrickManNetClient sharedJsonClient] requestJsonDataWithPath:@"/user/get_token.json" withParams:params withMethodType:Get andBlock:^(id data, NSError *error) {

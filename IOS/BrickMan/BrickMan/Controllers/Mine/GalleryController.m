@@ -34,8 +34,6 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    __weak typeof(self) weakSelf = self;
-    
     self.contentList = [[BMContentList alloc] init];
     self.contentList.userID = self.user.userId ? self.user.userId : [BMUser getUserModel].userId; // 设置获取砖集列表时所用的 用户id
     
@@ -48,9 +46,10 @@
     self.myTableView.scrollIndicatorInsets = UIEdgeInsetsMake(kHEAD_HEIGHT, 0, 0, 0);
     [self.view addSubview:self.myTableView];
     [self.myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(weakSelf.view);
+        make.edges.equalTo(self.view);
     }];
     
+    __weak typeof(self) weakSelf = self;
     _headerView = [[BMGalleryTableHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, kHEAD_HEIGHT)];
     _headerView.popGalleryBlock = ^{
         [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -111,9 +110,9 @@
             [_headerView configHeaderViewWithUser: model.user];
             if (!weakSelf.contentList.canLoadMore || model.data.count == 0) {
                 [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
-            }else {
-                [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
             }
+        }else {
+            [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];
         }
     }];
 }

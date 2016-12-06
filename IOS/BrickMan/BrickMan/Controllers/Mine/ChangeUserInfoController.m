@@ -97,16 +97,14 @@
     NSString *nickName = [self.myTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     [[BrickManAPIManager shareInstance] requestUpdateUserInfoWithParams:@{@"userId" : userId, @"userAlias" : nickName} andBlock:^(id data, NSError *error) {
         if (data) {
-            //刷新数据
-            [[BrickManAPIManager shareInstance] requestUserInfoWithParams:@{@"userId" : userId} andBlock:^(id data, NSError *error) {
-                if (data) {
-                    [BMUser saveUserInfo:data];
-                }
-            }];
+            [NSObject showHudTipStr:@"修改成功"];
+            NSMutableDictionary *userInfo = [[[NSUserDefaults standardUserDefaults] objectForKey:kUserInfo] mutableCopy];
+            userInfo[@"userAlias"] = nickName;
+            [BMUser saveUserInfo:userInfo];
+            
             if (weakSelf.updateBlock) {
                 weakSelf.updateBlock(weakSelf.myTextField.text);
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotification_RefreshUserInfo object:nil];
             [self.navigationController popViewControllerAnimated:YES];
         }else {
             [NSObject showErrorMsg:@"修改昵称失败"];

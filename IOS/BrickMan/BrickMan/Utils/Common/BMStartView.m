@@ -28,6 +28,7 @@ NSString *const content = @"专注社会事件的传播与思考";
     if (self = [super init]) {
         self.frame = kScreen_Bounds;
         
+        /*
         StartImage * st = [[StartImageManager sharedInstance] randomImage];
         if (st) {
             [self configureStartViewWithImage:[st image] andTitle:content];
@@ -37,6 +38,11 @@ NSString *const content = @"专注社会事件的传播与思考";
             defaultImgView.image = [UIImage imageNamed:@"default"];
             [self addSubview:defaultImgView];
         }
+         */
+        UIImageView *defaultImgView = [[UIImageView alloc] initWithFrame:self.bounds];
+        defaultImgView.contentMode = UIViewContentModeScaleAspectFill;
+        defaultImgView.image = [UIImage imageNamed:@"default"];
+        [self addSubview:defaultImgView];
     }
     return self;
 }

@@ -20,6 +20,7 @@
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate>
 @property (strong, nonatomic) UITableView *myTableView;
+@property (strong, nonatomic) BMUser *user;;
 @end
 
 @implementation MineViewController
@@ -37,18 +38,17 @@
         make.edges.equalTo(self.view);
     }];
     self.myTableView.tableFooterView = [self customFooterView];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadData) name:kNotification_RefreshUserInfo object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
-- (void)reloadData {
+    
+    self.user = [BMUser getUserModel];
     [self.myTableView reloadData];
 }
+
 
 - (UIView *)customFooterView {
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreen_Width, 80)];
@@ -78,8 +78,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         Mine_headerCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_headerCell forIndexPath:indexPath];
-        BMUser *user = [BMUser getUserModel];
-        [cell setUserIcon:user.userHead nameTitle:user.userAlias subTitle:user.motto.length > 0 ? user.motto : @"漂泊者的分享交流社区"];
+        [cell setUserIcon:self.user.userHead nameTitle:self.user.userAlias subTitle:self.user.motto ? self.user.motto : @"漂泊者的分享交流社区"];
         return cell;
     }else {
         Mine_titleCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Mine_titleCell forIndexPath:indexPath];
@@ -101,15 +100,15 @@
                     [cell setIconImage:@"feedback" withTitle:@"反馈我们"];
                     break;
                 case 1:
+                    [cell setIconImage:@"about_icon" withTitle:@"关于我们"];
+                    break;
+                default:
                     [cell setIconImage:@"del_cache" withTitle:@"清除缓存"];
                     cell.content = [self getSDImageCacheSize];
                     break;
-                default:
-                    [cell setIconImage:@"about_icon" withTitle:@"关于我们"];
-                    break;
             }
         }
-        [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:kPaddingLeft hasSectionLine:NO];
+        [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:kPaddingLeft];
         return cell;
     }
 }
@@ -120,6 +119,9 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 2) {
+        return 0;
+    }
     return 10.0;
 }
 
@@ -167,14 +169,14 @@
                 }
                     break;
                 case 1: {
+                    AboutController *about = [[AboutController alloc]init];
+                    viewController = about;
+                }
+                    break;
+                case 2:{
                     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"是否清除缓存" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil, nil];
                     sheet.tag = 1002;
                     [sheet showInView:self.view];
-                }
-                    break;
-                default:{
-                    AboutController *about = [[AboutController alloc]init];
-                    viewController = about;
                 }
                     break;
             }
@@ -215,7 +217,7 @@
                 [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
                     [NSObject hideHUDQuery];
                     [NSObject showHudTipStr:@"清除缓存成功"];
-                    [self.myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:2]] withRowAnimation:UITableViewRowAnimationFade];
+                    [self.myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:2]] withRowAnimation:UITableViewRowAnimationFade];
                 }];
             });
         }

@@ -28,25 +28,27 @@
 #import "UINavigationController+Common.h"
 #endif
 
-#define kBaseUrl @"http://dev.brickman.cn" //测试
-#define kImageUrl @"http://dev.img.brickman.cn"
+//#define kBaseUrl @"http://dev.brickman.cn" //测试
+//#define kImageUrl @"http://dev.img.brickman.cn"
 
-//#define kBaseUrl @"http://115.28.16.51" //生产
-//#define kImageUrl @"http://115.28.16.51:2080"
-#define kAboutUrl @"http://115.28.16.51:2080/html/brickman.html"
+#define kBaseUrl @"http://www.brickman.cn" //生产
+#define kImageUrl @"http://img.brickman.cn"
+#define kAboutUrl @"http://img.brickman.cn/html/brickman.html"
+#define kFeedBackUrl @"http://img.brickman.cn/html/brickmanback.html"
 
+#define kQQGroupAccount @""
+#define kQQGroupKey @""
 #define kUMSocialKey @""
 #define kWXAppId @""
 #define kWXAppSecret @""
 #define kQQAppId @""
 #define kQQAppKey @""
-#define kQQGroupAccount @""
-#define kQQGroupKey @""
 #define kUMRedirectURL @""
 #define kGDAppKey @""
 const static NSString *APIKey = @"";
 
 #define kDefaultPageSize @"10"
+#define kUserInfo @"UserInfo"
 
 //常用变量
 #ifdef DEBUG
@@ -81,7 +83,3 @@ const static NSString *APIKey = @"";
 #define kTabbarHeight 49
 
 #define kMineCellHeightRadio [UIScreen mainScreen].bounds.size.width/414
-
-//Notification
-#define kNotification_RefreshUserInfo @"RefreshUserInfoNotification"
-
