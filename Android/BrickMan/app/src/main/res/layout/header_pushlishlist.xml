@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <RelativeLayout
+
+            android:id="@+id/headlayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_240"
+            android:background="@mipmap/bm_mypushlish_headbackgroud">
+
+            <com.brickman.app.module.widget.view.CircleImageView
+                android:id="@+id/avator"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/ic_launcher"
+                app:border_color="@color/colorAccent"
+                app:border_width="0dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/avator"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/dp_24"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:text="@string/default_username"
+                        android:id="@+id/name"
+                        android:textColor="@color/text_light_gray"
+                        android:textSize="@dimen/sp_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:id="@+id/sex"
+                        android:layout_marginLeft="@dimen/dp_02"
+                        android:layout_width="@dimen/dp_14"
+                        android:layout_height="@dimen/dp_14"
+                        android:src="@mipmap/man"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/desc"
+                    android:text="@string/default_motto"
+                    android:layout_marginTop="@dimen/dp_07"
+                    android:textColor="@color/text_light_gray"
+                    android:textSize="@dimen/sp_14"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+</FrameLayout>

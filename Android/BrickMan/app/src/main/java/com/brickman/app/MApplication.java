@@ -11,7 +11,6 @@ import com.brickman.app.common.glide.GlidePauseOnScrollListener;
 import com.brickman.app.model.Bean.UserBean;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 import com.yolanda.nohttp.NoHttp;
 import java.util.List;
 import cn.finalteam.galleryfinal.CoreConfig;
