@@ -9,6 +9,7 @@ import android.view.View;
 import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.utils.DateUtil;
+import com.brickman.app.common.utils.StringUtil;
 import com.brickman.app.model.Bean.CommentBean;
 import com.brickman.app.module.brick.PublishListActivity;
 import com.brickman.app.module.widget.view.CircleImageView;
@@ -50,6 +51,6 @@ public class CommentListAdapter extends BaseQuickAdapter<CommentBean> {
         }
         helper.setText(R.id.date, DateUtil.getMillon(item.createdTime));
         helper.setText(R.id.nickName, TextUtils.isEmpty(item.user.userName) ? item.user.userAlias : item.user.userAlias);
-        helper.setText(R.id.content, item.commentContent);
+        helper.setText(R.id.content, StringUtil.getEmojiByString(item.commentContent));
     }
 }

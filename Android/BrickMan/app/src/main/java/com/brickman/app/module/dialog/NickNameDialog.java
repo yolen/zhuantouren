@@ -24,13 +24,13 @@ import butterknife.OnClick;
  * Created by mayu on 16/7/14,上午10:07.
  */
 public class NickNameDialog extends Dialog {
-    static NickNameDialog imageDialog;
+
     Context mCtx;
     @BindView(R.id.nickName)
     AppCompatEditText nickName;
 
     public static NickNameDialog getInstance(Context ctx) {
-        imageDialog = new NickNameDialog(ctx);
+       NickNameDialog imageDialog = new NickNameDialog(ctx);
         return imageDialog;
     }
 

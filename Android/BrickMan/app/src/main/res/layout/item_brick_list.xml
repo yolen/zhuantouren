@@ -76,7 +76,7 @@
         android:layout_marginRight="@dimen/dp_10"
         android:background="@color/line" />
 
-    <TextView
+    <io.github.rockerhieu.emojicon.EmojiconTextView
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

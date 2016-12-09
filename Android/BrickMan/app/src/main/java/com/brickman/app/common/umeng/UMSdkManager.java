@@ -14,6 +14,7 @@ import com.brickman.app.common.umeng.auth.LoginListener;
 import com.brickman.app.common.umeng.auth.LogoutListener;
 import com.brickman.app.common.utils.LogUtil;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.bean.SocializeEntity;
 import com.umeng.socialize.bean.StatusCode;
 import com.umeng.socialize.controller.UMSocialService;
@@ -46,6 +47,9 @@ public class UMSdkManager {
 	public UMSdkManager(Activity act, UMSocialService controller) {
 		mAct = act;
 		mController = controller;
+		String appId = "1105593438";
+		String appKey = "dBRx3jsdC5UT6Drw";
+		// 添加QQ支持, 并且设置QQ分享内容的target url
 		addPlatforms();
 	}
 	/**
@@ -124,6 +128,7 @@ public class UMSdkManager {
 	 * 根据不同的平台设置不同的分享内容</br>
 	 */
 	public void setShareContent(Activity act, ShareContent share) {
+
 		UMImage urlImage = null;
 		if (share.getShareImage() != null) {
 			urlImage = share.getShareImage();
@@ -185,6 +190,7 @@ public class UMSdkManager {
 		// 添加QQ支持, 并且设置QQ分享内容的target url
 		UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(act, appId, appKey);
 		qqSsoHandler.addToSocialSDK();
+
 
 		// 添加QZone平台
 		QZoneSsoHandler qZoneSsoHandler = new QZoneSsoHandler(act, appId, appKey);

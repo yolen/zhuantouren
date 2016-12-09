@@ -103,7 +103,7 @@ public class CityActivity extends BaseActivity {
                 });
             }
         }).start();
-        cityName.setText("当前定位：" + MApplication.getAddress());
+        cityName.setText("当前定位：" + MApplication.mAppContext.getAddress());
         mSideBarView.setOnTouchLetterChangeListener(new WaveSideBarView.OnTouchLetterChangeListener() {
             @Override
             public void onLetterChange(String letter) {
@@ -120,7 +120,9 @@ public class CityActivity extends BaseActivity {
                 MApplication.setLocation(city, address);
                 cityName.setText("当前定位:" + address);
                 showToast(address);
-                dismissLoading();
+
+                    dismissLoading();
+
             }
         });
         mLocationManager.startLocation();

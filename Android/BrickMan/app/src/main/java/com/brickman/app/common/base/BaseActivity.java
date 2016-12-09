@@ -24,6 +24,8 @@ import com.brickman.app.module.dialog.LoadingDialog;
 import com.brickman.app.module.widget.view.SwipeBackLayout;
 import com.brickman.app.module.widget.view.ToastManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.bean.SocializeConfig;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -165,17 +167,22 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
      * 显示loading
      */
     public void showLoading(){
-        if(!mLoadingDialog.isShowing()){
-            mLoadingDialog.show();
+        if (!isFinishing()) {
+            if (!mLoadingDialog.isShowing()) {
+                mLoadingDialog.show();
+            }
         }
     }
+
 
     /**
      * 隐藏loading
      */
     public void dismissLoading(){
-        if(mLoadingDialog.isShowing()){
-            mLoadingDialog.dismiss();
+        if (!isFinishing()) {
+            if (mLoadingDialog.isShowing()) {
+                mLoadingDialog.dismiss();
+            }
         }
     }
 
@@ -221,7 +228,11 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     public void finish() {
         super.finish();
         RequestHelper.cancelAll();
-
+        if (SocializeConfig.isSupportQQZoneSSO(this)) {
+            SocializeConfig.getSocializeConfig().removeSsoHandler(SHARE_MEDIA.QZONE);
+            SocializeConfig.getSocializeConfig().removeSsoHandler(SHARE_MEDIA.QQ);
+            SocializeConfig.getSocializeConfig().removeSsoHandler(SHARE_MEDIA.WEIXIN);
+        }
     }
 
     public void finishWithAnim() {

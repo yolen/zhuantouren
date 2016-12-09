@@ -3,18 +3,20 @@ package com.brickman.app.common.http.param;
 import android.text.TextUtils;
 
 import com.brickman.app.common.base.Api;
-import com.brickman.app.common.utils.LogUtil;
+
 import com.brickman.app.common.utils.MD5;
+import com.brickman.app.common.utils.StringUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
+import cn.finalteam.toolsfinal.StringUtils;
 
 /**
  * 参数实体

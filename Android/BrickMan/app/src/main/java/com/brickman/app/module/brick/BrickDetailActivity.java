@@ -21,6 +21,7 @@ import com.brickman.app.common.base.Api;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.umeng.ShareContent;
 import com.brickman.app.common.utils.DateUtil;
+import com.brickman.app.common.utils.StringUtil;
 import com.brickman.app.contract.BrickDetailContract;
 import com.brickman.app.model.Bean.BrickBean;
 import com.brickman.app.model.Bean.BrickDetailBean;
@@ -47,6 +48,7 @@ import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
+import io.github.rockerhieu.emojicon.EmojiconTextView;
 
 /**
  * Created by mayu on 16/7/23,下午9:33.
@@ -59,7 +61,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
     TextView date;
     TextView address;
     ImageView report;
-    TextView content;
+    EmojiconTextView content;
     ImageView sexImg;
     LinearLayout imageList;
     LinearLayout linearLayout;
@@ -235,7 +237,7 @@ public class BrickDetailActivity extends BaseActivity<BrickDetailPresenter, Bric
         date.setText(DateUtil.getMillon(brickDetailBean.createdTime));
         address.setText(brickDetailBean.contentPlace);
         report.setImageResource(brickDetailBean.contentReports > 0 ? R.mipmap.bm_reporting_sel : R.mipmap.bm_reporting_nor);
-        content.setText(brickDetailBean.contentTitle);
+        content.setText(StringUtil.getEmojiByString(brickDetailBean.contentTitle));
         iconComment.setImageResource(brickDetailBean.commentCount > 0 ? R.mipmap.bm_comment_sel : R.mipmap.bm_comment_nor);
         commentNum.setText(brickDetailBean.commentCount + "");
         iconFlower.setImageResource(brickDetailBean.contentFlowors > 0 ? R.mipmap.bm_flower_sel : R.mipmap.bm_flower_nor);

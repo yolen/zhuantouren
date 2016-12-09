@@ -120,7 +120,7 @@ public class MApplication extends Application {
         return mDataKeeper.get("city", "北京");
     }
 
-    public static String getAddress() {
+    public  String getAddress() {
         return mDataKeeper.get("address", "北京");
     }
 }

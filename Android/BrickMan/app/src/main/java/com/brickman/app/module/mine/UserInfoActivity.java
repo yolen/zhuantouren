@@ -12,6 +12,7 @@ import com.brickman.app.MApplication;
 import com.brickman.app.R;
 import com.brickman.app.common.base.Api;
 import com.brickman.app.common.base.BaseActivity;
+import com.brickman.app.common.utils.StringUtil;
 import com.brickman.app.contract.UserInfoContract;
 import com.brickman.app.model.UserInfoModel;
 import com.brickman.app.module.dialog.ImageDialog;
@@ -29,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.github.rockerhieu.emojicon.EmojiconTextView;
 import rx.internal.util.unsafe.MpmcArrayQueue;
 
 import static com.brickman.app.R.id.nickName;
@@ -45,7 +47,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter, UserInfoMo
     @BindView(R.id.sex)
     TextView mSex;
     @BindView(R.id.motto)
-    TextView mMotto;
+    EmojiconTextView mMotto;
     @BindView(toolbar)
     Toolbar mToolbar;
 
@@ -128,7 +130,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoPresenter, UserInfoMo
         MApplication.mAppContext.mUser.motto = motto;
         MApplication.mDataKeeper.put("user_info", MApplication.mAppContext.mUser);
         sendBroadcast(new Intent(Api.ACTION_USERINFO));
-        mMotto.setText(motto);
+        mMotto.setText(StringUtil.getEmojiByString(motto));
     }
 
     @Override

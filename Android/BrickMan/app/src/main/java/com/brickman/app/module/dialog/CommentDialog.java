@@ -15,11 +15,13 @@ import android.widget.EditText;
 import com.brickman.app.R;
 import com.brickman.app.common.utils.DensityUtils;
 import com.brickman.app.common.utils.KeyboardUtils;
+import com.brickman.app.common.utils.StringUtil;
 import com.brickman.app.module.widget.view.ToastManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.rockerhieu.emojicon.EmojiconEditText;
 
 /**
  * Created by mayu on 16/7/14,上午10:07.
@@ -28,7 +30,7 @@ public class CommentDialog extends Dialog {
     static CommentDialog imageDialog;
     Context mCtx;
     @BindView(R.id.comment)
-    EditText comment;
+    EmojiconEditText comment;
 
     private OnSendListener mOnSendListener;
 
@@ -75,7 +77,7 @@ public class CommentDialog extends Dialog {
             case R.id.send:
                 String text = comment.getText().toString().trim();
                 if(!TextUtils.isEmpty(text)){
-                    mOnSendListener.send(text);
+                    mOnSendListener.send(StringUtil.getStringByEmoji(text));
                 } else {
                     ToastManager.showWithTxt(mCtx, "评论不能为空!");
                 }

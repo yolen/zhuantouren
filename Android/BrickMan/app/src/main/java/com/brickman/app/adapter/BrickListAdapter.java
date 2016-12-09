@@ -11,6 +11,7 @@ import com.brickman.app.MApplication;
 import com.brickman.app.R;
 import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.utils.DateUtil;
+import com.brickman.app.common.utils.StringUtil;
 import com.brickman.app.model.Bean.BrickBean;
 import com.brickman.app.module.brick.BrickDetailActivity;
 import com.brickman.app.module.brick.PublishListActivity;
@@ -79,7 +80,7 @@ public class BrickListAdapter extends BaseQuickAdapter<BrickBean> {
                 helper.setImageResource(R.id.report, item.users.getUserSex().equals("男") ? R.mipmap.man : R.mipmap.woman);
             }
         }
-        helper.setText(R.id.content, item.contentTitle);
+        helper.setText(R.id.content, StringUtil.getEmojiByString( item.contentTitle));
         helper.setImageResource(R.id.iconComment, item.commentCount > 0 ? R.mipmap.bm_comment_sel : R.mipmap.bm_comment_nor);
         helper.setText(R.id.commentNum, item.commentCount + "");
 

@@ -21,6 +21,7 @@ import com.brickman.app.common.base.BaseActivity;
 import com.brickman.app.common.lbs.LocationManager;
 import com.brickman.app.common.utils.DensityUtils;
 import com.brickman.app.common.utils.LogUtil;
+import com.brickman.app.common.utils.StringUtil;
 import com.brickman.app.contract.PublishContract;
 import com.brickman.app.model.PublishModel;
 import com.brickman.app.module.dialog.LBSDialog;
@@ -30,6 +31,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.makeramen.roundedimageview.RoundedImageView;
+import com.umeng.socialize.bean.SocializeConfig;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.io.File;
@@ -41,6 +43,7 @@ import butterknife.OnClick;
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
+import io.github.rockerhieu.emojicon.EmojiconEditText;
 import top.zibin.luban.Luban;
 import top.zibin.luban.OnCompressListener;
 
@@ -53,7 +56,7 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
     @BindView(R.id.toolbar)
     Toolbar mToolBar;
     @BindView(R.id.text)
-    EditText text;
+    EmojiconEditText text;
     @BindView(R.id.textSize)
     TextView textSize;
     @BindView(R.id.imageSize)
@@ -111,11 +114,12 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
                 .sizeResId(R.dimen.dp_15)
                 .marginResId(R.dimen.dp_00, R.dimen.dp_00)
                 .build());
-        mAddress = MApplication.getAddress();
+        mAddress = MApplication.mAppContext.getAddress();
         location.setText(TextUtils.isEmpty(mAddress) ? "选择位置" : mAddress);
         mLocationManager = new LocationManager(this.getApplicationContext(), new LocationManager.OnResultListener() {
             @Override
             public void getAddress(String city, String address) {
+                if (isFinishing()) {
                 new LBSDialog(PublishActivity.this, address, new LBSDialog.OnAddressListener() {
                     @Override
                     public void getAddress(String address) {
@@ -123,7 +127,8 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
                         location.setText(mAddress);
                     }
                 }).show();
-                dismissLoading();
+                    dismissLoading();
+                }
             }
         });
     }
@@ -184,7 +189,9 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
                         mLubanList.add(file.getPath());
                         if (mLubanList.size() == images.size() - 1) {
                             dismissLoading();
-                            uploadImageList(mLubanList);
+                            if (!isFinishing()) {
+                                uploadImageList(mLubanList);
+                            }
                         }
                     }
 
@@ -195,14 +202,16 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
                         mLubanList.add(imagePath);
                         if (mLubanList.size() == images.size() - 1) {
                             dismissLoading();
-                            uploadImageList(mLubanList);
+                            if (!isFinishing()) {
+                                uploadImageList(mLubanList);
+                            }
                         }
                     }
                 }).launch();    //启动压缩
     }
 
     private void uploadImageList(List<String> imgList) {
-        mUploadProgressDialog = new UploadProgressDialog(PublishActivity.this, new UploadProgressDialog.OnCancelListener() {
+        mUploadProgressDialog = new UploadProgressDialog(this, new UploadProgressDialog.OnCancelListener() {
             @Override
             public void cancelUpload() {
                 mPresenter.cancelUpload();
@@ -291,7 +300,7 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
         String content = text.getText().toString().trim();
         boolean isGoodThings = checkbox.isChecked();
         if (!isEmpty(content, mAddress, imageList)) {
-            mPresenter.publish(content, System.currentTimeMillis() + "", mAddress, isGoodThings, imageList);
+            mPresenter.publish(StringUtil.getStringByEmoji(content), System.currentTimeMillis() + "", mAddress, isGoodThings, imageList);
         }
     }
 
@@ -331,4 +340,6 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
     public void showMsg(String msg) {
         showToast(msg);
     }
+
+
 }

@@ -22,6 +22,7 @@ import com.brickman.app.module.widget.view.ViewPagerFixed;
 import com.brickman.app.presenter.LoginPresenter;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.umeng.socialize.bean.SocializeConfig;
 import com.umeng.socialize.controller.UMServiceFactory;
 import java.util.ArrayList;
 
@@ -164,5 +165,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
         public Fragment getItem(int position) {
             return fragments.get(position);
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
     }
 }

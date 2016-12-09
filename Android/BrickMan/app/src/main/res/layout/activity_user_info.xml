@@ -243,7 +243,7 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/bm_icon_arrow_right" />
 
-        <TextView
+        <io.github.rockerhieu.emojicon.EmojiconTextView
             android:id="@+id/motto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

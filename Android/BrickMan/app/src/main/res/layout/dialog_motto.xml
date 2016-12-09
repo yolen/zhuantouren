@@ -32,7 +32,7 @@
         app:errorEnabled="false"
         app:errorTextAppearance="@style/txt_lab_msg">
 
-        <android.support.v7.widget.AppCompatEditText
+        <io.github.rockerhieu.emojicon.EmojiconEditText
             android:id="@+id/motto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

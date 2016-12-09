@@ -14,23 +14,25 @@ import android.view.Window;
 
 import com.brickman.app.R;
 import com.brickman.app.common.utils.DensityUtils;
+import com.brickman.app.common.utils.StringUtil;
 import com.brickman.app.module.mine.UserInfoActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.github.rockerhieu.emojicon.EmojiconEditText;
 
 /**
  * Created by mayu on 16/7/14,上午10:07.
  */
 public class MottoDialog extends Dialog {
-    static MottoDialog imageDialog;
+
     Context mCtx;
     @BindView(R.id.motto)
-    AppCompatEditText motto;
+    EmojiconEditText motto;
 
     public static MottoDialog getInstance(Context ctx) {
-        imageDialog = new MottoDialog(ctx);
+      MottoDialog  imageDialog = new MottoDialog(ctx);
         return imageDialog;
     }
 
@@ -67,7 +69,7 @@ public class MottoDialog extends Dialog {
                 String mottoStr = motto.getText().toString().trim();
                 if(!TextUtils.isEmpty(mottoStr)){
                     dismiss();
-                    ((UserInfoActivity)mCtx).mPresenter.updateMotto(mottoStr);
+                    ((UserInfoActivity)mCtx).mPresenter.updateMotto(StringUtil.getStringByEmoji(mottoStr));
                 } else {
                     ((UserInfoActivity)mCtx).showMsg("座右铭不能为空!");
                 }
