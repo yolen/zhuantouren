@@ -11,14 +11,10 @@
 #import "BrickPhotoCell.h"
 #import "BrickPhotoSingleCell.h"
 #import "BMAttachment.h"
-#import "MSSBrowseModel.h"
 #import "UICustomCollectionView.h"
-#import "NSDate+Common.h"
-#import "UILabel+Common.h"
-#import "UIView+Common.h"
-
-#import "MSSBrowseNetworkViewController.h"
 #import "GalleryController.h"
+#import "MJPhoto.h"
+#import "MJPhotoBrowser.h"
 
 @interface MainTableViewCell()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) UIImageView *iconImageView, *sexIcon;
@@ -311,25 +307,18 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSMutableArray *browseItemArray = [[NSMutableArray alloc]init];
-    NSArray *attachmentArray = self.model.brickContentAttachmentList;
-    for (int i = 0; i < attachmentArray.count; i++) {
+    NSMutableArray *photos = [NSMutableArray array];
+    NSInteger count = self.model.brickContentAttachmentList.count;
+    for (int i = 0; i < count; i++) {
+        MJPhoto *photo = [[MJPhoto alloc] init];
         BMAttachment *attachment = self.model.brickContentAttachmentList[i];
-        NSString *imageStr = [NSString stringWithFormat:@"%@/%@",kImageUrl,attachment.attachmentPath];
-        UIImageView *imageView;
-        if (attachmentArray.count == 1) {
-            imageView = [collectionView viewWithTag:i + 1000];
-        }else {
-            imageView = [collectionView viewWithTag:i + 100];
-        }
-        MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
-        browseItem.bigImageUrl = imageStr;
-        browseItem.smallImageView = imageView;
-        [browseItemArray addObject:browseItem];
+        photo.url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@",kImageUrl,attachment.attachmentPath]];
+        [photos addObject:photo];
     }
-    BrickPhotoCell *cell = (BrickPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:browseItemArray currentIndex:cell.photoImgView.tag - 100];
-    [bvc showBrowseViewController];
+    MJPhotoBrowser *photoBrowser = [[MJPhotoBrowser alloc] init];
+    photoBrowser.currentPhotoIndex = indexPath.row;
+    photoBrowser.photos = photos;
+    [photoBrowser show];
 }
 
 #pragma mark - Btn Action

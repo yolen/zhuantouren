@@ -20,7 +20,7 @@
     }
     
     NSString *imageStr = [NSString stringWithFormat:@"%@/compress/%@",kImageUrl,attachmentModel.attachmentPath];
-    [_photoImgView sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:nil];
+    [_photoImgView sd_setImageWithURL:[NSURL URLWithString:imageStr] placeholderImage:nil options:SDWebImageRetryFailed | SDWebImageLowPriority];
 }
 
 + (CGSize)cellHeithWithAttachment:(BMAttachment *)attachment {

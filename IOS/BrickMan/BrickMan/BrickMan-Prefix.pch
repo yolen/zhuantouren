@@ -22,17 +22,20 @@
     #import "NSString+Common.h"
     #import "UIColor+expanded.h"
     #import "BrickManAPIManager.h"
+    #import "NSDate+Common.h"
+    #import "UILabel+Common.h"
+    #import "UIView+Common.h"
     #import "BMUser.h"
     #import "UIButton+Block.h"
 
 #import "UINavigationController+Common.h"
 #endif
 
-#define kBaseUrl @"http://dev.brickman.cn" //测试
-#define kImageUrl @"http://dev.img.brickman.cn"
+//#define kBaseUrl @"http://dev.brickman.cn" //测试
+//#define kImageUrl @"http://dev.img.brickman.cn"
 
-//#define kBaseUrl @"http://www.brickman.cn" //生产
-//#define kImageUrl @"http://img.brickman.cn"
+#define kBaseUrl @"http://www.brickman.cn" //生产
+#define kImageUrl @"http://img.brickman.cn"
 #define kAboutUrl @"http://img.brickman.cn/html/brickman.html"
 #define kFeedBackUrl @"http://img.brickman.cn/html/brickmanback.html"
 
