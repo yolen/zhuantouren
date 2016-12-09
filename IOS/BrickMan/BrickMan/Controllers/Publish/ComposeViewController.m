@@ -258,6 +258,7 @@
     }
     
     [self.view endEditing:YES];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"发送中...";
     __weak typeof(self) weakSelf = self;
@@ -268,6 +269,7 @@
                                      @"contentTitle" : self.textView.text,
                                      @"contentPlace" : self.locationString};
             [[BrickManAPIManager shareInstance] requestAddContentWithParams:params andBlock:^(id data, NSError *error) {
+                self.navigationItem.rightBarButtonItem.enabled = YES;
                 [hud hide:YES];
                 if (data) {
                     [weakSelf performSelector:@selector(dismissWithPublishSuccess) withObject:nil afterDelay:0.5];
@@ -276,6 +278,7 @@
                 }
             }];
         }else {
+            self.navigationItem.rightBarButtonItem.enabled = YES;
             [hud hide:YES];
             [NSObject showError:error];
         }
