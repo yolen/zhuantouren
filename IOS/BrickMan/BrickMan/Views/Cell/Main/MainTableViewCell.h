@@ -13,17 +13,13 @@
 
 @interface MainTableViewCell : UITableViewCell
 
-@property (assign, nonatomic) BOOL isGallery, isDetail;
+@property (assign, nonatomic) BOOL isGallery;
 @property (strong, nonatomic) NSString *contentStr;
 @property (strong, nonatomic) UIButton *reportBtn, *commentBtn, *shareBtn, *brickBtn;
 
-@property (strong, nonatomic) void(^commentBlock)();
-@property (copy, nonatomic) void(^shareBlock)(BMContent *content);
 @property (copy, nonatomic) void(^refreshCellBlock)();
 @property (copy, nonatomic) void(^pushDetailBlock)();
-@property (copy, nonatomic) void(^pushLoginBlock)();
 @property (nonatomic, copy) void(^pushGalleryBlock)(); /** 点击用户头像跳转到个人砖集 */
-@property (copy, nonatomic) void(^reportBlock)();
 
 @property (strong, nonatomic) BMContent *model;
 

@@ -26,6 +26,8 @@
 		3013A7401DFA45BB0038248D /* SDWebImageManager+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 3013A7361DFA45BB0038248D /* SDWebImageManager+MJ.m */; };
 		3013A7411DFA45BB0038248D /* UIImageView+MJWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3013A7381DFA45BB0038248D /* UIImageView+MJWebCache.m */; };
 		3013A7431DFA47A70038248D /* MJPhotoBrowser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3013A7421DFA47A70038248D /* MJPhotoBrowser.bundle */; };
+		3013A7491DFA52BD0038248D /* BrickDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3013A7481DFA52BD0038248D /* BrickDetailCell.m */; };
+		3013A74C1DFA540D0038248D /* BrickDetailPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3013A74B1DFA540D0038248D /* BrickDetailPhotoCell.m */; };
 		301A5FF51DED796C009694DB /* page_intro_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 301A5FF31DED796C009694DB /* page_intro_sel@2x.png */; };
 		301A5FF61DED796C009694DB /* page_intro_unsel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 301A5FF41DED796C009694DB /* page_intro_unsel@2x.png */; };
 		302114A11D781B18004FFF36 /* BMStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 302114A01D781B18004FFF36 /* BMStartView.m */; };
@@ -321,6 +323,10 @@
 		3013A7371DFA45BB0038248D /* UIImageView+MJWebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+MJWebCache.h"; sourceTree = "<group>"; };
 		3013A7381DFA45BB0038248D /* UIImageView+MJWebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+MJWebCache.m"; sourceTree = "<group>"; };
 		3013A7421DFA47A70038248D /* MJPhotoBrowser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJPhotoBrowser.bundle; sourceTree = "<group>"; };
+		3013A7471DFA52BD0038248D /* BrickDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickDetailCell.h; sourceTree = "<group>"; };
+		3013A7481DFA52BD0038248D /* BrickDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickDetailCell.m; sourceTree = "<group>"; };
+		3013A74A1DFA540D0038248D /* BrickDetailPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrickDetailPhotoCell.h; sourceTree = "<group>"; };
+		3013A74B1DFA540D0038248D /* BrickDetailPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrickDetailPhotoCell.m; sourceTree = "<group>"; };
 		301A5FF31DED796C009694DB /* page_intro_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page_intro_sel@2x.png"; sourceTree = "<group>"; };
 		301A5FF41DED796C009694DB /* page_intro_unsel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page_intro_unsel@2x.png"; sourceTree = "<group>"; };
 		3021149F1D781B18004FFF36 /* BMStartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMStartView.h; sourceTree = "<group>"; };
@@ -1247,12 +1253,16 @@
 			children = (
 				30C5BB6B1D425699001DF9D2 /* MainTableViewCell.h */,
 				30C5BB6A1D425699001DF9D2 /* MainTableViewCell.m */,
+				3013A7471DFA52BD0038248D /* BrickDetailCell.h */,
+				3013A7481DFA52BD0038248D /* BrickDetailCell.m */,
 				30C5BB421D411D8A001DF9D2 /* CommentCell.h */,
 				30C5BB431D411D8A001DF9D2 /* CommentCell.m */,
 				30C5BB521D4210A8001DF9D2 /* BrickPhotoCell.h */,
 				30C5BB531D4210A8001DF9D2 /* BrickPhotoCell.m */,
 				30CC1F5D1D6FE22400A0DB80 /* BrickPhotoSingleCell.h */,
 				30CC1F5E1D6FE22400A0DB80 /* BrickPhotoSingleCell.m */,
+				3013A74A1DFA540D0038248D /* BrickDetailPhotoCell.h */,
+				3013A74B1DFA540D0038248D /* BrickDetailPhotoCell.m */,
 				30FA91411DDAF9E60066706F /* NotifyCell.h */,
 				30FA91421DDAF9E60066706F /* NotifyCell.m */,
 			);
@@ -1837,7 +1847,9 @@
 				30C5BB4E1D4209F8001DF9D2 /* DetailBrickViewController.m in Sources */,
 				1BFD4D3D1D3CD0B500ABE8E6 /* MainViewController.m in Sources */,
 				30C5BAE61D40655E001DF9D2 /* UILabel+Common.m in Sources */,
+				3013A7491DFA52BD0038248D /* BrickDetailCell.m in Sources */,
 				30041D121DDAECD3004F3666 /* UserNotifyViewController.m in Sources */,
+				3013A74C1DFA540D0038248D /* BrickDetailPhotoCell.m in Sources */,
 				792C20281D5893D80047E4D2 /* BMCity.m in Sources */,
 				309523D71DD99AAC003DBD3C /* RootTabBarController.m in Sources */,
 				30C5BADC1D406008001DF9D2 /* Mine_titleCell.m in Sources */,
@@ -2008,8 +2020,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
@@ -2032,7 +2044,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "a3a871a1-c17a-40aa-ba42-e38a0e9296a9";
+				PROVISIONING_PROFILE = "2c71b0f7-9507-47f2-8ad8-8b60c743f56b";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -2059,8 +2071,8 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
@@ -2077,7 +2089,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "a3a871a1-c17a-40aa-ba42-e38a0e9296a9";
+				PROVISIONING_PROFILE = "2c71b0f7-9507-47f2-8ad8-8b60c743f56b";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -2091,8 +2103,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2144,7 +2156,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.brickapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a3a871a1-c17a-40aa-ba42-e38a0e9296a9";
+				PROVISIONING_PROFILE = "2c71b0f7-9507-47f2-8ad8-8b60c743f56b";
 				SWIFT_OBJC_BRIDGING_HEADER = "BrickMan/Models/Main/BrickMan-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -2158,8 +2170,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ma zhongxiu (FGV9RA48C2)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: ma zhongxiu (XFB72AHV3Y)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2212,7 +2224,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.brickman.brickapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a3a871a1-c17a-40aa-ba42-e38a0e9296a9";
+				PROVISIONING_PROFILE = "2c71b0f7-9507-47f2-8ad8-8b60c743f56b";
 				SWIFT_OBJC_BRIDGING_HEADER = "BrickMan/Models/Main/BrickMan-Bridging-Header.h";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};

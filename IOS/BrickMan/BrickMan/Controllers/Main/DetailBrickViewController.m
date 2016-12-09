@@ -10,7 +10,7 @@
 #import "LoginViewController.h"
 #import "GalleryController.h"
 
-#import "MainTableViewCell.h"
+#import "BrickDetailCell.h"
 #import "CommentCell.h"
 #import "CommentInputView.h"
 #import "BMAttachment.h"
@@ -41,7 +41,7 @@
     self.myTableView.dataSource = self;
     self.myTableView.delegate = self;
     self.myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.myTableView registerClass:[MainTableViewCell class] forCellReuseIdentifier:kCellIdentifier_MainTableViewCell];
+    [self.myTableView registerClass:[BrickDetailCell class] forCellReuseIdentifier:kCellIdentifier_BrickDetailCell];
     [self.myTableView registerClass:[CommentCell class] forCellReuseIdentifier:kCellIdentifier_CommentCell];
     UIEdgeInsets inset = UIEdgeInsetsMake(0, 0, 50, 0);
     self.myTableView.contentInset = inset;
@@ -78,12 +78,8 @@
     [footer setTitle:@"暂无更多评论" forState:MJRefreshStateNoMoreData];
     self.myTableView.mj_footer = footer;
     
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endEditAction)];
-//    tap.cancelsTouchesInView = NO;
-//    [self.view addGestureRecognizer:tap];
     
     [self requestForDetailContent];
-//    [self refresh];
 }
 
 #pragma mark - Refresh
@@ -110,7 +106,7 @@
         [weakSelf.myTableView.mj_footer endRefreshing];
         if (data) {
             [weakSelf.commentList configWithData:data];
-            [weakSelf.myTableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+            [weakSelf.myTableView reloadData];
             
             BMCommentList *model = (BMCommentList *)data;
             if (!weakSelf.commentList.canLoadMore || model.data.count == 0) {
@@ -147,10 +143,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     __weak typeof(self) weakSelf = self;
     if (indexPath.section == 0) {
-        MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
+        BrickDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_BrickDetailCell forIndexPath:indexPath];
         cell.model = self.model;
-        cell.isDetail = YES;
-        
+        cell.refreshCellBlock = ^(){
+            [weakSelf.myTableView reloadData];
+        };
         cell.pushLoginBlock = ^(){
             LoginViewController *loginVC = [[LoginViewController alloc] init];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
@@ -175,10 +172,6 @@
                 [weakSelf.navigationController pushViewController:galleryVc animated:YES];
             };
         }
-        //        cell.commentBlock = ^(){
-        //            [weakSelf.inputView becomeFirstResponder];
-        //
-        //        };
         [tableView addLineforPlainCell:cell forRowAtIndexPath:indexPath withLeftSpace:0 hasSectionLine:NO];
         return cell;
     }else {
@@ -201,7 +194,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return [MainTableViewCell cellHeightWithModel:self.model];
+        return [BrickDetailCell cellHeightWithModel:self.model];
     }else {
         BMComment *comment = self.commentList.data[indexPath.row];
         return [CommentCell cellHeightWithModel:comment];
@@ -217,7 +210,7 @@
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        MainTableViewCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        BrickDetailCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
         NSString *contentId = [self.model.id stringValue];
         [[BrickManAPIManager shareInstance] requestOperContentWithParams:@{@"contentId" : contentId, @"operType" : @"3", @"userId" : [BMUser getUserModel].userId} andBlock:^(id data, NSError *error) {
             if (data) {
@@ -299,7 +292,7 @@
         kTipAlert(@"请输入评论内容");
         return;
     }
-    MainTableViewCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    BrickDetailCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     NSString *userId = [BMUser getUserModel].userId;
     NSDictionary *info = @{@"userId" : userId,
@@ -320,7 +313,7 @@
 }
 
 - (void)addShareCountAction {
-    MainTableViewCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    BrickDetailCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     BMAttachment *attachmentModel = self.model.brickContentAttachmentList[0];
     NSString *contentId = [attachmentModel.contentId stringValue];

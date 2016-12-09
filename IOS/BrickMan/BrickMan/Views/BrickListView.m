@@ -137,7 +137,6 @@
     MainTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_MainTableViewCell forIndexPath:indexPath];
     BMContent *model = self.curList.data[indexPath.row];
     cell.model = model;
-    cell.isDetail = NO;
     if ((self.isDragging || self.isDecelerating) ) {
         
     }
@@ -154,9 +153,6 @@
         if (self.goToGalleryBlock) {
             self.goToGalleryBlock(model);
         }
-    };
-    cell.pushLoginBlock = ^(){
-        
     };
     return cell;
 }
