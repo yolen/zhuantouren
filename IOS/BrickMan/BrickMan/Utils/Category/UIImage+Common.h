@@ -12,4 +12,6 @@
 +(UIImage *)imageWithColor:(UIColor *)aColor;
 +(UIImage *)imageWithColor:(UIColor *)aColor withFrame:(CGRect)aFrame;
 
+- (UIImage *)normalizedImage;
+
 @end

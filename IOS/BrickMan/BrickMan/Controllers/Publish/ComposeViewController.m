@@ -225,6 +225,7 @@
 #pragma mark - pickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *originalImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    originalImage = [originalImage normalizedImage];
     //保存原图片到相册中
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera && originalImage) {
         UIImageWriteToSavedPhotosAlbum(originalImage, self, nil, NULL);

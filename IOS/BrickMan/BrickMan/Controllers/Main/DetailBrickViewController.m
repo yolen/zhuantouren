@@ -315,12 +315,12 @@
 - (void)addShareCountAction {
     BrickDetailCell *cell = [self.myTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
-    BMAttachment *attachmentModel = self.model.brickContentAttachmentList[0];
-    NSString *contentId = [attachmentModel.contentId stringValue];
-    [[BrickManAPIManager shareInstance] requestAddShareCountWithParams:@{@"contentId" : contentId} andBlock:^(id data, NSError *error) {
+    
+    [[BrickManAPIManager shareInstance] requestAddShareCountWithParams:@{@"contentId" : [self.model.id stringValue]} andBlock:^(id data, NSError *error) {
         if (data) {
             [cell.shareBtn setTitle:[NSString stringWithFormat:@"分享 %ld",(long)(self.model.contentShares.integerValue + 1)] forState:UIControlStateNormal];
             [cell.shareBtn setImage:[UIImage imageNamed:@"share_sel"] forState:UIControlStateNormal];
+            self.model.contentShares = [NSNumber numberWithInteger:(self.model.contentShares.integerValue + 1)];
         }
     }];
 }

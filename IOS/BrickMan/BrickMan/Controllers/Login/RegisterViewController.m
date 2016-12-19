@@ -112,7 +112,7 @@
     }else if ([_userID_TF.text length] >= 3) {
         NSString * regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{3,15}$";
         NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-        BOOL result = [pred evaluateWithObject:_password_TF.text];
+        BOOL result = [pred evaluateWithObject:_userID_TF.text];
         
         if (!result) {
             tipString = @"用户名为3-15位字母、数字组合";
@@ -125,7 +125,8 @@
         if (!result) {
             tipString = @"密码为6-15位字母、数字组合";
         }
-    }else if (!isEqual) {
+    }
+    if (!isEqual) {
         tipString = @"确认密码与密码不一致";
     }
     

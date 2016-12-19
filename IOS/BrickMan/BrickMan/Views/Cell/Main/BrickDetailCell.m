@@ -172,7 +172,7 @@
     _nameLabel.width = nameWidth;
     
     _timeLabel.text = [self.model.date stringDisplay_HHmm];
-    [_contentLabel setLongString:self.model.contentTitle withFitWidth:(kScreen_Width - 10)];
+    [_contentLabel setLongString:[self.model.contentTitle stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] withFitWidth:(kScreen_Width - 10)];
     curY += [self.model.contentTitle getHeightWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(kScreen_Width - 20, CGFLOAT_MAX)];
     [_separatorLine2 setY:curY];
     

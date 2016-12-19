@@ -24,4 +24,16 @@
     return img;
 }
 
+//利用UIImage中的drawInRect方法，它会将图像绘制到画布上，并且已经考虑好了图像的方向
+- (UIImage *)normalizedImage {
+    if (self.imageOrientation == UIImageOrientationUp) return self;
+    
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, self.scale);
+    [self drawInRect:(CGRect){0, 0, self.size}];
+    UIImage *normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return normalizedImage;
+}
+
+
 @end

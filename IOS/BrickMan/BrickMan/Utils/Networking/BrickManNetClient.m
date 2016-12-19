@@ -164,9 +164,8 @@ static NSInteger mycompare(id a,id b, void * ctx) { //比较的规则（函数�
     [self POST:path parameters:dic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         for (UIImage *image in images) {
             NSData *data = UIImageJPEGRepresentation(image, 1.0);
-            while (data.length > 300 * 1024) {
-                UIImage *image = [UIImage imageWithData:data];
-                data = UIImageJPEGRepresentation(image, 0.7);
+            if ((float)data.length/1024 > 300) {
+                data = UIImageJPEGRepresentation(image, 1024*300/(float)data.length);
             }
             
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

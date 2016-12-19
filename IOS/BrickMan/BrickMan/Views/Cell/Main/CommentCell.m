@@ -68,7 +68,7 @@
     [_iconImageView sd_setImageWithURL:[NSURL URLWithString:self.comment.user.userHead] placeholderImage:[UIImage imageNamed:@"icon"]];
     _nameLabel.text = self.comment.user.userAlias;
     _timeLabel.text = [self.comment.date stringDisplay_HHmm];
-    [_commentLabel setLongString:self.comment.commentContent withFitWidth:(kScreen_Width - 70)];
+    [_commentLabel setLongString:[self.comment.commentContent stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] withFitWidth:(kScreen_Width - 70)];
 }
 
 + (CGFloat)cellHeightWithModel:(BMComment *)comment {
