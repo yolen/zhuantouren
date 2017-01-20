@@ -24,8 +24,8 @@ import butterknife.OnClick;
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
+import me.shaohui.advancedluban.Luban;
+import me.shaohui.advancedluban.OnCompressListener;
 
 /**
  * Created by mayu on 16/7/14,上午10:07.
@@ -124,10 +124,10 @@ public class ImageDialog extends Dialog {
     }
 
     private void compress(final String imagePath) {
-        Luban.get(mCtx)
-                .load(new File(imagePath))                     //传人要压缩的图片
-//                .putGear(Luban.FIRST_GEAR)//设定压缩档次，默认三挡
-                .setCompressListener(new OnCompressListener() { //设置回调
+        File file = new File(imagePath);
+        Luban.compress(mCtx, file)
+                .putGear(Luban.THIRD_GEAR)      // set the compress mode, default is : THIRD_GEAR
+                .launch(new OnCompressListener() {
                     @Override
                     public void onStart() {
                         // 压缩开始前调用，可以在方法内启动 loading UI
@@ -151,6 +151,34 @@ public class ImageDialog extends Dialog {
                         list.add(imagePath);
                         ((UserInfoActivity) mCtx).uploadImageList(list);
                     }
-                }).launch();    //启动压缩
+                });
+//        Luban.get(mCtx)
+//                .load(new File(imagePath))                     //传人要压缩的图片
+////                .putGear(Luban.FIRST_GEAR)//设定压缩档次，默认三挡
+//                .setCompressListener(new OnCompressListener() { //设置回调
+//                    @Override
+//                    public void onStart() {
+//                        // 压缩开始前调用，可以在方法内启动 loading UI
+//                        LogUtil.info("开始压缩图片:--");
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(File file) {
+//                        // 压缩成功后调用，返回压缩后的图片文件
+//                        LogUtil.info("压缩图片成功:--" + (file.length() / 1024) + "KB" + file.getPath());
+//                        ArrayList<String> list = new ArrayList<String>();
+//                        list.add(file.getPath());
+//                        ((UserInfoActivity) mCtx).uploadImageList(list);
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        // 当压缩过去出现问题时调用
+//                        LogUtil.info("压缩图片失败:--!");
+//                        ArrayList<String> list = new ArrayList<String>();
+//                        list.add(imagePath);
+//                        ((UserInfoActivity) mCtx).uploadImageList(list);
+//                    }
+//                }).launch();    //启动压缩
     }
 }

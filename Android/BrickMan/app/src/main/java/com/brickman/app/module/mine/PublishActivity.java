@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -31,7 +30,6 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.umeng.socialize.bean.SocializeConfig;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.io.File;
@@ -44,8 +42,8 @@ import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
 import cn.finalteam.galleryfinal.model.PhotoInfo;
 import io.github.rockerhieu.emojicon.EmojiconEditText;
-import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
+import me.shaohui.advancedluban.Luban;
+import me.shaohui.advancedluban.OnMultiCompressListener;
 
 /**
  * Created by mayu on 16/8/1,上午9:49.
@@ -77,7 +75,8 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
     private String mAddress;
 
     private List<String> mLubanList;
-    private String mImagePath;
+//    private String mImagePath;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_publish;
@@ -120,13 +119,13 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
             @Override
             public void getAddress(String city, String address) {
                 if (isFinishing()) {
-                new LBSDialog(PublishActivity.this, address, new LBSDialog.OnAddressListener() {
-                    @Override
-                    public void getAddress(String address) {
-                        mAddress = address;
-                        location.setText(mAddress);
-                    }
-                }).show();
+                    new LBSDialog(PublishActivity.this, address, new LBSDialog.OnAddressListener() {
+                        @Override
+                        public void getAddress(String address) {
+                            mAddress = address;
+                            location.setText(mAddress);
+                        }
+                    }).show();
                     dismissLoading();
                 }
             }
@@ -149,10 +148,11 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
                     showLoading();
                     if (images.size() > 1) {
                         mLubanList = new ArrayList<String>();
-                        for (int i = 0; i < images.size() - 1; i++) {
-                            mImagePath = images.get(i);
-                            compressImage(mImagePath);
-                        }
+//                        for (int i = 0; i < images.size() - 1; i++) {
+//                            mImagePath = images.get(i);
+//                            compressImage(mImagePath);
+//                        }
+                        compressImageList(images);
                     } else {
                         dismissLoading();
                         uploadImagesSuccess(null);
@@ -168,14 +168,21 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
     }
 
     /**
-     * 压缩图片
-     * @param imagePath
+     * 批量压缩图片
+     *
+     * @param imagePathList
      */
-    private void compressImage(final String imagePath){
-        Luban.get(this.getApplicationContext())
-                .load(new File(imagePath))                     //传人要压缩的图片
-                .putGear(Luban.THIRD_GEAR)//设定压缩档次，默认三挡
-                .setCompressListener(new OnCompressListener() { //设置回调
+    private void compressImageList(final List<String> imagePathList) {
+        if (imagePathList == null || imagePathList.size() == 0) {
+            return;
+        }
+        List<File> fileList = new ArrayList<File>();
+        for (String path : imagePathList) {
+            fileList.add(new File(path));
+        }
+        Luban.compress(this, fileList)
+                .putGear(Luban.THIRD_GEAR)      // set the compress mode, default is : THIRD_GEAR
+                .launch(new OnMultiCompressListener() {
                     @Override
                     public void onStart() {
                         // 压缩开始前调用，可以在方法内启动 loading UI
@@ -183,10 +190,12 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
                     }
 
                     @Override
-                    public void onSuccess(File file) {
+                    public void onSuccess(List<File> fileList) {
                         // 压缩成功后调用，返回压缩后的图片文件
-                        LogUtil.info("压缩图片成功:--" + (file.length() / 1024) + "KB" + file.getPath());
-                        mLubanList.add(file.getPath());
+                        for (File file: fileList) {
+                            LogUtil.info("压缩图片成功:--" + (file.length() / 1024) + "KB" + file.getPath());
+                            mLubanList.add(file.getPath());
+                        }
                         if (mLubanList.size() == images.size() - 1) {
                             dismissLoading();
                             if (!isFinishing()) {
@@ -199,17 +208,53 @@ public class PublishActivity extends BaseActivity<PublishPresenter, PublishModel
                     public void onError(Throwable e) {
                         // 当压缩过去出现问题时调用
                         LogUtil.info("压缩图片失败:--!");
-                        mLubanList.add(imagePath);
-                        if (mLubanList.size() == images.size() - 1) {
-                            dismissLoading();
-                            if (!isFinishing()) {
-                                uploadImageList(mLubanList);
-                            }
-                        }
                     }
-                }).launch();    //启动压缩
+                });
     }
 
+    /**
+     * 压缩图片
+     * <p>
+     * //     * @param imagePath
+     */
+//    private void compressImage(final String imagePath) {
+//        Luban.get(this.getApplicationContext())
+//                .load(new File(imagePath))                     //传人要压缩的图片
+//                .putGear(Luban.THIRD_GEAR)//设定压缩档次，默认三挡
+//                .setCompressListener(new OnCompressListener() { //设置回调
+//                    @Override
+//                    public void onStart() {
+//                        // 压缩开始前调用，可以在方法内启动 loading UI
+//                        LogUtil.info("开始压缩图片:--");
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(File file) {
+//                        // 压缩成功后调用，返回压缩后的图片文件
+//                        LogUtil.info("压缩图片成功:--" + (file.length() / 1024) + "KB" + file.getPath());
+//                        mLubanList.add(file.getPath());
+//                        if (mLubanList.size() == images.size() - 1) {
+//                            dismissLoading();
+//                            if (!isFinishing()) {
+//                                uploadImageList(mLubanList);
+//                            }
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        // 当压缩过去出现问题时调用
+//                        LogUtil.info("压缩图片失败:--!");
+//                        mLubanList.add(imagePath);
+//                        if (mLubanList.size() == images.size() - 1) {
+//                            dismissLoading();
+//                            if (!isFinishing()) {
+//                                uploadImageList(mLubanList);
+//                            }
+//                        }
+//                    }
+//                }).launch();    //启动压缩
+//    }
     private void uploadImageList(List<String> imgList) {
         mUploadProgressDialog = new UploadProgressDialog(this, new UploadProgressDialog.OnCancelListener() {
             @Override
