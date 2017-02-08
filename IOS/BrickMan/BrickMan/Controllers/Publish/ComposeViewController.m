@@ -217,6 +217,8 @@
 
 #pragma mark - TZImagePickerControllerDelegate
 - (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto infos:(NSArray<NSDictionary *> *)infos {
+    static NSArray<PHAsset *> *photoAssets = nil;
+    photoAssets = assets;
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.pictures addObjectsFromArray:photos];
     [self.pictureView reloadData];
